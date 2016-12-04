@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ReactJS + Spring Data REST</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <!-- tag::logout[] -->
+    <div id="test">
+        Hello, <span th:text="${#authentication.name}">user</span>.
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out"/>
+        </form>
+    </div>
+    <!-- end::logout[] -->
+
+    <div id="react"></div>
+
+    <script src="/js/main.js"></script>
+
+</body>
+</html>
