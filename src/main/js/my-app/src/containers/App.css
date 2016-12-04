@@ -1,0 +1,78 @@
+body {
+	background-color: #fff;
+}
+
+.App {
+ 	text-align: left;
+}
+
+.container{
+  padding:5px;
+}
+
+#status{
+  text-align:left;
+  bottom: 6px;
+  position: relative;
+  padding-right: 5px;
+  margin-right: 5px;
+  border-right: 1px solid #ccc ;
+}
+
+.Select {
+    position: relative;
+    width: 30%;
+    display: inline-block;
+    margin-right:5px;
+}
+
+.sitesSelect{
+    width: 60%;
+}
+
+ul{
+list-style-type: none;
+margin: 0px;
+padding:0px;
+}
+
+li {
+	display:flex;
+	margin-top: 8px;
+	padding:3px;
+	/*position: relative;*/
+}
+li:first-child label:first-child{
+	width:30%;
+	display: inline-block;
+}
+.deletebtn {
+/*	position: relative;
+	right: 0;
+	bottom: 10px;*/
+	align-self: center;
+}
+
+.deletebtn:before {
+	font-weight: normal;
+	font-size: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+	text-decoration: none!important;
+	content: '\2421';
+	font-family: standard, serif;
+	font-style: normal;
+	text-rendering: optimizeLegibility;
+	white-space: nowrap;
+	}
+
+
+#content {
+    padding: 0px;
+    background: #fff;
+}
+
+.addadv{
+	margin-top:10px;
+	display: inline-block;
+}

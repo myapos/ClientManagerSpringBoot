@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import App from './containers/App';
 import './index.css';
 import when from 'when';
 import client from './client';
@@ -26,16 +28,27 @@ fetch(root, {
    .then(res => {
    	debugger;
    	console.log("tttt",res);
-   	return res;
-   });
+   	let saved_data= res._embedded;
 
-  const placeholder = document.getElementById('react');
- 
-  ReactDOM.render(
-	  <App />,
-	  placeholder
-	)
-};
+   	const placeholder = document.getElementById('react');
+
+   	 const initialState = {
+	            	// data: {sites, advertisers},
+	            	// selected: all_selected_rows
+	            	// 			//{id: 618, sites:[795,833]},
+              //         //{id: 481, sites:[795,833]}
+	            	// ,
+                 saved_data: saved_data
+
+	      };
+
+	ReactDOM.render(
+		<Provider store={configureStore(initialState)}>
+		<App />
+		</Provider>,
+	placeholder)}
+
+	)};
 
 
 init();
