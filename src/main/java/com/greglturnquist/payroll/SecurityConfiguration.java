@@ -38,7 +38,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 @Configuration
 @EnableWebSecurity
 //@EnableWebMvcSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        //   .antMatchers("/index.html", "/login.html", "/").permitAll()
 	        //   .anyRequest().authenticated()
 			.authorizeRequests()
-				.antMatchers("/built/**", "/main.css").permitAll()
+				.antMatchers("/built/**", "resources/**", "/main.css","/js/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
