@@ -10,9 +10,6 @@ import * as actions from '../actions/';
 
 // import Advertiser from './Advertiser';
 
-
-
-
 class App extends Component {
 
     handleChange(event, myprops) {
@@ -21,7 +18,6 @@ class App extends Component {
         if (event.data) {
             event.toggleState(event);
         }
-
         console.log("changed state succesfully");
     };
 
@@ -33,7 +29,7 @@ class App extends Component {
   render () {
     return (
       <div className="App" id="content">
-      <h2>VVS Dashboard </h2>
+      <h2>Welcome to client manager app </h2>
       {/*<fieldset>
       <h6> Title2 </h6>
         
@@ -73,7 +69,7 @@ class App extends Component {
       		</div> &nbsp; - or - <a onClick={this.cancelFunction.bind(this)}>cancel</a> 
         </div>*/}
       </div>
-    
+
     );
   }
 }
