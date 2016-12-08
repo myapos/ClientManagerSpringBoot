@@ -19,7 +19,8 @@ module.exports = {
     },
     output: {
         path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
+        filename: './src/main/resources/js/main.js'
+        //filename: './src/main/resources/static/built/bundle.js'
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
