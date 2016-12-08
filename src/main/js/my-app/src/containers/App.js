@@ -29,7 +29,9 @@ class App extends Component {
   render () {
     return (
       <div className="App" id="content">
-      <h2>Welcome to client manager app </h2>
+      <h2>Welcome to client manager appasdas </h2>
+
+      
       {/*<fieldset>
       <h6> Title2 </h6>
         
