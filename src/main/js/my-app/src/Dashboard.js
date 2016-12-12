@@ -32,10 +32,30 @@ class Dashboard extends Component {
       <div className="App" id="content">
       <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
       
-        <div className="container">
-          <Link to='/test'>testReactRouter</Link> 
+        <div className="labelContainer">
+          <legend><h4> Πίνακας Ελέγχου</h4></legend>
         </div>
-
+        <div className="rowContainer">
+            <div className="r"> <Link to='/test'>testReactRouter</Link> </div>
+          <div className="r">
+            <div> <Link to="/getallusers">Πελατολόγιο</Link></div>
+          </div>
+          <div className="r">
+            <div> <Link to="/adduser">Προσθήκη πελάτη</Link></div>
+          </div>
+          <div className="r"> 
+            <div> <Link to="/deleteuser">Διαγραφή πελάτη</Link></div>
+          </div>
+          <div className="r">
+            <div> <Link to="/updateuser">Αναζήτηση - ενημέρωση πελάτη</Link></div>
+          </div>
+          <div className="r">
+            <div> <Link to="/importusers">Εισαγωγή πελατών</Link></div>
+          </div>
+          <div className="r">
+            <div> <Link to="/exportusers">Εξαγωγή πελατών</Link></div>
+          </div>
+        </div>
       </div>
 
     );
