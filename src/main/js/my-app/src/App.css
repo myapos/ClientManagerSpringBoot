@@ -11,7 +11,7 @@ h2 {
 
 #react{
   width: 90%;
-  height: auto; /*from here you specify responsive width of the app*/
+  height: 100%; /*from here you specify responsive width of the app*/
   margin: 0 auto; 
   margin-top:5%;
   border:1px solid black;
@@ -29,71 +29,40 @@ h2 {
 h1, h2{
   padding:5px;
 }
-.row{
-  padding:5px;
-  margin-left:0px!important;
 
+.App{
+margin: auto auto 10px 10px;
+/*margin-left: 10px;
+margin-bottom: 10px;*/
 }
+.rowContainer{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.r{
+  padding:5px;
+  margin:5px;
+  margin-left:0px!important;
+  border: 1px solid lightgrey;
+  width: 15%;
+  background-color: #4b180a;
+}
+
 tr:hover {
   background-color: #590110;
 }
-  
-.users_table{
-  /*font-size:60%;*/
-  width:95%;
-}
-#users_table_update{
-  /*font-size:80%;*/
-  width:95%;/**/
-}
 
-#btnupdate{
-  font-size:100%;
-}
-#close-btn{
-  color:#B53A4E;
-}
-#bell{
-  background-image: url("./media/bell_.png");
-}
 .mySignature{
   text-align:right;
   padding-right: 25px;
 }
-.clientinfo{
-  color: white;
-}
 
-.Empty{
-  cursor:pointer;
-  color: #B53A4E;
-    /*position: absolute;
-    right: 118px;*/
-}
-
-.positionMainLink{
-    position: absolute;
-    top: 13px;
-    right: 48px;
-}
-
-.positionLogoutLink{
-    position: absolute;
-    top: 13px;
-    right: 90px;  
-}
-.positionModalLink{
-    position: absolute;
-    top: 13px;
-    right: -330px;  
-}
-.positionLoginLink{
-    position: absolute;
-    top: 8px;
-    right: 120px; 
-}
-#legendUpdt{
-  width: 160%;
+legend{
+   color: #B53A4E;
+   width: 90%;
 }
 a{
   text-decoration: none;
@@ -102,10 +71,7 @@ a{
 a:link {
     color: #B53A4E;
 }
-legend{
-   color: #B53A4E;
-   width: 103%;
-}
+
 /* visited link */
 a:visited {
     color: #997A80;
@@ -115,32 +81,7 @@ a:visited {
 a:hover {
     color: #C46241;
 }
-
 /* selected link */
 a:active {
     color: orange;
-}
-input,select {
-  color:black;
-}
-.doNotDisplay{
-  display:none;
-}
-
-.form-control:focus{
-  border-color: #B53A4E;
-  -moz-box-shadow:    inset 0 0 8px #691E2A;
-    -webkit-box-shadow: inset 0 0 8px #691E2A;
-    box-shadow:         inset 0 0 8px #691E2A;
-    /*outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);*/
-}
-
-.checkmodals{
-  transform: scale(1.5);
-}
-
-.selectwidthauto{
-  width:auto !important;
 }
