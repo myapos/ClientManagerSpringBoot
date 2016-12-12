@@ -30,7 +30,7 @@ var homepagePath = require(paths.appPackageJson).homepage;
 var homepagePathname = homepagePath ? url.parse(homepagePath).pathname : '/';
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
-var publicPath = ensureSlash(homepagePathname, true);
+var publicPath = ensureSlash(homepagePathname, false);
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
@@ -144,7 +144,7 @@ module.exports = {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         loader: 'file',
         query: {
-          name: 'media/[name].[ext]'
+          name: '../media/[name].[ext]'
         }
       },
       // "url" loader works just like "file" loader but it also embeds
@@ -154,7 +154,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'media/[name].[ext]'
+          name: '../media/[name].[ext]'
         }
       }
     ]
@@ -238,3 +238,9 @@ module.exports = {
     tls: 'empty'
   }
 };
+
+function processPath(s){
+console.log(s);
+console.log(publicPath);
+return s;
+}
