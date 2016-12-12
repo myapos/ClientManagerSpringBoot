@@ -27,7 +27,7 @@ fetch(root, {
    }
  }).then (res => res.json())
    .then(res => {
-   	debugger;
+   	//debugger;
    	console.log("tttt",res);
    	let saved_data= res._embedded;
 

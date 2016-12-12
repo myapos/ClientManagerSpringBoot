@@ -32,6 +32,7 @@ h1, h2{
 .row{
   padding:5px;
   margin-left:0px!important;
+
 }
 tr:hover {
   background-color: #590110;
@@ -93,6 +94,9 @@ tr:hover {
 }
 #legendUpdt{
   width: 160%;
+}
+a{
+  text-decoration: none;
 }
 /* unvisited link */
 a:link {
