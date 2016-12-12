@@ -2,7 +2,7 @@ body{
   background:#9E918D;
   background-size: 100%;
   opacity: 0.90;
-  background-image: url("./media/logo.jpg");
+  background-image: url("../media/logo.jpg");
   color: #fff;
 }
 h2 {
@@ -11,12 +11,12 @@ h2 {
 
 #react{
   width: 90%;
-    height: auto; /*from here you specify responsive width of the app*/
-    margin: 0 auto; 
-    margin-top:5%;
-    border:1px solid black;
-    border-radius: 5px;
-    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+  height: auto; /*from here you specify responsive width of the app*/
+  margin: 0 auto; 
+  margin-top:5%;
+  border:1px solid black;
+  border-radius: 5px;
+  /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
   background-color:black;
   background-image:
   radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
@@ -31,6 +31,7 @@ h1, h2{
 }
 .row{
   padding:5px;
+  margin-left:0px!important;
 }
 tr:hover {
   background-color: #590110;
