@@ -1,3 +1,0 @@
-#!/bin/bash
-/home/myros/Desktop/security/mvnw:spring-boot run
-npm run build
