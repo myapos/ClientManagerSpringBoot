@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import * as actions from './actions/';
 import { Link } from 'react-router';
 // import logo from '../logo.svg';
+import AddUser from './AddUser';
+import DeleteUser from './DeleteUser';
+import ExportUsers from './ExportUsers';
+import ImportUsers from './ImportUsers';
+import UpdateUsers from './UpdateUsers';
+import GetAllUsers from './GetAllUsers';
 import './App.css';
 // import './toggler.css';
 // import Toggle from 'react-toggle';
@@ -30,31 +36,29 @@ class Dashboard extends Component {
   render () {
     return (
       <div className="App" id="content">
-      <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
-      
+          <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
           <legend><h4> Πίνακας Ελέγχου</h4></legend>
         </div>
         <div className="rowContainer">
-            <div className="r"> <Link to='/test'>testReactRouter</Link> </div>
-          <div className="r">
-            <div> <Link to="/getallusers">Πελατολόγιο</Link></div>
-          </div>
-          <div className="r">
-            <div> <Link to="/adduser">Προσθήκη πελάτη</Link></div>
-          </div>
-          <div className="r"> 
-            <div> <Link to="/deleteuser">Διαγραφή πελάτη</Link></div>
-          </div>
-          <div className="r">
-            <div> <Link to="/updateuser">Αναζήτηση - ενημέρωση πελάτη</Link></div>
-          </div>
-          <div className="r">
-            <div> <Link to="/importusers">Εισαγωγή πελατών</Link></div>
-          </div>
-          <div className="r">
-            <div> <Link to="/exportusers">Εξαγωγή πελατών</Link></div>
-          </div>
+          <Link className="buttonBoxes" to="/getallusers"> 
+            Πελατολόγιο
+          </Link>
+          <Link className="buttonBoxes"to="/adduser">
+            Προσθήκη πελάτη
+          </Link>
+          <Link className="buttonBoxes" to="/deleteuser">
+            Διαγραφή πελάτη
+          </Link>
+          <Link className="buttonBoxes" to="/updateusers">
+            Αναζήτηση - ενημέρωση πελάτη
+          </Link>
+          <Link className="buttonBoxes" to="/importusers">
+            Εισαγωγή πελατών
+          </Link>
+          <Link className="buttonBoxes" to="/exportusers">
+            Εξαγωγή πελατών
+          </Link>
         </div>
       </div>
 

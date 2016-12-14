@@ -1,3 +1,7 @@
+*{
+  margin:0px;
+  padding:0px;
+}
 body {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -6,10 +10,10 @@ body {
   background-size: 100%;
   opacity: 0.90;
   background-image: url("../media/logo.jpg");
-  color: #fff;
-
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
 }
-
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -26,8 +30,8 @@ body {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
