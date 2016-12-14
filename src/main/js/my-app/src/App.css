@@ -42,13 +42,15 @@ margin-bottom: 10px;*/
   justify-content: space-between;
   
 }
-.r{
+.buttonBoxes{
   padding:5px;
   margin:5px;
   margin-left:0px!important;
   border: 1px solid lightgrey;
-  width: 15%;
-  background-color: #4b180a;
+  width: 10%;
+  background-color: #908a89;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #612828;
 }
 
 tr:hover {
@@ -69,17 +71,17 @@ a{
 }
 /* unvisited link */
 a:link {
-    color: #B53A4E;
+    color: #000 ;
 }
 
 /* visited link */
 a:visited {
-    color: #997A80;
+    color: #000;
 }
 
 /* mouse over link */
 a:hover {
-    color: #C46241;
+    color: #B53A4E;
 }
 /* selected link */
 a:active {
