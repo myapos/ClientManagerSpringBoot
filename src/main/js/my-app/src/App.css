@@ -9,22 +9,73 @@ h2 {
   color: #B53A4E;
 }
 
-#react{
-  width: 90%;
-  height: 100%; /*from here you specify responsive width of the app*/
-  margin: 0 auto; 
-  margin-top:5%;
-  border:1px solid black;
-  border-radius: 5px;
-  /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
-  background-color:black;
-  background-image:
-  radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-  radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-  radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-  radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
-  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+
+@media screen and (min-width: 480px){
+
+  #react{
+    width: 90%;
+    height: 100%; /*from here you specify responsive width of the app*/
+    margin: 0 auto; 
+    margin-top:5%;
+    border:1px solid black;
+    border-radius: 5px;
+    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+}
+@media screen and (max-width: 760px){
+
+  #react{
+    width: 65%;
+    height: 100%; /*from here you specify responsive width of the app*/
+    margin-left: 0; 
+    margin-top:5%;
+    border:1px solid black;
+    border-radius: 5px;
+    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+  h1,h2 {
+    display:none;
+  }
+
+}
+@media screen and (max-width: 460px){
+
+  #react{
+    width: 45%;
+    height: 100%; /*from here you specify responsive width of the app*/
+    margin-left: 0; 
+    margin-top:5%;
+    border:1px solid black;
+    border-radius: 5px;
+    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+  h1,h2 {
+    display:none;
+  }
 }
 h1, h2{
   padding:5px;
@@ -47,10 +98,15 @@ margin-bottom: 10px;*/
   margin:5px;
   margin-left:0px!important;
   border: 1px solid lightgrey;
-  width: 10%;
+  width: 24%;
   background-color: #908a89;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #612828;
+  text-align: center;
+}
+
+.buttonBoxes:hover{
+  background-color: #1f1616;
 }
 
 tr:hover {
@@ -63,8 +119,11 @@ tr:hover {
 }
 
 legend{
-   color: #B53A4E;
-   width: 90%;
+  color: #B53A4E;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
 }
 a{
   text-decoration: none;
@@ -86,4 +145,22 @@ a:hover {
 /* selected link */
 a:active {
     color: orange;
+}
+legend a{
+  font-size: 80%;
+/*  margin-top: 27px;*/
+  margin-right: 10px;
+}
+
+legend a:link{
+  color: #lightgrey;
+}
+
+legend a:visited{
+  color: #B53A4E;
+}
+
+.customLabel{
+  font-weight: bold;
+  font-size: 80%;
 }

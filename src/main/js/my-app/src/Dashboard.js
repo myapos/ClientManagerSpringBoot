@@ -38,7 +38,7 @@ class Dashboard extends Component {
       <div className="App" id="content">
           <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
-          <legend><h4> Πίνακας Ελέγχου</h4></legend>
+          <legend><span>Πίνακας Ελέγχου</span></legend>
         </div>
         <div className="rowContainer">
           <Link className="buttonBoxes" to="/getallusers"> 

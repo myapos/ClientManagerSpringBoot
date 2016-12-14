@@ -30,7 +30,10 @@ class AddUser extends Component {
   render () {
     return (
       <div className="App" id="content">
-        <h2>AddUser </h2>
+        <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
+        <div className="labelContainer">
+          <legend><span>Προσθήκη πελάτη</span> <Link class="back" to="/"> Πίσω </Link></legend>
+        </div>
       </div>
 
     );
