@@ -30,9 +30,11 @@ class GetAllUsers extends Component {
   render () {
     return (
       <div className="App" id="content">
-        <h2>GetAllUsers</h2>
+        <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
+        <div className="labelContainer">
+          <legend><span>Προβολή πελατολογίου</span><Link class="back" to="/"> Πίσω </Link></legend>
+        </div>
       </div>
-
     );
   }
 }
