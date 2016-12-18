@@ -32,7 +32,7 @@ class ImportUsers extends Component {
       <div className="App" id="content">
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
-          <legend><h4> Εισαγωγή πελάτη</h4></legend>
+          <legend><span>Προβολή πελατολογίου</span><Link class="back" to="/"> Πίσω </Link></legend>
         </div>
       </div>
 
