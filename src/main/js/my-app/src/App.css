@@ -164,3 +164,7 @@ legend a:visited{
   font-weight: bold;
   font-size: 80%;
 }
+
+.row{
+  margin-left:0px!important;
+}

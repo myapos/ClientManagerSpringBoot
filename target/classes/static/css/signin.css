@@ -48,3 +48,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+h2{
+  color: #fff;
+}
+
+label{
+  color: #e2e2e2;
+}
