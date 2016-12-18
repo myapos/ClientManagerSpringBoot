@@ -30,12 +30,27 @@ class DeleteUser extends Component {
   render () {
     return (
       <div className="App" id="content">
-        <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
-        <div className="labelContainer">
-          <legend><span>Διαγραφή πελάτη</span><Link class="back" to="/"> Πίσω </Link></legend>
+          <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
+          <div className="labelContainer">
+{/*          <div className="container">*/}
+          <legend><span>Διαγραφή πελάτη - Συμπληρώστε τη φόρμα αναζήτησης </span><Link className="back" to="/"> Πίσω </Link></legend>
+          <div className="row">
+                <div className="col-md-6">
+                    <div id="custom-search-input">
+                        <div className="input-group col-md-12">
+                            <input type="text" className="deleteform form-control input-lg" placeholder="Aναζήτηση χρήστη" />
+                            <span className="input-group-btn">
+                                <button className="btn btn-info btn-lg" type="button">
+                                    <i className="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+          </div>
+{/*        </div>*/}
         </div>
       </div>
-
     );
   }
 }
