@@ -107,6 +107,7 @@ margin-bottom: 10px;*/
 
 .buttonBoxes:hover{
   background-color: #1f1616;
+  text-decoration: none;
 }
 
 tr:hover {
@@ -204,7 +205,7 @@ input, textarea,select {
     /* To make sure that all text fields have the same font settings
        By default, textareas have a monospace font */
     /*font: 1em sans-serif;*/
-    font-size:10px;
+    font-size:15px;
     /* To give the same size to all text field */
     width: 300px;
     -moz-box-sizing: border-box;
