@@ -1,8 +1,28 @@
-body{
-	background:#9E918D;
-	background-size: 100%;
-	opacity: 0.90;
-	background-image: url("../media/logo.jpg");
-	color: #fff;
+.navbar-default {
+    border-color: #1b1a1a;
+    background-color: #0c0c0c;
 }
 
+.navbar-default .navbar-nav>li>a {
+	color: #B53A4E;
+	text-decoration: none;
+}
+
+/* unvisited link */
+.navbar-default .navbar-nav>li>a:link {
+    color: #000 ;
+}
+
+/* visited link */
+.navbar-default .navbar-nav>li>a:visited {
+    color: #B53A4E;
+}
+
+/* mouse over link */
+.navbar-default .navbar-nav>li>a:hover {
+    color: lightgrey;
+}
+/* selected link */
+.navbar-default .navbar-nav>li>a:active {
+    color: orange;
+}

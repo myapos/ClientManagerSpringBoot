@@ -32,7 +32,7 @@ class AddUser extends Component {
       <div className="App" id="content">
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
-          <legend><span>Προσθήκη πελάτη - Συμπληρώστε τα πεδία εγγραφής</span> <Link class="back" to="/"> Πίσω </Link></legend>
+          <legend><span>Προσθήκη πελάτη - Συμπληρώστε τα πεδία εγγραφής</span> <Link className="back" to="/"> Πίσω </Link></legend>
         </div> 
           {/*Start of add user form*/}
          {/* <div className="container">*/}
@@ -40,49 +40,49 @@ class AddUser extends Component {
         <form method="post">
             <div className="form-group">
                 <label for="name">Όνομα:</label>
-                <input className="form-control" type="text" id="firstname" name="user_name" />
+                <input className="addform form-control" type="text" id="firstname" name="user_name" />
             </div>
             <div className="form-group">
                 <label for="lastname">Επώνυμο:</label>
-                <input className="form-control" type="text" id="lastname" name="user_lastname" />
+                <input className="addform form-control" type="text" id="lastname" name="user_lastname" />
             </div>
             <div className="form-group">
                 <label for="mail">E-mail:</label>
-                <input className="form-control" type="email" id="mail" name="user_mail" />
+                <input className="addform form-control" type="email" id="mail" name="user_mail" />
             </div>
             <div className="form-group">
                 <label for="mobile">Κινητό:</label>
-                <input className="form-control" type="number" id="mobile" name="user_mobile" />
+                <input className="addform form-control" type="number" id="mobile" name="user_mobile" />
             </div>
             <div className="form-group">
                 <label for="gender">Φύλλο:</label>
-                <select className="form-control" name="gender" id="gender">
+                <select className="addform form-control" name="gender" id="gender">
                     <option value="Άρρεν">Άρρεν</option>
                     <option value="Θήλυ">Θήλυ</option>
                 </select>
             </div>            
             <div className="form-group">
                 <label for="age">Ηλικία:</label>
-                <input className="form-control" type="number" id="age" name="user_age" />
+                <input className="addform form-control" type="number" id="age" name="user_age" />
             </div>
             <div className="form-group">
                 <label for="registrationDate">Ημερομηνία Εγγραφής:</label>
-                <input className="form-control" type="date" id="registrationDate" name="user_registration_date" />
+                <input className="addform form-control" type="date" id="registrationDate" name="user_registration_date" />
             </div>
              <legend><span>Tμήματα Εγγραφής</span></legend>
              <legend><span>Στοιχεία πληρωμής</span></legend>
               <div className="form-group">
                 <label for="payment">Πληρωμή:</label>
-                <select className="form-control" name="payment" id="user_payment">
+                <select className="addform form-control" name="payment" id="user_payment">
                     <option value="Ναι">Ναι</option>
                     <option value="Οχι">Οχι</option>
                 </select>
               </div> 
             <div className="form-group">
                 <label for="paymentDate">Ημερομηνία πληρωμής:</label>
-                <input className="form-control" type="date" id="paymentDate" name="user_payment_date" />
+                <input className="addform form-control" type="date" id="paymentDate" name="user_payment_date" />
             </div>
-            <div class="button">
+            <div className="button">
                 <button className="btn btn-default" type="submit">Εγγραφή</button>
             </div>
         </form>
