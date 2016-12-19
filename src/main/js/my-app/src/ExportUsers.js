@@ -33,6 +33,7 @@ class ExportUsers extends Component {
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
           <legend><span>Εξαγωγή πελατολογίου</span><Link className="back" to="/"> Πίσω </Link></legend>
+          <button type="button" className="btn btn-default">Export</button>
         </div>
       </div>
 

@@ -38,9 +38,9 @@ class DeleteUser extends Component {
                 <div className="col-md-6">
                     <div id="custom-search-input">
                         <div className="input-group col-md-12">
-                            <input type="text" className="deleteform form-control input-lg" placeholder="Aναζήτηση χρήστη" />
+                            <input type="text" className="deleteform form-control" placeholder="Aναζήτηση χρήστη" />
                             <span className="input-group-btn">
-                                <button className="btn btn-info btn-lg" type="button">
+                                <button className="btn btn-info" type="button">
                                     <i className="glyphicon glyphicon-search"></i>
                                 </button>
                             </span>

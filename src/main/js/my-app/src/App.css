@@ -183,7 +183,45 @@ legend a:hover{
   width:50%;
 
 }
+.btn-info {
+    color: #fff;
+    background-color: #353030;
+    border-color: #353030;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #504747;
+    border-color: #504747;
+}
 
+.form-control:focus {
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #ccc;
+}
+
+.btn:focus, .btn:active, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-default.active {
+    box-shadow: none;
+}
+
+/*button.btn.btn-info:active {
+    border-color: red;
+    border: 1px solid #353030; 
+    background-color: #6d6565;
+}*/
+
+button.btn.btn-info:active, button.btn.btn-info:focus {
+    border-color: red;
+    border: 1px solid #353030; 
+    background-color: #6d6565;
+}
+
+.import{
+  width:50%;
+}
 /* https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form */
 
 /*form {*/
