@@ -1,0 +1,217 @@
+{
+    "databaseChangeLog": [
+        {
+            "preConditions": [
+                {
+                    "runningAs": {
+                        "username": "liquibase"
+                    }
+                }
+            ]
+        },
+        {
+            "changeSet": {
+                "id": "1",
+                "author": "myapos",
+                "changes": [
+                    {
+                        "createTable": {
+                            "tableName": "students",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "FName",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "LName",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "Date_Of_Birth",
+                                        "type": "DATE",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "email",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "phone",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "Facebook",
+                                        "type": "varchar(50)"
+                                    }
+                                }
+                            ]
+                        },
+                        "createTable": {
+                            "tableName": "classes",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "Description",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "Subclass",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_subclass",
+                                            "references": "classes(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                }
+
+                            ]
+                        },
+                        "createTable": {
+                            "tableName": "registers",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "Date_Of_Registration",
+                                        "type": "DATE",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "student_id",
+                                        "type": "int",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_students",
+                                            "references": "students(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "classes_id",
+                                        "type": "int",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_classes",
+                                            "references": "classes(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                }
+
+                            ]
+                        },
+                        "createTable": {
+                            "tableName": "payed",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "payment",
+                                        "type": "BOOLEAN",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "date_Of_Payment",
+                                        "type": "DATE",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "register_id",
+                                        "type": "int",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_register",
+                                            "references": "register(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                }
+
+                            ]
+                        }
+                        
+                    }
+                ]
+            }
+        }
+
+    ]
+}
