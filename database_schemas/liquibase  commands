@@ -1,0 +1,3 @@
+ liquibase [options] [command] [command parameters]
+
+./liquibase --username=myapos --password=Apostolakis1981 --url="jdbc:postgresql://localhost:5432/ClientManager" --driver=org.postgresql.Driver --changeLogFile=../database_liqui.json update

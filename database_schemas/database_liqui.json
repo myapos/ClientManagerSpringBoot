@@ -4,7 +4,7 @@
             "preConditions": [
                 {
                     "runningAs": {
-                        "username": "liquibase"
+                        "username": "myapos"
                     }
                 }
             ]
@@ -199,7 +199,7 @@
                                         "type": "int",
                                         "constraints": {
                                             "foreignKeyName": "fk_register",
-                                            "references": "register(id)",
+                                            "references": "registers(id)",
                                             "nullable": false
                                         }
                                     }
