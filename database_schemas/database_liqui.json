@@ -18,6 +18,7 @@
                         "createTable": {
                             "tableName": "students",
                             "catalogName" : "students",
+                            "schemaName": "ClientManagerSpringBoot",
                             "columns": [
                                 {
                                     "column": {
@@ -91,6 +92,7 @@
                         "createTable": {
                             "tableName": "classes",
                             "catalogName" : "classes",
+                            "schemaName": "ClientManagerSpringBoot",
                             "columns": [
                                 {
                                     "column": {
@@ -139,6 +141,8 @@
                     {
                       "createTable": {
                             "tableName": "registers",
+                            "catalogName" : "registers",
+                            "schemaName": "ClientManagerSpringBoot",
                             "columns": [
                                 {
                                     "column": {
@@ -198,6 +202,8 @@
                     {
                         "createTable": {
                             "tableName": "payed",
+                            "catalogName" : "payed",
+                            "schemaName": "ClientManagerSpringBoot",
                             "columns": [
                                 {
                                     "column": {

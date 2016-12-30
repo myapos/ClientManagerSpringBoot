@@ -3,6 +3,7 @@
 ./liquibase --username=myapos --password=Apostolakis1981 --url="jdbc:postgresql://localhost:5432/ClientManager" --driver=org.postgresql.Driver  --changeLogFile=../database_liqui.json update
 
 ./liquibase --username=myapos --password=Apostolakis1981 --url="jdbc:postgresql://localhost:5432/ClientManager" --driver=org.postgresql.Driver clearCheckSums
+//has to be created first
 
-./liquibase --username=myapos --password=Apostolakis1981 --url="jdbc:postgresql://localhost:5432/ClientManager" --driver=org.postgresql.Driver --defaultSchemaName=TestLiquiBase --changeLogFile=../database_liqui.json update
+./liquibase --username=myapos --password=Apostolakis1981 --url="jdbc:postgresql://localhost:5432/ClientManager" --driver=org.postgresql.Driver --defaultSchemaName=ClientManagerSpringBoot --changeLogFile=../database_liqui.json update
 
