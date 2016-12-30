@@ -15,104 +15,7 @@
                 "author": "myapos",
                 "changes": [
                     {
-                        "createTable": {
-                            "tableName": "students",
-                            "columns": [
-                                {
-                                    "column": {
-                                        "name": "id",
-                                        "type": "int",
-                                        "autoIncrement": true,
-                                        "constraints": {
-                                            "primaryKey": true,
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "FName",
-                                        "type": "varchar(50)",
-                                        "constraints": {
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "LName",
-                                        "type": "varchar(50)",
-                                        "constraints": {
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "Date_Of_Birth",
-                                        "type": "DATE",
-                                        "constraints": {
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "email",
-                                        "type": "varchar(50)"
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "phone",
-                                        "type": "varchar(50)"
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "Facebook",
-                                        "type": "varchar(50)"
-                                    }
-                                }
-                            ]
-                        },
-                        "createTable": {
-                            "tableName": "classes",
-                            "columns": [
-                                {
-                                    "column": {
-                                        "name": "id",
-                                        "type": "int",
-                                        "autoIncrement": true,
-                                        "constraints": {
-                                            "primaryKey": true,
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "Description",
-                                        "type": "varchar(50)",
-                                        "constraints": {
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "Subclass",
-                                        "type": "varchar(50)",
-                                        "constraints": {
-                                            "foreignKeyName": "fk_subclass",
-                                            "references": "classes(id)",
-                                            "nullable": false
-                                        }
-                                    }
-                                }
 
-                            ]
-                        },
                         "createTable": {
                             "tableName": "registers",
                             "columns": [
@@ -129,7 +32,7 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "Date_Of_Registration",
+                                        "name": "date_of_registration",
                                         "type": "DATE",
                                         "constraints": {
                                             "nullable": false
@@ -186,7 +89,7 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "date_Of_Payment",
+                                        "name": "date_of_payment",
                                         "type": "DATE",
                                         "constraints": {
                                             "nullable": false
@@ -200,6 +103,104 @@
                                         "constraints": {
                                             "foreignKeyName": "fk_register",
                                             "references": "registers(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                }
+
+                            ]
+                        },                        
+                        "createTable": {
+                            "tableName": "students",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "fname",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "lname",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "date_of_birth",
+                                        "type": "DATE",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "email",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "phone",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "facebook",
+                                        "type": "varchar(50)"
+                                    }
+                                }
+                            ]
+                        },
+                        "createTable": {
+                            "tableName": "classes",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "description",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "subclass",
+                                        "type": "int",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_subclass",
+                                            "references": "classes(id)",
                                             "nullable": false
                                         }
                                     }
