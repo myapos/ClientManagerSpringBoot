@@ -30,10 +30,12 @@ import org.springframework.stereotype.Component;
 public class SpringDataRestEventHandler {
 
 	private final ManagerRepository managerRepository;
+	private final StudentsRepository studentsRepository;
 
 	@Autowired
-	public SpringDataRestEventHandler(ManagerRepository managerRepository) {
+	public SpringDataRestEventHandler(ManagerRepository managerRepository,StudentsRepository studentsRepository) {
 		this.managerRepository = managerRepository;
+		this.studentsRepository = studentsRepository;
 	}
 
 	@HandleBeforeCreate
@@ -42,6 +44,7 @@ public class SpringDataRestEventHandler {
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		Manager manager = this.managerRepository.findByName(name);
+
 		if (manager == null) {
 			Manager newManager = new Manager();
 			newManager.setName(name);
@@ -49,6 +52,7 @@ public class SpringDataRestEventHandler {
 			manager = this.managerRepository.save(newManager);
 		}
 		student.setManager(manager);
+		this.studentsRepository.findAll();
 	}
 }
 // end::code[]

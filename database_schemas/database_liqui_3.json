@@ -1,0 +1,153 @@
+{
+    "databaseChangeLog": [
+        {
+            "preConditions": [
+                {
+                    "runningAs": {
+                        "username": "myapos"
+                    }
+                }
+            ]
+        },
+        {
+            "changeSet": {
+                "id": "1",
+                "author": "myapos",
+                "changes": [
+                    {
+                        "createTable": {
+                            "tableName": "manager",
+                            "catalogName" : "manager",
+                            "schemaName": "test",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "name",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "password",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "roles",
+                                        "type": "varchar(50)"
+                                    }
+                                }
+
+                            ]
+                        }
+                        
+                    }
+                ]
+            }
+        }, 
+        {
+            "changeSet": {
+                "id": "2",
+                "author": "myapos",
+                "changes": [
+                    {
+                        "createTable": {
+                            "tableName": "students",
+                            "catalogName" : "students",
+                            "schemaName": "test",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "fname",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "lname",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "date_of_birth",
+                                        "type": "DATE",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "email",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "phone",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "facebook",
+                                        "type": "varchar(50)"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "manager_id",
+                                        "type": "int",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_manager",
+                                            "references": "manager(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                        
+                    }
+                ]
+            }
+        }
+
+    ]
+}

@@ -18,6 +18,7 @@ package com.greglturnquist.payroll;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.List;
 
 /**
  * @author Myron Apostolakis
@@ -37,6 +38,11 @@ public interface StudentsRepository extends PagingAndSortingRepository<Students,
 	@Override
 	@PreAuthorize("#student?.manager?.name == authentication?.name")
 	void delete(@Param("student") Students student);
+
+	// @Override
+	// @PreAuthorize("@studentRepository.findOne(#id)?.manager?.name == authentication?.name")
+	Iterable <Students> findAllByOrderByIdAsc();
+
 
 }
 // end::code[]

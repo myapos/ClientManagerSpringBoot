@@ -63,7 +63,7 @@ public class EventHandler {
 	}
 
 	/**
-	 * Take an {@link Employee} and get the URI using Spring Data REST's {@link EntityLinks}.
+	 * Take an {@link Students} and get the URI using Spring Data REST's {@link EntityLinks}.
 	 *
 	 * @param students
 	 */

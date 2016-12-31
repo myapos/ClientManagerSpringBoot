@@ -18,6 +18,7 @@ package com.greglturnquist.payroll;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.ToString;
@@ -34,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @ToString(exclude = "password")
 @Entity
+@Table(name = "manager")
 public class Manager {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();

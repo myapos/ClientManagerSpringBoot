@@ -10,7 +10,7 @@ import client from './client';
 import follow from './follow'; // function to hop multiple links by "rel"
 import stompClient from './websocket-listener';
 
-const root = 'http://localhost:8181/api/students';
+const root = 'http://localhost:8181/api/studentses';
 const pageSize = 1;
 
 const init = () => {
@@ -20,7 +20,7 @@ fetch(root, {
    mode: 'cors',
    cache: 'default',
    headers: {
-     'Authorization': 'Basic '+btoa('greg:turnquist'), 
+     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
      'Content-Type': 'application/json'//,
 	  //"Content-Length": content.length.toString(),
 	  //"X-Custom-Header": "ProcessThisImmediately"

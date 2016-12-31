@@ -258,6 +258,60 @@
                     }
                 ]
             }
+        },
+        {
+            "changeSet": {
+                "id": "5",
+                "author": "myapos",
+                "changes": [
+                    {
+                        "createTable": {
+                            "tableName": "manager",
+                            "catalogName" : "manager",
+                            "schemaName": "ClientManagerSpringBoot",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "int",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "name",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "password",
+                                        "type": "varchar(50)",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "roles",
+                                        "type": "varchar(50)"
+                                    }
+                                }
+
+                            ]
+                        }
+                        
+                    }
+                ]
+            }
         }
 
     ]
