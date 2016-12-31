@@ -43,26 +43,26 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-		Manager greg = this.managers.save(new Manager("greg", "turnquist",
+		Manager myapos = this.managers.save(new Manager("myapos", "Apostolakis1981",
 							"ROLE_MANAGER"));
 		Manager oliver = this.managers.save(new Manager("oliver", "gierke",
 							"ROLE_MANAGER"));
 
 		SecurityContextHolder.getContext().setAuthentication(
-			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
+			new UsernamePasswordAuthenticationToken("myapos", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
-		this.employees.save(new Employee("Frodo", "Baggins", "ring bearer", greg));
-		this.employees.save(new Employee("Bilbo", "Baggins", "burglar", greg));
-		this.employees.save(new Employee("Gandalf", "the Grey", "wizard", greg));
+		this.employees.save(new Employee("Frodo", "Baggins", "ring bearer", myapos));
+		this.employees.save(new Employee("Bilbo", "Baggins", "burglar", myapos));
+		this.employees.save(new Employee("Gandalf", "the Grey", "wizard", myapos));
 
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("oliver", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
-		this.employees.save(new Employee("Samwise", "Gamgee", "gardener", oliver));
-		this.employees.save(new Employee("Merry", "Brandybuck", "pony rider", oliver));
-		this.employees.save(new Employee("Peregrin", "Took", "pipe smoker", oliver));
+		// this.employees.save(new Employee("Samwise", "Gamgee", "gardener", oliver));
+		// this.employees.save(new Employee("Merry", "Brandybuck", "pony rider", oliver));
+		// this.employees.save(new Employee("Peregrin", "Took", "pipe smoker", oliver));
 
 		SecurityContextHolder.clearContext();
 	}

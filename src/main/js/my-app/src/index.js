@@ -20,7 +20,7 @@ fetch(root, {
    mode: 'cors',
    cache: 'default',
    headers: {
-     'Authorization': 'Basic '+btoa('greg:turnquist'), 
+     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
      'Content-Type': 'application/json'//,
 	  //"Content-Length": content.length.toString(),
 	  //"X-Custom-Header": "ProcessThisImmediately"
