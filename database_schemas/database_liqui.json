@@ -236,6 +236,12 @@
                                 },
                                 {
                                     "column": {
+                                        "name": "notes",
+                                        "type": "TEXT"
+                                    }
+                                },
+                                {
+                                    "column": {
                                         "name": "register_id",
                                         "type": "int",
                                         "constraints": {
