@@ -41,7 +41,7 @@ public class Student {
 	private String facebook;
 	//private String description;
 
-	private @Version @JsonIgnore Long version;
+	//private @Version @JsonIgnore Long version;
 
 	private @ManyToOne Manager manager;
 

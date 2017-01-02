@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  */
 // tag::code[]
 @Component
-@RepositoryEventHandler(Employee.class)
+@RepositoryEventHandler(Student.class)
 public class SpringDataRestEventHandler {
 
 	private final ManagerRepository managerRepository;
@@ -37,17 +37,19 @@ public class SpringDataRestEventHandler {
 	}
 
 	@HandleBeforeCreate
-	public void applyUserInformationUsingSecurityContext(Employee employee) {
+	public void applyUserInformationUsingSecurityContext(Student student) {
 
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("authenticated name:"+name);
 		Manager manager = this.managerRepository.findByName(name);
+		System.out.println("manager: "+manager);
 		if (manager == null) {
 			Manager newManager = new Manager();
 			newManager.setName(name);
 			newManager.setRoles(new String[]{"ROLE_MANAGER"});
 			manager = this.managerRepository.save(newManager);
 		}
-		employee.setManager(manager);
+		student.setManager(manager);
 	}
 }
 // end::code[]

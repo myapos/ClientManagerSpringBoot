@@ -12,5 +12,3 @@ com/greglturnquist/payroll/WebSocketConfiguration.class
 com/greglturnquist/payroll/SpringDataJpaUserDetailsService.class
 com/greglturnquist/payroll/DatabaseLoader.class
 com/greglturnquist/payroll/Manager.class
-com/greglturnquist/payroll/Employee.class
-com/greglturnquist/payroll/EmployeeRepository.class

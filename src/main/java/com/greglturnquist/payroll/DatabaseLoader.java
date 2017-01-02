@@ -53,12 +53,18 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		//this.managers.findByName("myapos");
 
-		Manager greg = this.managers.save(new Manager("greg", "turnquist",
-							"ROLE_MANAGER"));
-		Manager myapos = this.managers.save(new Manager("myapos", "Apostolakis1981",
-							"ROLE_MANAGER"));
+		// Manager greg = this.managers.save(new Manager("greg", "turnquist",
+		// 					"ROLE_MANAGER"));
+		// Manager myapos = this.managers.save(new Manager("myapos", "Apostolakis1981",
+		// 					"ROLE_MANAGER"));
 		// Manager oliver = this.managers.save(new Manager("oliver", "gierke",
 		// 					"ROLE_MANAGER"));
+
+		Manager greg = this.managers.findByName("greg");
+		Manager myapos = this.managers.findByName("myapos");
+
+		System.out.println("manager: "+myapos);
+		System.out.println("manager: "+greg);
 
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
@@ -69,12 +75,12 @@ public class DatabaseLoader implements CommandLineRunner {
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
 
-		this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
-		this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
+		// this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
+		// this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
 
 
 
-		SecurityContextHolder.clearContext();
+		//SecurityContextHolder.clearContext();
 	}
 }
 // end::code[]
