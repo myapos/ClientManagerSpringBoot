@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
  */
 // tag::code[]
 @Component
-@RepositoryEventHandler(Employee.class)
+@RepositoryEventHandler(Student.class)
 public class EventHandler {
 
 	private final SimpMessagingTemplate websocket;
@@ -45,31 +45,31 @@ public class EventHandler {
 	}
 
 	@HandleAfterCreate
-	public void newEmployee(Employee employee) {
+	public void newStudent(Student student) {
 		this.websocket.convertAndSend(
-				MESSAGE_PREFIX + "/newEmployee", getPath(employee));
+				MESSAGE_PREFIX + "/newStudent", getPath(student));
 	}
 
 	@HandleAfterDelete
-	public void deleteEmployee(Employee employee) {
+	public void deleteStudent(Student student) {
 		this.websocket.convertAndSend(
-				MESSAGE_PREFIX + "/deleteEmployee", getPath(employee));
+				MESSAGE_PREFIX + "/deleteStudent", getPath(student));
 	}
 
 	@HandleAfterSave
-	public void updateEmployee(Employee employee) {
+	public void updateStudent(Student student) {
 		this.websocket.convertAndSend(
-				MESSAGE_PREFIX + "/updateEmployee", getPath(employee));
+				MESSAGE_PREFIX + "/updateStudent", getPath(student));
 	}
 
 	/**
 	 * Take an {@link Employee} and get the URI using Spring Data REST's {@link EntityLinks}.
 	 *
-	 * @param employee
+	 * @param student
 	 */
-	private String getPath(Employee employee) {
-		return this.entityLinks.linkForSingleResource(employee.getClass(),
-				employee.getId()).toUri().getPath();
+	private String getPath(Student student) {
+		return this.entityLinks.linkForSingleResource(student.getClass(),
+				student.getId()).toUri().getPath();
 	}
 
 }

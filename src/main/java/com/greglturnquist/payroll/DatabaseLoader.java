@@ -29,40 +29,50 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final EmployeeRepository employees;
+	private final StudentRepository students;
 	private final ManagerRepository managers;
 
 	@Autowired
-	public DatabaseLoader(EmployeeRepository employeeRepository,
+	public DatabaseLoader(StudentRepository studentRepository,
 						  ManagerRepository managerRepository) {
 
-		this.employees = employeeRepository;
+		this.students = studentRepository;
 		this.managers = managerRepository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
 
+		// String result = "<html>";
+		
+		// for(Student stud : this.studentRepository.findAll()){
+		// 	result += "<div>" + stud.toString() + "</div>";
+		// }
+		
+		// return result + "</html>";
+
+		//this.managers.findByName("myapos");
+
+		Manager greg = this.managers.save(new Manager("greg", "turnquist",
+							"ROLE_MANAGER"));
 		Manager myapos = this.managers.save(new Manager("myapos", "Apostolakis1981",
 							"ROLE_MANAGER"));
-		Manager oliver = this.managers.save(new Manager("oliver", "gierke",
-							"ROLE_MANAGER"));
+		// Manager oliver = this.managers.save(new Manager("oliver", "gierke",
+		// 					"ROLE_MANAGER"));
+
+		SecurityContextHolder.getContext().setAuthentication(
+			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
+				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("myapos", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
-		this.employees.save(new Employee("Frodo", "Baggins", "ring bearer", myapos));
-		this.employees.save(new Employee("Bilbo", "Baggins", "burglar", myapos));
-		this.employees.save(new Employee("Gandalf", "the Grey", "wizard", myapos));
 
-		SecurityContextHolder.getContext().setAuthentication(
-			new UsernamePasswordAuthenticationToken("oliver", "doesn't matter",
-				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
+		this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
+		this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
 
-		// this.employees.save(new Employee("Samwise", "Gamgee", "gardener", oliver));
-		// this.employees.save(new Employee("Merry", "Brandybuck", "pony rider", oliver));
-		// this.employees.save(new Employee("Peregrin", "Took", "pipe smoker", oliver));
+
 
 		SecurityContextHolder.clearContext();
 	}

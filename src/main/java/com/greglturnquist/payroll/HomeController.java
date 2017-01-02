@@ -17,7 +17,12 @@ package com.greglturnquist.payroll;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+
 /**
  * @author Greg Turnquist
  */
@@ -25,21 +30,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-	@RequestMapping("/")
-	public String home() {
-		return "index";
-	}
+	@Autowired
+	StudentRepository studentRepository;
 
-	@RequestMapping("/index")
+	@RequestMapping(value = "/")
 	public String index() {
 		return "index";
 	}
 
+	@RequestMapping("/findall")
+	public String findAll(){
+		String result = "<html>";
+		
+		for(Student stud : studentRepository.findAll()){
+			result += "<div>" + stud.toString() + "</div>";
+		}
+		
+		return result + "</html>";
+	}
 
 
-	// @RequestMapping(value = "/login")
-	// public String login() {
-	// 	return "login";
-	// }
+
 }
 // end::code[]

@@ -10,7 +10,7 @@ import client from './client';
 import follow from './follow'; // function to hop multiple links by "rel"
 import stompClient from './websocket-listener';
 
-const root = 'http://localhost:8181/api/employees';
+const root = 'http://localhost:8181/api/students';
 const pageSize = 1;
 
 const init = () => {
