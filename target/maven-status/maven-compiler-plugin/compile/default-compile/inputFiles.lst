@@ -2,8 +2,6 @@
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/WebSocketConfiguration.java
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/EventHandler.java
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/DatabaseLoader.java
-/home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/EmployeeRepository.java
-/home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/Employee.java
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/SecurityConfiguration.java
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/WebMvcConfiguration.java
 /home/myros/Desktop/security/src/main/java/com/greglturnquist/payroll/Student.java
