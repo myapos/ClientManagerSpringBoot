@@ -1,8 +1,10 @@
 com/greglturnquist/payroll/WebMvcConfiguration.class
 com/greglturnquist/payroll/EventHandler.class
+com/greglturnquist/payroll/Student.class
 com/greglturnquist/payroll/HomeController.class
 com/greglturnquist/payroll/SecurityConfiguration.class
 com/greglturnquist/payroll/ManagerRepository.class
+com/greglturnquist/payroll/StudentRepository.class
 com/greglturnquist/payroll/CorsFilter.class
 com/greglturnquist/payroll/ReactAndSpringDataRestApplication.class
 com/greglturnquist/payroll/SpringDataRestEventHandler.class
