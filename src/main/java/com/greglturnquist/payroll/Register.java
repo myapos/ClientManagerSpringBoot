@@ -39,13 +39,6 @@ public class Register {
 
 	private @Id @GeneratedValue Long id;
 	private Date dateOfRegistration;
-	// private String lname;
-	// private String email;
-	// private String phone;
-	// private String facebook;
-	//private String description;
-
-	//private @Version @JsonIgnore Long version;
 
 	private @ManyToOne Student student;
 	private @ManyToOne StudentClass studentClass;
