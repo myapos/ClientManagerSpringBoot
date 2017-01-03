@@ -106,7 +106,8 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
 		Student res = this.students.findByFname("myros2");
-		System.out.println("searched:"+res);	
+		System.out.println("searched:"+res);
+		//test	
 		//if( res == null){
 		 	//this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
 			//this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
