@@ -18,46 +18,39 @@ package com.greglturnquist.payroll;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import lombok.Data;
-import lombok.ToString;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.*;
 
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
 @Data
-@ToString(exclude = "password")
 @Entity
-public class Manager {
-
-	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+public class Payed {
 
 	private @Id @GeneratedValue Long id;
+	private boolean payment;
+	private String notes;
+	private Date dateOfPayments;
 
-	private String name;
+	private @OneToMany List<Register> register;
 
-	private @JsonIgnore String password;
+	private Payed() {}
 
-	private String[] roles;
+	public Payed(boolean payment, String notes, Date dateOfPayments, List<Register> register) {
 
-	public void setPassword(String password) {
-		this.password = PASSWORD_ENCODER.encode(password);
+		this.payment = payment;
+		this.notes = notes;
+		this.dateOfPayments = dateOfPayments;
+		this.register = register;
 	}
-
-	protected Manager() {}
-
-	public Manager(String name, String password, String... roles) {
-
-		this.name = name;
-		this.setPassword(password);
-		this.roles = roles;
-	}
-
 }
 // end::code[]

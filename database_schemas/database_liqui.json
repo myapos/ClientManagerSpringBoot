@@ -6,6 +6,7 @@
                     "runningAs": {
                         "username": "myapos"
                     }
+
                 }
             ]
         },
@@ -16,9 +17,9 @@
                 "changes": [
                     {
                         "createTable": {
-                            "tableName": "students",
-                            "catalogName" : "students",
-                            "schemaName": "ClientManagerSpringBoot",
+                            "tableName": "student",
+                            "catalogName" : "student",
+                            "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
@@ -90,9 +91,9 @@
                 "changes": [
                     {
                         "createTable": {
-                            "tableName": "classes",
-                            "catalogName" : "classes",
-                            "schemaName": "ClientManagerSpringBoot",
+                            "tableName": "class",
+                            "catalogName" : "class",
+                            "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
@@ -120,7 +121,7 @@
                                         "type": "int",
                                         "constraints": {
                                             "foreignKeyName": "fk_subclass",
-                                            "references": "classes(id)",
+                                            "references": "class(id)",
                                             "nullable": false
                                         }
                                     }
@@ -140,9 +141,9 @@
                 "changes": [
                     {
                       "createTable": {
-                            "tableName": "registers",
-                            "catalogName" : "registers",
-                            "schemaName": "ClientManagerSpringBoot",
+                            "tableName": "register",
+                            "catalogName" : "register",
+                            "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
@@ -170,7 +171,7 @@
                                         "type": "int",
                                         "constraints": {
                                             "foreignKeyName": "fk_students",
-                                            "references": "students(id)",
+                                            "references": "student(id)",
                                             "nullable": false
                                         }
                                     }
@@ -181,7 +182,7 @@
                                         "type": "int",
                                         "constraints": {
                                             "foreignKeyName": "fk_classes",
-                                            "references": "classes(id)",
+                                            "references": "class(id)",
                                             "nullable": false
                                         }
                                     }
@@ -203,7 +204,7 @@
                         "createTable": {
                             "tableName": "payed",
                             "catalogName" : "payed",
-                            "schemaName": "ClientManagerSpringBoot",
+                            "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
@@ -246,7 +247,7 @@
                                         "type": "int",
                                         "constraints": {
                                             "foreignKeyName": "fk_register",
-                                            "references": "registers(id)",
+                                            "references": "register(id)",
                                             "nullable": false
                                         }
                                     }

@@ -18,46 +18,46 @@ package com.greglturnquist.payroll;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import lombok.Data;
-import lombok.ToString;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.*;
+
+
 
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
 @Data
-@ToString(exclude = "password")
 @Entity
-public class Manager {
-
-	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+public class Register {
 
 	private @Id @GeneratedValue Long id;
+	private Date dateOfRegistration;
+	// private String lname;
+	// private String email;
+	// private String phone;
+	// private String facebook;
+	//private String description;
 
-	private String name;
+	//private @Version @JsonIgnore Long version;
 
-	private @JsonIgnore String password;
+	private @ManyToOne Student student;
+	private @ManyToOne StudentClass studentClass;
+	private @ManyToOne Payed payed;
+	
+	private Register() {}
 
-	private String[] roles;
-
-	public void setPassword(String password) {
-		this.password = PASSWORD_ENCODER.encode(password);
+	public Register(Date dateOfRegistration, Student student, StudentClass studentClass, Payed payed) {
+		this.dateOfRegistration = dateOfRegistration;
+		this.student = student;
+		this.studentClass = studentClass;
+		this.payed = payed;
 	}
-
-	protected Manager() {}
-
-	public Manager(String name, String password, String... roles) {
-
-		this.name = name;
-		this.setPassword(password);
-		this.roles = roles;
-	}
-
 }
 // end::code[]
