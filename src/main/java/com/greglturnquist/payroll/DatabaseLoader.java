@@ -23,7 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @Component
@@ -63,9 +63,23 @@ public class DatabaseLoader implements CommandLineRunner {
 		Manager greg = this.managers.findByName("greg");
 		Manager myapos = this.managers.findByName("myapos");
 
+
+
+		if( greg == null){
+
+			greg = this.managers.save(new Manager("greg", "turnquist",
+								"ROLE_MANAGER"));
+		}
+
+		if( myapos == null){
+
+		 	myapos = this.managers.save(new Manager("myapos", "Apostolakis1981",
+							"ROLE_MANAGER"));
+		}
+
 		System.out.println("manager: "+myapos);
 		System.out.println("manager: "+greg);
-
+		
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));

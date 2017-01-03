@@ -23,11 +23,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 // tag::code[]
 @RepositoryRestResource(exported = false)
-public interface ManagerRepository extends Repository<Manager, Long> {
+public interface StudentClassRepository extends Repository<StudentClass, Long> {
 
-	Manager save(Manager manager);
+	StudentClass save(StudentClass studentClass);
 
-	Manager findByName(String name);
+	StudentClass findBydescription(String description);
 
 }
 // end::code[]

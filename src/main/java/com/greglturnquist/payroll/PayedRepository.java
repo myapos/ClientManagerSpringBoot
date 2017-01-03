@@ -23,11 +23,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 // tag::code[]
 @RepositoryRestResource(exported = false)
-public interface ManagerRepository extends Repository<Manager, Long> {
+public interface PayedRepository extends Repository<Payed, Long> {
 
-	Manager save(Manager manager);
+	Payed save(Payed payed);
 
-	Manager findByName(String name);
+	Payed findByid(Long id);
 
 }
 // end::code[]

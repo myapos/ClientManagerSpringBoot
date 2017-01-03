@@ -26,7 +26,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 //import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @SpringBootApplication

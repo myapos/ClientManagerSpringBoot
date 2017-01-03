@@ -20,7 +20,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @PreAuthorize("hasRole('ROLE_MANAGER')")

@@ -24,7 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @Component

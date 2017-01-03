@@ -30,7 +30,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 //@EnableWebMvc

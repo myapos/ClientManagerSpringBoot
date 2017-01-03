@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @Controller

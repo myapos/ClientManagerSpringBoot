@@ -26,7 +26,7 @@ import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author Greg Turnquist
+ * @author Myron Apostolakis
  */
 // tag::code[]
 @Data
