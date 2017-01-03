@@ -21,6 +21,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import java.util.*;
 
 /**
  * @author Myron Apostolakis
@@ -63,7 +64,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		Manager greg = this.managers.findByName("greg");
 		Manager myapos = this.managers.findByName("myapos");
 
-
+		//if no manager exist in the database already then create them with role manager authtority
 
 		if( greg == null){
 
@@ -79,7 +80,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		System.out.println("manager: "+myapos);
 		System.out.println("manager: "+greg);
-		
+
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
@@ -88,13 +89,52 @@ public class DatabaseLoader implements CommandLineRunner {
 			new UsernamePasswordAuthenticationToken("myapos", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
+		
+		//if no student data exist in the database then add some
 
+		Iterable<Student> allStudents = this.students.findAll();
+
+		int size = sizeOfIterableStudent(allStudents);
+
+		System.out.println("size of allStudents:"+size);
+
+		if(size == 0){
+			System.out.println("zero size..... Add some values");
+			this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
+			this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
+		}
+
+
+		Student res = this.students.findByFname("myros2");
+		System.out.println("searched:"+res);	
+		//if( res == null){
+		 	//this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
+			//this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
+		//}
+
+
+		// for(Student stud : this.students.findAll()){
+		// 	System.out.println("allStudents:"+stud.toString());
+		// }
 		// this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
 		// this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
 
 
 
 		//SecurityContextHolder.clearContext();
+	}
+
+	int sizeOfIterableStudent(Iterable<Student> students) {
+
+		int size = 0;
+
+		for(Student s : students){
+		    //Do whatever you want
+		    System.out.println("metraw");
+		    size++;
+		}
+		return size;
+
 	}
 }
 // end::code[]
