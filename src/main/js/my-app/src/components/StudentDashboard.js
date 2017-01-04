@@ -10,7 +10,6 @@ import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
 import GetAllUsers from './GetAllUsers';
-import StudentDashboard from './StudentDashboard';
 import '../css/App.css';
 // import './toggler.css';
 // import Toggle from 'react-toggle';
@@ -18,7 +17,7 @@ import '../css/App.css';
 
 // import Advertiser from './Advertiser';
 
-class Dashboard extends Component {
+class StudentDashboard extends Component {
 
     handleChange(event, myprops) {
         // do something with event.target.checked
@@ -38,31 +37,19 @@ class Dashboard extends Component {
     return (
       <div className="App" id="content">
           <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
-        <div className="labelContainer">
-          <legend><span>Πίνακας Ελέγχου</span></legend>
-        </div>
-        <div className="rowContainer">
-          <Link className="buttonBoxes" to="/getallusers"> 
-            Πελατολόγιο
-          </Link>
-          <Link className="buttonBoxes"to="/adduser">
-            Προσθήκη πελάτη
-          </Link>
-          <Link className="buttonBoxes" to="/deleteuser">
-            Διαγραφή πελάτη
-          </Link>
-          <Link className="buttonBoxes" to="/updateusers">
-            Αναζήτηση - ενημέρωση πελάτη
-          </Link>
-          <Link className="buttonBoxes" to="/importusers">
-            Εισαγωγή πελατών
-          </Link>
-          <Link className="buttonBoxes" to="/exportusers">
-            Εξαγωγή πελατών
-          </Link>
-          <Link className="buttonBoxes" to="/studentdashboard">
-            Διαχείριση τμημάτων
-          </Link>
+          <div className="labelContainer">
+{/*          <div className="container">*/}
+          <legend><span>Παρακαλώ δημιουργήστε τα τμήματα σας </span><Link className="back" to="/"> Πίσω </Link></legend>
+          <div className="row">
+                <div className="col-md-6">
+                    <div id="custom-search-input">
+                        <div className="input-group col-md-12">
+                           
+                        </div>
+                    </div>
+                </div>
+          </div>
+{/*        </div>*/}
         </div>
       </div>
 
@@ -70,4 +57,4 @@ class Dashboard extends Component {
   }
 }
 
-export default connect(state => state, actions)(Dashboard);
+export default connect(state => state, actions)(StudentDashboard);

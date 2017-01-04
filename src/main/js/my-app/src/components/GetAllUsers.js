@@ -3,13 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
 import '../css/App.css';
-// import './toggler.css';
-// import Toggle from 'react-toggle';
-// react select
-
-// import Advertiser from './Advertiser';
+import DataTable from './DataTable';
 
 class GetAllUsers extends Component {
 
@@ -28,11 +23,13 @@ class GetAllUsers extends Component {
     window.parent.location.href= "/";
    }
   render () {
+    console.log('saved_data:', this.props.saved_data);
     return (
       <div className="App" id="content">
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
           <legend><span>Προβολή πελατολογίου</span><Link className="back" to="/"> Πίσω </Link></legend>
+          <DataTable></DataTable>
         </div>
       </div>
     );
