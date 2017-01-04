@@ -56,62 +56,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 			http
 			.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
-	        // .authorizeRequests()
-	        //   .antMatchers("/index.html", "/login.html", "/").permitAll()
-	        //   .anyRequest().authenticated()
 			.authorizeRequests()
-				.antMatchers("/static/**","/static/css/**").permitAll()
-				.anyRequest().authenticated()
-				.and()
+			.antMatchers("/static/**","/static/css/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
 			.formLogin()
 			.loginPage("/login")
-			.defaultSuccessUrl("/index.html")
 			.failureUrl("/login?error")
 			.permitAll()
 			.and()
 			.logout()
 			.permitAll()
-			// .authorizeRequests()
-				// .antMatchers("/built/**", "/main.css").permitAll()
-				// .anyRequest().authenticated()
-				// .and()
-				// .formLogin().
-				// loginPage("/login").
-				// loginProcessingUrl("/index").
-    //             usernameParameter("username").
-    //             passwordParameter("password").
-    //             defaultSuccessUrl("/index").	
-				// and().logout().    //logout configuration
-				// logoutUrl("/"). 
-				// logoutSuccessUrl("/login").
-				// permitAll()
-    //             .loginPage("/login")
-    //             .permitAll()
-    //             .and()
-    //             .logout()
-				// .permitAll()
-				// .logoutSuccessUrl("/");
-            // .logout()                                    
-            //     .permitAll()
-			// .formLogin()
-			// 	.defaultSuccessUrl("/", true)
-			// 	.permitAll()
-				 .and()
+			.and()
 			.httpBasic()
-				.and()
+			.and()
 			.csrf().disable();
 
 	}
 
 }
 // end::code[]
-
-
-// loginPage("/app/login").
-  //               loginProcessingUrl("/appLogin").
-  //               usernameParameter("app_username").
-  //               passwordParameter("app_password").
-  //               defaultSuccessUrl("/app/secure/studentDetail").	
-		// and().logout().    //logout configuration
-		// logoutUrl("/appLogout"). 
-		// logoutSuccessUrl("/app/login");

@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 /*import App from './containers/App';*/
-import App from './App';
+import App from './containers/App';
 import './index.css';
 import when from 'when';
-import client from './client';
-import follow from './follow'; // function to hop multiple links by "rel"
+
 import stompClient from './websocket-listener';
 
 const root = 'http://localhost:8181/api/students';
@@ -28,19 +27,13 @@ fetch(root, {
  }).then (res => res.json())
    .then(res => {
    	//debugger;
-   	console.log("tttt",res);
+   	console.log("data from server: ",res);
    	let saved_data= res._embedded;
 
    	const placeholder = document.getElementById('react');
 
    	 const initialState = {
-	            	// data: {sites, advertisers},
-	            	// selected: all_selected_rows
-	            	// 			//{id: 618, sites:[795,833]},
-              //         //{id: 481, sites:[795,833]}
-	            	// ,
-                 saved_data: saved_data
-
+          saved_data: saved_data
 	      };
 
 	ReactDOM.render(
