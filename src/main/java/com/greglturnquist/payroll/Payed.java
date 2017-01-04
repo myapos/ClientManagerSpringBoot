@@ -41,11 +41,13 @@ public class Payed {
 	private String notes;
 	private Date dateOfPayments;
 
-	private @OneToMany List<Register> register;
+	//private @OneToMany List<Register> register;
+
+	private @ManyToOne Register register;
 
 	private Payed() {}
 
-	public Payed(boolean payment, String notes, Date dateOfPayments, List<Register> register) {
+	public Payed(boolean payment, String notes, Date dateOfPayments, Register register) {
 
 		this.payment = payment;
 		this.notes = notes;
