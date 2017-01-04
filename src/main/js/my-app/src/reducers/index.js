@@ -68,7 +68,7 @@ const reducer = (state, action) => {
 				 			window.parent.messenger.open("Your save was succesful.");
 				 		}
 
-				 });
+				 });				 
 				// .then(function (data) {
 				//   console.log('Request success: ', data);
 				// })
