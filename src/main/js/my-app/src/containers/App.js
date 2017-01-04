@@ -9,6 +9,7 @@ import ExportUsers from '../components/ExportUsers';
 import ImportUsers from '../components/ImportUsers';
 import UpdateUsers from '../components/UpdateUsers';
 import GetAllUsers from '../components/GetAllUsers';
+import StudentDashboard from '../components/StudentDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
 
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path='/importusers' component={ImportUsers} />
           <Route path='/updateusers' component={UpdateUsers} />
           <Route path='/getallusers' component={GetAllUsers} />
+          <Route path='/studentdashboard' component={StudentDashboard} />
           <Route path='*' component={NotFound} />
         </Route>
       </Router>

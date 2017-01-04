@@ -33,7 +33,7 @@ class ImportUsers extends Component {
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
           <legend><span>Προβολή πελατολογίου</span><Link className="back" to="/"> Πίσω </Link></legend>
-          <label class="control-label">Select File</label>
+          <label className="control-label">Select File</label>
           <input className="import form-control btn btn-default" id='myfile' type="file" name="file" accept=".csv"/>    
         </div>
       </div>
