@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import lombok.Data;
-
+import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -39,6 +39,7 @@ public class Student {
 	private String email;
 	private String phone;
 	private String facebook;
+	private Date dateOfBirth;
 	//private String description;
 
 	//private @Version @JsonIgnore Long version;
@@ -48,13 +49,14 @@ public class Student {
 	private Student() {}
 
 	public Student(String fname, String lname, String email,  
-					String phone,  String facebook, Manager manager) {
+					String phone,  String facebook, Date dateOfBirth,Manager manager) {
 		this.fname = fname;
 		this.lname = lname;
 		//this.description = description;
 		this.email = email;
 		this.phone = phone;
 		this.facebook = facebook;
+		this.dateOfBirth = dateOfBirth;
 		this.manager = manager;
 	}
 }

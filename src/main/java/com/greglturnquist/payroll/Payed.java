@@ -39,7 +39,7 @@ public class Payed {
 	private @Id @GeneratedValue Long id;
 	private boolean payment;
 	private String notes;
-	private Date dateOfPayments;
+	private Date dateOfPayment;
 
 	//private @OneToMany List<Register> register;
 
@@ -47,11 +47,11 @@ public class Payed {
 
 	private Payed() {}
 
-	public Payed(boolean payment, String notes, Date dateOfPayments, Register register) {
+	public Payed(boolean payment, String notes, Date dateOfPayment, Register register) {
 
 		this.payment = payment;
 		this.notes = notes;
-		this.dateOfPayments = dateOfPayments;
+		this.dateOfPayment = dateOfPayment;
 		this.register = register;
 	}
 }
