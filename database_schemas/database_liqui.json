@@ -9,22 +9,21 @@
 
                 }
             ]
-        },
-        {
+        },        {
             "changeSet": {
                 "id": "1",
                 "author": "myapos",
                 "changes": [
                     {
                         "createTable": {
-                            "tableName": "student",
-                            "catalogName" : "student",
+                            "tableName": "manager",
+                            "catalogName" : "manager",
                             "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
                                         "name": "id",
-                                        "type": "int",
+                                        "type": "BIGINT",
                                         "autoIncrement": true,
                                         "constraints": {
                                             "primaryKey": true,
@@ -34,8 +33,8 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "fname",
-                                        "type": "varchar(50)",
+                                        "name": "name",
+                                        "type": "text",
                                         "constraints": {
                                             "nullable": false
                                         }
@@ -43,8 +42,8 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "lname",
-                                        "type": "varchar(50)",
+                                        "name": "password",
+                                        "type": "text",
                                         "constraints": {
                                             "nullable": false
                                         }
@@ -52,29 +51,8 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "date_of_birth",
-                                        "type": "DATE",
-                                        "constraints": {
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "email",
-                                        "type": "varchar(50)"
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "phone",
-                                        "type": "varchar(50)"
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "facebook",
-                                        "type": "varchar(50)"
+                                        "name": "roles",
+                                        "type": "VARBINARY(5)"
                                     }
                                 }
                             ]
@@ -91,14 +69,14 @@
                 "changes": [
                     {
                         "createTable": {
-                            "tableName": "class",
-                            "catalogName" : "class",
+                            "tableName": "student",
+                            "catalogName" : "student",
                             "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
                                         "name": "id",
-                                        "type": "int",
+                                        "type": "BIGINT",
                                         "autoIncrement": true,
                                         "constraints": {
                                             "primaryKey": true,
@@ -108,8 +86,8 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "description",
-                                        "type": "varchar(50)",
+                                        "name": "fname",
+                                        "type": "text",
                                         "constraints": {
                                             "nullable": false
                                         }
@@ -117,16 +95,51 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "subclass",
-                                        "type": "int",
+                                        "name": "lname",
+                                        "type": "text",
                                         "constraints": {
-                                            "foreignKeyName": "fk_subclass",
-                                            "references": "class(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "date_of_birth",
+                                        "type": "TIMESTAMP",
+                                        "constraints": {
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "email",
+                                        "type": "text"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "phone",
+                                        "type": "text"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "facebook",
+                                        "type": "text"
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "manager_id",
+                                        "type": "BIGINT",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_manager",
+                                            "references": "manager(id)",
                                             "nullable": false
                                         }
                                     }
                                 }
-
                             ]
                         }
                         
@@ -140,15 +153,15 @@
                 "author": "myapos",
                 "changes": [
                     {
-                      "createTable": {
-                            "tableName": "register",
-                            "catalogName" : "register",
+                        "createTable": {
+                            "tableName": "student_class",
+                            "catalogName" : "student_class",
                             "schemaName": "clientmanagerspringboot",
                             "columns": [
                                 {
                                     "column": {
                                         "name": "id",
-                                        "type": "int",
+                                        "type": "BIGINT",
                                         "autoIncrement": true,
                                         "constraints": {
                                             "primaryKey": true,
@@ -158,8 +171,8 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "date_of_registration",
-                                        "type": "DATE",
+                                        "name": "description",
+                                        "type": "text",
                                         "constraints": {
                                             "nullable": false
                                         }
@@ -167,22 +180,11 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "student_id",
-                                        "type": "int",
+                                        "name": "student_class_id",
+                                        "type": "BIGINT",
                                         "constraints": {
-                                            "foreignKeyName": "fk_students",
-                                            "references": "student(id)",
-                                            "nullable": false
-                                        }
-                                    }
-                                },
-                                {
-                                    "column": {
-                                        "name": "classes_id",
-                                        "type": "int",
-                                        "constraints": {
-                                            "foreignKeyName": "fk_classes",
-                                            "references": "class(id)",
+                                            "foreignKeyName": "fk_subclass",
+                                            "references": "student_class(id)",
                                             "nullable": false
                                         }
                                     }
@@ -209,7 +211,7 @@
                                 {
                                     "column": {
                                         "name": "id",
-                                        "type": "int",
+                                        "type": "BIGINT",
                                         "autoIncrement": true,
                                         "constraints": {
                                             "primaryKey": true,
@@ -229,7 +231,7 @@
                                 {
                                     "column": {
                                         "name": "date_of_payment",
-                                        "type": "DATE",
+                                        "type": "TIMESTAMP",
                                         "constraints": {
                                             "nullable": false
                                         }
@@ -240,14 +242,75 @@
                                         "name": "notes",
                                         "type": "TEXT"
                                     }
+                                }
+
+                            ]
+                        }
+                        
+                    }
+                ]
+            }
+        },
+        {
+            "changeSet": {
+                "id": "5",
+                "author": "myapos",
+                "changes": [
+                    {
+                      "createTable": {
+                            "tableName": "register",
+                            "catalogName" : "register",
+                            "schemaName": "clientmanagerspringboot",
+                            "columns": [
+                                {
+                                    "column": {
+                                        "name": "id",
+                                        "type": "BIGINT",
+                                        "autoIncrement": true,
+                                        "constraints": {
+                                            "primaryKey": true,
+                                            "nullable": false
+                                        }
+                                    }
                                 },
                                 {
                                     "column": {
-                                        "name": "register_id",
-                                        "type": "int",
+                                        "name": "date_of_registration",
+                                        "type": "TIMESTAMP",
                                         "constraints": {
-                                            "foreignKeyName": "fk_register",
-                                            "references": "register(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "student_id",
+                                        "type": "BIGINT",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_students",
+                                            "references": "student(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "student_class_id",
+                                        "type": "BIGINT",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_classes",
+                                            "references": "student_class(id)",
+                                            "nullable": false
+                                        }
+                                    }
+                                },
+                                {
+                                    "column": {
+                                        "name": "payed_id",
+                                        "type": "BIGINT",
+                                        "constraints": {
+                                            "foreignKeyName": "fk_payed",
+                                            "references": "payed(id)",
                                             "nullable": false
                                         }
                                     }
@@ -257,6 +320,37 @@
                         }
                         
                     }
+                ]
+            }
+        },
+        {
+            "changeSet": {
+                "id": "6",
+                "author": "myapos",
+                "changes": [
+                    {
+                    "addColumn": {
+                    "catalogName": "payed",
+                    "tableName": "payed",
+                    "schemaName": "clientmanagerspringboot",
+                    "columns": [
+
+                        {
+                            "column": {
+                                "name": "register_id",
+                                "type": "BIGINT",
+                                "constraints": {
+                                    "foreignKeyName": "fk_register",
+                                    "references": "register(id)",
+                                    "nullable": false
+                                }
+                            }
+                        }
+
+                    ]
+
+                    }
+            }
                 ]
             }
         }

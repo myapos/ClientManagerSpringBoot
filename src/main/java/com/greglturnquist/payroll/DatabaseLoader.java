@@ -22,7 +22,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.*;
-
+import java.text.*;
 /**
  * @author Myron Apostolakis
  */
@@ -100,8 +100,22 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		if(size == 0){
 			System.out.println("zero size..... Add some values");
-			this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
-			this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
+
+			// Convert string to date
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+			String strdate2 = "02-04-2013 11:35:42";
+			try {
+				Date newdate = dateformat2.parse(strdate2);
+				System.out.println(newdate);
+
+				this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", newdate, myapos));
+				this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", newdate, myapos));
+			
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+
 		}
 
 
