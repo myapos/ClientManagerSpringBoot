@@ -42,15 +42,14 @@ public class Register {
 
 	private @ManyToOne Student student;
 	private @ManyToOne StudentClass studentClass;
-	private @ManyToOne Payed payed;
+
 	
 	private Register() {}
 
-	public Register(Date dateOfRegistration, Student student, StudentClass studentClass, Payed payed) {
+	public Register(Date dateOfRegistration, Student student, StudentClass studentClass) {
 		this.dateOfRegistration = dateOfRegistration;
 		this.student = student;
 		this.studentClass = studentClass;
-		this.payed = payed;
 	}
 }
 // end::code[]

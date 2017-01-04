@@ -303,17 +303,6 @@
                                             "nullable": false
                                         }
                                     }
-                                },
-                                {
-                                    "column": {
-                                        "name": "payed_id",
-                                        "type": "BIGINT",
-                                        "constraints": {
-                                            "foreignKeyName": "fk_payed",
-                                            "references": "payed(id)",
-                                            "nullable": false
-                                        }
-                                    }
                                 }
 
                             ]
