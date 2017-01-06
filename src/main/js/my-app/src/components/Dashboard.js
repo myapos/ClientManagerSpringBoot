@@ -9,14 +9,13 @@ import DeleteUser from './DeleteUser';
 import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
-import GetAllUsers from './GetAllUsers';
-import StudentDashboard from './StudentDashboard';
-import '../css/App.css';
-// import './toggler.css';
-// import Toggle from 'react-toggle';
-// react select
+import GetAllStudents from './GetAllStudents';
+import StudentClassDashboard from './StudentClassDashboard';
 
-// import Advertiser from './Advertiser';
+import { browserHistory } from 'react-router';
+
+
+import '../css/App.css';
 
 class Dashboard extends Component {
 
@@ -34,7 +33,10 @@ class Dashboard extends Component {
     //redirect to main dashboard page
     window.parent.location.href= "/";
    }
+
   render () {
+    //console.log(this.props);
+    //debugger;
     return (
       <div className="App" id="content">
           <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
@@ -42,25 +44,25 @@ class Dashboard extends Component {
           <legend><span>Πίνακας Ελέγχου</span></legend>
         </div>
         <div className="rowContainer">
-          <Link className="buttonBoxes" to="/getallusers"> 
+          <Link onClick={this.props.getAllStudents} className="buttonBoxes"  to="/getallstudents"> 
             Πελατολόγιο
           </Link>
-          <Link className="buttonBoxes"to="/adduser">
+          <Link onClick={this.props.addStudent} className="buttonBoxes"to="/adduser">
             Προσθήκη πελάτη
           </Link>
-          <Link className="buttonBoxes" to="/deleteuser">
+          <Link onClick={this.props.deleteStudent} className="buttonBoxes" to="/deleteuser">
             Διαγραφή πελάτη
           </Link>
-          <Link className="buttonBoxes" to="/updateusers">
+          <Link onClick={this.props.updateStudent} className="buttonBoxes" to="/updateusers">
             Αναζήτηση - ενημέρωση πελάτη
           </Link>
-          <Link className="buttonBoxes" to="/importusers">
+          <Link onClick={this.props.importStudents} className="buttonBoxes" to="/importusers">
             Εισαγωγή πελατών
           </Link>
-          <Link className="buttonBoxes" to="/exportusers">
+          <Link onClick={this.props.exportStudents} className="buttonBoxes" to="/exportusers">
             Εξαγωγή πελατών
           </Link>
-          <Link className="buttonBoxes" to="/studentdashboard">
+          <Link onClick={this.props.studentClassDashboard} className="buttonBoxes" to="/studentclassdashboard">
             Διαχείριση τμημάτων
           </Link>
         </div>
