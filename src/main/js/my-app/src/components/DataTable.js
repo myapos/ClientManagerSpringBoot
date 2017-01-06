@@ -35,8 +35,8 @@ class DataTable extends Component {
             <Table
               rowHeight={50}
               rowsCount={rows.length}
-              width={5000}
-              height={5000}
+              width={500}
+              height={500}
               headerHeight={50}>
               <Column
                 header={<Cell>Col 1</Cell>}

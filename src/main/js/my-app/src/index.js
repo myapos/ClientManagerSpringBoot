@@ -8,7 +8,8 @@ import './index.css';
 import when from 'when';
 
 import stompClient from './websocket-listener';
-
+/*import { syncHistoryWithStore, routerReducer } from 'react-router-redux';*/
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 const root = 'http://localhost:8181/api/students';
 const pageSize = 1;
 
@@ -30,15 +31,18 @@ fetch(root, {
    	console.log("data from server: ",res);
    	let saved_data= res._embedded;
 
-   	const placeholder = document.getElementById('react');
+  const placeholder = document.getElementById('react');
 
-   	 const initialState = {
-          saved_data: saved_data
-	      };
+  const initialState = {
+    saved_data: saved_data
+	};
 
+/*  const store = configureStore(initialState); */     
+  // Create an enhanced history that syncs navigation events with the store
+  //const history = syncHistoryWithStore(browserHistory, store);      
 	ReactDOM.render(
 		<Provider store={configureStore(initialState)}>
-		<App />
+		  <App />
 		</Provider>,
 	placeholder)}
 

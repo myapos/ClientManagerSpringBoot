@@ -8,13 +8,16 @@ import DeleteUser from '../components/DeleteUser';
 import ExportUsers from '../components/ExportUsers';
 import ImportUsers from '../components/ImportUsers';
 import UpdateUsers from '../components/UpdateUsers';
-import GetAllUsers from '../components/GetAllUsers';
-import StudentDashboard from '../components/StudentDashboard';
+import GetAllStudents from '../components/GetAllStudents';
+import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
 
+
 class App extends Component {
+ 
   render() {
+
     return (
       <Router history={hashHistory}>
         <Route path='/' component={Container}>
@@ -24,8 +27,8 @@ class App extends Component {
           <Route path='/exportusers' component={ExportUsers} />
           <Route path='/importusers' component={ImportUsers} />
           <Route path='/updateusers' component={UpdateUsers} />
-          <Route path='/getallusers' component={GetAllUsers} />
-          <Route path='/studentdashboard' component={StudentDashboard} />
+          <Route path='/getallstudents' component={GetAllStudents} />
+          <Route path='/studentclassdashboard' component={StudentClassDashboard} />
           <Route path='*' component={NotFound} />
         </Route>
       </Router>

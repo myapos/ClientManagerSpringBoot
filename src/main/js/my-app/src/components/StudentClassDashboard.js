@@ -9,7 +9,7 @@ import DeleteUser from './DeleteUser';
 import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
-import GetAllUsers from './GetAllUsers';
+import GetAllStudents from './GetAllStudents';
 import '../css/App.css';
 // import './toggler.css';
 // import Toggle from 'react-toggle';
@@ -17,7 +17,7 @@ import '../css/App.css';
 
 // import Advertiser from './Advertiser';
 
-class StudentDashboard extends Component {
+class StudentClassDashboard extends Component {
 
     handleChange(event, myprops) {
         // do something with event.target.checked
@@ -57,4 +57,4 @@ class StudentDashboard extends Component {
   }
 }
 
-export default connect(state => state, actions)(StudentDashboard);
+export default connect(state => state, actions)(StudentClassDashboard);
