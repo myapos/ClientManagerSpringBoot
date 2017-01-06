@@ -5,56 +5,38 @@ import * as actions from '../actions/';
 import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
-
-const rows = [
-  ['a1', 'b1', 'c1'],
-  ['a2', 'b2', 'c2'],
-  ['a3', 'b3', 'c3'],
-  // .... and more
-];
-
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 class DataTable extends Component {
 
-    handleChange(event, myprops) {
-        // do something with event.target.checked
-        console.log("hey from handlechange ", event);
-        if (event.data) {
-            event.toggleState(event);
-        }
-        console.log("changed state succesfully");
-    };
-
-  cancelFunction(){
-    console.log("hey form cancel function");
-    //redirect to main DeleteUser page
-    window.parent.location.href= "/";
-   }
   render () {
+    const data = this.props.saved_data.students;
+    data.map((obj)=>{
+      //debugger;
+      let date=new Date(obj.dateOfBirth);
+      let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g);
+      obj.dateOfBirth = formatedDate;
+    });
+
     return (
-            <Table
-              rowHeight={50}
-              rowsCount={rows.length}
-              width={500}
-              height={500}
-              headerHeight={50}>
-              <Column
-                header={<Cell>Col 1</Cell>}
-                cell={<Cell>Column 1 static content</Cell>}
-                width={2000}
-              />
-              <Column
-                header={<Cell>Col 2</Cell>}
-                cell={<Cell>Column 2 static content</Cell>}
-                width={1000}
-              />
-              <Column
-                header={<Cell>Col 3</Cell>}
-                cell={<Cell>Column 3 static content</Cell>}
-                width={2000}
-              />
-            </Table>
-            );
+      <div>
+          <BootstrapTable data={data} hover={true}>
+          <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="phone" isKey={true} dataSort={false}>Mobile phone</TableHeaderColumn>
+          <TableHeaderColumn 
+            dataField="dateOfBirth" 
+            dataAlign="left" 
+            dataSort={false}
+          >
+            Date Of Birth
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
+          <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
+      </BootstrapTable>
+      </div>
+    );
   }
 }
 

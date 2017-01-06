@@ -17,13 +17,13 @@ package com.myapos.clientmanager.model;
 
 import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
+import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
-@RepositoryRestResource(exported = false)
-public interface RegisterRepository extends Repository<Register, Long> {
+//@RepositoryRestResource(exported = false)
+public interface RegisterRepository extends PagingAndSortingRepository<Register, Long> {
 
 	Register save(Register register);
 

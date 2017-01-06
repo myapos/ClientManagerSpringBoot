@@ -222,6 +222,12 @@ button.btn.btn-info:active, button.btn.btn-info:focus {
 .import{
   width:50%;
 }
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #590110;
+}
+
+
 /* https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form */
 
 /*form {*/

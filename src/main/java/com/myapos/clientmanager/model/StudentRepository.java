@@ -38,6 +38,6 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, L
 	@PreAuthorize("#student?.manager?.name == authentication?.name")
 	void delete(@Param("student") Student student);
 
-	Student findByFname(String fname);
+	Student findByFname(@Param("fname") String fname);
 }
 // end::code[]

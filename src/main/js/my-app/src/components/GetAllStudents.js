@@ -22,15 +22,8 @@ class GetAllStudents extends Component {
     //redirect to main dashboard page
     window.parent.location.href= "/";
    }
-   // test () {
-   //  debugger;
-   //  this.props.getAllUsers();
 
-   // }
   render () {
-    //debugger;
-    //console.log('saved_data redux:', this.props.all);
-    // this.props.getAllUsers();
     return (
       <div className="App" id="content">
         <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>

@@ -15,19 +15,19 @@
  */
 package com.myapos.clientmanager.model;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
+import org.springframework.data.repository.query.Param;
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
-@RepositoryRestResource(exported = false)
-public interface StudentClassRepository extends Repository<StudentClass, Long> {
+//@RepositoryRestResource(exported = false)
+public interface StudentClassRepository extends PagingAndSortingRepository<StudentClass, Long> {
 
 	StudentClass save(StudentClass studentClass);
 
-	StudentClass findBydescription(String description);
+	StudentClass findBydescription(@Param("description") String description);
 
 }
 // end::code[]
