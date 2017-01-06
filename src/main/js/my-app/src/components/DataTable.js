@@ -5,6 +5,15 @@ import * as actions from '../actions/';
 import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
+import SimpleTable from 'react-simple-table';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+var ReactBsTable = window.BootstrapTable;
+var fruitColors = [{
+  apple: 'Green',
+  peach: 'Yellow',
+  cherry: 'Red'
+}];
 
 const rows = [
   ['a1', 'b1', 'c1'],
@@ -12,7 +21,16 @@ const rows = [
   ['a3', 'b3', 'c3'],
   // .... and more
 ];
-
+   // products will be presented by react-bootstrap-table 
+const products = [{
+      id: 1,
+      name: "Item name 1",
+      price: 100
+  },{
+      id: 2,
+      name: "Item name 2",
+      price: 100
+  }];
 
 class DataTable extends Component {
 
@@ -30,31 +48,26 @@ class DataTable extends Component {
     //redirect to main DeleteUser page
     window.parent.location.href= "/";
    }
+
+// It's a data format example. 
+priceFormatter(cell, row){
+  return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
+}
+
   render () {
+    //debugger;
     return (
-            <Table
-              rowHeight={50}
-              rowsCount={rows.length}
-              width={500}
-              height={500}
-              headerHeight={50}>
-              <Column
-                header={<Cell>Col 1</Cell>}
-                cell={<Cell>Column 1 static content</Cell>}
-                width={2000}
-              />
-              <Column
-                header={<Cell>Col 2</Cell>}
-                cell={<Cell>Column 2 static content</Cell>}
-                width={1000}
-              />
-              <Column
-                header={<Cell>Col 3</Cell>}
-                cell={<Cell>Column 3 static content</Cell>}
-                width={2000}
-              />
-            </Table>
-            );
+      <div>
+          <BootstrapTable data={this.props.saved_data.students} striped={true} hover={true}>
+          <TableHeaderColumn dataField="fname" isKey={true} dataAlign="center" dataSort={true}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
+          <TableHeaderColumn dataField="dateOfBirth" dataSort={false}>Date Of Birth</TableHeaderColumn>
+          <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
+          <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
+      </BootstrapTable>
+      </div>
+    );
   }
 }
 

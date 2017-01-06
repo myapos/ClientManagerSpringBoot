@@ -40,14 +40,20 @@ public class HomeController {
 	}
 
 	@RequestMapping("/findall")
-	public String findAll(){
-		String result = "<html>";
+	public void findAll(){
+		//String result = "<html>";
 		
-		for(Student stud : studentRepository.findAll()){
-			result += "<div>" + stud.toString() + "</div>";
+		Iterable<Student> allStudents = this.studentRepository.findAll();
+		for(Student s : allStudents){
+		    //Do whatever you want
+		    System.out.println(s);
+		    //size++;
 		}
+		// for(Student stud : studentRepository.findAll()){
+		// 	result += "<div>" + stud.toString() + "</div>";
+		// }
 		
-		return result + "</html>";
+		//return result + "</html>";
 	}
 
 
