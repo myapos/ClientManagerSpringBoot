@@ -3,7 +3,7 @@ import * as actions from '../actions/';
 const reducer = (state, action) => {
 	const { type/*, advertiserIndex, id, siteIds*/} = action;
 	//debugger;
-	let newSelected;
+	//let classes;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
@@ -37,79 +37,30 @@ const reducer = (state, action) => {
 	             // all:state.saved_data.students
 	       }
 	    case actions.STUDENT_CLASS_DASHBOARD:
-	       return {
+	    var classes;
+	    console.log("hey from student class dashboard");
+	    const root = 'http://localhost:8181/api/studentClasses';
+		fetch(root, { 
+		   method: 'get', 
+		   mode: 'cors',
+		   cache: 'default',
+		   headers: {
+		     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+		     'Content-Type': 'application/json'//,
+			  //"Content-Length": content.length.toString(),
+			  //"X-Custom-Header": "ProcessThisImmediately"
+		 }
+		 }).then (res => res.json())
+		.then(res => { 
+
+			console.log("classes from server: ",res);
+			classes = res._embedded;
+		});
+		debugger;
+		return {
 	            ...state,
-	             // all:state.saved_data.students
-	       }
-   
-		// case actions.ADD_ADVERTISER:
-		//  	newSelected = [...state.selected, {
-		//  		id: 0,
-		//  		sites:[]
-		//  	}];
-
-		//        return {
-		//              ...state,
-		//              selected: newSelected
-		//        };
-
-		// case actions.DELETE_ADVERTISER:
-		//  	newSelected = state.selected.filter((item, index) => index !== advertiserIndex);
-
-		//        return {
-		//              ...state,
-		//              selected: newSelected
-		//        };
-
-		// case actions.CHANGE_ADVERTISER:
-		//  	newSelected = [...state.selected];
-		//  	newSelected[advertiserIndex].id = id;
-
-		//        return {
-		//              ...state,
-		//              selected: newSelected
-		//     	};
-
-		// case actions.ADD_SITES:
-		// 	//debugger;
-		//  	newSelected = [...state.selected];
-		//  	newSelected[advertiserIndex].sites=siteIds;
-
-		//        return {
-		//              ...state,
-		//              selected: newSelected
-		//        };
-
-		//  case actions.SAVE:
-		//  		//debugger;
-		//  		let url = 'http://localhost:8080/?VVS_API=1&action=save';
-		// 		var formData  = new FormData();
-		// 		formData.append('state', JSON.stringify(state.selected));
-		// 		formData.append('toggle', JSON.stringify(state.toggle));
-		// 		fetch(url, {
-		// 		    method: "POST",
-		// 		    credentials: 'include',
-		// 		    body: formData
-		// 		})
-		// 		.then (res => res.json())
-		// 		 .then(res => {
-		// 		 		console.log(res);
-		// 		 		if(res == true){
-		// 		 			window.parent.messenger.open("Your save was succesful.");
-		// 		 		}
-
-		// 		 });				 
-		// 		// .then(function (data) {
-		// 		//   console.log('Request success: ', data);
-		// 		// })
-		// 		// .catch(function (error) {
-		// 		//   console.log('Request failure: ', error);
-		// 		// });
-
-		//        return {
-		//              ...state,
-		//        };
-
+	            //classes:res._embedded   
+	    }
 		 default:
 		     return state;
 	 }
