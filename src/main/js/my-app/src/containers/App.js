@@ -16,6 +16,14 @@ import NotFound from '../components/NotFound';
 
 class App extends Component {
  
+ constructor (props) {
+    super(props);
+
+    this.state = {
+      ...props,
+    }
+  }
+  
   render() {
 
     return (

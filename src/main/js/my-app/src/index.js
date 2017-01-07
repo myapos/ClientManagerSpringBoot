@@ -34,7 +34,7 @@ fetch(root, {
   const placeholder = document.getElementById('react');
 
   const initialState = {
-    saved_data: saved_data
+    saved_data
 	};
 
 /*  const store = configureStore(initialState); */     
