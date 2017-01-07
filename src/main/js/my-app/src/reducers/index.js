@@ -1,8 +1,7 @@
 import * as actions from '../actions/';
 
-const reducer = (state, action) => {
-	const { type/*, advertiserIndex, id, siteIds*/} = action;
-	//debugger;
+const reducer = (state = {}, action) => {
+	const { type, studentClasses} = action;
 	//let classes;
 
 	switch (type) {
@@ -37,30 +36,16 @@ const reducer = (state, action) => {
 	             // all:state.saved_data.students
 	       }
 	    case actions.STUDENT_CLASS_DASHBOARD:
-	    var classes;
-	    console.log("hey from student class dashboard");
-	    const root = 'http://localhost:8181/api/studentClasses';
-		fetch(root, { 
-		   method: 'get', 
-		   mode: 'cors',
-		   cache: 'default',
-		   headers: {
-		     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
-		     'Content-Type': 'application/json'//,
-			  //"Content-Length": content.length.toString(),
-			  //"X-Custom-Header": "ProcessThisImmediately"
-		 }
-		 }).then (res => res.json())
-		.then(res => { 
-
-			console.log("classes from server: ",res);
-			classes = res._embedded;
-		});
-		debugger;
 		return {
 	            ...state,
-	            //classes:res._embedded   
+	            studentClasses:[{}]
 	    }
+	    case actions.DATA_FETCHED:
+	   		return {
+	   			...state,
+	            studentClasses  
+	   		}
+
 		 default:
 		     return state;
 	 }

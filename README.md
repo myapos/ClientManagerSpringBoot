@@ -30,4 +30,4 @@ Bootstrap
 
 Database: PostgreSQL
 
-Useful tools: Liquibase, phppgadmin
+Useful tools: Liquibase, phppgadmin, sagas, react-bootstrap-table
