@@ -8,7 +8,7 @@ const reducer = (state = {}, action) => {
 		case actions.GET_ALL_STUDENTS:
 	       return {
 	             ...state,
-	             all:state.saved_data.students
+	             all:state.saved_student
 	       }
 	    case actions.ADD_STUDENT:
 	       return {
