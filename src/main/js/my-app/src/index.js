@@ -48,7 +48,7 @@ const fetch2 = fetch(url2, {
     //  });
 
 Promise.all([fetch1, fetch2]).then(values => { 
-  debugger;
+  //debugger;
   console.log(values);  
   const placeholder = document.getElementById('react');
 

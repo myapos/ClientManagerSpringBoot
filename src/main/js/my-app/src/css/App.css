@@ -227,7 +227,12 @@ button.btn.btn-info:active, button.btn.btn-info:focus {
     background-color: #590110;
 }
 
-
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: black;
+}
 /* https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form */
 
 /*form {*/
