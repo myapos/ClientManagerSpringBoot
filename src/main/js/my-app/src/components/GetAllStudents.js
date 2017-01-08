@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
 import '../css/App.css';
-import DataTable from './DataTable';
+import StudentDataTable from './StudentDataTable';
 
 class GetAllStudents extends Component {
 
@@ -30,7 +30,7 @@ class GetAllStudents extends Component {
 
         <div className="labelContainer">
           <legend><span>Προβολή πελατολογίου</span><Link className="back" to="/"> Πίσω </Link></legend>
-          <DataTable/>
+          <StudentDataTable/>
         </div>
       </div>
     );

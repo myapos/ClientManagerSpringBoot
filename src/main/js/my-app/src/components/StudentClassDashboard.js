@@ -11,6 +11,7 @@ import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';
 import '../css/App.css';
+import StudentClassesDataTable from './classes/StudentClassesDataTable';
 // import './toggler.css';
 // import Toggle from 'react-toggle';
 // react select
@@ -44,7 +45,7 @@ class StudentClassDashboard extends Component {
                 <div className="col-md-6">
                     <div id="custom-search-input">
                         <div className="input-group col-md-12">
-                           
+                          <StudentClassesDataTable/>   
                         </div>
                     </div>
                 </div>
