@@ -1,7 +1,7 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-	const { type, studentClasses} = action;
+	const { type, dataStudentClasses} = action;
 	//let classes;
 
 	switch (type) {
@@ -38,12 +38,12 @@ const reducer = (state = {}, action) => {
 	    case actions.STUDENT_CLASS_DASHBOARD:
 		return {
 	            ...state,
-	            studentClasses:[{}]
+	            dataStudentClasses:[{}]
 	    }
-	    case actions.DATA_FETCHED:
+	    case actions.STUDENT_CLASS_DATA_FETCHED:
 	   		return {
 	   			...state,
-	            studentClasses  
+	            dataStudentClasses  
 	   		}
 
 		 default:

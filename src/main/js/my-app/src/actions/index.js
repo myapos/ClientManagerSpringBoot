@@ -5,7 +5,7 @@ export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
 export const EXPORT_STUDENTS = 'EXPORT_STUDENTS';
 export const STUDENT_CLASS_DASHBOARD = 'STUDENT_CLASS_DASHBOARD';
-export const DATA_FETCHED = 'DATA_FETCHED';
+export const STUDENT_CLASS_DATA_FETCHED = 'STUDENT_CLASS_DATA_FETCHED';
 
 export function getAllStudents() {
   //debugger;
