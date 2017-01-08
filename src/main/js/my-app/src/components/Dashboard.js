@@ -47,7 +47,7 @@ class Dashboard extends Component {
           <Link onClick={this.props.getAllStudents} className="buttonBoxes"  to="/getallstudents"> 
             Πελατολόγιο
           </Link>
-          <Link onClick={this.props.addStudent} className="buttonBoxes"to="/adduser">
+{/*          <Link onClick={this.props.addStudent} className="buttonBoxes"to="/adduser">
             Προσθήκη πελάτη
           </Link>
           <Link onClick={this.props.deleteStudent} className="buttonBoxes" to="/deleteuser">
@@ -61,7 +61,7 @@ class Dashboard extends Component {
           </Link>
           <Link onClick={this.props.exportStudents} className="buttonBoxes" to="/exportusers">
             Εξαγωγή πελατών
-          </Link>
+          </Link>*/}
           <Link onClick={this.props.studentClassDashboard} className="buttonBoxes" to="/studentclassdashboard">
             Διαχείριση τμημάτων
           </Link>
