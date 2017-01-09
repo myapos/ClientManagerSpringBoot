@@ -40,6 +40,19 @@ function* getStudentClasses () {
 	})
 }
 
+function* saveNewStudentClass () {
+
+	console.log('saveNewStudentClass');
+	const state = yield select();
+	const saveNewClass = yield call(api.saveNewClass, state);
+
+	debugger;
+	yield put({
+		type: actions.SAGAS_SAVE_NEW_CLASS,
+		saveNewClass
+	})
+}
+
 /*function* getStudentClassesById (id) {
 
 	console.log('getStudentClasses');
@@ -82,7 +95,7 @@ function* rootSaga () {
 	yield getDataFromServer();
 	//debugger;
 	yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
-	//yield takeEvery(actions.STUDENT_CLASS_BY_ID, getStudentClassesById);
+	yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
 }
 
 export default rootSaga;

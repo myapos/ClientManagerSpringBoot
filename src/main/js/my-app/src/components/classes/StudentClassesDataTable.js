@@ -17,7 +17,7 @@ function afterSearch (searchText, result){
   }
 }
 
-const onAfterInsertRow = (row) => {
+function onAfterInsertRow(row, obj) {
   let newRowStr = '';
 
   for (const prop in row) {
@@ -25,39 +25,9 @@ const onAfterInsertRow = (row) => {
   }
   alert('The new row is:\n ' + newRowStr);
   debugger;
-  console.log("insert data to database");
+  console.log("insert data to database",this.props);
+  this.props.saveNewClass();
 
-
-  // this.props.studentClassById();
-
-  //   var json = {
-  //     json: JSON.stringify({
-  //         description: "Women's corner",
-  //         studentClass: api.getStudentClassesById(1)
-  //     }),
-  //     delay: 3
-  //   };
-
-  //   fetch('http://localhost:8181/api/studentClasses/', { 
-  //      method: 'post', 
-  //      mode: 'cors',
-  //      cache: 'default',
-  //      headers: {
-  //        'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
-  //        'Content-Type': 'application/json'
-  //      },
-  //       body: 'json=' + encodeURI(JSON.stringify(json.json)) + '&delay=' + json.delay
-  //   })
-  //   .then(function (response) {
-  //     debugger;
-  //     return response.json();
-  //   })
-  //   .then(function (result) {
-  //       alert(result);
-  //   })
-  //   .catch (function (error) {
-  //       console.log('Request failed', error);
-  //   });
 }
 
 const onAfterDeleteRow = (rowKeys) => {
@@ -65,30 +35,37 @@ const onAfterDeleteRow = (rowKeys) => {
   console.log("delete data from database");
 }
 
-const options = {
-  afterInsertRow: onAfterInsertRow,   // A hook for after insert rows
-  afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
-};
-
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
 };
 
 class StudentClassesDataTable extends Component {
+  // constructor (props) {
+  //   super(props);
+
+  //   this.state = {
+  //     ...props,
+  //   }
+  // }
 
   render () {
-    debugger;
+    //debugger;
     const data = this.props.saved_studentClasses;
     console.log(data);
-    
+    onAfterInsertRow.bind(this);
+    const options = {
+      afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
+      afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
+    };
     //preprocess data
     data.map((obj, index)=>{
       console.log("cur index:"+index);
       obj.index = (index+1);
     });
     //debugger;
-
+    //options.that = this;
+    //debugger;
     return (
       <div>
           <BootstrapTable data={data} hover={true} deleteRow={ true } insertRow={ true } selectRow={ selectRowProp } options={ options }>

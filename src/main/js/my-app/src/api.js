@@ -77,6 +77,25 @@ export const getPayeds = () => fetch(
 		const payeds = res._embedded.payeds;
 		return payeds;
 	});
+
+export const saveNewClass = () => fetch(
+	BASE_URL + '/api/studentClasses',{ 
+	   method: 'get', 
+	   mode: 'cors',
+	   cache: 'default',
+	   headers: {
+	     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+	     'Content-Type': 'application/json'//,
+		  //"Content-Length": content.length.toString(),
+		  //"X-Custom-Header": "ProcessThisImmediately"
+	   }
+	})
+   .then (res => res.json())
+   .then(res => { 
+		console.log("studentClasses from server: ",res);
+		const payeds = res._embedded.payeds;
+		return payeds;
+	});
 /*export const getStudentClassesById = (id) => fetch(
 	BASE_URL + '/api/studentClasses/'+id,{ 
 	   method: 'get', 

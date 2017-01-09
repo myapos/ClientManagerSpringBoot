@@ -3,7 +3,7 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, 
 		initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
-		dataFetchedStudentClasses
+		dataFetchedStudentClasses, saveNewClass
 
 	} = action;
 	//let classes;
@@ -62,6 +62,12 @@ const reducer = (state = {}, action) => {
 	            initDataStudents,
 	            initDataPayeds,
 	            initDataRegisters  
+	   	}
+	   	case actions.SAVE_NEW_CLASS:
+	   	debugger;
+	   		return {
+	   			...state,
+	            saveNewClass 
 	   	}
 		default:
 		     return state;

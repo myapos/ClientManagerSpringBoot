@@ -93,6 +93,13 @@ fetch(url1, {
               //return classes;
                  const placeholder = document.getElementById('react');
                  //debugger;
+                  // const initialState = {
+                  //   saved_student:parent.students,
+                  //   saved_studentClasses:parent.studentClasses,
+                  //   saved_registers:parent.registers,
+                  //   saved_payeds:parent.payeds
+                  // };
+                  
                   const initialState = {
                     saved_student:parent.students,
                     saved_studentClasses:parent.studentClasses,
