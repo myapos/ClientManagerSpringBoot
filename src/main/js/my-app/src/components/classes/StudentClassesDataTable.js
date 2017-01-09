@@ -28,36 +28,36 @@ const onAfterInsertRow = (row) => {
   console.log("insert data to database");
 
 
-  this.props.studentClassById();
+  // this.props.studentClassById();
 
-    var json = {
-      json: JSON.stringify({
-          description: "Women's corner",
-          studentClass: api.getStudentClassesById(1)
-      }),
-      delay: 3
-    };
+  //   var json = {
+  //     json: JSON.stringify({
+  //         description: "Women's corner",
+  //         studentClass: api.getStudentClassesById(1)
+  //     }),
+  //     delay: 3
+  //   };
 
-    fetch('http://localhost:8181/api/studentClasses/', { 
-       method: 'post', 
-       mode: 'cors',
-       cache: 'default',
-       headers: {
-         'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
-         'Content-Type': 'application/json'
-       },
-        body: 'json=' + encodeURI(JSON.stringify(json.json)) + '&delay=' + json.delay
-    })
-    .then(function (response) {
-      debugger;
-      return response.json();
-    })
-    .then(function (result) {
-        alert(result);
-    })
-    .catch (function (error) {
-        console.log('Request failed', error);
-    });
+  //   fetch('http://localhost:8181/api/studentClasses/', { 
+  //      method: 'post', 
+  //      mode: 'cors',
+  //      cache: 'default',
+  //      headers: {
+  //        'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+  //        'Content-Type': 'application/json'
+  //      },
+  //       body: 'json=' + encodeURI(JSON.stringify(json.json)) + '&delay=' + json.delay
+  //   })
+  //   .then(function (response) {
+  //     debugger;
+  //     return response.json();
+  //   })
+  //   .then(function (result) {
+  //       alert(result);
+  //   })
+  //   .catch (function (error) {
+  //       console.log('Request failed', error);
+  //   });
 }
 
 const onAfterDeleteRow = (rowKeys) => {
@@ -78,14 +78,17 @@ const selectRowProp = {
 class StudentClassesDataTable extends Component {
 
   render () {
+    debugger;
     const data = this.props.saved_studentClasses;
+    console.log(data);
+    
     //preprocess data
     data.map((obj, index)=>{
       console.log("cur index:"+index);
-      obj.index = (index);
+      obj.index = (index+1);
     });
     //debugger;
-    console.log(data);
+
     return (
       <div>
           <BootstrapTable data={data} hover={true} deleteRow={ true } insertRow={ true } selectRow={ selectRowProp } options={ options }>
