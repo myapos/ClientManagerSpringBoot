@@ -1,7 +1,7 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-	const { type, dataStudentClasses} = action;
+	const { type, dataStudentClasses, dataStudentClass} = action;
 	//let classes;
 
 	switch (type) {
@@ -45,8 +45,13 @@ const reducer = (state = {}, action) => {
 	   			...state,
 	            dataStudentClasses  
 	   		}
-
-		 default:
+	   	case actions.STUDENT_CLASS_DATA_BY_ID_FETCHED:
+	   		return {
+	   			...state,
+	            dataStudentClass  
+	   	}	
+		
+		default:
 		     return state;
 	 }
 };

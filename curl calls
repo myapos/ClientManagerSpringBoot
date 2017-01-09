@@ -1,0 +1,133 @@
+curl -v -u myapos:Apostolakis1981 localhost:8181/api/studentClasses/
+curl -v -u myapos:Apostolakis1981 localhost:8181/api/students/
+
+https://spring.io/guides/gs/accessing-data-rest/
+
+$ curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins" }' http://localhost:8080/people
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+Location: http://localhost:8080/people/1
+Content-Length: 0
+Date: Wed, 26 Feb 2014 20:26:55 GMT
+
+
+curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{   "description" : "KVMG", "studentClass":"http://localhost:8181/api/studentClasses/1"}' http://localhost:8181/api/studentClasses
+
+curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{ "description" : "KVMG", "studentClass":"http://localhost:8181/api/studentClasses/44"}' http://localhost:8181/api/studentClasses
+
+
+
+curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{   "description" : "Women's corner", "studentClass":"http://localhost:8181/api/studentClasses/45"}' http://localhost:8181/api/studentClasses
+
+ curl -v -u myapos:Apostolakis1981 -X DELETE http://localhost:8181/api/registers/2
+
+ curl -v -u myapos:Apostolakis1981 -X DELETE http://localhost:8181/api/payeds/2
+
+///////////douleuei
+
+curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes", "register":"http://localhost:8181/api/registers/2"}' http://localhost:8181/api/payeds
+
+///////////douleuei
+
+http://localhost:8181/api/payeds?payment=true&dateOfPayment=2013-04-02T08:35:42.000+0000&notes=dummy_notes&register=http://localhost:8181/api/registers/2
+
+
+
+
+
+curl -X POST -vu myapos:Apostolakis1981 http://localhost:8181/api/payeds -H "Accept: application/json" -d "true&02-04-2013_ 11:35:42&dummy_notes&2"
+
+
+
+http://stackoverflow.com/questions/34583515/spring-jpa-rest-one-to-many
+
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "addresses": ["http://localhost:8080/addresses/1","http://localhost:8080/addresses/2"]}' http://localhost:8080/people
+
+
+
+http://stackoverflow.com/questions/29775797/fetch-post-json-data
+
+
+var payload = {
+    a: 1,
+    b: 2
+};
+
+var data = new FormData();
+data.append( "json", JSON.stringify( payload ) );
+
+fetch("/echo/json/",
+{
+    method: "POST",
+    body: data
+})
+.then(function(res){ return res.json(); })
+.then(function(data){ alert( JSON.stringify( data ) ) })
+
+
+var json = {
+    json: JSON.stringify({
+        a: 1,
+        b: 2
+    }),
+    delay: 3
+};
+
+fetch('/echo/json/', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'x-www-form-urlencoded'
+    },
+    body: 'json=' + encodeURI(JSON.stringify(json.json)) + '&delay=' + json.delay
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (result) {
+    alert(result);
+})
+.catch (function (error) {
+    console.log('Request failed', error);
+});
+
+//////////////////////////////curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{ "description" : "KVMG", "studentClass":"http://localhost:8181/api/studentClasses/44"}' http://localhost:8181/api/studentClasses
+let test = fetch("http://localhost:8181/api/studentClasses/1", { 
+   method: 'get', 
+   mode: 'cors',
+   cache: 'default',
+   headers: {
+     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+     'Content-Type': 'application/json'
+   }
+ })
+.then (res => res.json());
+
+var json = {
+    json: JSON.stringify({
+        description: "Women's corner",
+        studentClass: test
+    }),
+    delay: 3
+};
+
+fetch('http://localhost:8181/api/studentClasses/', { 
+   method: 'get', 
+   mode: 'cors',
+   cache: 'default',
+   headers: {
+     'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+     'Content-Type': 'application/json'
+   },
+    body: 'json=' + encodeURI(JSON.stringify(json.json)) + '&delay=' + json.delay
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (result) {
+    alert(result);
+})
+.catch (function (error) {
+    console.log('Request failed', error);
+});
+
