@@ -10,7 +10,7 @@ Location: http://localhost:8080/people/1
 Content-Length: 0
 Date: Wed, 26 Feb 2014 20:26:55 GMT
 
-
+//douleuei
 curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{   "description" : "KVMG", "studentClass":"http://localhost:8181/api/studentClasses/1"}' http://localhost:8181/api/studentClasses
 
 curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{ "description" : "KVMG", "studentClass":"http://localhost:8181/api/studentClasses/44"}' http://localhost:8181/api/studentClasses
@@ -112,7 +112,7 @@ var json = {
 };
 
 fetch('http://localhost:8181/api/studentClasses/', { 
-   method: 'get', 
+   method: 'post', 
    mode: 'cors',
    cache: 'default',
    headers: {
