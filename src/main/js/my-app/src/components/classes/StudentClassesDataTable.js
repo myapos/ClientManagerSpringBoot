@@ -24,9 +24,9 @@ function onAfterInsertRow(row, obj) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
   alert('The new row is:\n ' + newRowStr);
-  debugger;
+  //debugger;
   console.log("insert data to database",this.props);
-  this.props.saveNewClass();
+  this.props.saveNewClass(row);
 
 }
 

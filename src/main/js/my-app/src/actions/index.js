@@ -54,10 +54,11 @@ export function studentClassDashboard() {
     type: STUDENT_CLASS_DASHBOARD,
   };
 }
-export function saveNewClass() {
-  debugger;
+export function saveNewClass(row) {
+  //debugger;
   return {
     type: SAVE_NEW_CLASS,
+    row
   };
 }
 /*export function studentClassById() {
