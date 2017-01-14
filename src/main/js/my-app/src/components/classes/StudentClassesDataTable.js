@@ -9,6 +9,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import * as api from '../../api';
 
+parent.classesPair = {};
+
 function afterSearch (searchText, result){
   console.log('Your search text is ' + searchText);
   console.log('Result is:');
@@ -36,6 +38,14 @@ function onAfterDeleteRow(rowKeys) {
   this.props.deleteClass(rowKeys);
 }
 
+Object.size = function(obj) {
+  var size = 0, key;
+  for (key in obj) {
+      if (obj.hasOwnProperty(key)) size++;
+  }
+  return size;
+};
+
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
@@ -44,13 +54,28 @@ const selectRowProp = {
 
 
 class StudentClassesDataTable extends Component {
-  // constructor (props) {
-  //   super(props);
 
-  //   this.state = {
-  //     ...props,
-  //   }
-  // }
+
+getSubClass(url, parentDesc, obj) {
+  const fetch1 = 
+  fetch(url, { 
+     method: 'get', 
+     mode: 'cors',
+     cache: 'default',
+     headers: {
+       'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+       'Content-Type': 'application/json'
+     }
+   })
+  .then (res => res.json())
+  .then(res => { 
+    
+    console.log("data from server: ",res);
+    parent.classesPair[parentDesc] = res;
+
+  });
+ 
+}
 
   render () {
     //debugger;
@@ -64,20 +89,69 @@ class StudentClassesDataTable extends Component {
     };
     //preprocess data
     data.map((obj, index)=>{
+      //debugger;
       console.log("cur index:"+index);
       obj.index = (index+1);
+      //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
+
+      obj.ManyToOne=obj._links.studentClass[1].href;
+      this.getSubClass(obj.ManyToOne, obj.description, obj);
+      //obj.subClassDescription = response.description;
+      //debugger;
+      //get description of subclass-- this description lives in obj.ManyToOne
+
     });
-    //debugger;
-    //options.that = this;
-    //debugger;
-    return (
+      //check if async calls ended
+    if(Object.size(parent.classesPair)>0){
+      console.log("End of async calls");
+       
+      //obj.classesPair = parent.classesPair;
+      for (let j=0; j<data.length; j++){ 
+         for (var key in parent.classesPair) {
+            if (parent.classesPair.hasOwnProperty(key)) {
+
+              if(data[j].description == key) {
+                //debugger;
+                data[j].subClassDescription = parent.classesPair[key].description;
+                console.log(key + " -> " + parent.classesPair[key]);
+              }
+              
+            }
+        }
+      }
+     return (
       <div>
           <BootstrapTable data={data} hover={true} deleteRow={ true } insertRow={ true } selectRow={ selectRowProp } options={ options }>
             <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
+            <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
           </BootstrapTable>
       </div>
     );
+    }
+
+    return (
+      <div>
+        <p> Please wait while getting data from database........ </p>
+      </div>
+    )
+
+    //options.that = this;
+
+    //wait for async calls to fill all parentPairs
+    //while()
+    // Get the size of an object
+    //var size = Object.size(parent.classesPair);
+
+    // while(size<data.length){
+    //   console.log("Waiting for async calls......");
+    //   size = Object.size(parent.classesPair);
+    //   debugger;
+    // }
+    // console.log("All async calls ended");
+    //debugger;
+
+
   }
 }
 
