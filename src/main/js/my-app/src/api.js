@@ -139,7 +139,35 @@ export const saveNewClass = (row) => {
 	// });
 
 }
+export const deleteStudentClass = (classId) => {
 
+		console.log("hey from api.deleteStudentClass. Preparing to delete class with id:",classId);
+		//  var request1 = createCORSRequest1("post", "http://localhost:8181/api/studentClasses");
+
+		// if (request1){
+		//     request1.onload = function(){
+		//         //do something with request.responseText
+		//         console.log("sssssss:",request1.responseText);
+		//         //parent.students = JSON.parse(request.responseText);
+		//         //debugger;
+
+		//     };
+
+		//     request1.open("post", "http://localhost:8181/api/studentClasses");
+		//     request1.setRequestHeader("Authorization", 'Basic '+btoa('myapos:Apostolakis1981'));
+		//     request1.setRequestHeader("Content-type","application/json");
+  //       	request1.contentType = "application/json";
+  //       	debugger;
+  //       	//let obj = JSON.parse(request2.responseText);
+  //       	//obj.id=1;
+  //       	let body= JSON.stringify({
+		//  		"description": row.row.description,
+		//         "studentClass": "http://localhost:8181/api/studentClasses/1"		
+		// 	});
+		//     request1.send(body);
+		// }
+
+}
 
 /*export const getStudentClassesById = (id) => fetch(
 	BASE_URL + '/api/studentClasses/'+id,{ 

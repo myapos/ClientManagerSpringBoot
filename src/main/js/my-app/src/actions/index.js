@@ -9,6 +9,8 @@ export const STUDENT_CLASS_DATA_FETCHED = 'STUDENT_CLASS_DATA_FETCHED';
 export const DATA_INITIALIZATION = 'DATA_INITIALIZATION';
 export const SAVE_NEW_CLASS = 'SAVE_NEW_CLASS';
 export const SAGAS_SAVE_NEW_CLASS = 'SAGAS_SAVE_NEW_CLASS';
+export const DELETE_CLASS = 'DELETE_CLASS';
+export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
 //export const STUDENT_CLASS_BY_ID = 'STUDENT_CLASS_BY_ID';
 //export const STUDENT_CLASS_DATA_BY_ID_FETCHED = 'STUDENT_CLASS_DATA_BY_ID_FETCHED';
 
@@ -61,6 +63,14 @@ export function saveNewClass(row) {
     row
   };
 }
+export function deleteClass(classId) {
+  //debugger;
+  return {
+    type: DELETE_CLASS,
+    classId
+  };
+}
+
 /*export function studentClassById() {
   //debugger;
   return {

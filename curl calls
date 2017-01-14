@@ -32,16 +32,23 @@ curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" 
 http://localhost:8181/api/payeds?payment=true&dateOfPayment=2013-04-02T08:35:42.000+0000&notes=dummy_notes&register=http://localhost:8181/api/registers/2
 
 
-
-
-
 curl -X POST -vu myapos:Apostolakis1981 http://localhost:8181/api/payeds -H "Accept: application/json" -d "true&02-04-2013_ 11:35:42&dummy_notes&2"
-
 
 
 http://stackoverflow.com/questions/34583515/spring-jpa-rest-one-to-many
 
 curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "addresses": ["http://localhost:8080/addresses/1","http://localhost:8080/addresses/2"]}' http://localhost:8080/people
+
+//put,patch,delete
+
+https://spring.io/guides/gs/accessing-data-rest/
+
+//douleuei GIA TO DELETE
+curl -v -u myapos:Apostolakis1981 -X DELETE http://localhost:8181/api/studentClasses/75
+
+
+//DOULEUEI GIA TO UPDATE
+curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
 
 
 

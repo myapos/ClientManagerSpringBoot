@@ -17,7 +17,7 @@ function afterSearch (searchText, result){
   }
 }
 
-function onAfterInsertRow(row, obj) {
+function onAfterInsertRow(row) {
   let newRowStr = '';
 
   for (const prop in row) {
@@ -30,15 +30,19 @@ function onAfterInsertRow(row, obj) {
 
 }
 
-const onAfterDeleteRow = (rowKeys) => {
+function onAfterDeleteRow(rowKeys) {
+  debugger;
   alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database");
+  console.log("delete data from database",this.props);
+  this.props.deleteClass(rowKeys);
 }
 
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
 };
+
+
 
 class StudentClassesDataTable extends Component {
   // constructor (props) {
@@ -53,10 +57,11 @@ class StudentClassesDataTable extends Component {
     //debugger;
     const data = this.props.saved_studentClasses;
     console.log(data);
-    onAfterInsertRow.bind(this);
+    // onAfterInsertRow.bind(this);
+    // onAfterDeleteRow.bind(this);
     const options = {
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
-      afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
+      afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
     //preprocess data
     data.map((obj, index)=>{

@@ -3,7 +3,7 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, 
 		initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
-		dataFetchedStudentClasses, row
+		dataFetchedStudentClasses, row, classId
 
 	} = action;
 	//let classes;
@@ -68,6 +68,12 @@ const reducer = (state = {}, action) => {
 	   		return {
 	   			...state,
 	            row 
+	   	}
+	    case actions.DELETE_CLASS:
+	   	//debugger;
+	   		return {
+	   			...state,
+	            classId 
 	   	}
 		default:
 		     return state;

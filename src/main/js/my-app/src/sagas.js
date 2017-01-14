@@ -53,6 +53,19 @@ function* saveNewStudentClass () {
 	})
 }
 
+function* deleteStudentClass () {
+
+	console.log('deleteStudentClass');
+	const state = yield select();
+	const deleteStudentClass = yield call(api.deleteStudentClass, state);
+
+	//debugger;
+	yield put({
+		type: actions.SAGAS_DELETE_CLASS,
+		deleteStudentClass
+	})
+}
+//deleteStudentClass
 /*function* getStudentClassesById (id) {
 
 	console.log('getStudentClasses');
@@ -96,6 +109,7 @@ function* rootSaga () {
 	//debugger;
 	yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
 	yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
+	yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);
 }
 
 export default rootSaga;
