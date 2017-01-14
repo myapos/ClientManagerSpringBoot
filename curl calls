@@ -55,8 +55,13 @@ curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d
 curl -v -u myapos:Apostolakis1981 http://localhost:8181/api/studentClasses/search/findBydescription?description=kettlebell
 
 
-
+https://allenfang.github.io/react-bootstrap-table/example.html
 http://stackoverflow.com/questions/29775797/fetch-post-json-data
+
+
+
+https://allenfang.github.io/react-bootstrap-table/example.html#custom
+
 
 
 var payload = {
