@@ -52,7 +52,7 @@ curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d
 
 //find by description curl call
 
-curl -v -u myapos:Apostolakis1981 http://localhost:8181/api/studentClasses/search/findBydescription?description=KVMG
+curl -v -u myapos:Apostolakis1981 http://localhost:8181/api/studentClasses/search/findBydescription?description=kettlebell
 
 
 

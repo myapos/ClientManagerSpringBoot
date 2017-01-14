@@ -10,6 +10,7 @@ import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-a
 import * as api from '../../api';
 
 parent.classesPair = {};
+parent.loaded=0;
 
 function afterSearch (searchText, result){
   console.log('Your search text is ' + searchText);
@@ -29,7 +30,6 @@ function onAfterInsertRow(row) {
   //debugger;
   console.log("insert data to database",this.props);
   this.props.saveNewClass(row);
-
 }
 
 function onAfterDeleteRow(rowKeys) {
@@ -51,6 +51,10 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
+const cellEditProp = {
+  mode: 'click',
+  blurToSave: true
+};
 
 
 class StudentClassesDataTable extends Component {
@@ -101,10 +105,13 @@ getSubClass(url, parentDesc, obj) {
       //get description of subclass-- this description lives in obj.ManyToOne
 
     });
-      //check if async calls ended
+    //check if async calls ended
+    //wait for data to be retrieved from database
+    //setTimeout(function(){ console.log("wait for a while"); }, 3000);  
+    console.log("size of pairs:",Object.size(parent.classesPair));
     if(Object.size(parent.classesPair)>0){
       console.log("End of async calls");
-       
+      parent.loaded=1; 
       //obj.classesPair = parent.classesPair;
       for (let j=0; j<data.length; j++){ 
          for (var key in parent.classesPair) {
@@ -115,13 +122,12 @@ getSubClass(url, parentDesc, obj) {
                 data[j].subClassDescription = parent.classesPair[key].description;
                 console.log(key + " -> " + parent.classesPair[key]);
               }
-              
             }
         }
       }
      return (
       <div>
-          <BootstrapTable data={data} hover={true} deleteRow={ true } insertRow={ true } selectRow={ selectRowProp } options={ options }>
+          <BootstrapTable data={data} hover={true} deleteRow={ true } cellEdit={ cellEditProp } insertRow={ true } selectRow={ selectRowProp } options={ options }>
             <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
             <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
@@ -130,6 +136,23 @@ getSubClass(url, parentDesc, obj) {
     );
     }
 
+    //restrict to only one refresh of the page flag window.performance.navigation.type will be one if page is refreshed
+
+    if ((Object.size(parent.classesPair)==0)&&(window.performance.navigation.type==0)){
+
+      setTimeout(function(){ 
+        console.log("waited for 5s. Page is reloading"); 
+        //window.location.reload(true);
+        //parent.loaded==1;
+        console.log("size of pairs:", Object.size(parent.classesPair)); 
+        if(Object.size(parent.classesPair)>0){
+          window.location.reload(true);
+        }
+    }, 5000);  
+
+    }
+    
+    //debugger;
     return (
       <div>
         <p> Please wait while getting data from database........ </p>
