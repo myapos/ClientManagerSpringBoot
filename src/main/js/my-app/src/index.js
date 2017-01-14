@@ -19,7 +19,6 @@ const pageSize = 1;
 var that = this;
 var save={};
 const init = () => {
-
 parent.students = {};
 parent.studentClasses = {};
 parent.registers = {};
