@@ -44,7 +44,7 @@ function* saveNewStudentClass () {
 
 	console.log('saveNewStudentClass');
 	const state = yield select();
-	const saveNewClass = yield call(api.saveNewClass, state);
+	const saveNewClass = yield call(api.saveNewClass, state.row);
 
 	//debugger;
 	yield put({
@@ -57,7 +57,7 @@ function* deleteStudentClass () {
 
 	console.log('deleteStudentClass');
 	const state = yield select();
-	const deleteStudentClass = yield call(api.deleteStudentClass, state);
+	const deleteStudentClass = yield call(api.deleteStudentClass, state.classId);
 
 	//debugger;
 	yield put({

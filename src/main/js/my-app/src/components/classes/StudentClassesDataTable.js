@@ -31,7 +31,6 @@ function onAfterInsertRow(row) {
 }
 
 function onAfterDeleteRow(rowKeys) {
-  debugger;
   alert('The rowkey you drop: ' + rowKeys);
   console.log("delete data from database",this.props);
   this.props.deleteClass(rowKeys);

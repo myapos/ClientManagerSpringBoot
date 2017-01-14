@@ -122,7 +122,7 @@ export const saveNewClass = (row) => {
         	//let obj = JSON.parse(request2.responseText);
         	//obj.id=1;
         	let body= JSON.stringify({
-		 		"description": row.row.description,
+		 		"description": row.description,
 		        "studentClass": "http://localhost:8181/api/studentClasses/1"		
 			});
 		    request1.send(body);
@@ -140,8 +140,19 @@ export const saveNewClass = (row) => {
 
 }
 export const deleteStudentClass = (classId) => {
+		debugger;
 
 		console.log("hey from api.deleteStudentClass. Preparing to delete class with id:",classId);
+		let rowByClassId = document.querySelectorAll('tr')[classId];
+		let description = rowByClassId.childNodes[2].innerHTML;
+
+		//find class from database by description
+		//class description has to be unique
+		//example
+		//curl -v -u myapos:Apostolakis1981 http://localhost:8181/api/studentClasses/search/findBydescription?description=kettlebell
+
+
+
 		//  var request1 = createCORSRequest1("post", "http://localhost:8181/api/studentClasses");
 
 		// if (request1){
