@@ -65,42 +65,19 @@ function* deleteStudentClass () {
 		deleteStudentClass
 	})
 }
-//deleteStudentClass
-/*function* getStudentClassesById (id) {
 
-	console.log('getStudentClasses');
+function* updateStudentClass () {
+	//debugger;
+	console.log('updateStudentClass');
 	const state = yield select();
-	const dataStudentClass = yield call(api.getStudentClassesById(id), state);
-
-
+	const desc = yield call(api.updateStudentClass, state.desc, state.descBefore, state.rowUpdate);
+	//debugger;
+	
 	yield put({
-		type: actions.STUDENT_CLASS_DATA_BY_ID_FETCHED,
-		dataStudentClass
+		type: actions.SAGAS_UPDATE_CLASS,
+		desc
 	})
 }
-*/
-// function* initializeChannels () {
-// 	console.log('getChannels');
-// 	const channels = yield call(api.getChannels);
-	
-// 	yield put({
-// 		type: actions.CHANNELS,
-// 		channels
-// 	})
-// }
-
-// function* generateReport () {
-// 	//debugger;
-// 	console.log('generateReport');
-// 	const state = yield select();
-// 	const data = yield call(api.generateReport, state);
-	
-// 	console.log(data);
-// 	yield put({
-// 		type: actions.DATA_FETCHED,
-// 		data
-// 	})
-// }
 
 function* rootSaga () {
 	console.log('saga');
@@ -110,6 +87,7 @@ function* rootSaga () {
 	yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
 	yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
 	yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);
+	yield takeEvery(actions.UPDATE_CLASS, updateStudentClass);
 }
 
 export default rootSaga;

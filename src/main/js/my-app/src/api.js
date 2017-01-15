@@ -98,7 +98,7 @@ function createCORSRequest1(method, url, data) {
 };
 
 export const saveNewClass = (row) => {
-    debugger;
+    //debugger;
     var request1 = createCORSRequest1("post", parent.BASE_URL + "/api/studentClasses");
     if (request1) {
         request1.onload = function() {
@@ -196,8 +196,100 @@ export const deleteStudentClass = (classId) => {
         			alert("Student class is deleted succesfully");
         			window.location.reload(true);
         		}
+                else{
+                    alert("The class you are trying to delete is subclass to another class. Please try to delete the parent class first");
+                }
         		//res.json()
         	})
         });
 }
 
+/*update selected class from table -- desc parameter is the description in front end table not in the database*/
+
+export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
+    //debugger;
+    console.log("hey from api.updateStudentClass. Preparing to update class",rowUpdate," with new desc:", newdesc);
+
+    //fetch call for update
+    //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
+
+
+
+    // let rowByClassId = document.querySelectorAll('tr')[classId];
+    // let description = rowByClassId.childNodes[2].innerHTML;
+    let bodyData = JSON.stringify({
+        "description": newdesc,
+        "studentClass": rowUpdate._links.self.href
+    });
+    const fetch1 = fetch(rowUpdate._links.self.href , {
+                method: 'PATCH',
+                mode: 'cors',
+                cache: 'default',
+                body: bodyData,
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => {
+            if(res.status == 200){
+
+            //debugger;
+            alert("Class is updated succsesfully. Prepare for reloading");
+            window.location.reload(true);
+    //         // }
+        }
+            //res.json()
+
+        })
+
+    // let request1 = createCORSRequest1("patch", rowUpdate._links.self.href);
+    // if (request1) {
+    //     request1.onload = function() {
+    //         //debugger;
+    //         //do something with request.responseText
+    //         // if (request1.status == 201) {
+    //         //     alert("A new record has been created in database. Page is reloading");
+    //         //     console.log("responseText:", request1.responseText);
+    //         //     window.location.reload(true);
+    //         // }
+
+    //     };
+
+    //     request1.open("PATCH", rowUpdate._links.self.href);
+    //     request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+    //     request1.setRequestHeader("Content-type", "application/json");
+    //     request1.contentType = "application/json";
+    //     request1.send(bodyData);
+    // }
+        // .then(res => {
+        //     //debugger;
+        //     console.log("update data from server: ", res);
+        // })
+    //         //parent.classesPair[parentDesc] = res;
+    //         let ar = res._links.self.href.split("/");
+    //         let s = ar.length;
+    //         let id = ar[s - 1];
+
+    //         //delete record student class with id
+
+    //         fetch(parent.BASE_URL + "/api/studentClasses/"+id, {
+    //             method: 'delete',
+    //             mode: 'cors',
+    //             cache: 'default',
+    //             headers: {
+    //                 'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         })
+    //         .then(res => { 
+    //             //debugger;
+    //             console.log(res);
+    //             if(res.status == 204){
+    //                 alert("Student class is deleted succesfully");
+    //                 window.location.reload(true);
+    //             }
+    //             //res.json()
+    //         })
+    //     });
+}
