@@ -8,10 +8,10 @@ import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import * as api from '../../api';
+//import {MyCustomBody} from './MyCustomBody';
 
 parent.classesPair = {};
 parent.loaded=0;
-
 function afterSearch (searchText, result){
   console.log('Your search text is ' + searchText);
   console.log('Result is:');
@@ -21,15 +21,19 @@ function afterSearch (searchText, result){
 }
 
 function onAfterInsertRow(row) {
+  //debugger;
+  let selectedSubClass = document.getElementById("mySelect").value;
   let newRowStr = '';
 
   for (const prop in row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
-  alert('The new row is:\n ' + newRowStr);
-  //debugger;
+ 
+  debugger;
   console.log("insert data to database",this.props);
+  row.subClassDescription = selectedSubClass;
   this.props.saveNewClass(row);
+   alert('The new row is:\n ' + row.description + " "+row.subClassDescription);
 }
 
 function onAfterDeleteRow(rowKeys) {
@@ -57,8 +61,49 @@ const cellEditProp = {
 };
 
 
+
 class StudentClassesDataTable extends Component {
 
+componentDidUpdate(){
+
+  //this.checkInterval();
+  //check if checkPeriodInMinutes has passed
+  let el = document.getElementsByClassName('form-control editor edit-text')[0];
+
+  let rows = document.querySelectorAll('tr');
+
+  let id = rows.length;
+
+  //el.setAttribute('placeholder', id);
+  el.value = rows.length;
+  console.log("modal editing:",el);
+  
+  let el2 = document.getElementsByClassName('form-group');
+  let childs = el2[2].childNodes;
+  
+  el2[2].removeChild(childs[1])
+  let input = el2[2];
+
+  //Create array of options to be added
+  //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
+
+  //Create and append select list
+  let selectList = document.createElement("select");
+  selectList.id = "mySelect";
+  selectList.className = "form-control";
+  el2[2].appendChild(selectList);
+  //childs[1] = selectList;
+  // form-control editor edit-text
+  //Create and append the options
+  //debugger;
+  for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+      let option = document.createElement("option");
+      option.value = this.props.saved_studentClasses[i].description;
+      option.text = this.props.saved_studentClasses[i].description;
+      selectList.appendChild(option);
+  }
+  //debugger;
+};
 
 getSubClass(url, parentDesc, obj) {
   const fetch1 = 
@@ -81,16 +126,20 @@ getSubClass(url, parentDesc, obj) {
  
 }
 
-  render () {
+render () {
+  
     //debugger;
     const data = this.props.saved_studentClasses;
     console.log(data);
     // onAfterInsertRow.bind(this);
     // onAfterDeleteRow.bind(this);
+
+
     const options = {
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
+
     //preprocess data
     data.map((obj, index)=>{
       //debugger;
@@ -110,6 +159,7 @@ getSubClass(url, parentDesc, obj) {
     //setTimeout(function(){ console.log("wait for a while"); }, 3000);  
     console.log("size of pairs:",Object.size(parent.classesPair));
     if(Object.size(parent.classesPair)>0){
+
       console.log("End of async calls");
       parent.loaded=1; 
       //obj.classesPair = parent.classesPair;
@@ -127,13 +177,16 @@ getSubClass(url, parentDesc, obj) {
       }
      return (
       <div>
-          <BootstrapTable data={data} hover={true} deleteRow={ true } cellEdit={ cellEditProp } insertRow={ true } selectRow={ selectRowProp } options={ options }>
+          <BootstrapTable data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>
             <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
             <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
           </BootstrapTable>
       </div>
     );
+
+    debugger;
+
     }
 
     //restrict to only one refresh of the page flag window.performance.navigation.type will be one if page is refreshed
@@ -149,32 +202,13 @@ getSubClass(url, parentDesc, obj) {
           window.location.reload(true);
         }
     }, 5000);  
-
-    }
-    
+  }
     //debugger;
     return (
       <div>
         <p> Please wait while getting data from database........ </p>
       </div>
     )
-
-    //options.that = this;
-
-    //wait for async calls to fill all parentPairs
-    //while()
-    // Get the size of an object
-    //var size = Object.size(parent.classesPair);
-
-    // while(size<data.length){
-    //   console.log("Waiting for async calls......");
-    //   size = Object.size(parent.classesPair);
-    //   debugger;
-    // }
-    // console.log("All async calls ended");
-    //debugger;
-
-
   }
 }
 

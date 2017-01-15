@@ -233,6 +233,18 @@ button, input, select, textarea {
     line-height: inherit;
     color: black;
 }
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    color: #ada6a6;
+}
+
+.modal-body {
+    position: relative;
+    padding: 15px;
+    color: #423d3d;
+}
 /* https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form */
 
 /*form {*/

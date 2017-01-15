@@ -1,6 +1,7 @@
 
 parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
-
+parent.request1 = {};
+parent.rowDescription = {};
 export const getStudentClasses = () => fetch(
         parent.BASE_URL + '/api/studentClasses', {
             method: 'get',
@@ -97,6 +98,7 @@ function createCORSRequest1(method, url, data) {
 };
 
 export const saveNewClass = (row) => {
+    debugger;
     var request1 = createCORSRequest1("post", parent.BASE_URL + "/api/studentClasses");
     if (request1) {
         request1.onload = function() {
@@ -116,11 +118,34 @@ export const saveNewClass = (row) => {
         request1.contentType = "application/json";
 
         /*this has to be fixed* sets subclass*/
-        let body = JSON.stringify({
-            "description": row.description,
-            "studentClass": "http://localhost:8181/api/studentClasses/1"
+        //find subclass by row.subClassdescription
+        const fetch2 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
+            "?description=" + row.subClassDescription, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => res.json())
+        .then(res => { 
+            //debugger;
+            console.log("data from server studentclass with select: ", res);
+            let body = JSON.stringify({
+                "description": parent.rowDescription,
+                "studentClass": res._links.studentClass[0].href
+            });//res._links.studentClass[0].href
+            parent.request1.send(body);
         });
-        request1.send(body);
+
+        // let body = JSON.stringify({
+        //     "description": row.description,
+        //     "studentClass": "http://localhost:8181/api/studentClasses/1"
+        // });
+        parent.rowDescription = row.description;
+        parent.request1 = request1;
     }
 }
 
