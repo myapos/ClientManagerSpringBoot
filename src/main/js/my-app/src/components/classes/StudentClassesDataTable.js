@@ -29,7 +29,7 @@ function onAfterInsertRow(row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
  
-  debugger;
+  //debugger;
   console.log("insert data to database",this.props);
   row.subClassDescription = selectedSubClass;
   this.props.saveNewClass(row);
@@ -55,10 +55,7 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
-const cellEditProp = {
-  mode: 'click',
-  blurToSave: true
-};
+
 
 
 
@@ -126,6 +123,27 @@ getSubClass(url, parentDesc, obj) {
  
 }
 
+beforeSaveCell(row, cellName, cellValue) {
+  // do your stuff...
+  //call action for update
+  //this.props.updateClass(row, cellValue);
+  let el = document.getElementsByClassName(" form-control editor edit-text")[2];
+  let descBefore = el.getAttribute("value");
+  this.props.updateClass(row, cellValue,descBefore);
+  //debugger;
+
+
+}
+
+afterSaveCell(row, cellName, cellValue) {
+  // do your stuff...
+  //call action for update
+  //get description before
+  //
+ 
+
+}
+
 render () {
   
     //debugger;
@@ -134,7 +152,11 @@ render () {
     // onAfterInsertRow.bind(this);
     // onAfterDeleteRow.bind(this);
 
-
+    const cellEditProp = {
+      mode: 'click',
+      beforeSaveCell: this.beforeSaveCell.bind(this),
+      afterSaveCell: this.afterSaveCell.bind(this)
+    };
     const options = {
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
@@ -185,7 +207,7 @@ render () {
       </div>
     );
 
-    debugger;
+    //debugger;
 
     }
 

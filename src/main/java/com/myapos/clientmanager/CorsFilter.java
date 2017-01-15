@@ -22,10 +22,10 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
         //response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, DELETE, OPTIONS");
         response.setHeader("Access-Control-Max-Age", "3600");
         //response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
+        response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token, X-Requested-With, X-HTTP-Method-Override");
         //response.addHeader("Access-Control-Expose-Headers", "authorization, content-type");
         response.addHeader("Access-Control-Allow-Credentials", "true");
         //Access-Control-Allow-Credentials: true

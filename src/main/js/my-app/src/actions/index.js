@@ -11,6 +11,8 @@ export const SAVE_NEW_CLASS = 'SAVE_NEW_CLASS';
 export const SAGAS_SAVE_NEW_CLASS = 'SAGAS_SAVE_NEW_CLASS';
 export const DELETE_CLASS = 'DELETE_CLASS';
 export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
+export const UPDATE_CLASS = 'UPDATE_CLASS';
+export const SAGAS_UPDATE_CLASS = 'SAGAS_UPDATE_CLASS';
 //export const STUDENT_CLASS_BY_ID = 'STUDENT_CLASS_BY_ID';
 //export const STUDENT_CLASS_DATA_BY_ID_FETCHED = 'STUDENT_CLASS_DATA_BY_ID_FETCHED';
 
@@ -70,7 +72,15 @@ export function deleteClass(classId) {
     classId
   };
 }
-
+export function updateClass(rowUpdate, desc, descBefore) {
+  //debugger;
+  return {
+    type: UPDATE_CLASS,
+    rowUpdate,
+    desc,
+    descBefore
+  };
+}
 /*export function studentClassById() {
   //debugger;
   return {
