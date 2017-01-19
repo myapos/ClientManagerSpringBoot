@@ -1,11 +1,8 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-	const { type, 
-		initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
-		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore
-
-	} = action;
+	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
+		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, tab, namespace } = action;
 	//let classes;
 
 	switch (type) {
@@ -13,7 +10,8 @@ const reducer = (state = {}, action) => {
 		//debugger;
 	       return {
 	             ...state,
-	             all:state.saved_student
+	             all:state.saved_student,
+            	[namespace]: tab
 	       }
 	    case actions.ADD_STUDENT:
 	       return {
@@ -43,7 +41,8 @@ const reducer = (state = {}, action) => {
 	    case actions.STUDENT_CLASS_DASHBOARD:
 		return {
 	            ...state,
-	            dataFetchedStudentClasses:[{}]
+	            dataFetchedStudentClasses:[{}],
+            	[namespace]: tab
 	    }
 	    case actions.STUDENT_CLASS_DATA_FETCHED:
 	   		return {
@@ -84,6 +83,11 @@ const reducer = (state = {}, action) => {
 	            descBefore
 	   	}
 
+	   	case actions.CHANGE_SELECTED_TAB:
+        return {
+            ...state,
+            [namespace]: tab
+        };
 		default:
 		     return state;
 	 }
