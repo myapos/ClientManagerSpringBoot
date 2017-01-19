@@ -13,11 +13,12 @@ export const DELETE_CLASS = 'DELETE_CLASS';
 export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
 export const UPDATE_CLASS = 'UPDATE_CLASS';
 export const SAGAS_UPDATE_CLASS = 'SAGAS_UPDATE_CLASS';
+export const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 //export const STUDENT_CLASS_BY_ID = 'STUDENT_CLASS_BY_ID';
 //export const STUDENT_CLASS_DATA_BY_ID_FETCHED = 'STUDENT_CLASS_DATA_BY_ID_FETCHED';
 
 export function getAllStudents() {
-  //debugger;
+  debugger;
   return {
     type: GET_ALL_STUDENTS
   };
@@ -81,6 +82,25 @@ export function updateClass(rowUpdate, desc, descBefore) {
     descBefore
   };
 }
+
+export function changeSelectedTab(selectedTab, tabNamespace) {
+  //debugger;
+  let act = "";
+
+  if (selectedTab == 'tab1'){
+    act = "GET_ALL_STUDENTS";
+  }
+  else if (selectedTab == 'tab2'){
+    act = "STUDENT_CLASS_DASHBOARD";
+  }
+    return {
+        type: act,
+        tab: selectedTab,
+        namespace: tabNamespace
+    };
+}
+
+
 /*export function studentClassById() {
   //debugger;
   return {

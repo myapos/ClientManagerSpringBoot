@@ -13,9 +13,37 @@ import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 
 import { browserHistory } from 'react-router';
-
-
+import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
+const styles = {
+    tabs: {
+        /*width: '400px',*/
+        display: 'inline-block',
+        marginRight: '30px',
+        verticalAlign: 'top'
+    },
+    links: {
+        margin: 0,
+        padding: 0
+    },
+    tabLink: {
+        height: '30px',
+        lineHeight: '30px',
+        padding: '0 15px',
+        cursor: 'pointer',
+        borderBottom: '2px solid transparent',
+        display: 'inline-block'
+    },
+    activeLinkStyle: {
+        borderBottom: '2px solid #333'
+    },
+    visibleTabStyle: {
+        display: 'inline-block'
+    },
+    content: {
+        padding: '0 15px'
+    }
+};
 
 class Dashboard extends Component {
 
@@ -43,29 +71,41 @@ class Dashboard extends Component {
         <div className="labelContainer">
           <legend><span>Πίνακας Ελέγχου</span></legend>
         </div>
-        <div className="rowContainer">
+ 
+            <Tabs
+            name="tabs2"
+            handleSelect={this.props.changeSelectedTab}
+            selectedTab={this.props.tabs2}
+            activeLinkStyle={styles.activeLinkStyle}
+            visibleTabStyle={styles.visibleTabStyle}
+            style={styles.tabs}
+            >
+
+            <div style={styles.links}>
+                <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
+                <TabLink to="tab2" default style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
+            </div>
+            <div style={styles.content}>
+                <TabContent for="tab1">
+                    {/*<h2>GetAllStudents</h2>*/}
+                    <div><GetAllStudents/></div>
+                </TabContent>
+                <TabContent for="tab2">
+                   {/*<h2>StudentClassDashboard</h2>*/}
+                    <div><StudentClassDashboard/></div>
+                </TabContent>
+            </div>
+        </Tabs>
+ 
+       
+{/*        <div className="rowContainer">
           <Link onClick={this.props.getAllStudents} className="buttonBoxes"  to="/getallstudents"> 
-            Πελατολόγιο
+            Διαχείριση Πελατών
           </Link>
-{/*          <Link onClick={this.props.addStudent} className="buttonBoxes"to="/adduser">
-            Προσθήκη πελάτη
-          </Link>
-          <Link onClick={this.props.deleteStudent} className="buttonBoxes" to="/deleteuser">
-            Διαγραφή πελάτη
-          </Link>
-          <Link onClick={this.props.updateStudent} className="buttonBoxes" to="/updateusers">
-            Αναζήτηση - ενημέρωση πελάτη
-          </Link>
-          <Link onClick={this.props.importStudents} className="buttonBoxes" to="/importusers">
-            Εισαγωγή πελατών
-          </Link>
-          <Link onClick={this.props.exportStudents} className="buttonBoxes" to="/exportusers">
-            Εξαγωγή πελατών
-          </Link>*/}
           <Link onClick={this.props.studentClassDashboard} className="buttonBoxes" to="/studentclassdashboard">
-            Διαχείριση τμημάτων
+            Διαχείριση Τμημάτων
           </Link>
-        </div>
+        </div>*/}
       </div>
 
     );

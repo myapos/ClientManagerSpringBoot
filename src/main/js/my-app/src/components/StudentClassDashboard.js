@@ -11,7 +11,7 @@ import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';
 import '../css/App.css';
-import StudentClassesDataTable from './classes/StudentClassesDataTable';
+import StudentClassesDataTable from './studentClasses/StudentClassesDataTable';
 // import './toggler.css';
 // import Toggle from 'react-toggle';
 // react select
@@ -37,12 +37,12 @@ class StudentClassDashboard extends Component {
   render () {
     return (
       <div className="App" id="content">
-          <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
-          <div className="labelContainer">
-{/*          <div className="container">*/}
-          <legend><span>Παρακαλώ δημιουργήστε τα τμήματα σας </span><Link className="back" to="/"> Πίσω </Link></legend>
+          {/*<h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>*/}
+          {/*<div className="labelContainer">*/}
+          {/*<div className="container">*/}
+          {/*<legend><span>Παρακαλώ δημιουργήστε τα τμήματα σας </span><Link className="back" to="/"> Πίσω </Link></legend>*/}
           <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12">
                     <div id="custom-search-input">
                         <div className="input-group col-md-12">
                           <StudentClassesDataTable/>   
@@ -50,9 +50,9 @@ class StudentClassDashboard extends Component {
                     </div>
                 </div>
           </div>
-{/*        </div>*/}
         </div>
-      </div>
+/*        </div>
+      </div>*/
 
     );
   }
