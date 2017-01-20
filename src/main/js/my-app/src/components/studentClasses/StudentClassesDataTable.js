@@ -8,6 +8,8 @@ import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import * as api from '../../api';
+import MDSpinner from "react-md-spinner";
+
 //import {MyCustomBody} from './MyCustomBody';
 
 parent.classesPair = {};
@@ -58,8 +60,19 @@ const selectRowProp = {
 
 
 
-
 class StudentClassesDataTable extends Component {
+
+componentDidMount() {
+  //debugger;
+  let el = document.getElementById("dots");
+  console.log(el);
+
+  // for (let jj=0; jj< 100; jj++)
+  //   el.innerHTML = el.innerHTML + ".";
+  //var i = 0;
+  setInterval(function () {el.innerHTML = el.innerHTML + ".";  }, 75);
+
+}
 
 componentDidUpdate(){
 
@@ -177,7 +190,7 @@ render () {
 
     });
     //check if async calls ended
-    //wait for data to be retrieved from database
+    //wait for data to be retrieved from fdatabase
     //setTimeout(function(){ console.log("wait for a while"); }, 3000);  
     console.log("size of pairs:",Object.size(parent.classesPair));
     if(Object.size(parent.classesPair)>0){
@@ -213,22 +226,22 @@ render () {
 
     //restrict to only one refresh of the page flag window.performance.navigation.type will be one if page is refreshed
 
-    if ((Object.size(parent.classesPair)==0)&&(window.performance.navigation.type==0)){
+  //   if ((Object.size(parent.classesPair)==0)&&(window.performance.navigation.type==0)){
 
-      setTimeout(function(){ 
-        console.log("waited for 5s. Page is reloading"); 
-        //window.location.reload(true);
-        //parent.loaded==1;
-        console.log("size of pairs:", Object.size(parent.classesPair)); 
-        if(Object.size(parent.classesPair)>0){
-          window.location.reload(true);
-        }
-    }, 5000);  
-  }
+  //     setTimeout(function(){ 
+  //       console.log("waited for 5s. Page is reloading"); 
+  //       //window.location.reload(true);
+  //       //parent.loaded==1;
+  //       console.log("size of pairs:", Object.size(parent.classesPair)); 
+  //       if(Object.size(parent.classesPair)>0){
+  //        window.location.reload(true);
+  //       }
+  //   }, 5000);  
+  // }
     //debugger;
     return (
       <div>
-        <p id="loadingText"> Please wait while getting data from database........ </p>
+          <p id="loadingText"> Please wait while getting data from database <span id="dots"></span> </p>
       </div>
     )
   }
