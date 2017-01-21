@@ -15,6 +15,7 @@ import PaymentRegisters from './PaymentRegisters';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
+
 const styles = {
     tabs: {
         /*width: '400px',*/

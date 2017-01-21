@@ -6,8 +6,8 @@ import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.js';
+//import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
 const afterSearch = (searchText, result) =>{
   console.log('Your search text is ' + searchText);
   console.log('Result is:');
@@ -49,7 +49,7 @@ const selectRowProp = {
 
 class StudentDataTable extends Component {
 
-  render () {
+render () {
     const data = this.props.saved_student;
     //preprocess data
     data.map((obj, index)=>{

@@ -18,6 +18,8 @@ package com.myapos.clientmanager.model;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import java.util.*;
 /**
  * @author Myron Apostolakis
  */
@@ -27,7 +29,9 @@ public interface PayedRepository extends PagingAndSortingRepository<Payed, Long>
 
 	Payed save(Payed payed);
 
-	Payed findByid(Long id);
+	Payed findById(@Param("id")Long id);
+
+	List<Payed> findByRegister_Id(@Param("id") Long id);
 
 }
 // end::code[]
