@@ -48,7 +48,8 @@ curl -v -u myapos:Apostolakis1981 -X DELETE http://localhost:8181/api/studentCla
 
 
 //DOULEUEI GIA TO UPDATE
-curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
+curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
+'{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
 
 //find by description curl call
 
