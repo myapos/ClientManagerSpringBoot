@@ -154,9 +154,10 @@ export const saveNewClass = (row) => {
 export const deleteStudentClass = (classId) => {
 
 
-
+    //debugger;
     console.log("hey from api.deleteStudentClass. Preparing to delete class with id:", classId);
-    let rowByClassId = document.querySelectorAll('tr')[classId];
+    let x = document.getElementById("studentClasses");
+    let rowByClassId = x.querySelectorAll('tr')[classId];
     let description = rowByClassId.childNodes[2].innerHTML;
 
     const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +

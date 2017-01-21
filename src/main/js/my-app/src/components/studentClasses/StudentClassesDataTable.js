@@ -78,17 +78,22 @@ componentDidUpdate(){
 
   //this.checkInterval();
   //check if checkPeriodInMinutes has passed
-  let el = document.getElementsByClassName('form-control editor edit-text')[0];
-
-  let rows = document.querySelectorAll('tr');
+  //debugger;
+  let x = document.getElementById("studentClasses");
+  let rows = x.querySelectorAll('tr');
+  let el = rows[1];
+  //let el = document.getElementsByClassName('form-control editor edit-text')[0];
+  
+  //let rows = document.querySelectorAll('tr');
 
   let id = rows.length;
 
-  //el.setAttribute('placeholder', id);
-  el.value = rows.length;
+  el.setAttribute('placeholder', id);
+  //set id for classes in modal window
+  x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
   console.log("modal editing:",el);
-  
-  let el2 = document.getElementsByClassName('form-group');
+  //debugger;
+  let el2 = x.getElementsByClassName('form-group');
   let childs = el2[2].childNodes;
   
   el2[2].removeChild(childs[1])
@@ -140,7 +145,9 @@ beforeSaveCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
   //this.props.updateClass(row, cellValue);
-  let el = document.getElementsByClassName(" form-control editor edit-text")[2];
+  //debugger;
+  let x = document.getElementById("studentClasses");
+  let el = x.getElementsByClassName(" form-control editor edit-text")[2];
   let descBefore = el.getAttribute("value");
   this.props.updateClass(row, cellValue,descBefore);
   //debugger;
@@ -211,8 +218,8 @@ render () {
         }
       }
      return (
-      <div>
-          <BootstrapTable data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>
+      <div id="studentClasses" >
+          <BootstrapTable  data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>
             <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
             <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
