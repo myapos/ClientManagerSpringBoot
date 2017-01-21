@@ -63,7 +63,7 @@ class StudentDataTable extends Component {
     //debugger;
     console.log(data);
     return (
-      <div>
+      <div id="students">
         <BootstrapTable data={data} hover={true} insertRow={ true } selectRow={ selectRowProp } deleteRow={ true } exportCSV={true} search={ true } options={ options }>
           <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
           <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
