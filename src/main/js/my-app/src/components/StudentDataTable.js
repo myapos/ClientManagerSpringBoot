@@ -7,7 +7,7 @@ import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-
+import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.js';
 const afterSearch = (searchText, result) =>{
   console.log('Your search text is ' + searchText);
   console.log('Result is:');
