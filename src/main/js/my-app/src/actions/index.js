@@ -13,7 +13,8 @@ export const DELETE_CLASS = 'DELETE_CLASS';
 export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
 export const UPDATE_CLASS = 'UPDATE_CLASS';
 export const SAGAS_UPDATE_CLASS = 'SAGAS_UPDATE_CLASS';
-export const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
+export const PAYMENTS_REGISTERS = 'PAYMENTS_REGISTERS';
+//export const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 //export const STUDENT_CLASS_BY_ID = 'STUDENT_CLASS_BY_ID';
 //export const STUDENT_CLASS_DATA_BY_ID_FETCHED = 'STUDENT_CLASS_DATA_BY_ID_FETCHED';
 
@@ -93,9 +94,12 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
   else if (selectedTab == 'tab2'){
     act = "STUDENT_CLASS_DASHBOARD";
   }
+  else if (selectedTab == 'tab3'){
+    act = "PAYMENTS_REGISTERS";
+  }
     return {
         type: act,
-        tab: selectedTab,
+        selectedTab,
         namespace: tabNamespace
     };
 }

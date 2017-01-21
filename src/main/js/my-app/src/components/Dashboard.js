@@ -11,7 +11,7 @@ import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
-
+import PaymentRegisters from './PaymentRegisters';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
@@ -47,21 +47,6 @@ const styles = {
 
 class Dashboard extends Component {
 
-    handleChange(event, myprops) {
-        // do something with event.target.checked
-        console.log("hey from handlechange ", event);
-        if (event.data) {
-            event.toggleState(event);
-        }
-        console.log("changed state succesfully");
-    };
-
-  cancelFunction(){
-    console.log("hey form cancel function");
-    //redirect to main dashboard page
-    window.parent.location.href= "/";
-   }
-
   render () {
     //console.log(this.props);
     //debugger;
@@ -73,17 +58,18 @@ class Dashboard extends Component {
         </div>
  
             <Tabs
-            name="tabs2"
+            name="selectedTab"
             handleSelect={this.props.changeSelectedTab}
-            selectedTab={this.props.tabs2}
+            selectedTab={this.props.selectedTab}
             activeLinkStyle={styles.activeLinkStyle}
             visibleTabStyle={styles.visibleTabStyle}
             style={styles.tabs}
             >
 
             <div style={styles.links}>
-                <TabLink to="tab1"  style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
-                <TabLink to="tab2" default style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
+                <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
+                <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
+                <TabLink to="tab3" default style={styles.tabLink}>Διαχείριση Πληρωμών-Εγγραφών</TabLink>
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
@@ -93,6 +79,9 @@ class Dashboard extends Component {
                 <TabContent for="tab2">
                    {/*<h2>StudentClassDashboard</h2>*/}
                     <div><StudentClassDashboard/></div>
+                </TabContent>
+                <TabContent for="tab3">
+                    <div><PaymentRegisters/></div>
                 </TabContent>
             </div>
         </Tabs>
