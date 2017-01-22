@@ -294,3 +294,79 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
     //         })
     //     });
 }
+
+
+
+export const saveNewStudent = (row) => {
+
+   
+    //send data to database --rest api call
+    //save new student curl
+
+    //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{"fname" : "testcurlfname","lname" : "testcurllname","fname" : "testcurl", "dateOfBirth":"2013-04-02T08:35:42.000+0000", "email" : "testcurlemail","phone" : "testcurlphone","facebook" : "testcurlfacebook","manager":"http://localhost:8181/api/managers/17"}' http://localhost:8181/api/students
+    //http://localhost:8181/api/students?fname=testcurlfname
+    //&lname=testcurllname& ...............&dateOfPayment=2013-04-02T08:35:42.000+0000&.........
+    //&manager=http://localhost:8181/api/managers/17
+
+    // dateOfBirth:"fds"
+    // email:"fds"
+    // facebook:"fds"
+    // fname:"ddf"
+    // index:"5"
+    // lname:"fd"
+    // phone:"fds"
+    //let date = new Date(row.dateOfBirth);
+
+
+
+
+    //debugger;
+    //check email type
+
+    let str = row.email;
+    let n = str.includes("@");
+    //debugger;
+
+    if(n) {
+        let date = new Date(row.dateOfBirth);
+
+        let bodyData = JSON.stringify({
+            "fname": row.fname,
+            "lname": row.lname,
+            "email": row.email,
+            "dateOfBirth": date,
+            "facebook": row.facebook,
+            "phone": row.phone,
+            "manager": "http://localhost:8181/api/managers/17",
+        });
+
+        const fetch1 = fetch(parent.BASE_URL + "/api/students" , {
+                    method: 'post',
+                    mode: 'cors',
+                    cache: 'default',
+                    body: bodyData,
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+            .then(res => {
+                //debugger;
+                if(res.status == 201){
+
+                //debugger;
+                alert("New student saved succsesfully. Prepare for reloading");
+                window.location.reload(true);
+                }
+                else {
+                    alert("something bad happened.Please check your input data.");    
+                }
+                //res.json()
+
+        })
+    } 
+    else {
+         alert("Please check email input and try again. It has to be of email type. Example test@test.com");   
+    }
+
+}

@@ -23,6 +23,7 @@ const reducer = (state = {}, action) => {
 	    case actions.ADD_STUDENT:
 	       return {
 	            ...state,
+	            row
 	             // all:state.saved_data.students
 	       }
 	    case actions.DELETE_STUDENT:

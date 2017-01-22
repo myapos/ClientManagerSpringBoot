@@ -148,3 +148,10 @@ fetch('http://localhost:8181/api/studentClasses/', {
     console.log('Request failed', error);
 });
 
+
+//save new student curl
+
+curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{"fname" : "testcurlfname","lname" : "testcurllname","fname" : "testcurl", "dateOfBirth":"2013-04-02T08:35:42.000+0000", "email" : "testcurlemail","phone" : "testcurlphone","facebook" : "testcurlfacebook","manager":"http://localhost:8181/api/managers/17"}' http://localhost:8181/api/students
+
+
+http://localhost:8181/api/students?fname=testcurlfname&lname=testcurllname& ...............&dateOfPayment=2013-04-02T08:35:42.000+0000&.........&manager=http://localhost:8181/api/managers/17
