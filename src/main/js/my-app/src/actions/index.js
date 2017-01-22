@@ -1,5 +1,6 @@
 export const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 export const ADD_STUDENT = 'ADD_STUDENT';
+export const SAGAS_SAVE_NEW_STUDENT = 'SAGAS_SAVE_NEW_STUDENT';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
 export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
@@ -24,10 +25,11 @@ export function getAllStudents() {
     type: GET_ALL_STUDENTS
   };
 }
-export function addStudent() {
+export function addStudent(row) {
   //debugger;
   return {
     type: ADD_STUDENT,
+    row
   };
 }
 export function deleteStudent() {

@@ -33,7 +33,7 @@ componentDidMount(){
   //running dots functionality
   //debugger;
   let el = document.getElementById("dotsPaymentRegisters");
-  if (typeof el !== undefined) {
+  if (el !== null) {
     // do stuff
     console.log(el);
     setInterval(function () {el.innerHTML = el.innerHTML + ".";  }, 75);

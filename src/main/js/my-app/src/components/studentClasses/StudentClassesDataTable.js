@@ -64,13 +64,14 @@ class StudentClassesDataTable extends Component {
 
 componentDidMount() {
   //debugger;
-  let el = document.getElementById("dots");
-  console.log(el);
+  let elStCl = document.getElementById("dots");
+  console.log(elStCl);
 
-  // for (let jj=0; jj< 100; jj++)
-  //   el.innerHTML = el.innerHTML + ".";
-  //var i = 0;
-  setInterval(function () {el.innerHTML = el.innerHTML + ".";  }, 75);
+  if (elStCl !== null) {
+    // do stuff
+    console.log(elStCl);
+    setInterval(function () {elStCl.innerHTML = elStCl.innerHTML + ".";  }, 75);
+  }
 
 }
 
@@ -246,11 +247,13 @@ render () {
   //   }, 5000);  
   // }
     //debugger;
-    return (
-      <div>
-          <p id="loadingText"> Please wait while getting data from database <span id="dots"></span> </p>
-      </div>
-    )
+  else {
+      return (
+        <div>
+            <p id="loadingText"> Please wait while getting data from database <span id="dots"></span> </p>
+        </div>
+      )
+  }
   }
 }
 
