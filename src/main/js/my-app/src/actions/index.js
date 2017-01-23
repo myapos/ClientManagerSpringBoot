@@ -2,6 +2,7 @@ export const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 export const ADD_STUDENT = 'ADD_STUDENT';
 export const SAGAS_SAVE_NEW_STUDENT = 'SAGAS_SAVE_NEW_STUDENT';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
+export const SAGAS_DELETE_STUDENT = 'SAGAS_DELETE_STUDENT';
 export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
 export const EXPORT_STUDENTS = 'EXPORT_STUDENTS';
@@ -32,10 +33,11 @@ export function addStudent(row) {
     row
   };
 }
-export function deleteStudent() {
+export function deleteStudent(studentId) {
   //debugger;
   return {
-    type: DELETE_STUDENT
+    type: DELETE_STUDENT,
+    studentId
   };
 }
 export function updateStudent() {

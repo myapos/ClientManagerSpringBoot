@@ -370,3 +370,70 @@ export const saveNewStudent = (row) => {
     }
 
 }
+
+
+/*deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
+
+export const deleteStudent = (studentId) => {
+
+
+    debugger;
+    console.log("hey from api.deleteStudentClass. Preparing to delete student with id:", studentId);
+    let x = document.getElementById("students");
+    let rowByClassId = x.querySelectorAll('tr')[studentId];
+    let fname = rowByClassId.childNodes[2].innerHTML;
+
+    const fetch1 = fetch(parent.BASE_URL + "/api/students/search/findByFname" +
+            "?fname=" + fname, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => res.json())
+        .then(res => {
+            //debugger;
+            console.log("data from server: ", res);
+            try{
+            
+            //parent.classesPair[parentDesc] = res;
+            let ar = res._links.self.href.split("/");
+            let s = ar.length;
+            let id = ar[s - 1];
+            //delete record student class with id
+
+            fetch(parent.BASE_URL + "/api/students/"+id, {
+                method: 'delete',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => { 
+                //debugger;
+                console.log(res.status);
+                if(res.status == 204){
+                    alert("Student is deleted succesfully.Prepare to reload");
+                    window.location.reload(true);
+                }
+                else if(res.status == 500){
+                    alert("Something bad happened.Are there two users with the same name?");
+                }
+                else {
+                    alert("Something bad happened. Please try again");
+                }
+                //res.json()
+            })
+            }
+            catch (e){
+                alert("Something bad happened. Error: "+e.message+". Please try again");
+            }
+
+        });
+}
+
