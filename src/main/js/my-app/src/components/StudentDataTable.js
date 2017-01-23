@@ -35,7 +35,8 @@ function onAfterDeleteRow (rowKeys) {
 
   alert('The rowkey you drop: ' + rowKeys);
   console.log("delete data from database");
-  //debugger;
+  this.props.deleteStudent(rowKeys);
+
 }
 
 // const options = {

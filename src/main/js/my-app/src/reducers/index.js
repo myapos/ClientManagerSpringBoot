@@ -2,7 +2,8 @@ import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
-		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace } = action;
+		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
+		studentId } = action;
 	//let classes;
 
 	switch (type) {
@@ -29,6 +30,7 @@ const reducer = (state = {}, action) => {
 	    case actions.DELETE_STUDENT:
 	       return {
 	            ...state,
+	            studentId
 	             // all:state.saved_data.students
 	       }
 	   	case actions.UPDATE_STUDENT:
