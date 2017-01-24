@@ -142,7 +142,7 @@ getSubClass(url, parentDesc, obj) {
  
 }
 
-beforeSaveCell(row, cellName, cellValue) {
+beforeSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
   //this.props.updateClass(row, cellValue);
@@ -156,7 +156,7 @@ beforeSaveCell(row, cellName, cellValue) {
 
 }
 
-afterSaveCell(row, cellName, cellValue) {
+afterSaveSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
   //get description before
@@ -175,8 +175,8 @@ render () {
 
     const cellEditProp = {
       mode: 'click',
-      beforeSaveCell: this.beforeSaveCell.bind(this),
-      afterSaveCell: this.afterSaveCell.bind(this)
+      beforeSaveCell: this.beforeSaveStudentClassCell.bind(this),
+      afterSaveCell: this.afterSaveSaveStudentClassCell.bind(this)
     };
     const options = {
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows

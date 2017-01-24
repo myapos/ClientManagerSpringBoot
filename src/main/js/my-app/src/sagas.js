@@ -105,6 +105,20 @@ function* deleteStudent () {
 	})
 }
 
+function* updateStudent () {
+
+	console.log('updateStudent');
+	const state = yield select();
+	const row = yield call(api.updateStudent, /*state.desc, state.descBefore,*/ state.rowUpdate);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_UPDATE_STUDENT,
+		row
+	})
+}
+
+
 function* rootSaga () {
 	console.log('saga');
 
@@ -116,6 +130,7 @@ function* rootSaga () {
 	yield takeEvery(actions.UPDATE_CLASS, updateStudentClass);
 	yield takeEvery(actions.ADD_STUDENT, saveNewStudent);
 	yield takeEvery(actions.DELETE_STUDENT, deleteStudent);
+	yield takeEvery(actions.UPDATE_STUDENT, updateStudent);
 }
 
 export default rootSaga;

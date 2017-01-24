@@ -4,6 +4,7 @@ export const SAGAS_SAVE_NEW_STUDENT = 'SAGAS_SAVE_NEW_STUDENT';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
 export const SAGAS_DELETE_STUDENT = 'SAGAS_DELETE_STUDENT';
 export const UPDATE_STUDENT = 'UPDATE_STUDENT';
+export const SAGAS_UPDATE_STUDENT = 'SAGAS_UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
 export const EXPORT_STUDENTS = 'EXPORT_STUDENTS';
 export const STUDENT_CLASS_DASHBOARD = 'STUDENT_CLASS_DASHBOARD';
@@ -40,10 +41,13 @@ export function deleteStudent(studentId) {
     studentId
   };
 }
-export function updateStudent() {
+export function updateStudent(rowUpdate, desc, descBefore) {
   //debugger;
   return {
-    type: UPDATE_STUDENT
+    type: UPDATE_STUDENT,
+    rowUpdate/*, 
+    desc, 
+    descBefore*/
   };
 }
 export function importStudents() {

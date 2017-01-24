@@ -92,25 +92,27 @@ componentDidUpdate(){
 
 
 }
-beforeSaveCell(row, cellName, cellValue) {
+beforeSaveStudentCell(row, cellName, cellValue) {
+
   // do your stuff...
   //call action for update
   //this.props.updateClass(row, cellValue);
-  //debugger;
-  //let x = document.getElementById("students");
-  //let el = x.getElementsByClassName(" form-control editor edit-text")[0];
+  // debugger;
+  // let x = document.getElementById("students");
+  // let y = x.getElementsByClassName("react-bs-container-body");
+  // let el = y[0].getElementsByClassName(" form-control editor edit-text")[0];
   // let descBefore = el.getAttribute("value");
-  // this.props.updateClass(row, cellValue,descBefore);
+  //this.props.updateStudent(row, cellValue,descBefore);
   //debugger;
 
 }
 
-afterSaveCell(row, cellName, cellValue) {
+afterSaveStudentCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
   //get description before
-  //
- 
+  this.props.updateStudent(row);
+  debugger;
 
 }
 
@@ -131,8 +133,8 @@ render () {
 
     const cellEditProp = {
       mode: 'click',
-      beforeSaveCell: this.beforeSaveCell.bind(this),
-      afterSaveCell: this.afterSaveCell.bind(this)
+      beforeSaveCell: this.beforeSaveStudentCell.bind(this),
+      afterSaveCell: this.afterSaveStudentCell.bind(this)
     };
 
     const options = {
