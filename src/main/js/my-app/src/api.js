@@ -432,8 +432,62 @@ export const deleteStudent = (studentId) => {
             }
             catch (e){
                 alert("Something bad happened. Error: "+e.message+". Please try again");
+                window.location.reload(true);
             }
 
         });
 }
 
+
+export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
+
+    //console.log("hey from api.updateStudent. Preparing to update student",rowUpdate," with new desc:", newdesc);
+    console.log("hey from api.updateStudent. Preparing to update student",rowUpdate);
+
+    //fetch call for update
+    //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
+
+
+    debugger;
+    // let rowByClassId = document.querySelectorAll('tr')[classId];
+    // let description = rowByClassId.childNodes[2].innerHTML;
+    let str = rowUpdate.email;
+    let n = str.includes("@");
+    //debugger;
+
+    if(n) {
+    let date = new Date(rowUpdate.dateOfBirth);
+    let bodyData = JSON.stringify({
+            "fname": rowUpdate.fname,
+            "lname": rowUpdate.lname,
+            "email": rowUpdate.email,
+            "dateOfBirth": date,
+            "facebook": rowUpdate.facebook,
+            "phone": rowUpdate.phone,
+            "manager": "http://localhost:8181/api/managers/17",
+        });
+    const fetch1 = fetch(rowUpdate._links.self.href , {
+                method: 'PATCH',
+                mode: 'cors',
+                cache: 'default',
+                body: bodyData,
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => {
+            debugger;
+            if(res.status == 200){
+
+            //debugger;
+            alert("Class is updated succsesfully. Prepare for reloading");
+            window.location.reload(true);
+        }
+
+        })
+    } else {
+         alert("Please check email input and try again. It has to be of email type. Example test@test.com"); 
+         window.location.reload(true);  
+    }
+}

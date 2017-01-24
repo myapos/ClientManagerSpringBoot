@@ -36,6 +36,9 @@ const reducer = (state = {}, action) => {
 	   	case actions.UPDATE_STUDENT:
 	       return {
 	            ...state,
+	   			rowUpdate/*,
+	            desc,
+	            descBefore*/
 	             // all:state.saved_data.students
 	       }
 	   	case actions.IMPORT_STUDENTS:
