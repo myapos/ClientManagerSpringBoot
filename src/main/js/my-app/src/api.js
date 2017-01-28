@@ -491,3 +491,25 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
          window.location.reload(true);  
     }
 }
+
+
+export const addPaymentRegisters = (row) => {
+//debugger;
+
+
+
+}
+
+export const updatePaymentRegisters = (row) => {
+//debugger;
+
+
+
+}
+
+export const deletePaymentRegisters = (row) => {
+//debugger;
+
+
+
+}

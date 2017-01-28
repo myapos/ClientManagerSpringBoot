@@ -118,6 +118,44 @@ function* updateStudent () {
 	})
 }
 
+function* addPaymentRegisters () {
+
+	console.log('addPaymentRegisters');
+	const state = yield select();
+	const row = yield call(api.addPaymentRegisters, /*state.desc, state.descBefore,*/ state.row);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_CREATE_PAYMENTS_REGISTERS,
+		row
+	})
+}
+
+function* updatePaymentRegisters () {
+
+	console.log('updatePaymentRegisters');
+	const state = yield select();
+	const rowUpdate = yield call(api.updatePaymentRegisters, /*state.desc, state.descBefore,*/ state.rowUpdate);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_UPDATE_PAYMENTS_REGISTERS,
+		rowUpdate
+	})
+}
+
+function* deletePaymentRegisters () {
+
+	console.log('deletePaymentRegisters');
+	const state = yield select();
+	const paymentId = yield call(api.deletePaymentRegisters, /*state.desc, state.descBefore,*/ state.paymentId);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_DELETE_PAYMENTS_REGISTERS,
+		paymentId
+	})
+}
 
 function* rootSaga () {
 	console.log('saga');
@@ -131,6 +169,9 @@ function* rootSaga () {
 	yield takeEvery(actions.ADD_STUDENT, saveNewStudent);
 	yield takeEvery(actions.DELETE_STUDENT, deleteStudent);
 	yield takeEvery(actions.UPDATE_STUDENT, updateStudent);
+	yield takeEvery(actions.CREATE_PAYMENTS_REGISTERS, addPaymentRegisters);
+	yield takeEvery(actions.UPDATE_PAYMENTS_REGISTERS, updatePaymentRegisters);
+	yield takeEvery(actions.DELETE_PAYMENTS_REGISTERS, deletePaymentRegisters);
 }
 
 export default rootSaga;
