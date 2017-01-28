@@ -16,16 +16,49 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 // import Advertiser from './Advertiser';
 
 const dataPaymentRegisters = [];
+
+function afterSearch (searchText, result){
+  console.log('Your search text is ' + searchText);
+  console.log('Result is:');
+  for (let i = 0; i < result.length; i++) {
+    console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
+      +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
+  }
+}
+
+function onAfterInsertRow (row) {
+  let newRowStr = '';
+  let payment = document.getElementById("mySelectPaymentRegisters").value;
+  let classReg = document.getElementById("mySelectClassesPaymentRegisters").value;
+
+  row.payment = payment;
+  row.class = classReg;
+  for (const prop in row) {
+    //debugger;
+    newRowStr += prop + ': ' + row[prop] + ' \n';
+  }
+  //debugger;
+  alert('The new row is:\n ' + newRowStr);
+  console.log("insert data to database");
+  debugger;
+  this.props.addPaymentRegisters(row);
+
+}
+
+function onAfterDeleteRow (rowKeys) {
+
+  alert('The rowkey you drop: ' + rowKeys);
+  console.log("delete data from database");
+  this.props.deletePaymentRegisters(rowKeys);
+
+}
+
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
 };
 
-const options = {
-  // afterSearch: afterSearch,  // define a after search hook
-  // afterInsertRow: onAfterInsertRow,   // A hook for after insert rows
-  // afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
-};
+
 class PaymentRegisters extends Component {
 
 componentDidMount(){
@@ -101,7 +134,7 @@ componentDidMount(){
                      tempData.fname = JSON.parse(request1.responseText).fname;
                      tempData.lname = JSON.parse(request1.responseText).lname;
                      tempData.email = JSON.parse(request1.responseText).email;
-                     tempData.desc = JSON.parse(request2.responseText).description;
+                     tempData.class = JSON.parse(request2.responseText).description;
                      tempData.payment = payments[_j].payment;
                      tempData.notes = payments[_j].notes;
                      let date=new Date(payments[_j].dateOfPayment);
@@ -124,37 +157,28 @@ componentDidUpdate(){
 
   let x = document.getElementById("PaymentRegisters");
   let rows = x.querySelectorAll('tr');
-  let el = rows[1];
+  //let el = rows[1];
 
-  let id = rows.length;
+  //let id = rows.length;
 
-  el.setAttribute('placeholder', id);
-  //set id for classes in modal window
-  console.log("modal editing:",el);
-  x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
+  //el.setAttribute('placeholder', id);
 
-  //debugger;
-  //let childs = x.getElementsByClassName('form-control editor edit-text')[5].childNodes;
-  //let el2 = x.getElementsByClassName('form-control editor edit-text')[5];
   let el2 = x.getElementsByClassName('form-group');
+  //set id for classes in modal window
+  console.log("modal editing:",el2)
+  //debugger;
+  el2[1].childNodes[1].value = rows.length;
 
-  let childs = el2[6].childNodes;
+  let childs = el2[6].childNodes; 
   
-  el2[6].removeChild(childs[1])
-  let input = el2[6];
-  //el2.removeChild(childs[1])
-  //let input = el2[2];
-
-  //Create array of options to be added
-  //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
+  el2[6].removeChild(childs[1]);
 
   //Create and append select list
   let selectList = document.createElement("select");
-  selectList.id = "mySelectPaymentRegisters";
+  selectList.id = "mySelectClassesPaymentRegisters";
   selectList.className = "form-control";
   el2[6].appendChild(selectList);
-  //childs[1] = selectList;
-  // form-control editor edit-text
+
   //Create and append the options
   //debugger;
   for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
@@ -164,18 +188,119 @@ componentDidUpdate(){
       selectList.appendChild(option);
   }
 
- 
-  //add date element in modal window
-  x.getElementsByClassName('form-control editor edit-text')[6].type="date";
-  //x.getElementsByClassName('form-control editor edit-text')[5].type="email";
+  //create select list true and false for payment
 
+  childs = el2[4].childNodes;
+  
+  el2[4].removeChild(childs[1]);
+
+  //Create and append select list TRUE/FALSE options
+  let selectPaymentList = document.createElement("select");
+  selectPaymentList.id = "mySelectPaymentRegisters";
+  selectPaymentList.className = "form-control";
+  //debugger;
+  el2[4].appendChild(selectPaymentList);
+
+  //Create and append the options
+  //debugger;
+  //for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+  let option = document.createElement("option");
+  option.value = "TRUE";//this.props.saved_studentClasses[i].description;
+  option.text = "TRUE";//this.props.saved_studentClasses[i].description;
+  selectPaymentList.appendChild(option);
+  option = document.createElement("option");
+  option.value = "FALSE";//this.props.saved_studentClasses[i].description;
+  option.text = "FALSE";//this.props.saved_studentClasses[i].description;
+  selectPaymentList.appendChild(option);
+  //} 
 
   //debugger;
+  //add date element in modal window
+  el2[7].childNodes[1].type="date";
 
 
 }
 
+beforeSavePaymentRegistersCell(row, cellName, cellValue) {
+
+  // do your stuff...
+  //call action for update
+  //this.props.updateClass(row, cellValue);
+
+  // let x = document.getElementById("PaymentRegisters");
+  // let el = x.getElementsByClassName('form-group');
+
+  let x = document.getElementById("PaymentRegisters");
+  let y = x.getElementsByClassName("react-bs-container-body");
+  let el = y[0].getElementsByClassName("form-control editor edit-text")[0];
+  console.log(el);
+
+  let cellIndex = el.parentElement.cellIndex;
+
+  if (cellIndex == 4){
+    debugger;
+  } 
+  else if (cellIndex == 6){
+
+    debugger;
+
+    // let childs = el.parentElement.childNodes; 
+  
+    // el.parentElement.removeChild(childs[0]);
+
+    // //Create and append select list
+    // let selectClassesList = document.createElement("select");
+    // selectClassesList.id = "mySelectEditClassesPaymentRegisters";
+    // selectClassesList.className = "form-control";
+    // el.parentElement.appendChild(selectClassesList);
+
+    // //Create and append the options
+    // //debugger;
+    // for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+    //     let option = document.createElement("option");
+    //     option.value = this.props.saved_studentClasses[i].description;
+    //     option.text = this.props.saved_studentClasses[i].description;
+    //     selectClassesList.appendChild(option);
+    // }
+
+  } 
+  
+  let descBefore = el.getAttribute("value");
+  //this.props.updateStudent(row, cellValue,descBefore);
+  //debugger;
+
+}
+
+afterSavePaymentRegistersCell(row, cellName, cellValue) {
+  // do your stuff...
+  //call action for update
+  //get description before
+  this.props.updatePaymentRegisters(row);
+  //debugger;
+
+}
+
 render () {
+
+    const cellEditProp = {
+      mode: 'click',
+      beforeSaveCell: this.beforeSavePaymentRegistersCell.bind(this),
+      afterSaveCell: this.afterSavePaymentRegistersCell.bind(this)
+    };
+
+    const options = {
+      afterSearch: afterSearch,           // define a after search hook
+      afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
+      afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
+    };
+
+    const paymentTypes = ["TRUE", "FALSE"];
+    debugger;
+
+    const availableClasses = [];
+    for (let i=0;i<this.props.saved_studentClasses.length;i++){
+        availableClasses.push(this.props.saved_studentClasses[i].description)
+    }
     console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
     //debugger;
@@ -183,6 +308,7 @@ render () {
     return (
       <div id="PaymentRegisters">
         <BootstrapTable
+          cellEdit={cellEditProp} 
           data={dataPaymentRegisters} 
           hover={true} 
           insertRow={ true }
@@ -197,9 +323,9 @@ render () {
           <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
           <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
           <TableHeaderColumn dataField="lname" >Last Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="payment" >Payment</TableHeaderColumn>
+          <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-          <TableHeaderColumn dataField="desc" >Class</TableHeaderColumn>
+          <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
           <TableHeaderColumn 
             dataField="dateOfPayment" 
             dataAlign="left" 

@@ -1,3 +1,7 @@
+/*ACTIONS FOR INTIALIZATION*/
+export const DATA_INITIALIZATION = 'DATA_INITIALIZATION';
+
+/*ACTIONS FOR STUDENTS*/
 export const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 export const ADD_STUDENT = 'ADD_STUDENT';
 export const SAGAS_SAVE_NEW_STUDENT = 'SAGAS_SAVE_NEW_STUDENT';
@@ -7,19 +11,26 @@ export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const SAGAS_UPDATE_STUDENT = 'SAGAS_UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
 export const EXPORT_STUDENTS = 'EXPORT_STUDENTS';
+
+/*ACTIONS FOR CLASSES*/
 export const STUDENT_CLASS_DASHBOARD = 'STUDENT_CLASS_DASHBOARD';
 export const STUDENT_CLASS_DATA_FETCHED = 'STUDENT_CLASS_DATA_FETCHED';
-export const DATA_INITIALIZATION = 'DATA_INITIALIZATION';
 export const SAVE_NEW_CLASS = 'SAVE_NEW_CLASS';
 export const SAGAS_SAVE_NEW_CLASS = 'SAGAS_SAVE_NEW_CLASS';
 export const DELETE_CLASS = 'DELETE_CLASS';
 export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
 export const UPDATE_CLASS = 'UPDATE_CLASS';
 export const SAGAS_UPDATE_CLASS = 'SAGAS_UPDATE_CLASS';
+
+/*ACTIONS FOR PAYMENTS_REGISTERS*/
 export const PAYMENTS_REGISTERS = 'PAYMENTS_REGISTERS';
-//export const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
-//export const STUDENT_CLASS_BY_ID = 'STUDENT_CLASS_BY_ID';
-//export const STUDENT_CLASS_DATA_BY_ID_FETCHED = 'STUDENT_CLASS_DATA_BY_ID_FETCHED';
+export const DELETE_PAYMENTS_REGISTERS = 'DELETE_PAYMENTS_REGISTERS';
+export const SAGAS_DELETE_PAYMENTS_REGISTERS = 'SAGAS_DELETE_PAYMENTS_REGISTERS';
+export const UPDATE_PAYMENTS_REGISTERS = 'UPDATE_PAYMENTS_REGISTERS';
+export const SAGAS_UPDATE_PAYMENTS_REGISTERS = 'SAGAS_UPDATE_PAYMENTS_REGISTERS';
+export const CREATE_PAYMENTS_REGISTERS = 'CREATE_PAYMENTS_REGISTERS';
+export const SAGAS_CREATE_PAYMENTS_REGISTERS = 'SAGAS_CREATE_PAYMENTS_REGISTERS';
+
 
 export function getAllStudents() {
   debugger;
@@ -113,9 +124,27 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
 }
 
 
-/*export function studentClassById() {
+export function addPaymentRegisters(row) {
   //debugger;
   return {
-    type: STUDENT_CLASS_BY_ID,
+    type: CREATE_PAYMENTS_REGISTERS,
+    row
   };
-}*/
+}
+
+export function updatePaymentRegisters(rowUpdate) {
+  //debugger;
+  return {
+    type: UPDATE_PAYMENTS_REGISTERS,
+    rowUpdate,
+  };
+}
+
+
+export function deletePaymentRegisters(paymentId) {
+  //debugger;
+  return {
+    type: DELETE_PAYMENTS_REGISTERS,
+    paymentId,
+  };
+}
