@@ -119,6 +119,62 @@ componentDidMount(){
 
 }
 
+componentDidUpdate(){
+  //debugger;
+
+  let x = document.getElementById("PaymentRegisters");
+  let rows = x.querySelectorAll('tr');
+  let el = rows[1];
+
+  let id = rows.length;
+
+  el.setAttribute('placeholder', id);
+  //set id for classes in modal window
+  console.log("modal editing:",el);
+  x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
+
+  //debugger;
+  //let childs = x.getElementsByClassName('form-control editor edit-text')[5].childNodes;
+  //let el2 = x.getElementsByClassName('form-control editor edit-text')[5];
+  let el2 = x.getElementsByClassName('form-group');
+
+  let childs = el2[6].childNodes;
+  
+  el2[6].removeChild(childs[1])
+  let input = el2[6];
+  //el2.removeChild(childs[1])
+  //let input = el2[2];
+
+  //Create array of options to be added
+  //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
+
+  //Create and append select list
+  let selectList = document.createElement("select");
+  selectList.id = "mySelectPaymentRegisters";
+  selectList.className = "form-control";
+  el2[6].appendChild(selectList);
+  //childs[1] = selectList;
+  // form-control editor edit-text
+  //Create and append the options
+  //debugger;
+  for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+      let option = document.createElement("option");
+      option.value = this.props.saved_studentClasses[i].description;
+      option.text = this.props.saved_studentClasses[i].description;
+      selectList.appendChild(option);
+  }
+
+ 
+  //add date element in modal window
+  x.getElementsByClassName('form-control editor edit-text')[6].type="date";
+  //x.getElementsByClassName('form-control editor edit-text')[5].type="email";
+
+
+  //debugger;
+
+
+}
+
 render () {
     console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
@@ -143,7 +199,7 @@ render () {
           <TableHeaderColumn dataField="lname" >Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" >Payment</TableHeaderColumn>
           <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-          <TableHeaderColumn dataField="desc" >Description</TableHeaderColumn>
+          <TableHeaderColumn dataField="desc" >Class</TableHeaderColumn>
           <TableHeaderColumn 
             dataField="dateOfPayment" 
             dataAlign="left" 

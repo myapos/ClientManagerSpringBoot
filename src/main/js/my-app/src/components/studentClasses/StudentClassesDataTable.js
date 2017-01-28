@@ -105,7 +105,7 @@ componentDidUpdate(){
 
   //Create and append select list
   let selectList = document.createElement("select");
-  selectList.id = "mySelect";
+  selectList.id = "mySelectStudentClasses";
   selectList.className = "form-control";
   el2[2].appendChild(selectList);
   //childs[1] = selectList;

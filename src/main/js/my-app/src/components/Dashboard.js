@@ -70,7 +70,7 @@ class Dashboard extends Component {
             <div style={styles.links}>
                 <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
                 <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
-                <TabLink to="tab3" style={styles.tabLink}>Διαχείριση Πληρωμών-Εγγραφών</TabLink>
+                <TabLink to="tab3" default style={styles.tabLink}>Διαχείριση Πληρωμών-Εγγραφών</TabLink>
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
