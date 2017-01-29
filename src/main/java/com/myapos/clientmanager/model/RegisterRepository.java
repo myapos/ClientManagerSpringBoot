@@ -19,6 +19,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import java.util.*;
 /**
  * @author Myron Apostolakis
  */
@@ -30,7 +31,7 @@ public interface RegisterRepository extends PagingAndSortingRepository<Register,
 
 	Register findBydateOfRegistration(String dateOfRegistration);
 
-	Register findByStudent(@Param("student") Student student);
+	List<Register> findByStudent(@Param("student") Student student);
 
 }
 // end::code[]
