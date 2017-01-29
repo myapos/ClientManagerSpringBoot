@@ -506,12 +506,6 @@ export const updatePaymentRegisters = (updateMode , row) => {
 
 if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
     updateMode == "updateDateOfPayment"){
-    
-    //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d 
-    //'{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes", 
-    //"register":"http://localhost:8181/api/registers/2"}' http://localhost:8181/api/payeds
-
-    //debugger;
 
     //sync requests
 
@@ -531,11 +525,6 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
             let resObj = JSON.parse(request.responseText);
             console.log("sync call 1:", resObj);
             let student = resObj._links.self.href;
-
-            // let ar = url2.split("/");
-            // let s = ar.length;
-            // let id = ar[s - 1];
-            // let student = parent.BASE_URL+"/api/students/"18
 
             //step 2 find register by student
 
@@ -579,7 +568,8 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
                     //debugger;
 
                     //step 3.2 update payments
-                    let date = new Date(row.dateOfPayment);
+                    let date = new Date(row.dateOfPayment.substr(0, 10));
+                    debugger;
                     let bodyData = JSON.stringify({
                             "payment" : row.payment,
                             "dateOfPayment": date,
@@ -610,37 +600,24 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
                     }
 
-
                 }
 
-
-
-                //DOULEUEI GIA TO UPDATE
-                
-                // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
-                // '{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes",
-                //"register":register }' http://localhost:8181/api/payeds
-
-
-                //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d 
-                //'{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes", 
-                //"register":"http://localhost:8181/api/registers/2"}' http://localhost:8181/api/payeds
-
-                //let date = new Date(row.dateOfPayment);
             }
     }
 
 } 
-// else if (updateMode == "paymentNotesUpdate"){
-    
-//     debugger;
-    
-// } 
+
 else if (updateMode == "classUpdate"){
 
     
-    //debugger;
-    
+    debugger;
+
+    //sync calls
+
+    //step 1 find 
+
+
+
     //DOULEUEI GIA TO UPDATE
     // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
     // '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' 
@@ -649,13 +626,7 @@ else if (updateMode == "classUpdate"){
 
 
 } 
-// else if (updateMode == "updateDateOfPayment"){
 
-    
-//     debugger;
-   
-
-// } 
 
 }
 
