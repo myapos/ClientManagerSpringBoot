@@ -525,7 +525,7 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
             let resObj = JSON.parse(request.responseText);
             console.log("sync call 1:", resObj);
             let student = resObj._links.self.href;
-            debugger;
+            //debugger;
             //step 2 find register by student
 
             let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
@@ -540,7 +540,8 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
                 let resObj2 = JSON.parse(request2.responseText);
                 console.log("sync call 2:", resObj2);
-                let register = resObj2._embedded.registers[0]._links.self.href; //has to be fixed for many
+                for(let x=0; x<resObj2._embedded.registers.length; x++){    //for 1
+                let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
 
                 //step 3 update payments
 
@@ -563,7 +564,8 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
                     let resObj3 = JSON.parse(request3.responseText);
                     console.log("sync call 3:", resObj3);
                     //let payment3 = resObj3._links.self.href;
-                    let payment = resObj3._embedded.payeds[0]._links.payed.href; //has to be fixed for many
+                    for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
+                    let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
                     //debugger;
 
                     //step 3.2 update payments
@@ -589,8 +591,11 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
                         console.log("sync call 4:", resObj4);
                         //debugger;
-                        alert("Payment has been updated in database. Page is reloading");
-                        window.location.reload(true);
+                         if (s == resObj3._embedded.payeds.length -1){
+                            alert("Payment has been updated in database. Page is reloading");
+                            window.location.reload(true);
+                        }
+
 
                     }
                     else {
@@ -598,10 +603,11 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
                         alert("Something bad has happened. Please try again");
 
                     }
-
+                }//end of for 2
                 }
 
             }
+    } //end of for 1
     }
 
 } 
