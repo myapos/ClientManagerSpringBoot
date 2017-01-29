@@ -3,7 +3,7 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
 		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
-		studentId, paymentId } = action;
+		studentId, paymentId,updateMode } = action;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
@@ -26,7 +26,8 @@ const reducer = (state = {}, action) => {
 	    case actions.UPDATE_PAYMENTS_REGISTERS:
 	       return {
 	            ...state,
-	   			rowUpdate
+	   			rowUpdate,
+	   			updateMode
 	       }
 	    case actions.DELETE_PAYMENTS_REGISTERS:
 	       return {

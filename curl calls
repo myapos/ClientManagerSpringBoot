@@ -155,3 +155,8 @@ curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" 
 
 
 http://localhost:8181/api/students?fname=testcurlfname&lname=testcurllname& ...............&dateOfPayment=2013-04-02T08:35:42.000+0000&.........&manager=http://localhost:8181/api/managers/17
+
+http://localhost:8181/api/payeds?payment=true&dateOfPayment=Tue Apr 02 2013&notes=testUpdate&register=http://localhost:8181/api/registers/2
+
+"{"payment":true,"dateOfPayment":"Tue Apr 02 2013","notes":"dummy notes","register":"http://localhost:8181/api/registers/2"}"
+

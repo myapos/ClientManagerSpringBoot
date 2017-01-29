@@ -31,6 +31,8 @@ public interface PayedRepository extends PagingAndSortingRepository<Payed, Long>
 
 	Payed findById(@Param("id")Long id);
 
+	List<Payed> findByRegister(@Param("register") Register register);
+
 	List<Payed> findByRegister_Id(@Param("id") Long id);
 
 }

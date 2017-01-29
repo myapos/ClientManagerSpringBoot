@@ -222,6 +222,7 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
         "description": newdesc,
         "studentClass": rowUpdate._links.self.href
     });
+    //debugger;
     const fetch1 = fetch(rowUpdate._links.self.href , {
                 method: 'PATCH',
                 mode: 'cors',
@@ -377,7 +378,7 @@ export const saveNewStudent = (row) => {
 export const deleteStudent = (studentId) => {
 
 
-    debugger;
+    //debugger;
     console.log("hey from api.deleteStudentClass. Preparing to delete student with id:", studentId);
     let x = document.getElementById("students");
     let rowByClassId = x.querySelectorAll('tr')[studentId];
@@ -448,7 +449,7 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
     //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
 
 
-    debugger;
+    //debugger;
     // let rowByClassId = document.querySelectorAll('tr')[classId];
     // let description = rowByClassId.childNodes[2].innerHTML;
     let str = rowUpdate.email;
@@ -477,7 +478,7 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
                 }
             })
         .then(res => {
-            debugger;
+            //debugger;
             if(res.status == 200){
 
             //debugger;
@@ -500,10 +501,161 @@ export const addPaymentRegisters = (row) => {
 
 }
 
-export const updatePaymentRegisters = (row) => {
+export const updatePaymentRegisters = (updateMode , row) => {
 //debugger;
 
+if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
+    updateMode == "updateDateOfPayment"){
+    
+    //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d 
+    //'{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes", 
+    //"register":"http://localhost:8181/api/registers/2"}' http://localhost:8181/api/payeds
 
+    //debugger;
+
+    //sync requests
+
+    //step 1 find student by student fname and lname
+
+    //http://localhost:8181/api/students/search/findByFnameAndLname?fname=myros&lname=myroslname
+    let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
+    let request = new XMLHttpRequest();
+    request.open('GET', url, false);  // `false` makes the request synchronous
+    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+    request.setRequestHeader("Content-type", "application/json");
+    request.contentType = "application/json"
+    request.send(null);
+
+    if (request.status === 200) {
+
+            let resObj = JSON.parse(request.responseText);
+            console.log("sync call 1:", resObj);
+            let student = resObj._links.self.href;
+
+            // let ar = url2.split("/");
+            // let s = ar.length;
+            // let id = ar[s - 1];
+            // let student = parent.BASE_URL+"/api/students/"18
+
+            //step 2 find register by student
+
+            let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
+            let request2 = new XMLHttpRequest();
+            request2.open('GET', url2, false);  // `false` makes the request synchronous
+            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+            request2.setRequestHeader("Content-type", "application/json");
+            request2.contentType = "application/json"
+            request2.send(null);
+
+            if (request2.status === 200) {
+
+                let resObj2 = JSON.parse(request2.responseText);
+                console.log("sync call 2:", resObj2);
+                let register = resObj2._links.self.href;
+
+
+                //step 3 update payments
+
+                //step 3.1 find payment id to update
+
+                let ar = register.split("/");
+                let s = ar.length;
+                let registerId = ar[s - 1];
+
+                let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
+                let request3 = new XMLHttpRequest();
+                request3.open('GET', url3, false);  // `false` makes the request synchronous
+                request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                request3.setRequestHeader("Content-type", "application/json");
+                request3.contentType = "application/json"
+                request3.send(null);
+
+                if (request3.status === 200) {
+                    
+                    let resObj3 = JSON.parse(request3.responseText);
+                    console.log("sync call 3:", resObj3);
+                    //let payment3 = resObj3._links.self.href;
+                    let payment = resObj3._embedded.payeds[0]._links.payed.href;
+                    //debugger;
+
+                    //step 3.2 update payments
+                    let date = new Date(row.dateOfPayment);
+                    let bodyData = JSON.stringify({
+                            "payment" : row.payment,
+                            "dateOfPayment": date,
+                            "notes": row.notes,
+                            "register": register
+                        });
+
+                    let request4 = new XMLHttpRequest();
+                    request4.open('PATCH', payment, false);  // `false` makes the request synchronous
+                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request4.setRequestHeader("Content-type", "application/json");
+                    request4.contentType = "application/json"
+                    request4.send(bodyData);
+
+                    if (request4.status === 200) {
+
+                        let resObj4 = JSON.parse(request4.responseText);
+
+                        console.log("sync call 4:", resObj4);
+                        //debugger;
+                        alert("Payment has been updated in database. Page is reloading");
+                        window.location.reload(true);
+
+                    }
+                    else {
+
+                        alert("Something bad has happened. Please try again");
+
+                    }
+
+
+                }
+
+
+
+                //DOULEUEI GIA TO UPDATE
+                
+                // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
+                // '{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes",
+                //"register":register }' http://localhost:8181/api/payeds
+
+
+                //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d 
+                //'{ "payment" : "true", "dateOfPayment":"2013-04-02T08:35:42.000+0000", "notes":"dummy_notes", 
+                //"register":"http://localhost:8181/api/registers/2"}' http://localhost:8181/api/payeds
+
+                //let date = new Date(row.dateOfPayment);
+            }
+    }
+
+} 
+// else if (updateMode == "paymentNotesUpdate"){
+    
+//     debugger;
+    
+// } 
+else if (updateMode == "classUpdate"){
+
+    
+    //debugger;
+    
+    //DOULEUEI GIA TO UPDATE
+    // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
+    // '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' 
+    //http://localhost:8181/api/studentClasses/74
+
+
+
+} 
+// else if (updateMode == "updateDateOfPayment"){
+
+    
+//     debugger;
+   
+
+// } 
 
 }
 

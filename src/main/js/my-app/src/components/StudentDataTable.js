@@ -157,7 +157,7 @@ render () {
             search={ true } 
             options={ options }
             >
-              <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
+              <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
               <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
               <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
               <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
