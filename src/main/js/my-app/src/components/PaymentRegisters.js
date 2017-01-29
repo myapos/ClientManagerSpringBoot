@@ -114,7 +114,7 @@ componentDidMount(){
               
                 //sync call 3 get payeds for registered students. 
                 //http://localhost:8181/api/payeds/search/findByRegister_Id?id={id}
-
+                //debugger;
                 let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister_Id?id="+id;
                 let request3 = new XMLHttpRequest();
                 request3.open('GET', url3, false);  // `false` makes the request synchronous
@@ -155,68 +155,16 @@ componentDidMount(){
 componentDidUpdate(){
   //debugger;
 
-  let x = document.getElementById("PaymentRegisters");
-  let rows = x.querySelectorAll('tr');
-  //let el = rows[1];
+  // let x = document.getElementById("PaymentRegisters");
+  // let rows = x.querySelectorAll('tr');
+  // let el2 = x.getElementsByClassName('form-group');
+  // //set id for classes in modal window
 
-  //let id = rows.length;
+  // el2[1].childNodes[1].value = rows.length;
 
-  //el.setAttribute('placeholder', id);
-
-  let el2 = x.getElementsByClassName('form-group');
-  //set id for classes in modal window
-  console.log("modal editing:",el2)
-  //debugger;
-  el2[1].childNodes[1].value = rows.length;
-
-  let childs = el2[6].childNodes; 
   
-  el2[6].removeChild(childs[1]);
-
-  //Create and append select list
-  let selectList = document.createElement("select");
-  selectList.id = "mySelectClassesPaymentRegisters";
-  selectList.className = "form-control";
-  el2[6].appendChild(selectList);
-
-  //Create and append the options
-  //debugger;
-  for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-      let option = document.createElement("option");
-      option.value = this.props.saved_studentClasses[i].description;
-      option.text = this.props.saved_studentClasses[i].description;
-      selectList.appendChild(option);
-  }
-
-  //create select list true and false for payment
-
-  childs = el2[4].childNodes;
-  
-  el2[4].removeChild(childs[1]);
-
-  //Create and append select list TRUE/FALSE options
-  let selectPaymentList = document.createElement("select");
-  selectPaymentList.id = "mySelectPaymentRegisters";
-  selectPaymentList.className = "form-control";
-  //debugger;
-  el2[4].appendChild(selectPaymentList);
-
-  //Create and append the options
-  //debugger;
-  //for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-  let option = document.createElement("option");
-  option.value = "TRUE";//this.props.saved_studentClasses[i].description;
-  option.text = "TRUE";//this.props.saved_studentClasses[i].description;
-  selectPaymentList.appendChild(option);
-  option = document.createElement("option");
-  option.value = "FALSE";//this.props.saved_studentClasses[i].description;
-  option.text = "FALSE";//this.props.saved_studentClasses[i].description;
-  selectPaymentList.appendChild(option);
-  //} 
-
-  //debugger;
-  //add date element in modal window
-  el2[7].childNodes[1].type="date";
+  // //add date element in modal window
+  // el2[7].childNodes[1].type="date";
 
 
 }
@@ -230,43 +178,8 @@ beforeSavePaymentRegistersCell(row, cellName, cellValue) {
   // let x = document.getElementById("PaymentRegisters");
   // let el = x.getElementsByClassName('form-group');
 
-  let x = document.getElementById("PaymentRegisters");
-  let y = x.getElementsByClassName("react-bs-container-body");
-  let el = y[0].getElementsByClassName("form-control editor edit-text")[0];
-  console.log(el);
-
-  let cellIndex = el.parentElement.cellIndex;
-
-  if (cellIndex == 4){
-    debugger;
-  } 
-  else if (cellIndex == 6){
-
-    debugger;
-
-    // let childs = el.parentElement.childNodes; 
   
-    // el.parentElement.removeChild(childs[0]);
-
-    // //Create and append select list
-    // let selectClassesList = document.createElement("select");
-    // selectClassesList.id = "mySelectEditClassesPaymentRegisters";
-    // selectClassesList.className = "form-control";
-    // el.parentElement.appendChild(selectClassesList);
-
-    // //Create and append the options
-    // //debugger;
-    // for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-    //     let option = document.createElement("option");
-    //     option.value = this.props.saved_studentClasses[i].description;
-    //     option.text = this.props.saved_studentClasses[i].description;
-    //     selectClassesList.appendChild(option);
-    // }
-
-  } 
-  
-  let descBefore = el.getAttribute("value");
-  //this.props.updateStudent(row, cellValue,descBefore);
+  //this.props.updatePaymentRegisters(row, cellValue,descBefore);
   //debugger;
 
 }
@@ -275,7 +188,57 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
   //get description before
-  this.props.updatePaymentRegisters(row);
+  
+  let x = document.getElementById("PaymentRegisters");
+  let y = x.getElementsByClassName("react-bs-container-body");
+  let updateMode = "";
+  //let el = y[0].getElementsByClassName("form-control editor edit-text")[0];
+ 
+  let el;
+  let cellIndex;
+  //debugger;
+  if (y[0].querySelector("select") != null){
+
+    el = y[0].querySelector("select")[0];
+    cellIndex  = el.parentElement.parentElement.cellIndex;
+  }
+  else if (y[0].getElementsByClassName("form-control editor edit-text")[0] != null){
+    
+    el = y[0].getElementsByClassName("form-control editor edit-text")[0];
+    cellIndex = el.parentElement.cellIndex;
+  }
+  else if (y[0].getElementsByClassName("form-control editor edit-datetime")[0] != null){
+    //debugger;
+    el = y[0].getElementsByClassName("form-control editor edit-datetime")[0];
+    cellIndex = el.parentElement.cellIndex;
+  }
+  console.log(el);
+
+  
+
+  if (cellIndex == 4){
+    //debugger;
+    updateMode = "paymentUpdate";
+  } 
+  else if (cellIndex == 5){
+    //debugger;
+    updateMode = "paymentNotesUpdate";
+  } 
+  else if (cellIndex == 6){
+
+    //debugger;
+    updateMode = "classUpdate";
+
+  } 
+  else if (cellIndex == 7){
+
+    //debugger;
+    updateMode = "updateDateOfPayment";
+
+  } 
+  
+  let descBefore = el.getAttribute("value");
+  this.props.updatePaymentRegisters(row,updateMode);
   //debugger;
 
 }
@@ -294,8 +257,8 @@ render () {
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-    const paymentTypes = ["TRUE", "FALSE"];
-    debugger;
+    const paymentTypes = ["true", "false"];
+    //debugger;
 
     const availableClasses = [];
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
@@ -311,18 +274,17 @@ render () {
           cellEdit={cellEditProp} 
           data={dataPaymentRegisters} 
           hover={true} 
-          insertRow={ true }
+
           selectRow={ selectRowProp }
-          deleteRow={ true }
           exportCSV={true}
           search={ true }
           options={ options }
           tableHeaderClass='payments-registers-header-class'
           tableBodyClass='payments-registers-body-class'
           >
-          <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="lname" >Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname" editable={ false } dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" editable={ false } >Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
           <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
@@ -330,6 +292,7 @@ render () {
             dataField="dateOfPayment" 
             dataAlign="left" 
             dataSort={false}
+            editable={ { type: 'datetime' } }
           >
             Date Of Payment
           </TableHeaderColumn>

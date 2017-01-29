@@ -135,7 +135,7 @@ function* updatePaymentRegisters () {
 
 	console.log('updatePaymentRegisters');
 	const state = yield select();
-	const rowUpdate = yield call(api.updatePaymentRegisters, /*state.desc, state.descBefore,*/ state.rowUpdate);
+	const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode,  state.rowUpdate);
 	//debugger;
 	
 	yield put({

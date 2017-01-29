@@ -33,7 +33,7 @@ import com.myapos.clientmanager.model.*;
 public class PayedController {
 
 	@Autowired
-	PayedRepository PayedRepository;
+	PayedRepository payedRepository;
 
 	// @RequestMapping(method=RequestMethod.GET)
 	// public @ResponseBody Payed sayHello(@RequestParam(value="name", required=false, defaultValue="Stranger") String name) {

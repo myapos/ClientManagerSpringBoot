@@ -221,7 +221,7 @@ render () {
      return (
       <div id="studentClasses" >
           <BootstrapTable  data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>
-            <TableHeaderColumn dataField="index" isKey={true} dataSort={true}>id</TableHeaderColumn>
+            <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
             <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
           </BootstrapTable>

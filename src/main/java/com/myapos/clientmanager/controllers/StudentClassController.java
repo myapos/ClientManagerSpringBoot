@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class StudentClassController {
 
 	@Autowired
-	StudentClassRepository StudentClassRepository;
+	StudentClassRepository studentClassRepository;
 
 	// @RequestMapping(value = "/")
 	// public String index() {

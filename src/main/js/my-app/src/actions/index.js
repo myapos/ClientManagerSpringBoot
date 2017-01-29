@@ -132,11 +132,12 @@ export function addPaymentRegisters(row) {
   };
 }
 
-export function updatePaymentRegisters(rowUpdate) {
+export function updatePaymentRegisters(rowUpdate, updateMode) {
   //debugger;
   return {
     type: UPDATE_PAYMENTS_REGISTERS,
     rowUpdate,
+    updateMode
   };
 }
 
