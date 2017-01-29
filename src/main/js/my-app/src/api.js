@@ -525,7 +525,7 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
             let resObj = JSON.parse(request.responseText);
             console.log("sync call 1:", resObj);
             let student = resObj._links.self.href;
-
+            debugger;
             //step 2 find register by student
 
             let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
@@ -540,8 +540,7 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
                 let resObj2 = JSON.parse(request2.responseText);
                 console.log("sync call 2:", resObj2);
-                let register = resObj2._links.self.href;
-
+                let register = resObj2._embedded.registers[0]._links.self.href; //has to be fixed for many
 
                 //step 3 update payments
 
@@ -564,18 +563,18 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
                     let resObj3 = JSON.parse(request3.responseText);
                     console.log("sync call 3:", resObj3);
                     //let payment3 = resObj3._links.self.href;
-                    let payment = resObj3._embedded.payeds[0]._links.payed.href;
+                    let payment = resObj3._embedded.payeds[0]._links.payed.href; //has to be fixed for many
                     //debugger;
 
                     //step 3.2 update payments
                     let date = new Date(row.dateOfPayment.substr(0, 10));
-                    debugger;
+                    //debugger;
                     let bodyData = JSON.stringify({
                             "payment" : row.payment,
                             "dateOfPayment": date,
                             "notes": row.notes,
                             "register": register
-                        });
+                    });
 
                     let request4 = new XMLHttpRequest();
                     request4.open('PATCH', payment, false);  // `false` makes the request synchronous
@@ -609,19 +608,103 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
 else if (updateMode == "classUpdate"){
 
-    
-    debugger;
-
     //sync calls
+    //prepei na kanw update tin eggrafi register ara na allaksw to class id mesa ston pinaka register
 
-    //step 1 find 
+    //step 1 find student by fname and lname
+
+    let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
+    let request = new XMLHttpRequest();
+    request.open('GET', url, false);  // `false` makes the request synchronous
+    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+    request.setRequestHeader("Content-type", "application/json");
+    request.contentType = "application/json"
+    request.send(null);
+
+    if (request.status === 200) {
+
+            let resObj = JSON.parse(request.responseText);
+            console.log("sync call 1:", resObj);
+            let student = resObj._links.self.href;
+            //debugger;
+
+            //step2 find register id by student 
+            let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
+            //debugger;
+            let request2 = new XMLHttpRequest();
+            request2.open('GET', url2, false);  // `false` makes the request synchronous
+            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+            request2.setRequestHeader("Content-type", "application/json");
+            request2.contentType = "application/json"
+            request2.send(null);
+
+            if (request2.status === 200) {
+
+                let resObj2 = JSON.parse(request2.responseText);
+                console.log("sync call 2:", resObj2);
+            //   let register = resObj2._embedded.registers[0]._links.register.href; //this has to be fixed for many registrations
+            //debugger;
+
+            //step 3 find classes by description
+            let url3 = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+            let request3 = new XMLHttpRequest();
+            request3.open('GET', url3, false);  // `false` makes the request synchronous
+            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+            request3.setRequestHeader("Content-type", "application/json");
+            request3.contentType = "application/json"
+            request3.send(null);
+
+            if (request3.status === 200) {
+                //debugger;
+                let resObj3 = JSON.parse(request3.responseText);
+                console.log("sync call 3:", resObj3); 
+
+                //step 4 make the patch request
+                let date = new Date(row.dateOfPayment.substr(0, 10));
+                let bodyData = JSON.stringify({
+                            "dateOfRegistration" : date,
+                            "student": student,
+                            "studentClass": resObj3._links.self.href//"http://localhost:8181/api/studentClasses/1"
+                    });
+
+                    let request4 = new XMLHttpRequest();
+                    let registrations = resObj2._embedded.registers;
+                    for (let j=0; j<registrations.length;j++) {
+                    let url4 = resObj2._embedded.registers[j]._links.register.href;//"http://localhost:8181/api/registers/2"; //send request to register element http://localhost:8181/api/registers/2
+                    //debugger;
+                    request4.open('PATCH', url4, false);  // `false` makes the request synchronous
+                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request4.setRequestHeader("Content-type", "application/json");
+                    request4.contentType = "application/json"
+                    request4.send(bodyData);
+
+                    if (request4.status === 200) {
+
+                        let resObj4 = JSON.parse(request4.responseText);
+
+                        console.log("sync call 4:", resObj4);
+                        //debugger;
+                        if (j == registrations.length -1){
+                            alert("Payment has been updated in database. Page is reloading");
+                            window.location.reload(true);
+                        }
+
+                    }
+                    else {
+
+                        alert("Something bad has happened. Please try again");
+
+                    }
+
+                }
+
+            }
 
 
+            
+            }
 
-    //DOULEUEI GIA TO UPDATE
-    // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d 
-    // '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' 
-    //http://localhost:8181/api/studentClasses/74
+    }
 
 
 
