@@ -177,7 +177,7 @@ render () {
   else{
       return (
         <div>
-            <p id="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>
+            <p className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>
         </div>
       )
     }

@@ -301,7 +301,7 @@ button, input, select, textarea {
 .tabs-1 .tabContent: {
 }
 
-#loadingText{
+.loadingText{
   margin-top: 15px;
 }
 /* https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form */
