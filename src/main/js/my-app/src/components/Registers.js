@@ -55,33 +55,33 @@ const selectRowProp = {
 
 class Registers extends Component {
 
-componentDidMount(){
+componentDidUpdate(){
 
 }
 
-componentDidUpdate(){
+componentDidMount(){
 
-  let el = document.getElementById("dotsPaymentRegisters");
+  let el = document.getElementById("dotsRegisters");
   if (el !== null) {
     // do stuff
     console.log(el);
     setInterval(function () {el.innerHTML = el.innerHTML + ".";  }, 75);
   }
 
-  const registers = this.props.saved_registers;
+  //const registers = this.props.saved_registers;
+  const students = this.props.saved_student;
+  //debugger;
 
-  debugger;
-
-  for(let jj=0; jj<registers.length;jj++){
+  for(let jj=0; jj<students.length;jj++){
   	//synchronous calls.......... 
     //get data of registered students
 
-      let url = registers[jj]._links.student.href;
+      let url = students[jj]._links.student.href;
       //debugger;
       //Get id for register
       let ar = url.split("/");
       let s = ar.length;
-      let id = ar[s - 2];
+      let id = ar[s - 1];
       let request1 = new XMLHttpRequest();
       request1.open('GET', url, false);  // `false` makes the request synchronous
       request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
@@ -90,12 +90,101 @@ componentDidUpdate(){
       request1.send(null);
 
       if (request1.status === 200) {
-        //debugger;
+
         console.log(JSON.parse(request1.responseText));
+
+     	//2nd sync call
+    	//get registrations of all students
+    	//let url2 = students[jj]._links.self.href;
+    	let url2 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
+    	//debugger;
+
+    	//http://localhost:8181/api/registers/search/findByStudent?student=http://localhost:8181/api/students/136
+        let request2 = new XMLHttpRequest();
+        request2.open('GET', url2, false);  // `false` makes the request synchronous
+        request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        request2.setRequestHeader("Content-type", "application/json");
+        request2.contentType = "application/json"
+        request2.send(null);
+
+        if (request2.status === 200) {
+            //debugger;
+            console.log("sync call 2:",JSON.parse(request2.responseText));
+            let registrations = JSON.parse(request2.responseText);
+
+            //if student has registers get the classes of registers
+            if (registrations._embedded.registers.length > 0) {
+
+            	console.log("student has registrations");
+            	//for every registration get registered classes
+            	for (let ww=0; ww<registrations._embedded.registers.length; ww++){
+            	
+            	let url3 = registrations._embedded.registers[ww]._links.studentClass.href;
+            	//debugger;
+            	//let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
+
+          		let request3 = new XMLHttpRequest();
+		        request3.open('GET', url3, false);  // 'false' makes the request synchronous
+		        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+		        request3.setRequestHeader("Content-type", "application/json");
+		        request3.contentType = "application/json"
+		        request3.send(null);
+
+		        if (request3.status === 200) {
+
+		        	 console.log("sync call 3:",JSON.parse(request3.responseText));
+		        	
+
+		        	 //save tempData
+
+		        	 let tempData ={};
+                     tempData.fname = JSON.parse(request1.responseText).fname;
+                     tempData.lname = JSON.parse(request1.responseText).lname;
+                     tempData.email = JSON.parse(request1.responseText).email;
+                     tempData.class = JSON.parse(request3.responseText).description;
+
+                     let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
+                     //debugger;
+                     let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                     tempData.dateOfRegistration = formatedDate;
+                     tempData.index = dataRegisters.length+1;
+                     dataRegisters.push(tempData);
+                     //debugger;		
+
+
+		        }
+
+            	}
+
+            }
+            else {
+
+            	console.log("no registrations");
+
+            	//save tempData
+
+	        	let tempData ={};
+	            tempData.fname = JSON.parse(request1.responseText).fname;
+	            tempData.lname = JSON.parse(request1.responseText).lname;
+	            tempData.email = JSON.parse(request1.responseText).email;
+	            tempData.class = "no registered classes";
+
+	            //let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
+	            //debugger;
+	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+	            tempData.dateOfRegistration = "no date of registrations";
+	            tempData.index = dataRegisters.length+1;
+	            dataRegisters.push(tempData);
+            	
+            }
+
+        }
     }
 
 
   }
+
+  //debugger;
 }
 
 afterSaveRegistersCell(row, cellName, cellValue) {
@@ -140,20 +229,61 @@ render () {
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    console.log("dataRegisters:");
+    console.log("dataRegisters:",dataRegisters);
 
+
+    /*
+
+		        tempData.fname = JSON.parse(request1.responseText).fname;
+	            tempData.lname = JSON.parse(request1.responseText).lname;
+	            tempData.email = JSON.parse(request1.responseText).email;
+	            tempData.class = "no registrations";
+	            //let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
+	            //debugger;
+	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+	            tempData.dateOfRegistration = "no registrations";
+	            tempData.index = dataRegisters.length+1;
+
+
+    */
     //debugger;
-    return (
-      <div id="registers">
-      </div>
-     )
+    if(dataRegisters.length>0){
+    	//debugger;
+	    return (
+	      <div id="registers">
+		      <BootstrapTable
+	          cellEdit={cellEditProp} 
+	          data={dataRegisters} 
+	          hover={true} 
 
-    // return (
-    //   <div>
-    //         <p className="loadingText"> Please wait while getting data from database <span id="dotRegisters"></span> </p>
-    //   </div>
-    // )
-    
+	          selectRow={ selectRowProp }
+	          exportCSV={true}
+	          search={ true }
+	          options={ options }
+	          tableHeaderClass='payments-registers-header-class'
+	          tableBodyClass='payments-registers-body-class'
+	          >
+	          <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
+	          <TableHeaderColumn dataField="fname" editable={ false } dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+	          <TableHeaderColumn dataField="lname" editable={ false } >Last Name</TableHeaderColumn>
+	          <TableHeaderColumn dataField="email" editable={ false } >E-mail</TableHeaderColumn>
+	          <TableHeaderColumn dataField="class" editable={ false } >Class</TableHeaderColumn>
+	          <TableHeaderColumn 
+	            dataField="dateOfRegistration" 
+	            dataAlign="left" 
+	            dataSort={false}
+	            editable={ { type: 'datetime' } }
+	          />
+	        </BootstrapTable>
+	      </div>
+	     )
+	} else{
+	    return (
+	      <div>
+	            <p className="loadingText"> Please wait while getting data from database <span id="dotsRegisters"></span> </p>
+	      </div>
+	    )
+    }
   }
 }
 
