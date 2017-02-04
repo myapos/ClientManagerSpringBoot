@@ -31,6 +31,8 @@ export const SAGAS_UPDATE_PAYMENTS_REGISTERS = 'SAGAS_UPDATE_PAYMENTS_REGISTERS'
 export const CREATE_PAYMENTS_REGISTERS = 'CREATE_PAYMENTS_REGISTERS';
 export const SAGAS_CREATE_PAYMENTS_REGISTERS = 'SAGAS_CREATE_PAYMENTS_REGISTERS';
 
+/*ACTIONS FOR REGISTERS*/
+export const REGISTERS = 'REGISTERS';
 
 export function getAllStudents() {
   debugger;
@@ -115,6 +117,9 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
   }
   else if (selectedTab == 'tab3'){
     act = "PAYMENTS_REGISTERS";
+  }
+  else if (selectedTab == 'tab4'){
+    act = "REGISTERS";
   }
     return {
         type: act,

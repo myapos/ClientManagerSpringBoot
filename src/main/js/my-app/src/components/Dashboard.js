@@ -12,6 +12,7 @@ import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
+import Registers from './Registers';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
@@ -70,7 +71,8 @@ class Dashboard extends Component {
             <div style={styles.links}>
                 <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
                 <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
-                <TabLink to="tab3" default style={styles.tabLink}>Διαχείριση Πληρωμών-Εγγραφών</TabLink>
+                <TabLink to="tab3" style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
+                <TabLink to="tab4" default style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
@@ -83,6 +85,9 @@ class Dashboard extends Component {
                 </TabContent>
                 <TabContent for="tab3">
                     <div><PaymentRegisters/></div>
+                </TabContent>
+                <TabContent for="tab4">
+                    <div><Registers/></div>
                 </TabContent>
             </div>
         </Tabs>
