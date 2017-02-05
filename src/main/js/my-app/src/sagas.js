@@ -183,6 +183,20 @@ function* updateRegisters () {
 	})
 }
 
+function* deleteRegisters () {
+
+	console.log('deleteRegister');
+	const state = yield select();
+	const registerId = yield call(api.deleteRegisters, state.registerId);
+
+	//debugger;
+	yield put({
+		type: actions.SAGAS_DELETE_REGISTER,
+		registerId
+	})
+}
+
+
 function* rootSaga () {
 	console.log('saga');
 
@@ -200,6 +214,7 @@ function* rootSaga () {
 	yield takeEvery(actions.DELETE_PAYMENTS_REGISTERS, deletePaymentRegisters);
 	yield takeEvery(actions.CREATE_REGISTERS, createRegisters);
 	yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
+	yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
 }
 
 export default rootSaga;

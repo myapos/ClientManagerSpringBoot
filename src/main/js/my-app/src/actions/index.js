@@ -37,6 +37,8 @@ export const UPDATE_REGISTERS = 'UPDATE_REGISTERS';
 export const SAGAS_UPDATE_REGISTERS = 'SAGAS_UPDATE_REGISTERS';
 export const CREATE_REGISTERS = 'CREATE_REGISTERS';
 export const SAGAS_CREATE_REGISTERS = 'SAGAS_CREATE_REGISTERS';
+export const DELETE_REGISTERS = 'DELETE_REGISTERS';
+export const SAGAS_DELETE_REGISTERS = 'SAGAS_DELETE_REGISTERS';
 
 export function getAllStudents() {
   debugger;
@@ -166,6 +168,7 @@ export function updateRegisters(rowUpdate) {
   };
 }
 
+
 export function deletePaymentRegisters(paymentId) {
   //debugger;
   return {
@@ -173,3 +176,12 @@ export function deletePaymentRegisters(paymentId) {
     paymentId,
   };
 }
+
+export function deleteRegisters(registerId) {
+  //debugger;
+  return {
+    type: DELETE_REGISTERS,
+    registerId
+  };
+}
+
