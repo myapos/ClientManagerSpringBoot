@@ -29,7 +29,7 @@ public interface RegisterRepository extends PagingAndSortingRepository<Register,
 
 	Register save(Register register);
 
-	Register findBydateOfRegistration(String dateOfRegistration);
+	Register findBydateOfRegistration(@Param("dateOfRegistration") Date dateOfRegistration);
 
 	List<Register> findByStudent(@Param("student") Student student);
 

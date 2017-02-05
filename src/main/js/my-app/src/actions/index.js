@@ -33,6 +33,10 @@ export const SAGAS_CREATE_PAYMENTS_REGISTERS = 'SAGAS_CREATE_PAYMENTS_REGISTERS'
 
 /*ACTIONS FOR REGISTERS*/
 export const REGISTERS = 'REGISTERS';
+export const UPDATE_REGISTERS = 'UPDATE_REGISTERS';
+export const SAGAS_UPDATE_REGISTERS = 'SAGAS_UPDATE_REGISTERS';
+export const CREATE_REGISTERS = 'CREATE_REGISTERS';
+export const SAGAS_CREATE_REGISTERS = 'SAGAS_CREATE_REGISTERS';
 
 export function getAllStudents() {
   debugger;
@@ -146,6 +150,21 @@ export function updatePaymentRegisters(rowUpdate, updateMode) {
   };
 }
 
+export function createRegisters(rowUpdate) {
+  //debugger;
+  return {
+    type: CREATE_REGISTERS,
+    rowUpdate
+  };
+}
+
+export function updateRegisters(rowUpdate) {
+  //debugger;
+  return {
+    type: UPDATE_REGISTERS,
+    rowUpdate
+  };
+}
 
 export function deletePaymentRegisters(paymentId) {
   //debugger;

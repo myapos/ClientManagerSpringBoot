@@ -10,6 +10,7 @@ import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 const dataRegisters = [];
+parent.studentIndexWithRegistrations = [];
 
 function afterSearch (searchText, result){
   // console.log('Your search text is ' + searchText);
@@ -124,35 +125,35 @@ componentDidMount(){
             	//let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
 
           		let request3 = new XMLHttpRequest();
-		        request3.open('GET', url3, false);  // 'false' makes the request synchronous
-		        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-		        request3.setRequestHeader("Content-type", "application/json");
-		        request3.contentType = "application/json"
-		        request3.send(null);
+  		        request3.open('GET', url3, false);  // 'false' makes the request synchronous
+  		        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+  		        request3.setRequestHeader("Content-type", "application/json");
+  		        request3.contentType = "application/json"
+  		        request3.send(null);
 
-		        if (request3.status === 200) {
+  		        if (request3.status === 200) {
 
-		        	 console.log("sync call 3:",JSON.parse(request3.responseText));
-		        	
+  		        	 console.log("sync call 3:",JSON.parse(request3.responseText));
+  		        	
 
-		        	 //save tempData
+  		        	 //save tempData
 
-		        	 let tempData ={};
-                     tempData.fname = JSON.parse(request1.responseText).fname;
-                     tempData.lname = JSON.parse(request1.responseText).lname;
-                     tempData.email = JSON.parse(request1.responseText).email;
-                     tempData.class = JSON.parse(request3.responseText).description;
+  		        	 let tempData ={};
+                 tempData.fname = JSON.parse(request1.responseText).fname;
+                 tempData.lname = JSON.parse(request1.responseText).lname;
+                 tempData.email = JSON.parse(request1.responseText).email;
+                 tempData.class = JSON.parse(request3.responseText).description;
 
-                     let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
-                     //debugger;
-                     let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                     tempData.dateOfRegistration = formatedDate;
-                     tempData.index = dataRegisters.length+1;
-                     dataRegisters.push(tempData);
-                     //debugger;		
+                 let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
+                 //debugger;
+                 let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                 tempData.dateOfRegistration = formatedDate;
+                 tempData.index = dataRegisters.length+1;
+                 dataRegisters.push(tempData);
+                 //debugger;		
+                 parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
 
-
-		        }
+  		        }
 
             	}
 
@@ -163,16 +164,16 @@ componentDidMount(){
 
             	//save tempData
 
-	        	let tempData ={};
+	        	  let tempData ={};
 	            tempData.fname = JSON.parse(request1.responseText).fname;
 	            tempData.lname = JSON.parse(request1.responseText).lname;
 	            tempData.email = JSON.parse(request1.responseText).email;
-	            tempData.class = "no registered classes";
+	            tempData.class = "No registered classes";
 
 	            //let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
 	            //debugger;
 	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-	            tempData.dateOfRegistration = "no date of registrations";
+	            tempData.dateOfRegistration = "No date of registration";
 	            tempData.index = dataRegisters.length+1;
 	            dataRegisters.push(tempData);
             	
@@ -188,6 +189,50 @@ componentDidMount(){
 }
 
 afterSaveRegistersCell(row, cellName, cellValue) {
+
+
+
+let studentHasRegistrations = false;
+//get index of row
+
+//check if row.index has a registration already. If it has then action is update. Otherwise action is update
+
+for (let jj=0; jj<parent.studentIndexWithRegistrations.length; jj++){
+
+  if (parent.studentIndexWithRegistrations[jj] == row.index) {
+
+    studentHasRegistrations = true;
+
+  }
+}
+
+//debugger;
+
+if (!studentHasRegistrations) {
+ 
+    if (row.dateOfRegistration !="No date of registration" && row.class == "No registered classes"){
+
+      alert("Please give class input");
+
+    } else if (row.dateOfRegistration =="No date of registration" && row.class != "No registered classes"){
+
+      alert("Please give date of registration input");
+
+    }  else{
+
+      alert("create registers........");
+      this.props.createRegisters(row);
+    }
+}
+
+else {
+
+      alert("Update registrations");
+      this.props.updateRegisters(row);
+
+}
+  
+
 
 }
 
@@ -267,7 +312,7 @@ render () {
 	          <TableHeaderColumn dataField="fname" editable={ false } dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
 	          <TableHeaderColumn dataField="lname" editable={ false } >Last Name</TableHeaderColumn>
 	          <TableHeaderColumn dataField="email" editable={ false } >E-mail</TableHeaderColumn>
-	          <TableHeaderColumn dataField="class" editable={ false } >Class</TableHeaderColumn>
+	          <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } } >Class</TableHeaderColumn>
 	          <TableHeaderColumn 
 	            dataField="dateOfRegistration" 
 	            dataAlign="left" 

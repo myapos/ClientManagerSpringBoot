@@ -164,7 +164,7 @@ http://localhost:8181/api/payeds?payment=true&dateOfPayment=Tue Apr 02 2013&note
 
 http://localhost:8181/api/registers/2?dateOfRegistration=2013-05-02T08:35:42.000+0000
 
-//douleuei!!!
+//DOULEUEI GIA TO UPDATE
 curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{"dateOfRegistration" : "2013-06-02T08:35:42.000+0000", "student":"http://localhost:8181/api/students/1","studentClass":"http://localhost:8181/api/studentClasses/1"}' http://localhost:8181/api/registers/2
 
 
