@@ -53,14 +53,51 @@ const selectRowProp = {
 class StudentDataTable extends Component {
 
 componentDidMount() {
+  const data = this.props.saved_students;
   //debugger;
   let elSt = document.getElementById("dotsStudents");
-  console.log(elSt);
-
+  let d = new Date();
+  let startTime = d.getTime();
+  let endTime = d.getTime();
+  let diffTime = endTime - startTime;
+  let refreshIntervalId = "";
+  let timeThreshold = 15000 ; //ms
   if (elSt !== null) {
-    // do stuff
-    console.log(elSt);
-    setInterval(function () {elSt.innerHTML = elSt.innerHTML + ".";  }, 75);
+  // do stuff
+  
+  //anonymoys function to use in setInterval
+  let anon = function(data) {
+      //debugger;
+      elSt.innerHTML = elSt.innerHTML + ".";  
+      
+      if (elSt.innerHTML == ".................................."){
+        //reset dots
+        //debugger;
+        //clearInterval();
+        elSt.innerHTML = "";
+      }
+      d = new Date();
+      endTime = d.getTime();
+      diffTime = endTime - startTime;
+      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //if waiting time is more than 30sec then display message
+      //debugger;
+      if (diffTime > timeThreshold && data.length == 0 ){
+        //debugger;
+        //alert("time passed");
+        clearInterval(refreshIntervalId);
+        let msg = document.getElementById("loadingTextStudents");
+        msg.innerHTML = "No payments are saved in database"; 
+        elSt.innerHTML = ""; 
+      } else if (diffTime > timeThreshold && data.length > 0 ){
+        clearInterval(refreshIntervalId);
+      }
+    };
+
+
+  refreshIntervalId = setInterval( function() { anon(data)} , 100);
+
+    
   }
 
 }
@@ -177,7 +214,7 @@ render () {
   else{
       return (
         <div>
-            <p className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>
+            <p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>
         </div>
       )
     }

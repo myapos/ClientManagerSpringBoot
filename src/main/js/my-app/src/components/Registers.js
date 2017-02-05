@@ -62,12 +62,50 @@ componentDidUpdate(){
 }
 
 componentDidMount(){
-
+  const data = this.props.saved_registers;
   let el = document.getElementById("dotsRegisters");
+  let d = new Date();
+  let startTime = d.getTime();
+  let endTime = d.getTime();
+  let diffTime = endTime - startTime;
+  let refreshIntervalId = "";
+  let timeThreshold = 15000 ; //ms
   if (el !== null) {
-    // do stuff
-    console.log(el);
-    setInterval(function () {el.innerHTML = el.innerHTML + ".";  }, 75);
+  // do stuff
+  
+  //anonymoys function to use in setInterval
+  let anon = function(data) {
+      //debugger;
+      el.innerHTML = el.innerHTML + ".";  
+      
+      if (el.innerHTML == ".................................."){
+        //reset dots
+        //debugger;
+        //clearInterval();
+        el.innerHTML = "";
+      }
+      d = new Date();
+      endTime = d.getTime();
+      diffTime = endTime - startTime;
+      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //if waiting time is more than 30sec then display message
+      //debugger;
+      if (diffTime > timeThreshold && data.length == 0 ){
+        //debugger;
+        //alert("time passed");
+        clearInterval(refreshIntervalId);
+        let msg = document.getElementById("loadingTextRegisters");
+        msg.innerHTML = "No payments are saved in database"; 
+        el.innerHTML = ""; 
+      } else if (diffTime > timeThreshold && data.length > 0 ){
+        clearInterval(refreshIntervalId);
+      }
+    };
+
+
+  refreshIntervalId = setInterval( function() { anon(data)} , 100);
+
+    
   }
 
   //const registers = this.props.saved_registers;
@@ -327,7 +365,7 @@ render () {
 	} else{
 	    return (
 	      <div>
-	            <p className="loadingText"> Please wait while getting data from database <span id="dotsRegisters"></span> </p>
+	            <p id="loadingTextRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsRegisters"></span> </p>
 	      </div>
 	    )
     }
