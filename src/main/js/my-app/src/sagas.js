@@ -157,6 +157,32 @@ function* deletePaymentRegisters () {
 	})
 }
 
+function* createRegisters () {
+
+	console.log('createRegisters');
+	const state = yield select();
+	const row = yield call(api.createRegisters, state.rowUpdate);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_CREATE_REGISTERS,
+		row
+	})
+}
+
+function* updateRegisters () {
+
+	console.log('updateRegisters');
+	const state = yield select();
+	const row = yield call(api.updateRegisters, state.rowUpdate);
+	//debugger;
+	
+	yield put({
+		type: actions.SAGAS_UPDATE_REGISTERS,
+		row
+	})
+}
+
 function* rootSaga () {
 	console.log('saga');
 
@@ -172,6 +198,8 @@ function* rootSaga () {
 	yield takeEvery(actions.CREATE_PAYMENTS_REGISTERS, addPaymentRegisters);
 	yield takeEvery(actions.UPDATE_PAYMENTS_REGISTERS, updatePaymentRegisters);
 	yield takeEvery(actions.DELETE_PAYMENTS_REGISTERS, deletePaymentRegisters);
+	yield takeEvery(actions.CREATE_REGISTERS, createRegisters);
+	yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
 }
 
 export default rootSaga;
