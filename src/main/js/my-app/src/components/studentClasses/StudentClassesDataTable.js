@@ -63,16 +63,53 @@ const selectRowProp = {
 class StudentClassesDataTable extends Component {
 
 componentDidMount() {
+
+  const data = this.props.saved_studentClasses;
   //debugger;
   let elStCl = document.getElementById("dots");
-  console.log(elStCl);
-
+  let d = new Date();
+  let startTime = d.getTime();
+  let endTime = d.getTime();
+  let diffTime = endTime - startTime;
+  let refreshIntervalId = "";
+  let timeThreshold = 15000 ; //ms
   if (elStCl !== null) {
-    // do stuff
-    console.log(elStCl);
-    setInterval(function () {elStCl.innerHTML = elStCl.innerHTML + ".";  }, 75);
-  }
+  // do stuff
+  
+  //anonymoys function to use in setInterval
+  let anon = function(data) {
+      //debugger;
+      elStCl.innerHTML = elStCl.innerHTML + ".";  
+      
+      if (elStCl.innerHTML == ".................................."){
+        //reset dots
+        //debugger;
+        //clearInterval();
+        elStCl.innerHTML = "";
+      }
+      d = new Date();
+      endTime = d.getTime();
+      diffTime = endTime - startTime;
+      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //if waiting time is more than 30sec then display message
+      //debugger;
+      if (diffTime > timeThreshold && data.length == 0 ){
+        //debugger;
+        //alert("time passed");
+        clearInterval(refreshIntervalId);
+        let msg = document.getElementById("loadingTextRegisters");
+        msg.innerHTML = "No payments are saved in database"; 
+        elStCl.innerHTML = ""; 
+      } else if (diffTime > timeThreshold && data.length > 0 ){
+        clearInterval(refreshIntervalId);
+      }
+    };
 
+
+  refreshIntervalId = setInterval( function() { anon(data)} , 100);
+    
+  }
+  
 }
 
 componentDidUpdate(){
