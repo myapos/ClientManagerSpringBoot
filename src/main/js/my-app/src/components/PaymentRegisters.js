@@ -192,18 +192,18 @@ componentDidMount(){
 }
 
 componentDidUpdate(){
-  //debugger;
+  debugger;
 
-  // let x = document.getElementById("PaymentRegisters");
-  // let rows = x.querySelectorAll('tr');
-  // let el2 = x.getElementsByClassName('form-group');
-  // //set id for classes in modal window
+  let x = document.getElementById("PaymentRegisters");
+  let rows = x.querySelectorAll('tr');
+  let el2 = x.getElementsByClassName('form-group');
+  //set id for classes in modal window
 
-  // el2[1].childNodes[1].value = rows.length;
+  el2[1].childNodes[1].value = rows.length-1;
 
   
-  // //add date element in modal window
-  // el2[7].childNodes[1].type="date";
+  //add date element in modal window
+  el2[7].childNodes[1].type="date";
 
 
 }
@@ -297,6 +297,16 @@ render () {
     };
 
     const paymentTypes = ["true", "false"];
+
+    const fnames = [];
+    const lnames = [];
+    //debugger;
+    for (let i=0;i<this.props.saved_student.length;i++){
+        fnames.push(this.props.saved_student[i].fname);
+        lnames.push(this.props.saved_student[i].lname);       
+    }
+
+
     //debugger;
 
     const availableClasses = [];
@@ -313,7 +323,7 @@ render () {
           cellEdit={cellEditProp} 
           data={dataPaymentRegisters} 
           hover={true} 
-
+          insertRow={ true }
           selectRow={ selectRowProp }
           exportCSV={true}
           search={ true }
@@ -322,8 +332,8 @@ render () {
           tableBodyClass='payments-registers-body-class'
           >
           <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname" editable={ false } dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="lname" editable={ false } >Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname">Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
           <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
@@ -344,8 +354,42 @@ render () {
     else{
       return (
         <div>
-            <p id="loadingTextPaymentRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsPaymentRegisters"></span> </p>
-        </div>
+          <div>
+              <p id="loadingTextPaymentRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsPaymentRegisters"></span> </p>
+          </div>
+
+          <div id="PaymentRegisters">
+            <BootstrapTable
+              cellEdit={cellEditProp} 
+              data={dataPaymentRegisters} 
+              hover={true} 
+              insertRow={ true } 
+              selectRow={ selectRowProp }
+              exportCSV={true}
+              search={ true }
+              options={ options }
+              tableHeaderClass='payments-registers-header-class'
+              tableBodyClass='payments-registers-body-class'
+              >
+              <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
+              <TableHeaderColumn dataField="fname" dataAlign="center" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="lname" editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
+              <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
+              <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
+              <TableHeaderColumn 
+                dataField="dateOfPayment" 
+                dataAlign="left" 
+                dataSort={false}
+                editable={ { type: 'datetime' } }
+              >
+                Date Of Payment
+              </TableHeaderColumn>
+
+            </BootstrapTable>
+          </div>
+      </div>
+
       )
     }
   }

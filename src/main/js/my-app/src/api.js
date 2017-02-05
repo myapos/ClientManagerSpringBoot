@@ -967,34 +967,6 @@ export const deleteRegisters = (registerId) => {
 
                         }
 
-
-
-
-                        // const fetch3 = fetch(registerLink,
-                        //     {
-                        //         method: 'delete',
-                        //         mode: 'cors',
-                        //         cache: 'default',
-                        //         headers: {
-                        //             'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                        //             'Content-Type': 'application/json'
-                        //         }
-                        // })
-                        // .then(res => res.json())
-                        // .then(res => {
-                            
-                        //     debugger;
-                        //     console.log("data from server: ", res);
-                        //     console.log(res);
-                        //     if(res.status == 204){
-                        //         alert("Register is deleted succesfully");
-                        //         window.location.reload(true);
-                        //     }
-                        //     else{
-                        //         alert("Something bad happened.Please try again!");
-                        //     }
-
-                        // });
                     } else {
 
                         alert("Student has no registrations to delete");
