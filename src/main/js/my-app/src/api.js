@@ -239,87 +239,17 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
             //debugger;
             alert("Class is updated succsesfully. Prepare for reloading");
             window.location.reload(true);
-    //         // }
+
         }
             //res.json()
 
         })
 
-    // let request1 = createCORSRequest1("patch", rowUpdate._links.self.href);
-    // if (request1) {
-    //     request1.onload = function() {
-    //         //debugger;
-    //         //do something with request.responseText
-    //         // if (request1.status == 201) {
-    //         //     alert("A new record has been created in database. Page is reloading");
-    //         //     console.log("responseText:", request1.responseText);
-    //         //     window.location.reload(true);
-    //         // }
-
-    //     };
-
-    //     request1.open("PATCH", rowUpdate._links.self.href);
-    //     request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-    //     request1.setRequestHeader("Content-type", "application/json");
-    //     request1.contentType = "application/json";
-    //     request1.send(bodyData);
-    // }
-        // .then(res => {
-        //     //debugger;
-        //     console.log("update data from server: ", res);
-        // })
-    //         //parent.classesPair[parentDesc] = res;
-    //         let ar = res._links.self.href.split("/");
-    //         let s = ar.length;
-    //         let id = ar[s - 1];
-
-    //         //delete record student class with id
-
-    //         fetch(parent.BASE_URL + "/api/studentClasses/"+id, {
-    //             method: 'delete',
-    //             mode: 'cors',
-    //             cache: 'default',
-    //             headers: {
-    //                 'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         })
-    //         .then(res => { 
-    //             //debugger;
-    //             console.log(res);
-    //             if(res.status == 204){
-    //                 alert("Student class is deleted succesfully");
-    //                 window.location.reload(true);
-    //             }
-    //             //res.json()
-    //         })
-    //     });
 }
 
 
 
 export const saveNewStudent = (row) => {
-
-   
-    //send data to database --rest api call
-    //save new student curl
-
-    //curl -v -u myapos:Apostolakis1981 -i -X POST -H "Content-Type:application/json" -d '{"fname" : "testcurlfname","lname" : "testcurllname","fname" : "testcurl", "dateOfBirth":"2013-04-02T08:35:42.000+0000", "email" : "testcurlemail","phone" : "testcurlphone","facebook" : "testcurlfacebook","manager":"http://localhost:8181/api/managers/17"}' http://localhost:8181/api/students
-    //http://localhost:8181/api/students?fname=testcurlfname
-    //&lname=testcurllname& ...............&dateOfPayment=2013-04-02T08:35:42.000+0000&.........
-    //&manager=http://localhost:8181/api/managers/17
-
-    // dateOfBirth:"fds"
-    // email:"fds"
-    // facebook:"fds"
-    // fname:"ddf"
-    // index:"5"
-    // lname:"fd"
-    // phone:"fds"
-    //let date = new Date(row.dateOfBirth);
-
-
-
 
     //debugger;
     //check email type
@@ -927,5 +857,159 @@ export const updateRegisters = (row) => {
 
 
     }
+
+}
+
+
+export const deleteRegisters = (registerId) => {
+
+    //debugger;
+    console.log("hey from api.deleteRegisters. Preparing to delete register with id:", registerId);
+    let x = document.getElementById("registers");
+    let rowByClassId = x.querySelectorAll('tr')[registerId];
+    let fname = rowByClassId.childNodes[2].innerHTML;
+    let lname = rowByClassId.childNodes[3].innerHTML;
+    //debugger;
+    //step 1 find student 
+    const fetch1 = fetch(parent.BASE_URL + "/api/students/search/findByFnameAndLname?fname="+fname+"&lname="+lname,
+                {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+            })
+        .then(res => res.json())
+        .then(res => {
+            //debugger;
+            console.log("data from server: ", res);
+            try{
+            
+                //get studentLink
+                let studentLink = res._links.self.href;
+
+                //find registrations of studentLink
+
+                 const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudent?student="+studentLink,
+                        {
+                            method: 'get',
+                            mode: 'cors',
+                            cache: 'default',
+                            headers: {
+                                'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                .then(res => res.json())
+                .then(res => {
+
+                    debugger;
+                    console.log("data from server: ", res);
+                    if(res._embedded.registers.length>0) {
+                        debugger;
+                        let registerLink = res._embedded.registers[0]._links.self.href;
+
+
+                        //delete corresponding payment of register
+
+                        // let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
+                        //get payments
+
+                        let url = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registerLink;
+                        let request = new XMLHttpRequest();
+                        request.open('GET', url, false);  // `false` makes the request synchronous
+                        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request.setRequestHeader("Content-type", "application/json");
+                        request.contentType = "application/json"
+                        request.send(null);
+
+                        if (request.status === 200) {
+
+                            let resObj = JSON.parse(request.responseText);
+                            console.log("sync call 1:", resObj);
+                            debugger;
+                            let paymentLinks = resObj._embedded.payeds; //has to be fixed for many????
+                            //delete all payments first
+                                let url2=""; 
+                                let request2 ="";
+
+                                for(let ww=0; ww<paymentLinks.length; ww++){
+                                    url2 = paymentLinks[ww]._links.payed.href;
+                                    request2 = new XMLHttpRequest();
+                                    request2.open('delete', url2, false);  // `false` makes the request synchronous
+                                    request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                    request2.setRequestHeader("Content-type", "application/json");
+                                    request2.contentType = "application/json"
+                                    request2.send(null);
+                                    
+                                    if (request2.status === 204) {
+                                        console.log("deleted payment:"+paymentLinks[ww]);
+                                    }
+                                }
+
+                                //delete registration after deleted payments
+
+                                let url3 = registerLink;
+                                let request3 = new XMLHttpRequest();
+                                request3.open('delete', url3, false);  // `false` makes the request synchronous
+                                request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                request3.setRequestHeader("Content-type", "application/json");
+                                request3.contentType = "application/json"
+                                request3.send(null); 
+                                if (request3.status === 204) {
+                                    alert("Register is deleted succesfully");
+                                    window.location.reload(true);
+                                }  else {
+                                alert("Something bad happened.Please try again!");
+                            }
+
+                        }
+
+
+
+
+                        // const fetch3 = fetch(registerLink,
+                        //     {
+                        //         method: 'delete',
+                        //         mode: 'cors',
+                        //         cache: 'default',
+                        //         headers: {
+                        //             'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        //             'Content-Type': 'application/json'
+                        //         }
+                        // })
+                        // .then(res => res.json())
+                        // .then(res => {
+                            
+                        //     debugger;
+                        //     console.log("data from server: ", res);
+                        //     console.log(res);
+                        //     if(res.status == 204){
+                        //         alert("Register is deleted succesfully");
+                        //         window.location.reload(true);
+                        //     }
+                        //     else{
+                        //         alert("Something bad happened.Please try again!");
+                        //     }
+
+                        // });
+                    } else {
+
+                        alert("Student has no registrations to delete");
+                        window.location.reload(true);
+                    }
+
+                });
+           
+            }
+            catch (e){
+                alert("Something bad happened. Error: "+e.message+". Please try again");
+                window.location.reload(true);
+            }
+
+        });
+
 
 }

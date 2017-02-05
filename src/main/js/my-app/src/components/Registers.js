@@ -42,9 +42,10 @@ function onAfterInsertRow (row) {
 
 function onAfterDeleteRow (rowKeys) {
 
-  // alert('The rowkey you drop: ' + rowKeys);
-  // console.log("delete data from database");
-  // this.props.deletePaymentRegisters(rowKeys);
+  //alert('The rowkey you drop: ' + rowKeys);
+  console.log("delete data from database");
+  //debugger;
+  this.props.deleteRegisters(rowKeys[0]);
 
 }
 
@@ -264,7 +265,7 @@ render () {
     const options = {
       afterSearch: afterSearch,           // define a after search hook
       afterInsertRow: onAfterInsertRow,   // A hook for after insert rows
-      afterDeleteRow: onAfterDeleteRow  // A hook for after droping rows.
+      afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
     const paymentTypes = ["true", "false"];
@@ -300,7 +301,7 @@ render () {
 	          cellEdit={cellEditProp} 
 	          data={dataRegisters} 
 	          hover={true} 
-
+            deleteRow={true} 
 	          selectRow={ selectRowProp }
 	          exportCSV={true}
 	          search={ true }
@@ -318,7 +319,8 @@ render () {
 	            dataAlign="left" 
 	            dataSort={false}
 	            editable={ { type: 'datetime' } }
-	          />
+	          > Date Of Registration
+             </TableHeaderColumn>
 	        </BootstrapTable>
 	      </div>
 	     )
