@@ -425,7 +425,7 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
 
 
 export const addPaymentRegisters = (row) => {
-//debugger;
+debugger;
 
 
 
@@ -731,7 +731,7 @@ export const createRegisters = (row) => {
             request3.send(bodyData);
             
             if (request3.status === 201) {
-                debugger;
+                //debugger;
                 let resObj3 = JSON.parse(request2.responseText);
                 console.log("sync call 3:", resObj3);
                 alert("Registration has been created in database. Page is reloading");

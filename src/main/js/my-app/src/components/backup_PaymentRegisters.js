@@ -15,7 +15,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 // react select
 // import Advertiser from './Advertiser';
 
-let dataPaymentRegisters = [];
+const dataPaymentRegisters = [];
 
 function afterSearch (searchText, result){
   console.log('Your search text is ' + searchText);
@@ -62,8 +62,7 @@ const selectRowProp = {
 
 class PaymentRegisters extends Component {
 
-componentWillUpdate(){
-  dataPaymentRegisters = []; //reset
+componentDidMount(){
   const data = this.props.saved_payeds;
   //running dots functionality
   //debugger;
@@ -91,7 +90,7 @@ componentWillUpdate(){
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
       //if waiting time is more than 30sec then display message
       //debugger;
       if (diffTime > timeThreshold && data.length == 0 ){
@@ -115,125 +114,81 @@ componentWillUpdate(){
   
  
     const registers = this.props.saved_registers;
-    const students = this.props.saved_student;
-    
-    //debugger;
-    let request1 = {};
-    let url1 = "";
-    for(let jj=0; jj<students.length;jj++){
 
-       //debugger;
-       
-        //get students who has registered already
-        url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-        request1 = new XMLHttpRequest();
-        request1.open('GET', url1, false);  // `false` makes the request synchronous
-        request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request1.setRequestHeader("Content-type", "application/json");
-        request1.contentType = "application/json"
-        request1.send(null);
+    for(let jj=0; jj<parent.registers.length;jj++){
+     
+      //synchronous calls.......... 
+      //get registered students
+      let url = parent.registers[jj]._links.student.href;
+      debugger;
+      //Get id for register
+      let ar = url.split("/");
+      let s = ar.length;
+      let id = ar[s - 2];
+      let request1 = new XMLHttpRequest();
+      request1.open('GET', url, false);  // `false` makes the request synchronous
+      request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+      request1.setRequestHeader("Content-type", "application/json");
+      request1.contentType = "application/json"
+      request1.send(null);
 
-        if (request1.status === 200) {
-          
-          console.log(JSON.parse(request1.responseText));
-          let registrations = JSON.parse(request1.responseText);
-         
+      if (request1.status === 200) {
+        
+        console.log(JSON.parse(request1.responseText));
+        
+        //2nd sync call
+        //get student classes for registered students
 
-          if(registrations._embedded.registers.length>0) {
-          //get payments of those students . if there aren't any then you can set them
+            let url2 = parent.registers[jj]._links.studentClass.href;
+            let request2 = new XMLHttpRequest();
+            request2.open('GET', url2, false);  // `false` makes the request synchronous
+            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+            request2.setRequestHeader("Content-type", "application/json");
+            request2.contentType = "application/json"
+            request2.send(null);
 
-              //debugger;
-              for(let jw=0; jw<registrations._embedded.registers.length;jw++){
-                let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
-                let request2= new XMLHttpRequest();
-                request2.open('GET', url2, false);  // `false` makes the request synchronous
-                request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                request2.setRequestHeader("Content-type", "application/json");
-                request2.contentType = "application/json"
-                request2.send(null);
-                if (request2.status === 200) {
+            if (request2.status === 200) {
+                //debugger;
+                console.log("sync call 2:",JSON.parse(request2.responseText));
+                //debugger;
+              
+                //sync call 3 get payeds for registered students. 
+                //http://localhost:8181/api/payeds/search/findByRegister_Id?id={id}
+                //debugger;
+                let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister_Id?id="+id;
+                let request3 = new XMLHttpRequest();
+                request3.open('GET', url3, false);  // `false` makes the request synchronous
+                request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                request3.setRequestHeader("Content-type", "application/json");
+                request3.contentType = "application/json"
+                request3.send(null);
 
-                  console.log("sync call 2:",JSON.parse(request2.responseText));
-                  let payments = JSON.parse(request2.responseText);
-                  //debugger;
-                  //payments._embedded.payeds[0].payment
-                  let tempData ={};
-                  tempData.fname = students[jj].fname;
-                  tempData.lname = students[jj].lname;
-                  tempData.email = students[jj].email;
-                  // tempData.class = JSON.parse(request2.responseText).description;
-                  //debugger;
-                  if(payments._embedded.payeds[0]!=undefined) {
-                      //get classes of registered students
-
-                      
-                      let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      let request3= new XMLHttpRequest();
-                      request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      request3.setRequestHeader("Content-type", "application/json");
-                      request3.contentType = "application/json"
-                      request3.send(null);
-                      if (request3.status === 200) {
-
-                          console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = JSON.parse(request3.responseText);
-                          //debugger;
-                          let tempData ={};
-                          tempData.fname = students[jj].fname;
-                          tempData.lname = students[jj].lname;
-                          tempData.email = students[jj].email;
-                          tempData.class = studentClasses.description;
-                          tempData.payment = payments._embedded.payeds[0].payment;
-                          tempData.notes = payments._embedded.payeds[0].notes;
-                          let date = new Date(payments._embedded.payeds[0].dateOfPayment);
-                          let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                          tempData.dateOfPayment = formatedDate;
-                          tempData.index = dataPaymentRegisters.length+1;
-                          dataPaymentRegisters.push(tempData);
-
-                      }
-
-                  }
-                  else {
-                      //debugger;
-                      let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      let request3= new XMLHttpRequest();
-                      request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      request3.setRequestHeader("Content-type", "application/json");
-                      request3.contentType = "application/json"
-                      request3.send(null);
-                      if (request3.status === 200) {
-
-                          console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = JSON.parse(request3.responseText);
-                          //debugger;
-                          let tempData ={};
-                          tempData.fname = students[jj].fname;
-                          tempData.lname = students[jj].lname;
-                          tempData.email = students[jj].email;
-                          tempData.class = studentClasses.description;
-                          tempData.payment = false;
-                          tempData.notes = "Keep your notes";
-                          let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
-                          let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                          tempData.dateOfPayment = formatedDate;
-                          tempData.index = dataPaymentRegisters.length+1;
-                          dataPaymentRegisters.push(tempData);
-
-                      }
-
-                  }
-                  //debugger;
-                }
-              }
-
-          }
-
-        }
-    }
-
+               if (request3.status === 200) {
+                   
+                   console.log("sync call 3:",JSON.parse(request3.responseText));
+                   let payments = JSON.parse(request3.responseText)._embedded.payeds;
+                   
+                   for (let _j=0; _j<payments.length; _j++){
+                     //build data to display on bootstrap table 
+                     let tempData ={};
+                     tempData.fname = JSON.parse(request1.responseText).fname;
+                     tempData.lname = JSON.parse(request1.responseText).lname;
+                     tempData.email = JSON.parse(request1.responseText).email;
+                     tempData.class = JSON.parse(request2.responseText).description;
+                     tempData.payment = payments[_j].payment;
+                     tempData.notes = payments[_j].notes;
+                     let date=new Date(payments[_j].dateOfPayment);
+                     //debugger;
+                     let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                     tempData.dateOfPayment = formatedDate;
+                     tempData.index = dataPaymentRegisters.length+1;
+                     dataPaymentRegisters.push(tempData);
+                     //debugger;
+                   }
+               }
+            }
+      }
+    }  
 
 }
 
