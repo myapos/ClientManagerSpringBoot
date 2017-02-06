@@ -90,7 +90,7 @@ componentDidMount() {
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
       //if waiting time is more than 30sec then display message
       //debugger;
       if (diffTime > timeThreshold && data.length == 0 ){
