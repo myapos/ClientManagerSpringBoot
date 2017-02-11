@@ -40,6 +40,12 @@ export const SAGAS_CREATE_REGISTERS = 'SAGAS_CREATE_REGISTERS';
 export const DELETE_REGISTERS = 'DELETE_REGISTERS';
 export const SAGAS_DELETE_REGISTERS = 'SAGAS_DELETE_REGISTERS';
 
+/*ACTIONS FOR SEND EMAILS*/
+export const SEND_EMAILS_MANUALLY = 'SEND_EMAILS_MANUALLY';
+
+
+
+
 export function getAllStudents() {
   debugger;
   return {
@@ -126,6 +132,9 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
   }
   else if (selectedTab == 'tab4'){
     act = "REGISTERS";
+  }
+  else if (selectedTab == 'tab5'){
+    act = "SEND_EMAILS_MANUALLY";
   }
     return {
         type: act,

@@ -24,19 +24,6 @@ class App extends Component {
     }
   }
   componentWillMount() {
-    // const script = document.createElement("script");
-
-    // script.src = '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.js';
-    // script.async = true;
-
-    // document.head.appendChild(script);
-
-    // var link  = document.createElement('link');
-    // link.rel  = 'stylesheet';
-    // link.type = 'text/css';
-    // link.href = '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-    // document.head.appendChild(link);
-
 
   }
 
