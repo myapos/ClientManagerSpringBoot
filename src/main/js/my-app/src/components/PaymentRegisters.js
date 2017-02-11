@@ -48,7 +48,7 @@ function onAfterInsertRow (row) {
 
 function onAfterDeleteRow (rowKeys) {
 
-  alert('The rowkey you drop: ' + rowKeys);
+  //alert('The rowkey you drop: ' + rowKeys);
   console.log("delete data from database");
   this.props.deletePaymentRegisters(rowKeys);
 
@@ -215,7 +215,7 @@ componentWillUpdate(){
                           tempData.email = students[jj].email;
                           tempData.class = studentClasses.description;
                           tempData.payment = false;
-                          tempData.notes = "Keep your notes";
+                          tempData.notes = "No payment yet";
                           let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
                           let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
                           tempData.dateOfPayment = formatedDate;
@@ -370,6 +370,7 @@ render () {
           data={dataPaymentRegisters} 
           hover={true} 
           insertRow={ true }
+          deleteRow={ true } 
           selectRow={ selectRowProp }
           exportCSV={true}
           search={ true }

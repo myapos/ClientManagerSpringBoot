@@ -33,5 +33,7 @@ public interface RegisterRepository extends PagingAndSortingRepository<Register,
 
 	List<Register> findByStudent(@Param("student") Student student);
 
+	List<Register> findByStudentClass(@Param("studentClass") StudentClass studentClass);
+
 }
 // end::code[]

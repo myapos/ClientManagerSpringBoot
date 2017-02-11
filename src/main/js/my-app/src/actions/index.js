@@ -169,10 +169,11 @@ export function updateRegisters(rowUpdate) {
 }
 
 
-export function deletePaymentRegisters(paymentId) {
+export function deletePaymentRegisters(rowUpdate, paymentId) {
   //debugger;
   return {
     type: DELETE_PAYMENTS_REGISTERS,
+    rowUpdate,
     paymentId,
   };
 }

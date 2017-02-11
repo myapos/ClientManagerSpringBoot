@@ -649,10 +649,166 @@ else if (updateMode == "classUpdate"){
 
 }
 
-export const deletePaymentRegisters = (row) => {
-//debugger;
+export const deletePaymentRegisters = (id) => {
+
+    console.log("hey from api.deletePaymentRegisters. Preparing to delete payment with id:", id);
+    let x = document.getElementById("PaymentRegisters");
+    let rowByClassId = x.querySelectorAll('tr')[id];
+    let description = rowByClassId.childNodes[2].innerHTML;
+    let notes = rowByClassId.childNodes[5].innerHTML;
+    let subClassDescription = rowByClassId.childNodes[6].innerHTML;
+    parent.paymentDate = rowByClassId.childNodes[7].innerHTML;
+  
+    //steps for deletion
+    // i need registration id
+
+    //delete payment only if there is one payment.
+    if(notes != "No payment yet") { 
+        //debugger;
+        
+        // step 1 find class id by description
+
+         const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
+            "?description=" + subClassDescription, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => res.json())
+        .then(res => {
+            //debugger;
+            console.log("data from server: ", res);
+
+            // step 2 find registration id by class
+
+            //http://localhost:8181/api/registers/search/findByStudentClass?studentClass=http://localhost:8181/api/studentClasses/1
+
+            const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudentClass" +
+                "?studentClass=" + res._links.self.href, {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+            .then(res2 => res2.json())
+            .then(res2 => {
+                
+                console.log("data from server2: ", res2);
 
 
+                //for all registers get registration id's
+
+                let url =""; //initialization
+
+                for(let jj=0; jj< res2._embedded.registers.length; jj++){
+
+                    //debugger;
+                    //find payment by registration
+                    url = res2._embedded.registers[jj]._links.self.href;
+
+
+                    const fetch3 = fetch(parent.BASE_URL + "/api/payeds/search/findByRegister" +
+                    "?register=" + url, {
+                        method: 'get',
+                        mode: 'cors',
+                        cache: 'default',
+                        headers: {
+                            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(res3 => res3.json())
+                    .then(res3 => {
+
+                         console.log("data from server: ", res3);
+                         // step 3 find payments by registration id
+
+                         if(res3._embedded.payeds.length>0){
+                            console.log("found payments:"+res3._embedded.payeds.length);
+
+                            console.log("preparing to delete payments");
+                            //step 4  delete payment which is found
+                            for(let vv=0; vv< res3._embedded.payeds.length; vv++){
+
+
+                                let paymentUrl = res3._embedded.payeds[vv]._links.self.href;;
+                                console.log("paymentUrl:"+paymentUrl);
+
+                                const fetch4 = fetch(paymentUrl, {
+                                    method: 'delete',
+                                    mode: 'cors',
+                                    cache: 'default',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(res4 => {
+
+                                    //debugger;
+
+                                    console.log("data from server: ", res4);
+
+                                     if (res4.status === 204) {
+                                        alert("deleted payment succesfully. Page is reloading");
+                                        window.location.reload(true);
+                                     }
+                                     else {
+                                        alert("Something bad happened");
+
+                                     }
+
+                               })
+                             }
+
+
+
+
+                         }
+                         
+
+
+                    })
+
+
+
+
+                    // let formatedDate = res2._embedded.registers[jj].dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
+
+                    // if(formatedDate == parent.paymentDate){
+                        
+                    //     debugger;
+
+
+                    // }
+
+                        
+
+
+
+                }
+
+
+
+            })
+
+
+        })
+
+
+
+    } 
+    else {
+
+        alert("Payment is not set yet!");
+    }
 
 }
 
