@@ -24,6 +24,12 @@ const reducer = (state = {}, action) => {
 	             all:state.saved_student,
             	[namespace]: selectedTab
 	    };
+	    case actions.SEND_EMAILS_MANUALLY:
+	       return {
+	             ...state,
+	             all:state.saved_student,
+            	[namespace]: selectedTab
+	    };
 	    case actions.CREATE_PAYMENTS_REGISTERS:
 	       return {
 	            ...state,

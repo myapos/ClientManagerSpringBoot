@@ -13,13 +13,13 @@ import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';
+import SendEmailsManually from './SendEmailsManually';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
 
 const styles = {
     tabs: {
-        /*width: '400px',*/
         display: 'inline-block',
         marginRight: '30px',
         verticalAlign: 'top'
@@ -50,8 +50,6 @@ const styles = {
 class Dashboard extends Component {
 
   render () {
-    //console.log(this.props);
-    //debugger;
     return (
       <div className="App" id="content">
           <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
@@ -71,16 +69,15 @@ class Dashboard extends Component {
             <div style={styles.links}>
                 <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
                 <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
-                <TabLink to="tab3" default style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
+                <TabLink to="tab3" style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
                 <TabLink to="tab4" style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
+                <TabLink to="tab5" default style={styles.tabLink}>Επικοινωνία Τμημάτων</TabLink>
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
-                    {/*<h2>GetAllStudents</h2>*/}
                     <div><GetAllStudents/></div>
                 </TabContent>
                 <TabContent for="tab2">
-                   {/*<h2>StudentClassDashboard</h2>*/}
                     <div><StudentClassDashboard/></div>
                 </TabContent>
                 <TabContent for="tab3">
@@ -89,18 +86,11 @@ class Dashboard extends Component {
                 <TabContent for="tab4">
                     <div><Registers/></div>
                 </TabContent>
+                <TabContent for="tab5">
+                    <div><SendEmailsManually/></div>
+                </TabContent>
             </div>
         </Tabs>
- 
-       
-{/*        <div className="rowContainer">
-          <Link onClick={this.props.getAllStudents} className="buttonBoxes"  to="/getallstudents"> 
-            Διαχείριση Πελατών
-          </Link>
-          <Link onClick={this.props.studentClassDashboard} className="buttonBoxes" to="/studentclassdashboard">
-            Διαχείριση Τμημάτων
-          </Link>
-        </div>*/}
       </div>
 
     );
