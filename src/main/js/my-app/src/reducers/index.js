@@ -38,6 +38,7 @@ const reducer = (state = {}, action) => {
 	    case actions.DELETE_PAYMENTS_REGISTERS:
 	       return {
 	            ...state,
+	   			rowUpdate,
 	   			paymentId
 	    };
 	    case actions.ADD_STUDENT:

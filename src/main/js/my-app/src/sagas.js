@@ -148,12 +148,12 @@ function* deletePaymentRegisters () {
 
 	console.log('deletePaymentRegisters');
 	const state = yield select();
-	const paymentId = yield call(api.deletePaymentRegisters, /*state.desc, state.descBefore,*/ state.paymentId);
+	const row = yield call(api.deletePaymentRegisters,state.rowUpdate, state.paymentId);
 	//debugger;
 	
 	yield put({
 		type: actions.SAGAS_DELETE_PAYMENTS_REGISTERS,
-		paymentId
+		row
 	})
 }
 
