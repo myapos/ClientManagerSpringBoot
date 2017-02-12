@@ -1142,13 +1142,33 @@ export const deleteRegisters = (registerId) => {
 
 }
 
-const send_email = (first,last,email) =>{
-    debugger;
+const send_email = (first,last,email,msg) =>{
+    //debugger;
     console.log("hey from send email");
-    console.log("first: "+first+" last: "+last+" email: "+email);
+    console.log("first: "+first+" last: "+last+" email: "+email+" msg:"+msg);
     //send email request to server side 
-    
-  }; //end of send_email
+    //http://localhost:8181/email?fname=myros&lname=Apostolakis&email=myapos@yahoo.com&msg=test%20message%20sdfaf%20asdsd
+    const fetch1 = fetch(parent.BASE_URL + "/email?fname="+first+"&lname="+last+"&email="+email+"&msg="+msg, {
+        method: 'get',
+        mode: 'cors',
+        cache: 'default',
+        headers: {
+            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+
+        if(res.status === 200) {
+            alert("Emails where send succesfully");
+        }
+        else{
+            alert("Something bad happened");
+        }
+
+  }); 
+
+}//end of send_email
 
 export const msgSubmitted = (msg, selectedClass) => {
     parent.msgSubmitted = msg;
@@ -1211,39 +1231,43 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                         let resObj = JSON.parse(request.responseText);
                         console.log("sync call 1:", resObj);
-                        //debugger;
+                        debugger;
                         //get student
-                        resObj._embedded.payeds.map((p)=>{
-                            //debugger
-                            let url2 = el._links.student.href;
-                            let request2 = new XMLHttpRequest();
-                            request2.open('GET', url2, false);  // `false` makes the request synchronous
-                            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                            request2.setRequestHeader("Content-type", "application/json");
-                            request2.contentType = "application/json"
-                            request2.send(null);
+                        if(resObj._embedded.payeds.length===0){
+                            alert("No student have payed yet for this class");
+                        }
+                        else{
+                            resObj._embedded.payeds.map((p)=>{
+                                //debugger
+                                let url2 = el._links.student.href;
+                                let request2 = new XMLHttpRequest();
+                                request2.open('GET', url2, false);  // `false` makes the request synchronous
+                                request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                request2.setRequestHeader("Content-type", "application/json");
+                                request2.contentType = "application/json"
+                                request2.send(null);
 
-                            if (request2.status === 200) {
-                                let student = JSON.parse(request2.responseText);
-                                console.log("sync call 2:", student);
-                                //debugger;
+                                if (request2.status === 200) {
+                                    let student = JSON.parse(request2.responseText);
+                                    console.log("sync call 2:", student);
+                                    //debugger;
 
-                                //send emails if payment is true
+                                    //send emails if payment is true
 
-                                if(p.payment) {
+                                    if(p.payment) {
 
-                                    debugger;
-                                    //send email to student
-                                    send_email(student.fname, student.lname, student.email);
+                                        //debugger;
+                                        //send email to student
+                                        send_email(student.fname, student.lname, student.email,parent.msgSubmitted);
+                                    }
                                 }
-                            }
-                            else {
-                               alert("Something bad happened");
+                                else {
+                                   alert("Something bad happened");
 
-                            }
+                                }
 
-                        })
- 
+                            })
+                        }//end of else
                     }
 
                 })
