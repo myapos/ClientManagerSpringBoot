@@ -9,31 +9,42 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as api from '../api';
 import DisplayClassesForSendingEmailManually from './DisplayClassesForSendingEmailManually';
 
+
 class SendEmailsManually extends Component {
     
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'Please write an essay about your favorite DOM element.'
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
   handleChange(event) {
-    this.setState({value: event.target.value});
+    //debugger;
+    //this.setState({value: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('An essay was submitted: ' + this.state.value);
-    event.preventDefault();
+    //alert('A message was submitted');
+    //get message
+    //debugger;
+    let msg = document.getElementById("message").value;
+    console.log("message to submit:",msg);
+    //get selected class
+    let selClass = document.getElementById("dataDisplayClassesForSendingEmailManually");
+    let tableSelected = selClass.getElementsByClassName("react-bs-container-body");
+    let selectElement = tableSelected[0].querySelectorAll("select")[0];
+    if(selectElement != null){
+       let selectedClass = selectElement.options[selectElement.selectedIndex].value;
+       this.props.msgSubmitted(msg, selectedClass);
+    }
+    else {
+    
+    let selectedClass = tableSelected[0].querySelectorAll("tr")[0].childNodes[2].innerHTML;
+    this.props.msgSubmitted(msg, selectedClass);
+    }
+
+    // event.preventDefault();
     //call action
+    console.log(tableSelected[0]);
   }
   
-  handleClick() {
-    alert('An essay was submitted');
-  }
+  // handleClick() {
+  //   alert('Button clicked');
+  // }
 
   render () {
     //debugger;
@@ -42,23 +53,21 @@ class SendEmailsManually extends Component {
 
     //steps
 
-    //1. display available classess
+    // display available classess
 
    
-    //2. find students who have payed for the selected class
 
-    //3. send email
 
         return (
                 <div id="sendEmailTestsManually" >
                     <div><DisplayClassesForSendingEmailManually/></div>
 
                     <div className="form-group">
-                      <label for="comment">Message:</label>
-                      <textarea value={this.state.value} onChange={this.handleChange} 
-                      className="form-control" rows="10" cols="100" id="message"></textarea>
+                      <label htmlFor="comment">Message:</label>
+                      <textarea onChange={this.handleChange} 
+                      className="form-control" rows="10" cols="100" id="message">Please write your message</textarea>
                     </div>
-                   <button type="button" onClick={this.handleSubmit} className="btn btn-default">Submit</button>
+                   <button type="button" onClick={this.handleSubmit.bind(this)} className="btn btn-default">Submit</button>
                 </div>
         );
       }

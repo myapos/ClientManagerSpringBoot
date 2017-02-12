@@ -1,4 +1,5 @@
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/PayedRepository.java
+/home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/controllers/NotificationService.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/SecurityConfiguration.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/Register.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/ManagerRepository.java
@@ -14,6 +15,7 @@
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/StudentClassRepository.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/Manager.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/controllers/StudentClassController.java
+/home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/controllers/EmailController.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/CorsFilter.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/Student.java
 /home/myros/Desktop/security/src/main/java/com/myapos/clientmanager/model/StudentClass.java

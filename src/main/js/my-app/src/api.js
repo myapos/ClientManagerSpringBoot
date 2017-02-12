@@ -1,4 +1,6 @@
 
+ 
+
 parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 parent.request1 = {};
 parent.rowDescription = {};
@@ -87,7 +89,7 @@ function createCORSRequest1(method, url, data) {
         xhr1.setRequestHeader("Content-type", "application/json");
         xhr1.contentType = "application/json";
         //xhr1.send(body);
-    } else if (typeof XDomainRequest != "undefined") {
+    } else if (typeof XDomainRequest !== "undefined") {
         xhr1 = new XDomainRequest();
         xhr1.open(method, url);
         //xhr.setRequestHeader("Authorization", 'Basic '+btoa('myapos:Apostolakis1981'));
@@ -104,7 +106,7 @@ export const saveNewClass = (row) => {
         request1.onload = function() {
             //debugger;
             //do something with request.responseText
-            if (request1.status == 201) {
+            if (request1.status === 201) {
                 alert("A new record has been created in database. Page is reloading");
                 console.log("responseText:", request1.responseText);
                 window.location.reload(true);
@@ -193,7 +195,7 @@ export const deleteStudentClass = (classId) => {
         	.then(res => { 
         		//debugger;
         		console.log(res);
-        		if(res.status == 204){
+        		if(res.status === 204){
         			alert("Student class is deleted succesfully");
         			window.location.reload(true);
         		}
@@ -234,7 +236,7 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
                 }
             })
         .then(res => {
-            if(res.status == 200){
+            if(res.status === 200){
 
             //debugger;
             alert("Class is updated succsesfully. Prepare for reloading");
@@ -246,7 +248,6 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
         })
 
 }
-
 
 
 export const saveNewStudent = (row) => {
@@ -283,7 +284,7 @@ export const saveNewStudent = (row) => {
                 })
             .then(res => {
                 //debugger;
-                if(res.status == 201){
+                if(res.status === 201){
 
                 //debugger;
                 alert("New student saved succsesfully. Prepare for reloading");
@@ -348,11 +349,11 @@ export const deleteStudent = (studentId) => {
             .then(res => { 
                 //debugger;
                 console.log(res.status);
-                if(res.status == 204){
+                if(res.status === 204){
                     alert("Student is deleted succesfully.Prepare to reload");
                     window.location.reload(true);
                 }
-                else if(res.status == 500){
+                else if(res.status === 500){
                     alert("Something bad happened.Are there two users with the same name?");
                 }
                 else {
@@ -409,7 +410,7 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
             })
         .then(res => {
             //debugger;
-            if(res.status == 200){
+            if(res.status === 200){
 
             //debugger;
             alert("Class is updated succsesfully. Prepare for reloading");
@@ -432,10 +433,9 @@ debugger;
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-//debugger;
 
-if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
-    updateMode == "updateDateOfPayment"){
+if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
+    updateMode === "updateDateOfPayment"){
 
     //sync requests
 
@@ -521,7 +521,7 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
                         console.log("sync call 4:", resObj4);
                         //debugger;
-                         if (s == resObj3._embedded.payeds.length -1){
+                         if (s === resObj3._embedded.payeds.length -1){
                             alert("Payment has been updated in database. Page is reloading");
                             window.location.reload(true);
                         }
@@ -542,7 +542,7 @@ if (updateMode == "paymentUpdate" || updateMode == "paymentNotesUpdate" ||
 
 } 
 
-else if (updateMode == "classUpdate"){
+else if (updateMode === "classUpdate"){
 
     //sync calls
     //prepei na kanw update tin eggrafi register ara na allaksw to class id mesa ston pinaka register
@@ -620,7 +620,7 @@ else if (updateMode == "classUpdate"){
 
                         console.log("sync call 4:", resObj4);
                         //debugger;
-                        if (j == registrations.length -1){
+                        if (j === registrations.length -1){
                             alert("Payment has been updated in database. Page is reloading");
                             window.location.reload(true);
                         }
@@ -663,7 +663,7 @@ export const deletePaymentRegisters = (id) => {
     // i need registration id
 
     //delete payment only if there is one payment.
-    if(notes != "No payment yet") { 
+    if(notes !== "No payment yet") { 
         //debugger;
         
         // step 1 find class id by description
@@ -1141,3 +1141,146 @@ export const deleteRegisters = (registerId) => {
 
 
 }
+
+const send_email = (first,last,email,msg) =>{
+    //debugger;
+    console.log("hey from send email");
+    console.log("first: "+first+" last: "+last+" email: "+email+" msg:"+msg);
+    //send email request to server side 
+    //http://localhost:8181/email?fname=myros&lname=Apostolakis&email=myapos@yahoo.com&msg=test%20message%20sdfaf%20asdsd
+    const fetch1 = fetch(parent.BASE_URL + "/email?fname="+first+"&lname="+last+"&email="+email+"&msg="+msg, {
+        method: 'get',
+        mode: 'cors',
+        cache: 'default',
+        headers: {
+            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+
+        if(res.status === 200) {
+            alert("Emails where send succesfully");
+        }
+        else{
+            alert("Something bad happened");
+        }
+
+  }); 
+
+}//end of send_email
+
+export const msgSubmitted = (msg, selectedClass) => {
+    parent.msgSubmitted = msg;
+    //debugger;
+
+    //steps
+
+    //find students who have payed for the selected class
+
+    //get selected classes from server
+
+        const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
+            "?description=" + selectedClass, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => res.json())
+        .then(res => {
+            //debugger;
+            console.log("data from server: ", res);
+            //get registrations by student class
+
+            const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudentClass" +
+            "?studentClass=" + res._links.self.href, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res2 => res2.json())
+            .then(res2 => {
+
+                console.log("data from server: ", res2);
+                //for all registrations get students who have payed for them and send emails
+                //so in this step get payments by registrations
+                res2._embedded.registers.map((el)=>{
+                    
+                    console.log("e:",el);
+                    //debugger;
+                    //use sync calls here!!
+
+                    let url = parent.BASE_URL + "/api/payeds/search/findByRegister" +
+                     "?register=" + el._links.self.href;
+                    let request = new XMLHttpRequest();
+                    request.open('GET', url, false);  // `false` makes the request synchronous
+                    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request.setRequestHeader("Content-type", "application/json");
+                    request.contentType = "application/json"
+                    request.send(null);
+
+                    if (request.status === 200) {
+
+                        let resObj = JSON.parse(request.responseText);
+                        console.log("sync call 1:", resObj);
+                        debugger;
+                        //get student
+                        if(resObj._embedded.payeds.length===0){
+                            alert("No student have payed yet for this class");
+                        }
+                        else{
+                            resObj._embedded.payeds.map((p)=>{
+                                //debugger
+                                let url2 = el._links.student.href;
+                                let request2 = new XMLHttpRequest();
+                                request2.open('GET', url2, false);  // `false` makes the request synchronous
+                                request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                request2.setRequestHeader("Content-type", "application/json");
+                                request2.contentType = "application/json"
+                                request2.send(null);
+
+                                if (request2.status === 200) {
+                                    let student = JSON.parse(request2.responseText);
+                                    console.log("sync call 2:", student);
+                                    //debugger;
+
+                                    //send emails if payment is true
+
+                                    if(p.payment) {
+
+                                        //debugger;
+                                        //send email to student
+                                        send_email(student.fname, student.lname, student.email,parent.msgSubmitted);
+                                    }
+                                }
+                                else {
+                                   alert("Something bad happened");
+
+                                }
+
+                            })
+                        }//end of else
+                    }
+
+                })
+
+
+            }) 
+
+        })
+
+
+
+
+}
+
+
+

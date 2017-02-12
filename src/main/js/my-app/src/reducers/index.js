@@ -3,7 +3,7 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
 		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
-		studentId, paymentId,updateMode,registerId } = action;
+		studentId, paymentId, updateMode, registerId, msg, selectedClass } = action;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
@@ -29,6 +29,12 @@ const reducer = (state = {}, action) => {
 	             ...state,
 	             all:state.saved_student,
             	[namespace]: selectedTab
+	    };
+	    case actions.MSG_SUBMITTED:
+	       return {
+	             ...state,
+	             msg,
+	             selectedClass
 	    };
 	    case actions.CREATE_PAYMENTS_REGISTERS:
 	       return {

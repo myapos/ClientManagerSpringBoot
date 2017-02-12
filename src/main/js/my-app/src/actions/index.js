@@ -42,8 +42,8 @@ export const SAGAS_DELETE_REGISTERS = 'SAGAS_DELETE_REGISTERS';
 
 /*ACTIONS FOR SEND EMAILS*/
 export const SEND_EMAILS_MANUALLY = 'SEND_EMAILS_MANUALLY';
-
-
+export const MSG_SUBMITTED = 'MSG_SUBMITTED';
+export const SAGAS_MSG_SUBMITTED = 'SAGAS_MSG_SUBMITTED';
 
 
 export function getAllStudents() {
@@ -192,6 +192,15 @@ export function deleteRegisters(registerId) {
   return {
     type: DELETE_REGISTERS,
     registerId
+  };
+}
+
+export function msgSubmitted(msg, selectedClass) {
+  //debugger;
+  return {
+    type: MSG_SUBMITTED,
+    msg,
+    selectedClass
   };
 }
 
