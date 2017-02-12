@@ -41,15 +41,17 @@ public class EmailController {
 	@Autowired
 	private NotificationService notificationService;
 	
-	@RequestMapping(value = "/email",params = { "fname", "lname","email","msg" },method = RequestMethod.GET)
+	@RequestMapping(value = "/email",
+		params = { "fname", "lname","email","msg", "mode" },
+		method = RequestMethod.GET)
     @ResponseBody
 	public String signupSuccess(
 		 @RequestParam String fname,  @RequestParam String lname, 
-		 @RequestParam String email, @RequestParam String msg){
+		 @RequestParam String email, @RequestParam String msg, @RequestParam String mode){
 				
 		// send a notification
 		try {
-			notificationService.sendNotification( fname,  lname,  email,  msg);
+			notificationService.sendNotification( fname,  lname,  email,  msg, mode);
 		}catch( Exception e ){
 			// catch error
 			logger.info("Error Sending Email: " + e.getMessage());
@@ -60,3 +62,5 @@ public class EmailController {
 	
 }
 // end::code[]
+
+//http://therealdanvega.com/blog/2016/01/13/sending-async-emails-in-spring

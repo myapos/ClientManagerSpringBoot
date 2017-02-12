@@ -1148,7 +1148,7 @@ const send_email = (first,last,email,msg) =>{
     console.log("first: "+first+" last: "+last+" email: "+email+" msg:"+msg);
     //send email request to server side 
     //http://localhost:8181/email?fname=myros&lname=Apostolakis&email=myapos@yahoo.com&msg=test%20message%20sdfaf%20asdsd
-    const fetch1 = fetch(parent.BASE_URL + "/email?fname="+first+"&lname="+last+"&email="+email+"&msg="+msg, {
+    const fetch1 = fetch(parent.BASE_URL + "/email?fname="+first+"&lname="+last+"&email="+email+"&msg="+msg+"&mode=selectedClasses", {
         method: 'get',
         mode: 'cors',
         cache: 'default',
@@ -1194,6 +1194,7 @@ export const msgSubmitted = (msg, selectedClass) => {
         .then(res => {
             //debugger;
             console.log("data from server: ", res);
+            parent.classDescriptionForEmails = res.description;
             //get registrations by student class
 
             const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudentClass" +
@@ -1210,11 +1211,40 @@ export const msgSubmitted = (msg, selectedClass) => {
             .then(res2 => {
 
                 console.log("data from server: ", res2);
+                debugger;
                 //for all registrations get students who have payed for them and send emails
                 //so in this step get payments by registrations
-                res2._embedded.registers.map((el)=>{
+
+                //first search to set a flag if payments exist. This is useful in order to display messages to the user
+
+                    parent.flagPaymentsExist = 0;
+                    res2._embedded.registers.map((el,count)=>{
+                    
+                        //use sync calls here!!
+
+                        let urlT = parent.BASE_URL + "/api/payeds/search/findByRegister" +
+                         "?register=" + el._links.self.href;
+                        let requestT = new XMLHttpRequest();
+                        requestT.open('GET', urlT, false);  // `false` makes the request synchronous
+                        requestT.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        requestT.setRequestHeader("Content-type", "application/json");
+                        requestT.contentType = "application/json"
+                        requestT.send(null);
+
+                        if (requestT.status === 200) {
+                            let resObjT = JSON.parse(requestT.responseText);
+                            if(resObjT._embedded.payeds.length>0){
+                                //alert("No student have payed yet for class:"+parent.classDescriptionForEmails);
+                                 parent.flagPaymentsExist = 1;
+                                 return; //stop execution of function
+                            }
+                        }
+                    })
+
+                res2._embedded.registers.map((el,count)=>{
                     
                     console.log("e:",el);
+                    console.log("count registrations:"+count);
                     //debugger;
                     //use sync calls here!!
 
@@ -1231,10 +1261,10 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                         let resObj = JSON.parse(request.responseText);
                         console.log("sync call 1:", resObj);
-                        debugger;
+                        //debugger;
                         //get student
-                        if(resObj._embedded.payeds.length===0){
-                            alert("No student have payed yet for this class");
+                        if(!parent.flagPaymentsExist){
+                            alert("No student have payed yet for class:"+parent.classDescriptionForEmails);
                         }
                         else{
                             resObj._embedded.payeds.map((p)=>{
