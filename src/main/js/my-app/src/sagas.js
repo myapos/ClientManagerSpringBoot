@@ -3,6 +3,8 @@ import { call, put, select } from 'redux-saga/effects';
 //import configureStore from './store/configureStore';
 import * as api from './api';
 import * as actions from './actions';
+//import nodemailer from 'nodemailer';
+//import smtpTransport from 'nodemailer-smtp-transport';
 
 function* getDataFromServer () {
 
@@ -196,7 +198,18 @@ function* deleteRegisters () {
 	})
 }
 
+function* msgSubmitted () {
 
+	console.log('msgSubmitted');
+	const state = yield select();
+	const msg = yield call(api.msgSubmitted, state.msg, state.selectedClass);
+
+	//debugger;
+	yield put({
+		type: actions.SAGAS_MSG_SUBMITTED,
+		msg
+	})
+}
 function* rootSaga () {
 	console.log('saga');
 
@@ -215,6 +228,7 @@ function* rootSaga () {
 	yield takeEvery(actions.CREATE_REGISTERS, createRegisters);
 	yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
 	yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
+	yield takeEvery(actions.MSG_SUBMITTED, msgSubmitted);
 }
 
 export default rootSaga;
