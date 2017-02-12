@@ -49,7 +49,7 @@ public class NotificationService {
 	}
 	
 	@Async
-	public void sendNotification(String fname, String lname, String email, String msg) throws MailException, InterruptedException {
+	public void sendNotification(String fname, String lname, String email, String msg, String mode) throws MailException, InterruptedException {
 		
 		System.out.println("Sleeping now...");
         Thread.sleep(10000);
@@ -57,13 +57,25 @@ public class NotificationService {
         System.out.println("Sending email...");
         
         SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setTo(email);
-		mail.setFrom("ferrumgym@gmail.com");
-		mail.setSubject("Notification ");
-		mail.setText(msg);
-		javaMailSender.send(mail);
-		
-		System.out.println("Email Sent!");
+        if( mode.equals("selectedClasses")){
+			String text = "You are receiving this because you are a member of Ferrum Gym.";
+			mail.setTo(email);
+			mail.setFrom("ferrumgym@gmail.com");
+			mail.setSubject("Notification ");
+			mail.setText(text + msg);
+			javaMailSender.send(mail);
+			System.out.println("Email Sent!");
+		}
+		else {
+			String text = "You are receiving this because you are a member of Ferrum Gym.";
+			mail.setTo(email);
+			mail.setFrom("ferrumgym@gmail.com");
+			mail.setSubject("Check your registration fee ");
+			mail.setText(text + msg);
+			javaMailSender.send(mail);
+			System.out.println("Email Sent!");
+
+		}
 	}
 	
 }

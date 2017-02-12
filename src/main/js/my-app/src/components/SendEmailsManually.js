@@ -20,7 +20,7 @@ class SendEmailsManually extends Component {
   handleSubmit(event) {
     //alert('A message was submitted');
     //get message
-    //debugger;
+
     let msg = document.getElementById("message").value;
     console.log("message to submit:",msg);
     //get selected class
@@ -34,6 +34,7 @@ class SendEmailsManually extends Component {
     else {
     
     let selectedClass = tableSelected[0].querySelectorAll("tr")[0].childNodes[2].innerHTML;
+    //debugger;
     this.props.msgSubmitted(msg, selectedClass);
     }
 
