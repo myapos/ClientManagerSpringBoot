@@ -22,7 +22,10 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.concurrent.*;
 import org.springframework.scheduling.concurrent.*;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.*;
+import org.springframework.scheduling.annotation.EnableScheduling;
+//import org.springframework.context.annotation.EnableScheduling;
+
 //------------------------------------------------------------------
 
 //import org.springframework.context.annotation.Bean;
@@ -35,6 +38,7 @@ import org.springframework.context.annotation.Bean;
 // tag::code[]
 @SpringBootApplication
 @EnableAsync
+@EnableScheduling
 public class ReactAndSpringDataRestApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
