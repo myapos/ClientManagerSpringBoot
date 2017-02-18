@@ -20,6 +20,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import java.util.concurrent.*;
+import org.springframework.scheduling.concurrent.*;
+import org.springframework.context.annotation.Bean;
 //------------------------------------------------------------------
 
 //import org.springframework.context.annotation.Bean;
@@ -42,6 +45,12 @@ public class ReactAndSpringDataRestApplication extends SpringBootServletInitiali
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(ReactAndSpringDataRestApplication.class);
 	}
+
+	@Bean(name="threadPoolTaskExecutor")
+    public Executor threadPoolTaskExecutor() {
+        return new ThreadPoolTaskExecutor();
+    }
+
 	// @Bean
  //    public WebMvcConfigurer corsConfigurer() {
  //        return new WebMvcConfigurerAdapter() {
