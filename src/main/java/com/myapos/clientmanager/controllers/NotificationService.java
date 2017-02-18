@@ -48,7 +48,7 @@ public class NotificationService {
 		this.javaMailSender = javaMailSender;
 	}
 	
-	@Async
+	@Async("threadPoolTaskExecutor")
 	public void sendNotification(String fname, String lname, String email, String msg, String mode) throws MailException, InterruptedException {
 		
 		System.out.println("Sleeping now...");
