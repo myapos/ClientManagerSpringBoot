@@ -426,14 +426,14 @@ export const updateStudent = (/*newdesc, descBefore, */rowUpdate) => {
 
 
 export const addPaymentRegisters = (row) => {
-debugger;
+//debugger;
 
 
 
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-
+//debugger;
 if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
     updateMode === "updateDateOfPayment"){
 
@@ -494,46 +494,92 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
                     let resObj3 = JSON.parse(request3.responseText);
                     console.log("sync call 3:", resObj3);
                     //let payment3 = resObj3._links.self.href;
-                    for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
-                    let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
-                    //debugger;
+                    //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
 
-                    //step 3.2 update payments
-                    let date = new Date(row.dateOfPayment.substr(0, 10));
-                    //debugger;
-                    let bodyData = JSON.stringify({
-                            "payment" : row.payment,
-                            "dateOfPayment": date,
-                            "notes": row.notes,
-                            "register": register
-                    });
-
-                    let request4 = new XMLHttpRequest();
-                    request4.open('PATCH', payment, false);  // `false` makes the request synchronous
-                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                    request4.setRequestHeader("Content-type", "application/json");
-                    request4.contentType = "application/json"
-                    request4.send(bodyData);
-
-                    if (request4.status === 200) {
-
-                        let resObj4 = JSON.parse(request4.responseText);
-
-                        console.log("sync call 4:", resObj4);
+                    if (resObj3._embedded.payeds.length ==0) {
+                        console.log("no payments were found. So create one!!");
+                        //let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
+                        let payment = parent.BASE_URL+"/api/payeds/";
                         //debugger;
-                         if (s === resObj3._embedded.payeds.length -1){
-                            alert("Payment has been updated in database. Page is reloading");
-                            window.location.reload(true);
+
+                        //step 3.2 update payments
+                        let date = new Date(row.dateOfPayment.substr(0, 10));
+                        //debugger;
+                        let bodyData = JSON.stringify({
+                                "payment" : row.payment,
+                                "dateOfPayment": date,
+                                "notes": row.notes,
+                                "register": register
+                        });
+
+                        let request5 = new XMLHttpRequest();
+                        request5.open('POST', payment, false);  // `false` makes the request synchronous
+                        request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request5.setRequestHeader("Content-type", "application/json");
+                        request5.contentType = "application/json"
+                        request5.send(bodyData);
+
+                        if (request5.status === 201) {
+
+                            let resObj5 = JSON.parse(request5.responseText);
+
+                            console.log("sync call 5:", resObj5);
+                            //debugger;
+                            //  if (s === resObj3._embedded.payeds.length -1){
+                                alert("Payment has been updated in database. Page is reloading");
+                                window.location.reload(true);
+                            // }
+
+
                         }
+                        else {
 
+                            alert("Something bad has happened. Please try again");
 
+                        }
                     }
                     else {
+                        for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
+                        let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
+                        //debugger;
 
-                        alert("Something bad has happened. Please try again");
+                        //step 3.2 update payments
+                        let date = new Date(row.dateOfPayment.substr(0, 10));
+                        //debugger;
+                        let bodyData = JSON.stringify({
+                                "payment" : row.payment,
+                                "dateOfPayment": date,
+                                "notes": row.notes,
+                                "register": register
+                        });
 
-                    }
-                }//end of for 2
+                        let request4 = new XMLHttpRequest();
+                        request4.open('PATCH', payment, false);  // `false` makes the request synchronous
+                        request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request4.setRequestHeader("Content-type", "application/json");
+                        request4.contentType = "application/json"
+                        request4.send(bodyData);
+
+                        if (request4.status === 200) {
+
+                            let resObj4 = JSON.parse(request4.responseText);
+
+                            console.log("sync call 4:", resObj4);
+                            //debugger;
+                             if (s === resObj3._embedded.payeds.length -1){
+                                alert("Payment has been updated in database. Page is reloading");
+                                window.location.reload(true);
+                            }
+
+
+                        }
+                        else {
+
+                            alert("Something bad has happened. Please try again");
+
+                        }
+                    }//end of for 2
+                } //end of else
                 }
 
             }
