@@ -37,7 +37,7 @@ import java.util.*;
 public class Payed {
 
 	private @Id @GeneratedValue Long id;
-	private boolean payment;
+	private Boolean payment;
 	private String notes;
 	private Date dateOfPayment;
 
@@ -47,7 +47,7 @@ public class Payed {
 
 	private Payed() {}
 
-	public Payed(boolean payment, String notes, Date dateOfPayment, Register register) {
+	public Payed(Boolean payment, String notes, Date dateOfPayment, Register register) {
 
 		this.payment = payment;
 		this.notes = notes;

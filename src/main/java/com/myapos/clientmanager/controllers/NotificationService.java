@@ -67,11 +67,11 @@ public class NotificationService {
 			System.out.println("Email Sent!");
 		}
 		else {
-			String text = "You are receiving this because you are a member of Ferrum Gym.";
+			//String text = "You are receiving this because you are a member of Ferrum Gym.";
 			mail.setTo(email);
 			mail.setFrom("ferrumgym@gmail.com");
 			mail.setSubject("Check your registration fee ");
-			mail.setText(text + msg);
+			mail.setText(msg);
 			javaMailSender.send(mail);
 			System.out.println("Email Sent!");
 
