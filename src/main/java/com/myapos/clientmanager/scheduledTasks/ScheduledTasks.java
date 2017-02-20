@@ -67,14 +67,7 @@ public class ScheduledTasks {
 
 		//1. find all payments with false
 		Iterable<Payed> allPayeds = this.payeds.findAll();
-		int size = sizeOfIterablePayed(allPayeds);
-		// for(Payed p : allPayeds){
-		// 	//log.info("Found Student data:", s.toString());
-		// 	System.out.println("Found payment data:"+p);
-		// 	// System.out.println("Found payment data:"+p.getPayment()
-		// 	// 	+" "+p.getNotes()+" "+p.getDateOfPayment+ " "+p.getRegister().toString);
-		// 	;
-		// }
+		//int size = sizeOfIterablePayed(allPayeds); //deactivate for the time moment!!!!!
 
 		//2. find all register that matches false payments
 

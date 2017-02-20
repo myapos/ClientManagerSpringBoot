@@ -1,6 +1,3 @@
-
- 
-
 parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 parent.request1 = {};
 parent.rowDescription = {};
@@ -456,134 +453,161 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
             console.log("sync call 1:", resObj);
             let student = resObj._links.self.href;
             //debugger;
-            //step 2 find register by student
 
-            let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
-            let request2 = new XMLHttpRequest();
-            request2.open('GET', url2, false);  // `false` makes the request synchronous
-            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request2.setRequestHeader("Content-type", "application/json");
-            request2.contentType = "application/json"
-            request2.send(null);
+            //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
 
-            if (request2.status === 200) {
+            let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+            let request2St = new XMLHttpRequest();
+            request2St.open('GET', url2St, false);  // `false` makes the request synchronous
+            request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+            request2St.setRequestHeader("Content-type", "application/json");
+            request2St.contentType = "application/json"
+            request2St.send(null);
 
-                let resObj2 = JSON.parse(request2.responseText);
-                console.log("sync call 2:", resObj2);
-                for(let x=0; x<resObj2._embedded.registers.length; x++){    //for 1
-                let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
+            if (request2St.status === 200) {   
+                let resObj2St = JSON.parse(request2St.responseText);
+                console.log("sync call 2St:", resObj2St);
+                //debugger;
 
-                //step 3 update payments
+                    //step 2.1 find register by student class
 
-                //step 3.1 find payment id to update
+                    let url21 = parent.BASE_URL+"/api/registers/search/findByStudentAndStudentClass?student="
+                        +student+"&studentClass="+resObj2St._links.self.href;
+                    //debugger;
+                    let request21 = new XMLHttpRequest();
+                    request21.open('GET', url21, false);  // `false` makes the request synchronous
+                    request21.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request21.setRequestHeader("Content-type", "application/json");
+                    request21.contentType = "application/json"
+                    request21.send(null);
 
-                let ar = register.split("/");
-                let s = ar.length;
-                let registerId = ar[s - 1];
+                    if (request21.status === 200) {
 
-                let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
-                let request3 = new XMLHttpRequest();
-                request3.open('GET', url3, false);  // `false` makes the request synchronous
-                request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                request3.setRequestHeader("Content-type", "application/json");
-                request3.contentType = "application/json"
-                request3.send(null);
+                        let resObj21 = JSON.parse(request21.responseText);
+                        console.log("sync call 2:", resObj21);
 
-                if (request3.status === 200) {
-                    
-                    let resObj3 = JSON.parse(request3.responseText);
-                    console.log("sync call 3:", resObj3);
-                    //let payment3 = resObj3._links.self.href;
-                    //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
+                       /* for(let x=0; x<resObj21._embedded.registers.length; x++){*/    //for 1
+                        {
+                        //let register = resObj21._embedded.registers[x]._links.self.href; //has to be fixed for many
+                        let register = resObj21._links.self.href; //has to be fixed for many
+                        //update only the selected payment 
 
-                    if (resObj3._embedded.payeds.length ==0) {
-                        console.log("no payments were found. So create one!!");
-                        //let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
-                        let payment = parent.BASE_URL+"/api/payeds/";
                         //debugger;
 
-                        //step 3.2 update payments
-                        let date = new Date(row.dateOfPayment.substr(0, 10));
-                        //debugger;
-                        let bodyData = JSON.stringify({
-                                "payment" : row.payment,
-                                "dateOfPayment": date,
-                                "notes": row.notes,
-                                "register": register
-                        });
+                        //step 3 update payments
 
-                        let request5 = new XMLHttpRequest();
-                        request5.open('POST', payment, false);  // `false` makes the request synchronous
-                        request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                        request5.setRequestHeader("Content-type", "application/json");
-                        request5.contentType = "application/json"
-                        request5.send(bodyData);
+                        //step 3.1 find payment id to update
 
-                        if (request5.status === 201) {
+                        let ar = register.split("/");
+                        let s = ar.length;
+                        let registerId = ar[s - 1];
 
-                            let resObj5 = JSON.parse(request5.responseText);
+                        let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
+                        let request3 = new XMLHttpRequest();
+                        request3.open('GET', url3, false);  // `false` makes the request synchronous
+                        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request3.setRequestHeader("Content-type", "application/json");
+                        request3.contentType = "application/json"
+                        request3.send(null);
 
-                            console.log("sync call 5:", resObj5);
-                            //debugger;
-                            //  if (s === resObj3._embedded.payeds.length -1){
-                                alert("Payment has been updated in database. Page is reloading");
-                                window.location.reload(true);
-                            // }
+                        if (request3.status === 200) {
+                            
+                            let resObj3 = JSON.parse(request3.responseText);
+                            console.log("sync call 3:", resObj3);
+                            //let payment3 = resObj3._links.self.href;
+                            //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
 
+                            if (resObj3._embedded.payeds.length ==0) {
+                                console.log("no payments were found. So create one!!");
+                                //let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
+                                let payment = parent.BASE_URL+"/api/payeds/";
+                                //debugger;
 
-                        }
-                        else {
+                                //step 3.2 update payments
+                                let date = new Date(row.dateOfPayment.substr(0, 10));
+                                //debugger;
+                                let bodyData = JSON.stringify({
+                                        "payment" : row.payment,
+                                        "dateOfPayment": date,
+                                        "notes": row.notes,
+                                        "register": register
+                                });
 
-                            alert("Something bad has happened. Please try again");
+                                let request5 = new XMLHttpRequest();
+                                request5.open('POST', payment, false);  // `false` makes the request synchronous
+                                request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                request5.setRequestHeader("Content-type", "application/json");
+                                request5.contentType = "application/json"
+                                request5.send(bodyData);
 
-                        }
-                    }
-                    else {
-                        for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
-                        let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
-                        //debugger;
+                                if (request5.status === 201) {
 
-                        //step 3.2 update payments
-                        let date = new Date(row.dateOfPayment.substr(0, 10));
-                        //debugger;
-                        let bodyData = JSON.stringify({
-                                "payment" : row.payment,
-                                "dateOfPayment": date,
-                                "notes": row.notes,
-                                "register": register
-                        });
+                                    let resObj5 = JSON.parse(request5.responseText);
 
-                        let request4 = new XMLHttpRequest();
-                        request4.open('PATCH', payment, false);  // `false` makes the request synchronous
-                        request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                        request4.setRequestHeader("Content-type", "application/json");
-                        request4.contentType = "application/json"
-                        request4.send(bodyData);
+                                    console.log("sync call 5:", resObj5);
+                                    //debugger;
+                                    //  if (s === resObj3._embedded.payeds.length -1){
+                                        alert("Payment has been updated in database. Page is reloading");
+                                        window.location.reload(true);
+                                    // }
 
-                        if (request4.status === 200) {
+                                }
+                                else {
 
-                            let resObj4 = JSON.parse(request4.responseText);
+                                    alert("Something bad has happened. Please try again");
 
-                            console.log("sync call 4:", resObj4);
-                            //debugger;
-                             if (s === resObj3._embedded.payeds.length -1){
-                                alert("Payment has been updated in database. Page is reloading");
-                                window.location.reload(true);
+                                }
                             }
+                            else {
+                                for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
+                                let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
+                                //debugger;
+
+                                //step 3.2 update payments
+                                let date = new Date(row.dateOfPayment.substr(0, 10));
+                                //debugger;
+                                let bodyData = JSON.stringify({
+                                        "payment" : row.payment,
+                                        "dateOfPayment": date,
+                                        "notes": row.notes,
+                                        "register": register
+                                });
+
+                                let request4 = new XMLHttpRequest();
+                                request4.open('PATCH', payment, false);  // `false` makes the request synchronous
+                                request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                request4.setRequestHeader("Content-type", "application/json");
+                                request4.contentType = "application/json"
+                                request4.send(bodyData);
+
+                                if (request4.status === 200) {
+
+                                    let resObj4 = JSON.parse(request4.responseText);
+
+                                    console.log("sync call 4:", resObj4);
+                                    //debugger;
+                                     if (s === resObj3._embedded.payeds.length -1){
+                                        alert("Payment has been updated in database. Page is reloading");
+                                        window.location.reload(true);
+                                    }
 
 
+                                }
+                                else {
+
+                                    alert("Something bad has happened. Please try again");
+
+                                }
+                            }//end of for 2
+                        } //end of else
                         }
-                        else {
 
-                            alert("Something bad has happened. Please try again");
+                    }
+            } //end of for 1
+            }     
 
-                        }
-                    }//end of for 2
-                } //end of else
-                }
 
-            }
-    } //end of for 1
+
     }
 
 } 
