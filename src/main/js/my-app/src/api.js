@@ -430,7 +430,7 @@ export const addPaymentRegisters = (row) => {
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-//debugger;
+debugger;
 if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
     updateMode === "updateDateOfPayment"){
 
@@ -492,7 +492,7 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
                         let register = resObj21._links.self.href; //has to be fixed for many
                         //update only the selected payment 
 
-                        //debugger;
+                        debugger;
 
                         //step 3 update payments
 
@@ -548,7 +548,7 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
                                     //debugger;
                                     //  if (s === resObj3._embedded.payeds.length -1){
                                         alert("Payment has been updated in database. Page is reloading");
-                                        window.location.reload(true);
+                                        //window.location.reload(true);
                                     // }
 
                                 }
@@ -588,7 +588,7 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
                                     //debugger;
                                      if (s === resObj3._embedded.payeds.length -1){
                                         alert("Payment has been updated in database. Page is reloading");
-                                        window.location.reload(true);
+                                        //window.location.reload(true);
                                     }
 
 
