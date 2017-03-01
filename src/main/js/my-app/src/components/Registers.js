@@ -13,38 +13,18 @@ const dataRegisters = [];
 parent.studentIndexWithRegistrations = [];
 
 function afterSearch (searchText, result){
-  // console.log('Your search text is ' + searchText);
-  // console.log('Result is:');
-  // for (let i = 0; i < result.length; i++) {
-  //   console.log('Registers: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-  //     +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
-  // }
+
 }
 
 function onAfterInsertRow (row) {
-  // let newRowStr = '';
-  // let payment = document.getElementById("mySelectPaymentRegisters").value;
-  // let classReg = document.getElementById("mySelectClassesPaymentRegisters").value;
 
-  // row.payment = payment;
-  // row.class = classReg;
-  // for (const prop in row) {
-  //   //debugger;
-  //   newRowStr += prop + ': ' + row[prop] + ' \n';
-  // }
-  // //debugger;
-  // alert('The new row is:\n ' + newRowStr);
-  // console.log("insert data to database");
-  // debugger;
-  // this.props.addPaymentRegisters(row);
 
 }
 
 function onAfterDeleteRow (rowKeys) {
 
-  //alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database");
-  //debugger;
+  //console.log("delete data from database");
+
   this.props.deleteRegisters(rowKeys[0]);
 
 }
@@ -79,20 +59,14 @@ componentDidMount(){
       el.innerHTML = el.innerHTML + ".";  
       
       if (el.innerHTML == ".................................."){
-        //reset dots
-        //debugger;
-        //clearInterval();
         el.innerHTML = "";
       }
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
-      //if waiting time is more than 30sec then display message
-      //debugger;
+
       if (diffTime > timeThreshold && data.length == 0 ){
-        //debugger;
-        //alert("time passed");
+
         clearInterval(refreshIntervalId);
         let msg = document.getElementById("loadingTextRegisters");
         msg.innerHTML = "No payments are saved in database"; 
@@ -110,14 +84,14 @@ componentDidMount(){
 
   //const registers = this.props.saved_registers;
   const students = this.props.saved_student;
-  //debugger;
+
 
   for(let jj=0; jj<students.length;jj++){
   	//synchronous calls.......... 
     //get data of registered students
 
       let url = students[jj]._links.student.href;
-      //debugger;
+
       //Get id for register
       let ar = url.split("/");
       let s = ar.length;
@@ -131,13 +105,13 @@ componentDidMount(){
 
       if (request1.status === 200) {
 
-        console.log(JSON.parse(request1.responseText));
+        //console.log(JSON.parse(request1.responseText));
 
      	//2nd sync call
     	//get registrations of all students
-    	//let url2 = students[jj]._links.self.href;
+
     	let url2 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-    	//debugger;
+
 
     	//http://localhost:8181/api/registers/search/findByStudent?student=http://localhost:8181/api/students/136
         let request2 = new XMLHttpRequest();
@@ -148,19 +122,19 @@ componentDidMount(){
         request2.send(null);
 
         if (request2.status === 200) {
-            //debugger;
-            console.log("sync call 2:",JSON.parse(request2.responseText));
+
+            //console.log("sync call 2:",JSON.parse(request2.responseText));
             let registrations = JSON.parse(request2.responseText);
 
             //if student has registers get the classes of registers
             if (registrations._embedded.registers.length > 0) {
 
-            	console.log("student has registrations");
+            	//console.log("student has registrations");
             	//for every registration get registered classes
             	for (let ww=0; ww<registrations._embedded.registers.length; ww++){
             	
             	let url3 = registrations._embedded.registers[ww]._links.studentClass.href;
-            	//debugger;
+
             	//let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
 
           		let request3 = new XMLHttpRequest();
@@ -172,7 +146,7 @@ componentDidMount(){
 
   		        if (request3.status === 200) {
 
-  		        	 console.log("sync call 3:",JSON.parse(request3.responseText));
+  		        	 //console.log("sync call 3:",JSON.parse(request3.responseText));
   		        	
 
   		        	 //save tempData
@@ -184,12 +158,11 @@ componentDidMount(){
                  tempData.class = JSON.parse(request3.responseText).description;
 
                  let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
-                 //debugger;
+
                  let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
                  tempData.dateOfRegistration = formatedDate;
                  tempData.index = dataRegisters.length+1;
                  dataRegisters.push(tempData);
-                 //debugger;		
                  parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
 
   		        }
@@ -199,7 +172,7 @@ componentDidMount(){
             }
             else {
 
-            	console.log("no registrations");
+            	//console.log("no registrations");
 
             	//save tempData
 
@@ -209,8 +182,7 @@ componentDidMount(){
 	            tempData.email = JSON.parse(request1.responseText).email;
 	            tempData.class = "No registered classes";
 
-	            //let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
-	            //debugger;
+
 	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
 	            tempData.dateOfRegistration = "No date of registration";
 	            tempData.index = dataRegisters.length+1;
@@ -224,7 +196,6 @@ componentDidMount(){
 
   }
 
-  //debugger;
 }
 
 afterSaveRegistersCell(row, cellName, cellValue) {
@@ -313,26 +284,10 @@ render () {
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    console.log("dataRegisters:",dataRegisters);
+    //console.log("dataRegisters:",dataRegisters);
 
-
-    /*
-
-		        tempData.fname = JSON.parse(request1.responseText).fname;
-	            tempData.lname = JSON.parse(request1.responseText).lname;
-	            tempData.email = JSON.parse(request1.responseText).email;
-	            tempData.class = "no registrations";
-	            //let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
-	            //debugger;
-	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-	            tempData.dateOfRegistration = "no registrations";
-	            tempData.index = dataRegisters.length+1;
-
-
-    */
-    //debugger;
     if(dataRegisters.length>0){
-    	//debugger;
+
 	    return (
 	      <div id="registers">
 		      <BootstrapTable

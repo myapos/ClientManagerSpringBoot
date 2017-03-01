@@ -53,62 +53,60 @@ export function getAllStudents() {
   };
 }
 export function addStudent(row) {
-  //debugger;
+
   return {
     type: ADD_STUDENT,
     row
   };
 }
 export function deleteStudent(studentId) {
-  //debugger;
+
   return {
     type: DELETE_STUDENT,
     studentId
   };
 }
 export function updateStudent(rowUpdate, desc, descBefore) {
-  //debugger;
+
   return {
     type: UPDATE_STUDENT,
-    rowUpdate/*, 
-    desc, 
-    descBefore*/
+    rowUpdate
   };
 }
 export function importStudents() {
-  //debugger;
+
   return {
     type: IMPORT_STUDENTS
   };
 }
 export function exportStudents() {
-  //debugger;
+
   return {
     type: EXPORT_STUDENTS
   };
 }
 export function studentClassDashboard() {
-  //debugger;
+
   return {
     type: STUDENT_CLASS_DASHBOARD,
   };
 }
 export function saveNewClass(row) {
-  //debugger;
+
   return {
     type: SAVE_NEW_CLASS,
     row
   };
 }
 export function deleteClass(classId) {
-  //debugger;
+
   return {
     type: DELETE_CLASS,
     classId
   };
 }
 export function updateClass(rowUpdate, desc, descBefore) {
-  //debugger;
+
   return {
     type: UPDATE_CLASS,
     rowUpdate,
@@ -118,7 +116,7 @@ export function updateClass(rowUpdate, desc, descBefore) {
 }
 
 export function changeSelectedTab(selectedTab, tabNamespace) {
-  //debugger;
+
   let act = "";
 
   if (selectedTab == 'tab1'){
@@ -145,7 +143,7 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
 
 
 export function addPaymentRegisters(row) {
-  //debugger;
+
   return {
     type: CREATE_PAYMENTS_REGISTERS,
     row
@@ -153,7 +151,7 @@ export function addPaymentRegisters(row) {
 }
 
 export function updatePaymentRegisters(rowUpdate, updateMode) {
-  //debugger;
+
   return {
     type: UPDATE_PAYMENTS_REGISTERS,
     rowUpdate,
@@ -162,7 +160,7 @@ export function updatePaymentRegisters(rowUpdate, updateMode) {
 }
 
 export function createRegisters(rowUpdate) {
-  //debugger;
+
   return {
     type: CREATE_REGISTERS,
     rowUpdate
@@ -170,7 +168,7 @@ export function createRegisters(rowUpdate) {
 }
 
 export function updateRegisters(rowUpdate) {
-  //debugger;
+
   return {
     type: UPDATE_REGISTERS,
     rowUpdate
@@ -179,7 +177,7 @@ export function updateRegisters(rowUpdate) {
 
 
 export function deletePaymentRegisters(rowUpdate, paymentId) {
-  //debugger;
+
   return {
     type: DELETE_PAYMENTS_REGISTERS,
     rowUpdate,
@@ -188,7 +186,7 @@ export function deletePaymentRegisters(rowUpdate, paymentId) {
 }
 
 export function deleteRegisters(registerId) {
-  //debugger;
+
   return {
     type: DELETE_REGISTERS,
     registerId
@@ -196,7 +194,7 @@ export function deleteRegisters(registerId) {
 }
 
 export function msgSubmitted(msg, selectedClass) {
-  //debugger;
+
   return {
     type: MSG_SUBMITTED,
     msg,

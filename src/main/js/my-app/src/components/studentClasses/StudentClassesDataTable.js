@@ -6,24 +6,22 @@ import { Link } from 'react-router';
 import '../../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-//import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import * as api from '../../api';
 import MDSpinner from "react-md-spinner";
 
-//import {MyCustomBody} from './MyCustomBody';
 
 parent.classesPair = {};
 parent.loaded=0;
 function afterSearch (searchText, result){
-  console.log('Your search text is ' + searchText);
-  console.log('Result is:');
+  //console.log('Your search text is ' + searchText);
+  //console.log('Result is:');
   for (let i = 0; i < result.length; i++) {
-    console.log('StudentClass: ' + result[i].index + ', ' + result[i].description);
+    //console.log('StudentClass: ' + result[i].index + ', ' + result[i].description);
   }
 }
 
 function onAfterInsertRow(row) {
-  //debugger;
+
   let selectedSubClass = document.getElementById("mySelect").value;
   let newRowStr = '';
 
@@ -31,8 +29,7 @@ function onAfterInsertRow(row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
  
-  //debugger;
-  console.log("insert data to database",this.props);
+  //console.log("insert data to database",this.props);
   row.subClassDescription = selectedSubClass;
   this.props.saveNewClass(row);
    alert('The new row is:\n ' + row.description + " "+row.subClassDescription);
@@ -40,7 +37,7 @@ function onAfterInsertRow(row) {
 
 function onAfterDeleteRow(rowKeys) {
   alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database",this.props);
+  //console.log("delete data from database",this.props);
   this.props.deleteClass(rowKeys);
 }
 
@@ -65,7 +62,7 @@ class StudentClassesDataTable extends Component {
 componentDidMount() {
 
   const data = this.props.saved_studentClasses;
-  //debugger;
+
   let elStCl = document.getElementById("dots");
   let d = new Date();
   let startTime = d.getTime();
@@ -78,24 +75,22 @@ componentDidMount() {
   
   //anonymoys function to use in setInterval
   let anon = function(data) {
-      //debugger;
+
       elStCl.innerHTML = elStCl.innerHTML + ".";  
       
       if (elStCl.innerHTML == ".................................."){
-        //reset dots
-        //debugger;
+
         //clearInterval();
         elStCl.innerHTML = "";
       }
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+
       //if waiting time is more than 30sec then display message
-      //debugger;
+
       if (diffTime > timeThreshold && data.length == 0 ){
-        //debugger;
-        //alert("time passed");
+
         clearInterval(refreshIntervalId);
         let msg = document.getElementById("loadingTextRegisters");
         msg.innerHTML = "No payments are saved in database"; 
@@ -114,23 +109,21 @@ componentDidMount() {
 
 componentDidUpdate(){
 
-  //this.checkInterval();
+
   //check if checkPeriodInMinutes has passed
-  //debugger;
+
   let x = document.getElementById("studentClasses");
   let rows = x.querySelectorAll('tr');
   let el = rows[1];
-  //let el = document.getElementsByClassName('form-control editor edit-text')[0];
-  
-  //let rows = document.querySelectorAll('tr');
+
 
   let id = rows.length;
 
   el.setAttribute('placeholder', id);
   //set id for classes in modal window
   x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
-  console.log("modal editing:",el);
-  //debugger;
+  //console.log("modal editing:",el);
+
   let el2 = x.getElementsByClassName('form-group');
   let childs = el2[2].childNodes;
   
@@ -145,17 +138,14 @@ componentDidUpdate(){
   selectList.id = "mySelectStudentClasses";
   selectList.className = "form-control";
   el2[2].appendChild(selectList);
-  //childs[1] = selectList;
-  // form-control editor edit-text
-  //Create and append the options
-  //debugger;
+
   for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
       let option = document.createElement("option");
       option.value = this.props.saved_studentClasses[i].description;
       option.text = this.props.saved_studentClasses[i].description;
       selectList.appendChild(option);
   }
-  //debugger;
+
 };
 
 getSubClass(url, parentDesc, obj) {
@@ -172,7 +162,7 @@ getSubClass(url, parentDesc, obj) {
   .then (res => res.json())
   .then(res => { 
     
-    console.log("data from server: ",res);
+    //console.log("data from server: ",res);
     parent.classesPair[parentDesc] = res;
 
   });
@@ -182,33 +172,26 @@ getSubClass(url, parentDesc, obj) {
 beforeSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
-  //this.props.updateClass(row, cellValue);
-  //debugger;
+
   let x = document.getElementById("studentClasses");
   let el = x.getElementsByClassName(" form-control editor edit-text")[2];
   let descBefore = el.getAttribute("value");
   this.props.updateClass(row, cellValue,descBefore);
-  //debugger;
+
 
 
 }
 
 afterSaveSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
-  //call action for update
-  //get description before
-  //
- 
-
 }
 
 render () {
   
-    //debugger;
+
     const data = this.props.saved_studentClasses;
-    console.log(data);
-    // onAfterInsertRow.bind(this);
-    // onAfterDeleteRow.bind(this);
+    //console.log(data);
+
 
     const cellEditProp = {
       mode: 'click',
@@ -222,35 +205,34 @@ render () {
 
     //preprocess data
     data.map((obj, index)=>{
-      //debugger;
-      console.log("cur index:"+index);
+
+      //console.log("cur index:"+index);
       obj.index = (index+1);
       //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
 
       obj.ManyToOne=obj._links.studentClass[1].href;
       this.getSubClass(obj.ManyToOne, obj.description, obj);
-      //obj.subClassDescription = response.description;
-      //debugger;
+
       //get description of subclass-- this description lives in obj.ManyToOne
 
     });
     //check if async calls ended
     //wait for data to be retrieved from fdatabase
-    //setTimeout(function(){ console.log("wait for a while"); }, 3000);  
-    console.log("size of pairs:",Object.size(parent.classesPair));
+
+    //console.log("size of pairs:",Object.size(parent.classesPair));
     if(Object.size(parent.classesPair)>0){
 
-      console.log("End of async calls");
+      //console.log("End of async calls");
       parent.loaded=1; 
-      //obj.classesPair = parent.classesPair;
+
       for (let j=0; j<data.length; j++){ 
          for (var key in parent.classesPair) {
             if (parent.classesPair.hasOwnProperty(key)) {
 
               if(data[j].description == key) {
-                //debugger;
+
                 data[j].subClassDescription = parent.classesPair[key].description;
-                console.log(key + " -> " + parent.classesPair[key]);
+                //console.log(key + " -> " + parent.classesPair[key]);
               }
             }
         }
@@ -265,25 +247,10 @@ render () {
       </div>
     );
 
-    //debugger;
+
 
     }
 
-    //restrict to only one refresh of the page flag window.performance.navigation.type will be one if page is refreshed
-
-  //   if ((Object.size(parent.classesPair)==0)&&(window.performance.navigation.type==0)){
-
-  //     setTimeout(function(){ 
-  //       console.log("waited for 5s. Page is reloading"); 
-  //       //window.location.reload(true);
-  //       //parent.loaded==1;
-  //       console.log("size of pairs:", Object.size(parent.classesPair)); 
-  //       if(Object.size(parent.classesPair)>0){
-  //        window.location.reload(true);
-  //       }
-  //   }, 5000);  
-  // }
-    //debugger;
   else {
       return (
         <div>

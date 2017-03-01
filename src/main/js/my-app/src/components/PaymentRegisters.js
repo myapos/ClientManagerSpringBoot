@@ -3,53 +3,33 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
+
 import '../css/App.css';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-// import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-// import './toggler.css';
-// import Toggle from 'react-toggle';
-// react select
-// import Advertiser from './Advertiser';
-
 let dataPaymentRegisters = [];
 
 function afterSearch (searchText, result){
-  console.log('Your search text is ' + searchText);
-  console.log('Result is:');
+  //console.log('Your search text is ' + searchText);
+  //console.log('Result is:');
   for (let i = 0; i < result.length; i++) {
-    console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-      +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
+    //console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
+     // +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
   }
 }
 
 function onAfterInsertRow (row) {
-  //debugger;
-  // let newRowStr = '';
-  // let payment = document.getElementsByClassName("mySelectPaymentRegisters").value;
-  // let classReg = document.getElementById("mySelectClassesPaymentRegisters").value;
-
-  // row.payment = payment;
-  // row.class = classReg;
-  // for (const prop in row) {
-  //   //debugger;
-  //   newRowStr += prop + ': ' + row[prop] + ' \n';
-  // }
-  // //debugger;
-  // alert('The new row is:\n ' + newRowStr);
-  console.log("insert data to database");
-  debugger;
+  //console.log("insert data to database");
   this.props.addPaymentRegisters(row);
 
 }
 
 function onAfterDeleteRow (rowKeys) {
 
-  //alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database");
+
+  //console.log("delete data from database");
   this.props.deletePaymentRegisters(rowKeys);
 
 }
@@ -66,7 +46,6 @@ componentWillUpdate(){
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
   //running dots functionality
-  //debugger;
   let el = document.getElementById("dotsPaymentRegisters");
   let d = new Date();
   let startTime = d.getTime();
@@ -83,20 +62,15 @@ componentWillUpdate(){
       el.innerHTML = el.innerHTML + ".";  
       
       if (el.innerHTML == ".................................."){
-        //reset dots
-        //debugger;
-        //clearInterval();
+
         el.innerHTML = "";
       }
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
-      //if waiting time is more than 30sec then display message
-      //debugger;
+
       if (diffTime > timeThreshold && data.length == 0 ){
-        //debugger;
-        //alert("time passed");
+
         clearInterval(refreshIntervalId);
         let msg = document.getElementById("loadingTextPaymentRegisters");
         msg.innerHTML = "No payments are saved in database"; 
@@ -135,14 +109,14 @@ componentWillUpdate(){
 
         if (request1.status === 200) {
           
-          console.log(JSON.parse(request1.responseText));
+          //console.log(JSON.parse(request1.responseText));
           let registrations = JSON.parse(request1.responseText);
          
 
           if(registrations._embedded.registers.length>0) {
           //get payments of those students . if there aren't any then you can set them
 
-              //debugger;
+
               for(let jw=0; jw<registrations._embedded.registers.length;jw++){
                 let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
                 let request2= new XMLHttpRequest();
@@ -153,20 +127,18 @@ componentWillUpdate(){
                 request2.send(null);
                 if (request2.status === 200) {
 
-                  console.log("sync call 2:",JSON.parse(request2.responseText));
+                  //console.log("sync call 2:",JSON.parse(request2.responseText));
                   let payments = JSON.parse(request2.responseText);
-                  //debugger;
-                  //payments._embedded.payeds[0].payment
+
+
                   let tempData ={};
                   tempData.fname = students[jj].fname;
                   tempData.lname = students[jj].lname;
                   tempData.email = students[jj].email;
-                  // tempData.class = JSON.parse(request2.responseText).description;
-                  //debugger;
+
                   if(payments._embedded.payeds[0]!=undefined) {
                       //get classes of registered students
 
-                      
                       let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
                       let request3= new XMLHttpRequest();
                       request3.open('GET', url3, false);  // `false` makes the request synchronous
@@ -176,9 +148,8 @@ componentWillUpdate(){
                       request3.send(null);
                       if (request3.status === 200) {
 
-                          console.log("sync call 3:",JSON.parse(request3.responseText));
+                          //console.log("sync call 3:",JSON.parse(request3.responseText));
                           let studentClasses = JSON.parse(request3.responseText);
-                          //debugger;
                           let tempData ={};
                           tempData.fname = students[jj].fname;
                           tempData.lname = students[jj].lname;
@@ -196,7 +167,6 @@ componentWillUpdate(){
 
                   }
                   else {
-                      //debugger;
                       let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
                       let request3= new XMLHttpRequest();
                       request3.open('GET', url3, false);  // `false` makes the request synchronous
@@ -206,9 +176,8 @@ componentWillUpdate(){
                       request3.send(null);
                       if (request3.status === 200) {
 
-                          console.log("sync call 3:",JSON.parse(request3.responseText));
+                          //console.log("sync call 3:",JSON.parse(request3.responseText));
                           let studentClasses = JSON.parse(request3.responseText);
-                          //debugger;
                           let tempData ={};
                           tempData.fname = students[jj].fname;
                           tempData.lname = students[jj].lname;
@@ -225,7 +194,6 @@ componentWillUpdate(){
                       }
 
                   }
-                  //debugger;
                 }
               }
 
@@ -238,8 +206,6 @@ componentWillUpdate(){
 }
 
 componentDidUpdate(){
-  //debugger;
-
   let x = document.getElementById("PaymentRegisters");
   let rows = x.querySelectorAll('tr');
   let el2 = x.getElementsByClassName('form-group');
@@ -258,30 +224,17 @@ beforeSavePaymentRegistersCell(row, cellName, cellValue) {
 
   // do your stuff...
   //call action for update
-  //this.props.updateClass(row, cellValue);
-
-  // let x = document.getElementById("PaymentRegisters");
-  // let el = x.getElementsByClassName('form-group');
-
-  
-  //this.props.updatePaymentRegisters(row, cellValue,descBefore);
-  //debugger;
-
 }
 
 afterSavePaymentRegistersCell(row, cellName, cellValue) {
   // do your stuff...
-  //call action for update
-  //get description before
-  
+
   let x = document.getElementById("PaymentRegisters");
   let y = x.getElementsByClassName("react-bs-container-body");
   let updateMode = "";
-  //let el = y[0].getElementsByClassName("form-control editor edit-text")[0];
  
   let el;
   let cellIndex;
-  //debugger;
   if (y[0].querySelector("select") != null){
 
     el = y[0].querySelector("select")[0];
@@ -293,38 +246,32 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
     cellIndex = el.parentElement.cellIndex;
   }
   else if (y[0].getElementsByClassName("form-control editor edit-datetime")[0] != null){
-    //debugger;
     el = y[0].getElementsByClassName("form-control editor edit-datetime")[0];
     cellIndex = el.parentElement.cellIndex;
   }
-  console.log(el);
+  //console.log(el);
 
-  
 
   if (cellIndex == 4){
-    //debugger;
     updateMode = "paymentUpdate";
   } 
   else if (cellIndex == 5){
-    //debugger;
+
     updateMode = "paymentNotesUpdate";
   } 
   else if (cellIndex == 6){
 
-    //debugger;
     updateMode = "classUpdate";
 
   } 
   else if (cellIndex == 7){
 
-    //debugger;
     updateMode = "updateDateOfPayment";
 
   } 
   
   let descBefore = el.getAttribute("value");
   this.props.updatePaymentRegisters(row,updateMode);
-  //debugger;
 
 }
 
@@ -346,22 +293,19 @@ render () {
 
     const fnames = [];
     const lnames = [];
-    //debugger;
     for (let i=0;i<this.props.saved_student.length;i++){
         fnames.push(this.props.saved_student[i].fname);
         lnames.push(this.props.saved_student[i].lname);       
     }
 
 
-    //debugger;
-
     const availableClasses = [];
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    console.log("dataPaymentRegisters:",dataPaymentRegisters);
+    //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
-    //debugger;
+    
     if(dataPaymentRegisters.length>0){
     return (
       <div id="PaymentRegisters">

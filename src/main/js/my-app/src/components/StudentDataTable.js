@@ -6,14 +6,14 @@ import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-//import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
 
 function afterSearch (searchText, result){
-  console.log('Your search text is ' + searchText);
-  console.log('Result is:');
+  //console.log('Your search text is ' + searchText);
+  //console.log('Result is:');
   for (let i = 0; i < result.length; i++) {
-    console.log('Student: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-      +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
+    //console.log('Student: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
+      //+', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
   }
 }
 
@@ -23,9 +23,9 @@ function onAfterInsertRow (row) {
   for (const prop in row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
-  //debugger;
+
   alert('The new row is:\n ' + newRowStr);
-  console.log("insert data to database");
+  //console.log("insert data to database");
   debugger;
   this.props.addStudent(row);
 
@@ -34,16 +34,11 @@ function onAfterInsertRow (row) {
 function onAfterDeleteRow (rowKeys) {
 
   alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database");
+  //console.log("delete data from database");
   this.props.deleteStudent(rowKeys);
 
 }
 
-// const options = {
-//   afterSearch: afterSearch,           // define a after search hook
-//   afterInsertRow: onAfterInsertRow,   // A hook for after insert rows
-//   afterDeleteRow: onAfterDeleteRow    // A hook for after droping rows.
-// };
 
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
@@ -67,24 +62,21 @@ componentDidMount() {
   
   //anonymoys function to use in setInterval
   let anon = function(data) {
-      //debugger;
+
       elSt.innerHTML = elSt.innerHTML + ".";  
       
       if (elSt.innerHTML == ".................................."){
         //reset dots
-        //debugger;
-        //clearInterval();
+
         elSt.innerHTML = "";
       }
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
       //if waiting time is more than 30sec then display message
-      //debugger;
+
       if (diffTime > timeThreshold && data.length == 0 ){
-        //debugger;
-        //alert("time passed");
         clearInterval(refreshIntervalId);
         let msg = document.getElementById("loadingTextStudents");
         msg.innerHTML = "No payments are saved in database"; 
@@ -103,20 +95,17 @@ componentDidMount() {
 }
 
 componentDidUpdate(){
-  //debugger;
+
 
   let x = document.getElementById("students");
   let rows = x.querySelectorAll('tr');
   let el = rows[1];
-  //let el = document.getElementsByClassName('form-control editor edit-text')[0];
-  
-  //let rows = document.querySelectorAll('tr');
 
   let id = rows.length;
 
   el.setAttribute('placeholder', id);
   //set id for classes in modal window
-  console.log("modal editing:",el);
+  //console.log("modal editing:",el);
   x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
   //add date element in modal window
   x.getElementsByClassName('form-control editor edit-text')[3].type="number";
@@ -130,17 +119,6 @@ componentDidUpdate(){
 
 }
 beforeSaveStudentCell(row, cellName, cellValue) {
-
-  // do your stuff...
-  //call action for update
-  //this.props.updateClass(row, cellValue);
-  // debugger;
-  // let x = document.getElementById("students");
-  // let y = x.getElementsByClassName("react-bs-container-body");
-  // let el = y[0].getElementsByClassName(" form-control editor edit-text")[0];
-  // let descBefore = el.getAttribute("value");
-  //this.props.updateStudent(row, cellValue,descBefore);
-  //debugger;
 
 }
 
@@ -158,15 +136,15 @@ render () {
     const data = this.props.saved_student;
     //preprocess data
     data.map((obj, index)=>{
-      //debugger;
+
       let date=new Date(obj.dateOfBirth);
       let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g);
       obj.dateOfBirth = formatedDate;
-      console.log("cur index:"+index);
+      //console.log("cur index:"+index);
       obj.index = (index+1);
     });
-    //debugger;
-    console.log(data);
+
+    //console.log(data);
 
     const cellEditProp = {
       mode: 'click',
@@ -180,7 +158,6 @@ render () {
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-    //debugger;
       if(data.length>0){
         return (
           <div id="students">
