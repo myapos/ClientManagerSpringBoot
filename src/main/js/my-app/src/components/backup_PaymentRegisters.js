@@ -18,29 +18,17 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 const dataPaymentRegisters = [];
 
 function afterSearch (searchText, result){
-  console.log('Your search text is ' + searchText);
-  console.log('Result is:');
+  //console.log('Your search text is ' + searchText);
+  //console.log('Result is:');
   for (let i = 0; i < result.length; i++) {
-    console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-      +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
+   // console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
+     // +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
   }
 }
 
 function onAfterInsertRow (row) {
-  //debugger;
-  // let newRowStr = '';
-  // let payment = document.getElementsByClassName("mySelectPaymentRegisters").value;
-  // let classReg = document.getElementById("mySelectClassesPaymentRegisters").value;
 
-  // row.payment = payment;
-  // row.class = classReg;
-  // for (const prop in row) {
-  //   //debugger;
-  //   newRowStr += prop + ': ' + row[prop] + ' \n';
-  // }
-  // //debugger;
-  // alert('The new row is:\n ' + newRowStr);
-  console.log("insert data to database");
+  //console.log("insert data to database");
   debugger;
   this.props.addPaymentRegisters(row);
 
@@ -49,7 +37,7 @@ function onAfterInsertRow (row) {
 function onAfterDeleteRow (rowKeys) {
 
   alert('The rowkey you drop: ' + rowKeys);
-  console.log("delete data from database");
+  //console.log("delete data from database");
   this.props.deletePaymentRegisters(rowKeys);
 
 }
@@ -65,7 +53,7 @@ class PaymentRegisters extends Component {
 componentDidMount(){
   const data = this.props.saved_payeds;
   //running dots functionality
-  //debugger;
+
   let el = document.getElementById("dotsPaymentRegisters");
   let d = new Date();
   let startTime = d.getTime();
@@ -78,24 +66,22 @@ componentDidMount(){
   
   //anonymoys function to use in setInterval
   let anon = function(data) {
-      //debugger;
+
       el.innerHTML = el.innerHTML + ".";  
       
       if (el.innerHTML == ".................................."){
         //reset dots
-        //debugger;
-        //clearInterval();
+
         el.innerHTML = "";
       }
       d = new Date();
       endTime = d.getTime();
       diffTime = endTime - startTime;
-      console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
+      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
       //if waiting time is more than 30sec then display message
-      //debugger;
+
       if (diffTime > timeThreshold && data.length == 0 ){
-        //debugger;
-        //alert("time passed");
+
         clearInterval(refreshIntervalId);
         let msg = document.getElementById("loadingTextPaymentRegisters");
         msg.innerHTML = "No payments are saved in database"; 
@@ -134,7 +120,7 @@ componentDidMount(){
 
       if (request1.status === 200) {
         
-        console.log(JSON.parse(request1.responseText));
+        //console.log(JSON.parse(request1.responseText));
         
         //2nd sync call
         //get student classes for registered students
@@ -148,13 +134,13 @@ componentDidMount(){
             request2.send(null);
 
             if (request2.status === 200) {
-                //debugger;
-                console.log("sync call 2:",JSON.parse(request2.responseText));
-                //debugger;
+
+                //console.log("sync call 2:",JSON.parse(request2.responseText));
+
               
                 //sync call 3 get payeds for registered students. 
                 //http://localhost:8181/api/payeds/search/findByRegister_Id?id={id}
-                //debugger;
+
                 let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister_Id?id="+id;
                 let request3 = new XMLHttpRequest();
                 request3.open('GET', url3, false);  // `false` makes the request synchronous
@@ -178,12 +164,12 @@ componentDidMount(){
                      tempData.payment = payments[_j].payment;
                      tempData.notes = payments[_j].notes;
                      let date=new Date(payments[_j].dateOfPayment);
-                     //debugger;
+  
                      let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
                      tempData.dateOfPayment = formatedDate;
                      tempData.index = dataPaymentRegisters.length+1;
                      dataPaymentRegisters.push(tempData);
-                     //debugger;
+             
                    }
                }
             }
@@ -193,7 +179,7 @@ componentDidMount(){
 }
 
 componentDidUpdate(){
-  //debugger;
+
 
   let x = document.getElementById("PaymentRegisters");
   let rows = x.querySelectorAll('tr');
@@ -202,7 +188,6 @@ componentDidUpdate(){
 
   el2[1].childNodes[1].value = rows.length-1;
 
-  
   //add date element in modal window
   el2[7].childNodes[1].type="date";
 
@@ -210,17 +195,6 @@ componentDidUpdate(){
 }
 
 beforeSavePaymentRegistersCell(row, cellName, cellValue) {
-
-  // do your stuff...
-  //call action for update
-  //this.props.updateClass(row, cellValue);
-
-  // let x = document.getElementById("PaymentRegisters");
-  // let el = x.getElementsByClassName('form-group');
-
-  
-  //this.props.updatePaymentRegisters(row, cellValue,descBefore);
-  //debugger;
 
 }
 
@@ -232,11 +206,11 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
   let x = document.getElementById("PaymentRegisters");
   let y = x.getElementsByClassName("react-bs-container-body");
   let updateMode = "";
-  //let el = y[0].getElementsByClassName("form-control editor edit-text")[0];
+
  
   let el;
   let cellIndex;
-  //debugger;
+
   if (y[0].querySelector("select") != null){
 
     el = y[0].querySelector("select")[0];
@@ -248,38 +222,36 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
     cellIndex = el.parentElement.cellIndex;
   }
   else if (y[0].getElementsByClassName("form-control editor edit-datetime")[0] != null){
-    //debugger;
+
     el = y[0].getElementsByClassName("form-control editor edit-datetime")[0];
     cellIndex = el.parentElement.cellIndex;
   }
-  console.log(el);
+  //console.log(el);
 
   
 
   if (cellIndex == 4){
-    //debugger;
+
     updateMode = "paymentUpdate";
   } 
   else if (cellIndex == 5){
-    //debugger;
+
     updateMode = "paymentNotesUpdate";
   } 
   else if (cellIndex == 6){
 
-    //debugger;
+
     updateMode = "classUpdate";
 
   } 
   else if (cellIndex == 7){
-
-    //debugger;
     updateMode = "updateDateOfPayment";
 
   } 
   
   let descBefore = el.getAttribute("value");
   this.props.updatePaymentRegisters(row,updateMode);
-  //debugger;
+
 
 }
 
@@ -301,14 +273,12 @@ render () {
 
     const fnames = [];
     const lnames = [];
-    //debugger;
+  
     for (let i=0;i<this.props.saved_student.length;i++){
         fnames.push(this.props.saved_student[i].fname);
         lnames.push(this.props.saved_student[i].lname);       
     }
 
-
-    //debugger;
 
     const availableClasses = [];
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
@@ -316,7 +286,7 @@ render () {
     }
     console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
-    //debugger;
+
     if(dataPaymentRegisters.length>0){
     return (
       <div id="PaymentRegisters">

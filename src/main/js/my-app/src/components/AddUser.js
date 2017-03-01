@@ -3,27 +3,23 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
-import '../css/App.css';
-// import './toggler.css';
-// import Toggle from 'react-toggle';
-// react select
 
-// import Advertiser from './Advertiser';
+import '../css/App.css';
+
 
 class AddUser extends Component {
 
     handleChange(event, myprops) {
         // do something with event.target.checked
-        console.log("hey from handlechange ", event);
+        //console.log("hey from handlechange ", event);
         if (event.data) {
             event.toggleState(event);
         }
-        console.log("changed state succesfully");
+        //console.log("changed state succesfully");
     };
 
   cancelFunction(){
-    console.log("hey form cancel function");
+    //console.log("hey form cancel function");
     //redirect to main dashboard page
     window.parent.location.href= "/";
    }
@@ -34,8 +30,7 @@ class AddUser extends Component {
         <div className="labelContainer">
           <legend><span>Προσθήκη πελάτη - Συμπληρώστε τα πεδία εγγραφής</span> <Link className="back" to="/"> Πίσω </Link></legend>
         </div> 
-          {/*Start of add user form*/}
-         {/* <div className="container">*/}
+
 
         <form method="post">
             <div className="form-group">
@@ -87,8 +82,6 @@ class AddUser extends Component {
             </div>
         </form>
 
-          {/*</div>*/}
-          {/*End of add user form*/}
         
       </div>
 

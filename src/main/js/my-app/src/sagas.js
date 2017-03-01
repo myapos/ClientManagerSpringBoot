@@ -1,24 +1,21 @@
 import { takeEvery } from 'redux-saga/effects';
 import { call, put, select } from 'redux-saga/effects';
-//import configureStore from './store/configureStore';
+
 import * as api from './api';
 import * as actions from './actions';
-//import nodemailer from 'nodemailer';
-//import smtpTransport from 'nodemailer-smtp-transport';
+
 
 function* getDataFromServer () {
 
-	console.log('getDataFromServer');
+	//console.log('getDataFromServer');
 	let state = yield select();
 	const initDataStudentClasses = yield call(api.getStudentClasses, state);
-	//state = yield select();
+
 	const initDataStudents = yield call(api.getStudents, state);
-	//state = yield select();
+
 	const initDataPayeds = yield call(api.getPayeds, state);
-	//state = yield select();
 	const initDataRegisters = yield call(api.getRegisters, state);
-	//const initStore = configureStore(initialState);
-	//debugger;
+
 	yield put({
 		type: actions.DATA_INITIALIZATION,
 		initDataStudentClasses,
@@ -31,11 +28,10 @@ function* getDataFromServer () {
 
 function* getStudentClasses () {
 
-	console.log('getStudentClasses');
+	//console.log('getStudentClasses');
 	const state = yield select();
 	const dataFetchedStudentClasses = yield call(api.getStudentClasses, state);
 
-	//debugger;
 	yield put({
 		type: actions.STUDENT_CLASS_DATA_FETCHED,
 		dataFetchedStudentClasses
@@ -44,11 +40,10 @@ function* getStudentClasses () {
 
 function* saveNewStudentClass () {
 
-	console.log('saveNewStudentClass');
+	//console.log('saveNewStudentClass');
 	const state = yield select();
 	const saveNewClass = yield call(api.saveNewClass, state.row);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_SAVE_NEW_CLASS,
 		saveNewClass
@@ -57,11 +52,10 @@ function* saveNewStudentClass () {
 
 function* deleteStudentClass () {
 
-	console.log('deleteStudentClass');
+	//console.log('deleteStudentClass');
 	const state = yield select();
 	const deleteStudentClass = yield call(api.deleteStudentClass, state.classId);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_DELETE_CLASS,
 		deleteStudentClass
@@ -69,11 +63,11 @@ function* deleteStudentClass () {
 }
 
 function* updateStudentClass () {
-	//debugger;
-	console.log('updateStudentClass');
+
+	//console.log('updateStudentClass');
 	const state = yield select();
 	const desc = yield call(api.updateStudentClass, state.desc, state.descBefore, state.rowUpdate);
-	//debugger;
+
 	
 	yield put({
 		type: actions.SAGAS_UPDATE_CLASS,
@@ -83,11 +77,10 @@ function* updateStudentClass () {
 
 function* saveNewStudent () {
 
-	console.log('saveNewStudent');
+	//console.log('saveNewStudent');
 	const state = yield select();
 	const saveNewStudent = yield call(api.saveNewStudent, state.row);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_SAVE_NEW_STUDENT,
 		saveNewStudent
@@ -96,11 +89,10 @@ function* saveNewStudent () {
 
 function* deleteStudent () {
 
-	console.log('deleteStudent');
+	//console.log('deleteStudent');
 	const state = yield select();
 	const studentId = yield call(api.deleteStudent, state.studentId);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_DELETE_STUDENT,
 		studentId
@@ -109,10 +101,10 @@ function* deleteStudent () {
 
 function* updateStudent () {
 
-	console.log('updateStudent');
+	//console.log('updateStudent');
 	const state = yield select();
-	const row = yield call(api.updateStudent, /*state.desc, state.descBefore,*/ state.rowUpdate);
-	//debugger;
+	const row = yield call(api.updateStudent, state.rowUpdate);
+
 	
 	yield put({
 		type: actions.SAGAS_UPDATE_STUDENT,
@@ -122,10 +114,9 @@ function* updateStudent () {
 
 function* addPaymentRegisters () {
 
-	console.log('addPaymentRegisters');
+	//console.log('addPaymentRegisters');
 	const state = yield select();
-	const row = yield call(api.addPaymentRegisters, /*state.desc, state.descBefore,*/ state.row);
-	//debugger;
+	const row = yield call(api.addPaymentRegisters, state.row);
 	
 	yield put({
 		type: actions.SAGAS_CREATE_PAYMENTS_REGISTERS,
@@ -135,10 +126,9 @@ function* addPaymentRegisters () {
 
 function* updatePaymentRegisters () {
 
-	console.log('updatePaymentRegisters');
+	//console.log('updatePaymentRegisters');
 	const state = yield select();
 	const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode,  state.rowUpdate);
-	//debugger;
 	
 	yield put({
 		type: actions.SAGAS_UPDATE_PAYMENTS_REGISTERS,
@@ -148,10 +138,9 @@ function* updatePaymentRegisters () {
 
 function* deletePaymentRegisters () {
 
-	console.log('deletePaymentRegisters');
+	//console.log('deletePaymentRegisters');
 	const state = yield select();
 	const row = yield call(api.deletePaymentRegisters,state.rowUpdate, state.paymentId);
-	//debugger;
 	
 	yield put({
 		type: actions.SAGAS_DELETE_PAYMENTS_REGISTERS,
@@ -161,10 +150,9 @@ function* deletePaymentRegisters () {
 
 function* createRegisters () {
 
-	console.log('createRegisters');
+	//console.log('createRegisters');
 	const state = yield select();
 	const row = yield call(api.createRegisters, state.rowUpdate);
-	//debugger;
 	
 	yield put({
 		type: actions.SAGAS_CREATE_REGISTERS,
@@ -174,10 +162,9 @@ function* createRegisters () {
 
 function* updateRegisters () {
 
-	console.log('updateRegisters');
+	//console.log('updateRegisters');
 	const state = yield select();
 	const row = yield call(api.updateRegisters, state.rowUpdate);
-	//debugger;
 	
 	yield put({
 		type: actions.SAGAS_UPDATE_REGISTERS,
@@ -187,11 +174,10 @@ function* updateRegisters () {
 
 function* deleteRegisters () {
 
-	console.log('deleteRegister');
+	//console.log('deleteRegister');
 	const state = yield select();
 	const registerId = yield call(api.deleteRegisters, state.registerId);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_DELETE_REGISTER,
 		registerId
@@ -200,21 +186,18 @@ function* deleteRegisters () {
 
 function* msgSubmitted () {
 
-	console.log('msgSubmitted');
+	//console.log('msgSubmitted');
 	const state = yield select();
 	const msg = yield call(api.msgSubmitted, state.msg, state.selectedClass);
 
-	//debugger;
 	yield put({
 		type: actions.SAGAS_MSG_SUBMITTED,
 		msg
 	})
 }
 function* rootSaga () {
-	console.log('saga');
 
 	yield getDataFromServer();
-	//debugger;
 	yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
 	yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
 	yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);

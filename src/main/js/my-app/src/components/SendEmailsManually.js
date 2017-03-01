@@ -13,12 +13,12 @@ import DisplayClassesForSendingEmailManually from './DisplayClassesForSendingEma
 class SendEmailsManually extends Component {
     
   handleChange(event) {
-    //debugger;
-    //this.setState({value: event.target.value});
+
+
   }
 
   handleSubmit(event) {
-    //alert('A message was submitted');
+
     //get message
 
     let msg = document.getElementById("message").value;
@@ -34,30 +34,24 @@ class SendEmailsManually extends Component {
     else {
     
     let selectedClass = tableSelected[0].querySelectorAll("tr")[0].childNodes[2].innerHTML;
-    //debugger;
+;
     this.props.msgSubmitted(msg, selectedClass);
     }
 
-    // event.preventDefault();
+
     //call action
     console.log(tableSelected[0]);
   }
   
-  // handleClick() {
-  //   alert('Button clicked');
-  // }
+
 
   render () {
-    //debugger;
     
     //send emails to students who payed for classes .............
 
     //steps
 
     // display available classess
-
-   
-
 
         return (
                 <div id="sendEmailTestsManually" >

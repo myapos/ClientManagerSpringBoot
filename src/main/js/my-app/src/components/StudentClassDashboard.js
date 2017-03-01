@@ -12,11 +12,7 @@ import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';
 import '../css/App.css';
 import StudentClassesDataTable from './studentClasses/StudentClassesDataTable';
-// import './toggler.css';
-// import Toggle from 'react-toggle';
-// react select
 
-// import Advertiser from './Advertiser';
 
 class StudentClassDashboard extends Component {
 
@@ -26,21 +22,18 @@ class StudentClassDashboard extends Component {
         if (event.data) {
             event.toggleState(event);
         }
-        console.log("changed state succesfully");
+        //console.log("changed state succesfully");
     };
 
   cancelFunction(){
-    console.log("hey form cancel function");
+    //console.log("hey form cancel function");
     //redirect to main dashboard page
     window.parent.location.href= "/";
    }
   render () {
     return (
       <div className="App" id="content">
-          {/*<h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>*/}
-          {/*<div className="labelContainer">*/}
-          {/*<div className="container">*/}
-          {/*<legend><span>Παρακαλώ δημιουργήστε τα τμήματα σας </span><Link className="back" to="/"> Πίσω </Link></legend>*/}
+
           <div className="row">
                 <div className="col-md-12">
                     <div id="custom-search-input">
@@ -51,8 +44,7 @@ class StudentClassDashboard extends Component {
                 </div>
           </div>
         </div>
-/*        </div>
-      </div>*/
+
 
     );
   }
