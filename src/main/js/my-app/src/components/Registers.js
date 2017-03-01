@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
+
 import '../css/App.css';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
@@ -52,10 +52,10 @@ componentDidMount(){
   let timeThreshold = 15000 ; //ms
   if (el !== null) {
   // do stuff
-  
+
   //anonymoys function to use in setInterval
   let anon = function(data) {
-      //debugger;
+
       el.innerHTML = el.innerHTML + ".";  
       
       if (el.innerHTML == ".................................."){
@@ -76,12 +76,9 @@ componentDidMount(){
       }
     };
 
-
   refreshIntervalId = setInterval( function() { anon(data)} , 100);
 
-    
   }
-
   //const registers = this.props.saved_registers;
   const students = this.props.saved_student;
 
@@ -148,7 +145,6 @@ componentDidMount(){
 
   		        	 //console.log("sync call 3:",JSON.parse(request3.responseText));
   		        	
-
   		        	 //save tempData
 
   		        	 let tempData ={};
@@ -182,7 +178,6 @@ componentDidMount(){
 	            tempData.email = JSON.parse(request1.responseText).email;
 	            tempData.class = "No registered classes";
 
-
 	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
 	            tempData.dateOfRegistration = "No date of registration";
 	            tempData.index = dataRegisters.length+1;
@@ -192,7 +187,6 @@ componentDidMount(){
 
         }
     }
-
 
   }
 
@@ -216,7 +210,7 @@ for (let jj=0; jj<parent.studentIndexWithRegistrations.length; jj++){
   }
 }
 
-//debugger;
+
 
 if (!studentHasRegistrations) {
  
@@ -248,17 +242,6 @@ else {
 
 beforeSaveRegistersCell(row, cellName, cellValue) {
 
-  // do your stuff...
-  //call action for update
-  //this.props.updateClass(row, cellValue);
-
-  // let x = document.getElementById("PaymentRegisters");
-  // let el = x.getElementsByClassName('form-group');
-
-  
-  //this.props.updatePaymentRegisters(row, cellValue,descBefore);
-  //debugger;
-
 }
 
 
@@ -278,7 +261,7 @@ render () {
     };
 
     const paymentTypes = ["true", "false"];
-    //debugger;
+
 
     const availableClasses = [];
     for (let i=0;i<this.props.saved_studentClasses.length;i++){

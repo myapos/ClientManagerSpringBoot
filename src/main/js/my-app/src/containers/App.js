@@ -3,11 +3,11 @@ import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 're
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import Dashboard from '../components/Dashboard';
-import AddUser from '../components/AddUser';
+/*import AddUser from '../components/AddUser';
 import DeleteUser from '../components/DeleteUser';
 import ExportUsers from '../components/ExportUsers';
 import ImportUsers from '../components/ImportUsers';
-import UpdateUsers from '../components/UpdateUsers';
+import UpdateUsers from '../components/UpdateUsers';*/
 import GetAllStudents from '../components/GetAllStudents';
 import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
@@ -33,12 +33,6 @@ class App extends Component {
       <Router history={hashHistory}>
         <Route path='/' component={Container}>
           <IndexRoute component={Dashboard} />
-          <Route path='/adduser' component={AddUser} />
-          <Route path='/deleteuser' component={DeleteUser} />
-          <Route path='/exportusers' component={ExportUsers} />
-          <Route path='/importusers' component={ImportUsers} />
-          <Route path='/updateusers' component={UpdateUsers} />
-          <Route path='/getallstudents' component={GetAllStudents} />
           <Route path='/studentclassdashboard' component={StudentClassDashboard} />
           <Route path='*' component={NotFound} />
         </Route>
