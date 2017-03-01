@@ -12,8 +12,6 @@ class GetAllStudents extends Component {
 
       return (
         <div className="App" id="content">
-
-
           <div className="labelContainer">
             <StudentDataTable/>
           </div>
@@ -24,4 +22,3 @@ class GetAllStudents extends Component {
 }
 
 export default connect(state => state, actions)(GetAllStudents);
-

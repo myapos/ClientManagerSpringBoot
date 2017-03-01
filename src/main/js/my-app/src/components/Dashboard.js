@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
-import AddUser from './AddUser';
+
+/*import AddUser from './AddUser';
 import DeleteUser from './DeleteUser';
 import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
-import UpdateUsers from './UpdateUsers';
+import UpdateUsers from './UpdateUsers'*/;
 import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
