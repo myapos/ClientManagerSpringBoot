@@ -94,6 +94,10 @@ module.exports = {
       }
     ],
     loaders: [
+      {
+        test: /bootstrap.+\.(jsx|js)$/, 
+        loader: 'imports?jQuery=jquery,$=jquery,this=>window' 
+      },
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,

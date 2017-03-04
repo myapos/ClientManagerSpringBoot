@@ -10,6 +10,8 @@ import when from 'when';
 import stompClient from './websocket-listener';
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+
+
 const url1 = 'http://localhost:8181/api/students';
 const url2 = 'http://localhost:8181/api/studentClasses/';
 const url3 = 'http://localhost:8181/api/registers/';
@@ -93,7 +95,7 @@ fetch(url1, {
                     saved_student:parent.students,
                     saved_studentClasses:parent.studentClasses,
                     saved_registers:parent.registers,
-                    saved_payeds:parent.payeds
+                    saved_payeds:parent.payeds,
                   };
 
                       ReactDOM.render(
