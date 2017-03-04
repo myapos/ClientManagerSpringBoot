@@ -322,8 +322,8 @@ render () {
           tableHeaderClass='payments-registers-header-class'
           tableBodyClass='payments-registers-body-class'
           >
-          <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="index" editable={ false } isKey={true}>id</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname"  pagination>Name</TableHeaderColumn>
           <TableHeaderColumn dataField="lname">Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
@@ -362,8 +362,8 @@ render () {
               tableHeaderClass='payments-registers-header-class'
               tableBodyClass='payments-registers-body-class'
               >
-              <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
-              <TableHeaderColumn className='mySelectPaymentRegisters' dataField="fname" dataAlign="center" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="index" editable={ false } isKey={true}>id</TableHeaderColumn>
+              <TableHeaderColumn className='mySelectPaymentRegisters' dataField="fname" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
               <TableHeaderColumn dataField="lname" editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
               <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
               <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>

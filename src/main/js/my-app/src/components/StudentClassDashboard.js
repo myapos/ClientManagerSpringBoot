@@ -10,8 +10,12 @@ import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
 import UpdateUsers from './UpdateUsers';
 import GetAllStudents from './GetAllStudents';*/
+
 import '../css/App.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import $ from "jquery";
 import StudentClassesDataTable from './studentClasses/StudentClassesDataTable';
+import '../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 
 
 class StudentClassDashboard extends Component {

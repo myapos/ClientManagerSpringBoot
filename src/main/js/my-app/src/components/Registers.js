@@ -286,7 +286,7 @@ render () {
 	          tableBodyClass='payments-registers-body-class'
 	          >
 	          <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
-	          <TableHeaderColumn dataField="fname" editable={ false } dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+	          <TableHeaderColumn dataField="fname" editable={ false } dataSort={true} pagination>Name</TableHeaderColumn>
 	          <TableHeaderColumn dataField="lname" editable={ false } >Last Name</TableHeaderColumn>
 	          <TableHeaderColumn dataField="email" editable={ false } >E-mail</TableHeaderColumn>
 	          <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } } >Class</TableHeaderColumn>

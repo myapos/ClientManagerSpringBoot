@@ -171,10 +171,10 @@ render () {
             search={ true } 
             options={ options }
             >
-              <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
-              <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
+              <TableHeaderColumn dataField="index" isKey={true} editable={false} width='5%' >id</TableHeaderColumn>
+              <TableHeaderColumn dataField="fname" width='15%'>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="lname" width='20%'>Last Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="phone" dataSort={false} width='20%'>Mobile phone</TableHeaderColumn>
               <TableHeaderColumn 
                 dataField="dateOfBirth" 
                 dataAlign="left" 
@@ -182,8 +182,8 @@ render () {
               >
                 Date Of Birth
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
-              <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
+              <TableHeaderColumn dataField="email" dataSort={false} width='20%'>E-mail</TableHeaderColumn>
+              <TableHeaderColumn dataField="facebook" dataSort={false} width='20%'>Facebook</TableHeaderColumn>
             </BootstrapTable>
           </div>
         );
