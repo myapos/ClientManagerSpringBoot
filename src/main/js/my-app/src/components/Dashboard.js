@@ -17,10 +17,11 @@ import SendEmailsManually from './SendEmailsManually';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 const styles = {
     tabs: {
-        display: 'inline-block',
+
         marginRight: '30px',
         verticalAlign: 'top'
     },
@@ -31,19 +32,14 @@ const styles = {
     tabLink: {
         height: '30px',
         lineHeight: '30px',
-        padding: '0 15px',
         cursor: 'pointer',
-        borderBottom: '2px solid transparent',
-        display: 'inline-block'
+        borderBottom: '2px solid transparent'
     },
     activeLinkStyle: {
         borderBottom: '2px solid #333'
     },
     visibleTabStyle: {
-        display: 'inline-block'
-    },
-    content: {
-        padding: '0 15px'
+
     }
 };
 
@@ -64,6 +60,7 @@ class Dashboard extends Component {
             activeLinkStyle={styles.activeLinkStyle}
             visibleTabStyle={styles.visibleTabStyle}
             style={styles.tabs}
+            id="tabs"
             >
 
             <div style={styles.links}>

@@ -1,142 +1,25 @@
+*{
+   color: #fff; 
+}
+
 body{
   background:#9E918D;
   background-size: 100%;
   opacity: 0.90;
-  color: #fff;
+
 }
 
 h2 {
   color: #B53A4E;
 }
-
-/*1000px and wider*/
-@media screen and (min-width: 1000px) {
-  #react{
-      width: 90%; /*from here you specify responsive width of the app*/
-      height: 100%; 
-      margin-left: 0; 
-      margin-top:5%;
-      border:1px solid black;
-      border-radius: 5px;
-      /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
-      background-color:black;
-      background-image:
-      radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
-      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-    }
-
-    .table {
-      width: 80%;
-      /* max-width: 100%; */
-      /* margin-bottom: 20px; */
-    }
-}
-
-/*between 1000px and 700px*/
-@media screen and (max-width: 1000px) and (min-width: 700px) {
-
-  #react{
-    width: 90%; /*from here you specify responsive width of the app*/
-    height: 100%; 
-    margin-left: 0; 
-    margin-top:5%;
-    border:1px solid black;
-    border-radius: 5px;
-    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
-    background-color:black;
-    background-image:
-    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-  }
-
-  .table {
-    width: 100%;
-    /* max-width: 100%; */
-    /* margin-bottom: 20px; */
-  }
-}
-
-/*between 600px and 400px*/
-
-
-@media screen and (max-width: 699px) and (min-width: 400px) {
-
-  #react{
-    width: 90%; /*from here you specify responsive width of the app*/
-    height: 100%; 
-    margin-left: 0; 
-    margin-top:5%;
-    border:1px solid black;
-    border-radius: 5px;
-    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
-    background-color:black;
-    background-image:
-    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-  }
-
-  h1,h2 {
-    display:none;
-  }
-  .table {
-    width: 80%;
-    /* max-width: 100%; */
-    /* margin-bottom: 20px; */
-  }
-}
-
-
-@media screen and (max-width: 699px) and (min-width: 400px) {
-
-  #react{
-    width: 90%; /*from here you specify responsive width of the app*/
-    height: 100%; 
-    margin-left: 0; 
-    margin-top:5%;
-    border:1px solid black;
-    border-radius: 5px;
-    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
-    background-color:black;
-    background-image:
-    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-  }
-
-  h1,h2 {
-    display:none;
-  }
-  .table {
-    width: 60%;
-    /* max-width: 100%; */
-    /* margin-bottom: 20px; */
-  }
-}
-
-
 h1, h2{
   padding:5px;
 }
-
+.table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+     border-bottom-width: 0px; 
+}
 .App{
 margin: auto auto 10px 10px;
-/*margin-left: 10px;
-margin-bottom: 10px;*/
 }
 .rowContainer{
 
@@ -179,6 +62,7 @@ legend{
   justify-content: space-between;
 
 }
+
 a{
   text-decoration: none;
 }
@@ -275,8 +159,10 @@ button.btn.btn-info:active, button.btn.btn-info:focus {
   width:50%;
 }
 
+
 .table tbody tr:hover td, .table tbody tr:hover th {
     background-color: #590110;
+    color: #fff;
 }
 
 button, input, select, textarea {
@@ -305,53 +191,15 @@ button, input, select, textarea {
   background-color: #6d6565;
 }
 
+.tab-link{
+  padding:0px 15px;
+  display: inline-block;
+}
+
 .tabs {
     width: 2000px;
-    display: inline-block;
     margin-right: 30px;
     vertical-align: top;
-}
-
-.tabs-1 .tab-links {
-    margin: 0;
-    padding: 0;
-    border: 1px solid #CCC;
-    border-bottom: 1px solid #868686;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    height: 35px;
-    position: relative;
-    top: 5px;
-}
-
-.tabs-1 .tab-link {
-    padding: 0 15px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    display: inline-block;
-    position: relative;
-    height: 40px;
-    line-height: 41px;
-    top: -6px;
-    left: -1px;
-}
-
-.tabs-1 .tab-link-active {
-    font-weight: bold;
-    border: 1px solid #868686;
-    border-bottom: 1px solid white;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: white;
-}
-
-.tabs-1 .content {
-    padding: 15px;
-    border: 1px solid #868686;
-    border-top: 1px solid transparent;
-}
-
-.tabs-1 .tabContent: {
 }
 
 .loadingText{
@@ -373,13 +221,360 @@ button, input, select, textarea {
   height:500px;
 }
 
-.react-bs-table {
+.table{
+  
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 0px!important;
 
-  width:900px;
+}
+.react-bs-table-container{
+
+  margin-top: 15px;
+  width:auto!important;
+
 }
 
-.react-bs-container-body{
-
-/*  position:relative;
-  top:-22px;*/
+.table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+     border-bottom-width: 0px!important;
 }
+
+legend span{
+  font-size:16px;
+  margin-left:5px;
+}
+
+th, td {
+  white-space: normal !important; 
+  word-wrap: break-word;  
+}
+
+
+/*1000px and wider -desktop view*/
+@media screen and (min-width: 1000px) {
+
+  #react{
+      width: 95%; /*from here you specify responsive width of the app*/
+      height: 100%; 
+      margin: 0 auto;
+      margin-top:5%;
+      border:1px solid black;
+      border-radius: 5px;
+      background-color:black;
+      background-image:
+      radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    }
+
+    .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      /*width: auto;*/
+      /*text-align: right;*/
+      /*margin-top: 15px!important;*/
+      /* width: 47%!important;*/
+    }
+
+    /*.tab-link{
+      padding:0px 10px;
+    }*/
+
+}
+
+/*between 1000px and 770px - tablet view*/
+@media screen and (max-width: 1000px) and (min-width: 770px) {
+
+  #react{
+    width: 95%; /*from here you specify responsive width of the app*/
+    height: 100%; 
+    margin: 0 auto;
+    margin-top:5%;
+    border:1px solid black;
+    border-radius: 5px;
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+
+  #tabs, .tab-link{
+    display: block;
+  }
+
+  /*search box*/
+  .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      /*width: 242px;*/
+      /*margin-top: 15px!important;*/
+      /* width: 47%!important;*/
+   }
+
+  h2 {
+    font-size: 22px!important;
+  }
+
+  legend span{
+    font-size:14px;
+  }
+  
+  .tab-link{
+    padding:0px 6px;
+    display: inline-block; 
+    /*width:17%;*/
+  }
+
+  /*  .react-bs-table{
+    overflow-x: auto;
+  }*/
+}
+
+/*between 770px and 600px*/
+
+@media screen and (max-width: 770px) and (min-width: 600px) {
+
+  #react{
+    font-size: 14px;
+    /*width: 90%; *//*from here you specify responsive width of the app*/
+    height: 100%; 
+/*    margin: 0 auto;
+    margin-top:5%;*/
+    border:1px solid black;
+    border-radius: 5px;
+    /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  }
+
+  
+  .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      margin-top: 15px!important;
+      width: 242px;
+    }
+
+  /*  #tabs{
+    display:block!important;
+  }*/
+  
+  h2{
+    font-size: 20px!important;
+  }
+
+  legend span{
+    font-size:14px;
+  }
+
+  /*  #tabs, .tab-link{
+    display: block;
+  }
+
+  .tab-link{
+    padding:0px 4px;
+  }*/
+
+}
+
+/*between 600px and 494px*/
+
+
+@media screen and (max-width: 600px) and (min-width: 494px) {
+  #react{
+      font-size: 12px;
+      /*width: auto%;*/ /*from here you specify responsive width of the app*/
+     /* height: 100%; 
+      margin: 0 auto;
+      margin-top:5%;*/
+      border:1px solid black;
+      border-radius: 5px;
+      /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
+      background-color:black;
+      background-image:
+      radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    }
+
+    .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      margin-top: 15px!important;
+      width: 212px;
+    }
+
+    button{
+      font-size: 10px!important;
+    }
+
+    .tab-link{
+      padding:0px 4px;
+      display: inline-block; 
+      /*width:17%;*/
+    }
+
+    .tab-content-visible{
+      display:block!important;
+    }
+
+    h2 {
+      font-size: 18px!important;
+    }
+
+    legend span{
+      font-size:12px;
+    }
+
+    .react-bs-table{
+      font-size:10px;
+    }
+
+    .notes{
+      display:none;
+    }
+
+    #notes{
+      display:none;
+    }
+}
+
+
+/*between 494px and 376px*/
+@media screen and (max-width: 494px) and (min-width: 376px){
+
+  #react{
+      font-size: 12px;
+      background-color:black;
+      background-image:
+      radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    }
+
+    .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      margin-top: 15px!important;
+      width: 180px;
+    }
+
+    button{
+      font-size: 8px!important;
+    }
+
+    .tab-content-visible{
+      display:block!important;
+    }
+
+    h2 {
+      font-size: 14px!important;
+    }
+
+    legend span{
+      font-size:10px;
+    }
+
+    .react-bs-table{
+      font-size:10px;
+    }
+
+
+}
+
+
+
+
+/*494px and smaller*/
+
+@media screen and (max-width: 494px){
+
+  #react{
+      font-size: 12px;
+      background-color:black;
+      background-image:
+      radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    }
+
+    .form-group-sm .form-control {
+      height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+      margin-top: 15px!important;
+      width: 180px;
+    }
+/*    #tabs{
+      display:block!important;
+    }*/
+
+    button{
+      font-size: 10px!important;
+    }
+
+    .tab-content-visible{
+      display:block!important;
+    }
+
+    h2 {
+      font-size: 12px!important;
+    }
+
+    legend span{
+      font-size: 8px;
+    }
+
+    .tab-link{
+      padding:0px 6px;
+    }
+
+    .react-bs-table{
+      font-size:8px;
+    }
+
+    .notes{
+      display:none;
+    }
+}
+
+

@@ -36,7 +36,8 @@ function onAfterDeleteRow (rowKeys) {
 
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'checkbox',
+  columnWidth: '30px'
 };
 
 
@@ -274,6 +275,10 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
   this.props.updatePaymentRegisters(row,updateMode);
 
 }
+afterTabChanged() {
+/*    this.refs.table1.forceUpdate();
+    this.refs.table2.forceUpdate();*/
+}
 
 render () {
 
@@ -321,18 +326,20 @@ render () {
           options={ options }
           tableHeaderClass='payments-registers-header-class'
           tableBodyClass='payments-registers-body-class'
+          condensed
           >
-          <TableHeaderColumn dataField="index" editable={ false } isKey={true}>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname"  pagination>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="lname">Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="index" editable={ false } hidden={true} isKey={true} width='5%'>id</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname" width='20%' dataSort={true}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" width='20%' dataSort={true}>Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
-          <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-          <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
+          <TableHeaderColumn  dataField="notes" >Notes</TableHeaderColumn>
+          <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
           <TableHeaderColumn 
             dataField="dateOfPayment" 
             dataAlign="left" 
             dataSort={false}
             editable={ { type: 'datetime' } }
+            width='20%'
           >
             Date Of Payment
           </TableHeaderColumn>
@@ -361,18 +368,20 @@ render () {
               options={ options }
               tableHeaderClass='payments-registers-header-class'
               tableBodyClass='payments-registers-body-class'
+              condensed
               >
-              <TableHeaderColumn dataField="index" editable={ false } isKey={true}>id</TableHeaderColumn>
-              <TableHeaderColumn className='mySelectPaymentRegisters' dataField="fname" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname" editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="index" editable={ false } hidden={true} isKey={true}>id</TableHeaderColumn>
+              <TableHeaderColumn className='mySelectPaymentRegisters' width='20%' dataSort={true} dataField="fname" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="lname" dataSort={true} width='20%' editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
               <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
               <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-              <TableHeaderColumn dataField="class" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
+              <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
               <TableHeaderColumn 
                 dataField="dateOfPayment" 
                 dataAlign="left" 
                 dataSort={false}
                 editable={ { type: 'datetime' } }
+                width='20%'
               >
                 Date Of Payment
               </TableHeaderColumn>
