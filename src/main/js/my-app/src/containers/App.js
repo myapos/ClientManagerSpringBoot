@@ -16,6 +16,7 @@ import Content from '../components/Content';
 import Spinner from '../components/Spinner';
 import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 
 class App extends Component {
