@@ -12,7 +12,7 @@ import GetAllStudents from '../components/GetAllStudents';
 import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
-import Content from '../components/Content';
+import ContentApp from '../components/ContentApp';
 import Spinner from '../components/Spinner';
 import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
@@ -35,7 +35,6 @@ class App extends Component {
 
   }
   componentWillMount() {
-    //debugger;
     this.defaultLoadingHandler();
   }
 
@@ -44,25 +43,15 @@ class App extends Component {
       defaultLoading: true
     });
 
-    //debugger;
-    let l = parent.students.length;
 
-    // setTimeout(() => {
-    //   this.setState({
-    //     defaultLoading: false,
-    //     defaultLoadingContent: 'Content loaded!'
-    //   })
-    // }, 500);
+    let l = parent.students.length;
 
     var timer = setInterval(() => { 
 
-      //alert("Hello"); 
       let l = this.props.saved_student.length;
 
-      if (l>0) {
-        console.log("students received");
-      //   debugger;
-
+   if (l>0) {
+        console.log("main app content received");
         clearInterval(timer);
         this.setState({
           defaultLoading: false,
@@ -71,22 +60,14 @@ class App extends Component {
        }
 
     }, 100);
-    
-    // setTimeout(() => {
-    //   this.setState({
-    //     defaultLoading: false,
-    //     defaultLoadingContent: 'Content loaded!'
-    //   })
-    // }, 1000);
   }
 
   render() {
-    //debugger;
 
     return (
       <div>
         <Loading isLoading={this.state.defaultLoading} loadingClassName='defloading'>  
-          <Content loadedContent={this.state.defaultLoadingContent}/>
+          <ContentApp loadedContent={this.state.defaultLoadingContent}/>
         </Loading>
       </div>
     )
