@@ -12,7 +12,7 @@ import GetAllStudents from '../components/GetAllStudents';
 import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
-import ContentApp from '../components/ContentApp';
+//import ContentApp from '../components/ContentApp';
 import Spinner from '../components/Spinner';
 import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
@@ -21,55 +21,27 @@ import '../css/App.css';
 
 class App extends Component {
  
- constructor (props) {
+constructor (props) {
     super(props);
-
 
     this.state = {
       ...props,
-      customLoading: false,
-      customLoadingContent: '',
-      defaultLoading: false,
-      defaultLoadingContent: ''
     }
-
   }
   componentWillMount() {
-    this.defaultLoadingHandler();
-  }
 
-  defaultLoadingHandler() {
-    this.setState({
-      defaultLoading: true
-    });
-
-
-    let l = parent.students.length;
-
-    var timer = setInterval(() => { 
-
-      let l = this.props.saved_student.length;
-
-   if (l>0) {
-        console.log("main app content received");
-        clearInterval(timer);
-        this.setState({
-          defaultLoading: false,
-          defaultLoadingContent: 'Content loaded!'
-        })
-       }
-
-    }, 100);
   }
 
   render() {
 
     return (
-      <div>
-        <Loading isLoading={this.state.defaultLoading} loadingClassName='defloading'>  
-          <ContentApp loadedContent={this.state.defaultLoadingContent}/>
-        </Loading>
-      </div>
+      <Router history={hashHistory}>
+        <Route path='/' component={Container}>
+          <IndexRoute component={Dashboard} />
+          <Route path='/studentclassdashboard' component={StudentClassDashboard} />
+          <Route path='*' component={NotFound} />
+        </Route>
+      </Router>
     )
   }
 }
