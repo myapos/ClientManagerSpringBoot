@@ -71,7 +71,7 @@ class StudentDataTable extends Component {
 }
 componentDidUpdate() {
 
-    //debugger;
+    debugger;
     if(this.props.selectedTab != "null" 
       && this.props.selectedTab =="tab1" 
       && !this.state.defaultStudentDataLoading
@@ -79,13 +79,15 @@ componentDidUpdate() {
       console.log(flag);
       console.log('selected tab1');
       this.defaultStudentDataLoadingHandlerUpdate();
-    }
+    } 
 
     //this.defaultStudentDataLoadingHandler();
 }
 
 shouldComponentUpdate(){
-  if(this.state.defaultStudentDataLoading){
+  if(this.state.defaultStudentDataLoading && 
+    ((this.state.defaultStudentDataLoadingContent == "Updated Student Content loaded!")||
+    (this.state.defaultStudentDataLoadingContent == "Student Content loaded!")) ){
        
     return false;
   }
