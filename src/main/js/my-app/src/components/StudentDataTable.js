@@ -6,14 +6,12 @@ import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import ContentStudentDataTable from '../components/ContentStudentDataTable';
+//import ContentStudentDataTable from '../components/ContentStudentDataTable';
 import Spinner from '../components/Spinner';
 import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
-
-var flag=false;
 
 function afterSearch (searchText, result){
   //console.log('Your search text is ' + searchText);
@@ -52,143 +50,9 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
-
-
-
 class StudentDataTable extends Component {
- constructor (props) {
-    super(props);
 
-
-    this.state = {
-      ...props,
-      customStudentDataLoading: false,
-      customStudentDataLoadingContent: '',
-      defaultStudentDataLoading: false,
-      defaultStudentDataLoadingContent: ''
-    }
-
-}
-componentDidUpdate() {
-
-    debugger;
-    if(this.props.selectedTab != "null" 
-      && this.props.selectedTab =="tab1" 
-      && !this.state.defaultStudentDataLoading
-      && this.state.defaultStudentDataLoadingContent !== "Updated Student Content loaded!"){
-      console.log(flag);
-      console.log('selected tab1');
-      this.defaultStudentDataLoadingHandlerUpdate();
-    } 
-
-    //this.defaultStudentDataLoadingHandler();
-}
-
-shouldComponentUpdate(){
-  if(this.state.defaultStudentDataLoading && 
-    ((this.state.defaultStudentDataLoadingContent == "Updated Student Content loaded!")||
-    (this.state.defaultStudentDataLoadingContent == "Student Content loaded!")) ){
-       
-    return false;
-  }
-  else {
-
-    return true;
-  }
-}
-
-
-componentWillMount() {
-    //debugger;
-    this.defaultStudentDataLoadingHandler();
-}
-
-defaultStudentDataLoadingHandler() {
-  //debugger;
-    this.setState({
-      defaultStudentDataLoading: true
-});
-
-
-
-let l = parent.students.length;
-
-// if (l>0) {
-  
-//     this.setState({
-//           defaultStudentDataLoading: false,
-//           defaultStudentDataLoadingContent: 'Student Content loaded!'
-//     })
-// }
-
-var timerStudent = setInterval(() => { 
-
-let l = this.props.saved_student.length;
-
-if (l>0) {
-        flag = false;
-        console.log("student data received");
-        clearInterval(timerStudent);
-        this.setState({
-          defaultStudentDataLoading: false,
-          defaultStudentDataLoadingContent: 'Student Content loaded!'
-        })
-        
-       }
-else  flag = true;
-    }, 100);
-}
-
-defaultStudentDataLoadingHandlerUpdate() {
-  //debugger;
-    this.setState({
-      defaultStudentDataLoading: true
-});
-
-
-
-let l = parent.students.length;
-
-// if (l>0) {
-  
-//     this.setState({
-//           defaultStudentDataLoading: false,
-//           defaultStudentDataLoadingContent: 'Student Content loaded!'
-//     })
-// }
-
-var timerStudent = setInterval(() => { 
-
-let l = this.props.saved_student.length;
-
-if (l>0) {
-        flag = false;
-        console.log("student data received");
-        clearInterval(timerStudent);
-        this.setState({
-          defaultStudentDataLoading: false,
-          defaultStudentDataLoadingContent: 'Updated Student Content loaded!'
-        })
-        this.forceUpdate();
-       }
-else  flag = true;
-    }, 100);
-}
-
-render() {
-    
-
-    return (
-      <div>
-        <Loading isLoading={this.state.defaultStudentDataLoading} loadingClassName='defloading'>  
-          <ContentStudentDataTable loadedStudentContent={this.state.defaultStudentDataLoadingContent}/>
-        </Loading>
-      </div>
-    )
-  }
-}
-
-/*componentDidMount() {
+componentDidMount() {
   const data = this.props.saved_students;
   //debugger;
   let elSt = document.getElementById("dotsStudents");
@@ -233,11 +97,8 @@ render() {
     
   }
 
-}*/
+}
 
-
-
-/*
 componentDidUpdate(){
 
 
@@ -304,7 +165,7 @@ render () {
 
       if(data.length>0){
         return (
-          <div id="students">eeeee
+          <div id="students">
             <BootstrapTable 
             cellEdit={cellEditProp} 
             data={data} hover={true} 
@@ -315,9 +176,9 @@ render () {
             search={ true } 
             options={ options }
             >
-              <TableHeaderColumn dataField="index" isKey={true} editable={false} >id</TableHeaderColumn>
-              <TableHeaderColumn dataField="fname">Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname">Last Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
+              <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
               <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
               <TableHeaderColumn 
                 dataField="dateOfBirth" 
@@ -340,6 +201,6 @@ render () {
       )
     }
   }
-}*/
+}
 
 export default connect(state => state, actions)(StudentDataTable);
