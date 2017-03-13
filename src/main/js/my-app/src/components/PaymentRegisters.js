@@ -43,7 +43,33 @@ const selectRowProp = {
 
 class PaymentRegisters extends Component {
 
+componentWillMount(){
+  //debugger;
+  parent.loadedPaymReg = 0;
+
+}
 componentWillUpdate(){
+
+  parent.loadedPaymReg = 0;
+  //this.props.loadingHandling(0);
+}
+
+componentDidUpdate(){
+  debugger;
+  let x = document.getElementById("PaymentRegisters");
+  
+  if (x!= null) {
+    let rows = x.querySelectorAll('tr');
+    let el2 = x.getElementsByClassName('form-group');
+    //set id for classes in modal window
+
+    el2[1].childNodes[1].value = rows.length-1;
+
+    
+    //add date element in modal window
+    el2[7].childNodes[1].type="date";
+  }
+
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
   //running dots functionality
@@ -202,22 +228,9 @@ componentWillUpdate(){
 
         }
     }
-
-
-}
-
-componentDidUpdate(){
-  let x = document.getElementById("PaymentRegisters");
-  let rows = x.querySelectorAll('tr');
-  let el2 = x.getElementsByClassName('form-group');
-  //set id for classes in modal window
-
-  el2[1].childNodes[1].value = rows.length-1;
-
-  
-  //add date element in modal window
-  el2[7].childNodes[1].type="date";
-
+  debugger;
+  parent.loadedPaymReg = 1;
+  //this.props.loadingHandling(1);
 
 }
 
@@ -311,7 +324,9 @@ render () {
     //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
     
-    if(dataPaymentRegisters.length>0){
+    //if(dataPaymentRegisters.length>0){
+    if(typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3"){
+    //debugger;
     return (
       <div id="PaymentRegisters">
         <BootstrapTable
@@ -352,42 +367,7 @@ render () {
     else{
       return (
         <div>
-          <div>
-              <p id="loadingTextPaymentRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsPaymentRegisters"></span> </p>
-          </div>
-
-          <div id="PaymentRegisters">
-            <BootstrapTable
-              cellEdit={cellEditProp} 
-              data={dataPaymentRegisters} 
-              hover={true} 
-              insertRow={ true } 
-              selectRow={ selectRowProp }
-              exportCSV={true}
-              search={ true }
-              options={ options }
-              tableHeaderClass='payments-registers-header-class'
-              tableBodyClass='payments-registers-body-class'
-              condensed
-              >
-              <TableHeaderColumn dataField="index" editable={ false } hidden={true} isKey={true}>id</TableHeaderColumn>
-              <TableHeaderColumn className='mySelectPaymentRegisters' width='20%' dataSort={true} dataField="fname" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname" dataSort={true} width='20%' editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
-              <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-              <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
-              <TableHeaderColumn 
-                dataField="dateOfPayment" 
-                dataAlign="left" 
-                dataSort={false}
-                editable={ { type: 'datetime' } }
-                width='20%'
-              >
-                Date Of Payment
-              </TableHeaderColumn>
-
-            </BootstrapTable>
-          </div>
+          <div className="loader"></div>
       </div>
 
       )

@@ -3,10 +3,12 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
 		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
-		studentId, paymentId, updateMode, registerId, msg, selectedClass } = action;
+		studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete } = action;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
+		   //debugger;
+		    parent.loadedStudentData=0;
 	       return {
 	             ...state,
 	             all:state.saved_student,
@@ -131,6 +133,12 @@ const reducer = (state = {}, action) => {
 	   		return {
 	   			...state,
 	            registerId 
+	   	};
+	    case actions.LOADING_HANDLING:
+	    //debugger;
+	   		return {
+	   			...state,
+	            loadingHandlingCommplete 
 	   	};
 		default:
 		     return state;

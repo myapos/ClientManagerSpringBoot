@@ -9,6 +9,8 @@ import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+var flagRMount = false;
+
 const dataRegisters = [];
 parent.studentIndexWithRegistrations = [];
 
@@ -37,11 +39,27 @@ const selectRowProp = {
 
 class Registers extends Component {
 
+constructor(props) {
+    super(props);
+    this.state = {
+      ...props
+    }
+}
+
+
 componentDidUpdate(){
 
 }
 
+componentWillMount(){
+  //debugger;
+  parent.loadedReg = 0;
+
+}
+
+
 componentDidMount(){
+
   const data = this.props.saved_registers;
   let el = document.getElementById("dotsRegisters");
   let d = new Date();
@@ -160,7 +178,8 @@ componentDidMount(){
                  tempData.index = dataRegisters.length+1;
                  dataRegisters.push(tempData);
                  parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
-
+                 debugger;
+                 parent.loadedReg = 1;
   		        }
 
             	}
@@ -189,7 +208,10 @@ componentDidMount(){
     }
 
   }
-
+ //debugger;
+   this.setState({
+      flagRegisterMount:true
+    });
 }
 
 afterSaveRegistersCell(row, cellName, cellValue) {
@@ -269,8 +291,10 @@ render () {
     }
     //console.log("dataRegisters:",dataRegisters);
 
-    if(dataRegisters.length>0){
-
+    // if(dataRegisters.length>0){
+    //
+    if(typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4"){
+      //debugger;
 	    return (
 	      <div id="registers">
 		      <BootstrapTable
@@ -298,12 +322,13 @@ render () {
 	          > Date Of Registration
              </TableHeaderColumn>
 	        </BootstrapTable>
+
 	      </div>
 	     )
 	} else{
 	    return (
 	      <div>
-	            <p id="loadingTextRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsRegisters"></span> </p>
+	          <div className="loader"></div>
 	      </div>
 	    )
     }

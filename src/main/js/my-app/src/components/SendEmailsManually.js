@@ -34,7 +34,7 @@ class SendEmailsManually extends Component {
     else {
     
     let selectedClass = tableSelected[0].querySelectorAll("tr")[0].childNodes[2].innerHTML;
-;
+
     this.props.msgSubmitted(msg, selectedClass);
     }
 
@@ -52,7 +52,13 @@ class SendEmailsManually extends Component {
     //steps
 
     // display available classess
+    const availableClasses = [];
+    for (let i=0;i<this.props.saved_studentClasses.length;i++){
+        availableClasses.push(this.props.saved_studentClasses[i].description)
+    }
+    //console.log("dataRegisters:",dataRegisters);
 
+    if(availableClasses.length>0){
         return (
                 <div id="sendEmailTestsManually" >
                     <div><DisplayClassesForSendingEmailManually/></div>
@@ -66,5 +72,14 @@ class SendEmailsManually extends Component {
                 </div>
         );
       }
+      else{
+          return (
+            <div>
+                {/*<p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>*/}
+                <div className="loader"></div>
+            </div>
+          )
+        }
+    }
 }
 export default connect(state => state, actions)(SendEmailsManually);

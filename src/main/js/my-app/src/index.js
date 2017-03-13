@@ -25,8 +25,9 @@ parent.students = {};
 parent.studentClasses = {};
 parent.registers = {};
 parent.payeds = {};
-
-
+//parent.loaded = 0;
+parent.loadedStudents = 0;
+//debugger;
 const fetch1 = 
 fetch(url1, { 
    method: 'get', 
@@ -71,7 +72,7 @@ fetch(url1, {
        })
     .then (res => res.json())
     .then(res => { 
-
+        //debugger;
         parent.registers = res._embedded.registers;
         //return registers;
           //inner fetch 3
@@ -87,22 +88,23 @@ fetch(url1, {
           .then (res => res.json())
           .then(res => { 
 
-              parent.payeds = res._embedded.payeds;
-              //return classes;
-                 const placeholder = document.getElementById('react');
+             parent.payeds = res._embedded.payeds;
+             // parent.loaded = 1;
+             //return classes;
+             const placeholder = document.getElementById('react');
 
-                  const initialState = {
-                    saved_student:parent.students,
-                    saved_studentClasses:parent.studentClasses,
-                    saved_registers:parent.registers,
-                    saved_payeds:parent.payeds,
-                  };
+              const initialState = {
+                saved_student:parent.students,
+                saved_studentClasses:parent.studentClasses,
+                saved_registers:parent.registers,
+                saved_payeds:parent.payeds,
+              };
 
-                      ReactDOM.render(
-                        <Provider store={configureStore(initialState)}>
-                          <App />
-                        </Provider>,
-                      placeholder)
+                  ReactDOM.render(
+                    <Provider store={configureStore(initialState)}>
+                      <App />
+                    </Provider>,
+                  placeholder)
 
             });
 

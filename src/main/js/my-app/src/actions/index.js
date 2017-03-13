@@ -45,9 +45,12 @@ export const SEND_EMAILS_MANUALLY = 'SEND_EMAILS_MANUALLY';
 export const MSG_SUBMITTED = 'MSG_SUBMITTED';
 export const SAGAS_MSG_SUBMITTED = 'SAGAS_MSG_SUBMITTED';
 
+/*ACTIONS FOR DATA LOADING*/
+export const LOADING_HANDLING = 'LOADING_HANDLING';
 
 export function getAllStudents() {
-  debugger;
+  //debugger;
+  parent.loadedStudentData=0;
   return {
     type: GET_ALL_STUDENTS
   };
@@ -118,7 +121,7 @@ export function updateClass(rowUpdate, desc, descBefore) {
 export function changeSelectedTab(selectedTab, tabNamespace) {
 
   let act = "";
-
+  ////debugger;
   if (selectedTab == 'tab1'){
     act = "GET_ALL_STUDENTS";
   }
@@ -199,6 +202,14 @@ export function msgSubmitted(msg, selectedClass) {
     type: MSG_SUBMITTED,
     msg,
     selectedClass
+  };
+}
+
+export function loadingHandling(loadingHandlingCommplete) {
+  //debugger;
+  return {
+    type: LOADING_HANDLING,
+    loadingHandlingCommplete
   };
 }
 
