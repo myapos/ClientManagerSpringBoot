@@ -264,7 +264,7 @@ render () {
 
     //setTimeout(this.makeTimeout.bind(this), 3000);
     
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") && this.props.loadingHandlingCommplete){  
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") && parent.loadedPaymReg){  
 
       //console.log("End of async calls");
 

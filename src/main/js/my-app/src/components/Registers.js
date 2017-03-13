@@ -111,14 +111,24 @@ componentDidMount(){
       let ar = url.split("/");
       let s = ar.length;
       let id = ar[s - 1];
-      let request1 = new XMLHttpRequest();
-      request1.open('GET', url, false);  // `false` makes the request synchronous
-      request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-      request1.setRequestHeader("Content-type", "application/json");
-      request1.contentType = "application/json"
-      request1.send(null);
-
-      if (request1.status === 200) {
+      // let request1 = new XMLHttpRequest();
+      // request1.open('GET', url, false);  // `false` makes the request synchronous
+      // request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+      // request1.setRequestHeader("Content-type", "application/json");
+      // request1.contentType = "application/json"
+      // request1.send(null);
+      const fetch1 = fetch(url, {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+            })
+      .then(res1 => res1.json())
+      .then(res1 => {
+      //if (request1.status === 200) {
 
         //console.log(JSON.parse(request1.responseText));
 
@@ -129,17 +139,27 @@ componentDidMount(){
 
 
     	//http://localhost:8181/api/registers/search/findByStudent?student=http://localhost:8181/api/students/136
-        let request2 = new XMLHttpRequest();
-        request2.open('GET', url2, false);  // `false` makes the request synchronous
-        request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request2.setRequestHeader("Content-type", "application/json");
-        request2.contentType = "application/json"
-        request2.send(null);
+        // let request2 = new XMLHttpRequest();
+        // request2.open('GET', url2, false);  // `false` makes the request synchronous
+        // request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        // request2.setRequestHeader("Content-type", "application/json");
+        // request2.contentType = "application/json"
+        // request2.send(null);
 
-        if (request2.status === 200) {
-
+        // if (request2.status === 200) {
+          const fetch2 = fetch(url2, {
+                        method: 'get',
+                        mode: 'cors',
+                        cache: 'default',
+                        headers: {
+                            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                            'Content-Type': 'application/json'
+                        }
+                })
+          .then(res2 => res2.json())
+          .then(res2 => {
             //console.log("sync call 2:",JSON.parse(request2.responseText));
-            let registrations = JSON.parse(request2.responseText);
+            let registrations = res2;//JSON.parse(request2.responseText);
 
             //if student has registers get the classes of registers
             if (registrations._embedded.registers.length > 0) {
@@ -152,24 +172,38 @@ componentDidMount(){
 
             	//let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
 
-          		let request3 = new XMLHttpRequest();
-  		        request3.open('GET', url3, false);  // 'false' makes the request synchronous
-  		        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-  		        request3.setRequestHeader("Content-type", "application/json");
-  		        request3.contentType = "application/json"
-  		        request3.send(null);
+          		// let request3 = new XMLHttpRequest();
+  		        // request3.open('GET', url3, false);  // 'false' makes the request synchronous
+  		        // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+  		        // request3.setRequestHeader("Content-type", "application/json");
+  		        // request3.contentType = "application/json"
+  		        // request3.send(null);
 
-  		        if (request3.status === 200) {
-
+  		        // if (request3.status === 200) {
+                const fetch23= fetch(url3, {
+                              method: 'get',
+                              mode: 'cors',
+                              cache: 'default',
+                              headers: {
+                                  'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                  'Content-Type': 'application/json'
+                              }
+                      })
+                .then(res3 => res3.json())
+                .then(res3 => {
   		        	 //console.log("sync call 3:",JSON.parse(request3.responseText));
   		        	
   		        	 //save tempData
 
   		        	 let tempData ={};
-                 tempData.fname = JSON.parse(request1.responseText).fname;
-                 tempData.lname = JSON.parse(request1.responseText).lname;
-                 tempData.email = JSON.parse(request1.responseText).email;
-                 tempData.class = JSON.parse(request3.responseText).description;
+                 // tempData.fname = JSON.parse(request1.responseText).fname;
+                 // tempData.lname = JSON.parse(request1.responseText).lname;
+                 // tempData.email = JSON.parse(request1.responseText).email;
+                 tempData.fname = res1.fname;
+                 tempData.lname = res1.lname;
+                 tempData.email = res1.email;
+
+                 tempData.class = res3;//JSON.parse(request3.responseText).description;
 
                  let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
 
@@ -178,9 +212,9 @@ componentDidMount(){
                  tempData.index = dataRegisters.length+1;
                  dataRegisters.push(tempData);
                  parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
-                 debugger;
+                 //debugger;
                  parent.loadedReg = 1;
-  		        }
+  		        })
 
             	}
 
@@ -192,9 +226,12 @@ componentDidMount(){
             	//save tempData
 
 	        	  let tempData ={};
-	            tempData.fname = JSON.parse(request1.responseText).fname;
-	            tempData.lname = JSON.parse(request1.responseText).lname;
-	            tempData.email = JSON.parse(request1.responseText).email;
+	            // tempData.fname = JSON.parse(request1.responseText).fname;
+	            // tempData.lname = JSON.parse(request1.responseText).lname;
+	            // tempData.email = JSON.parse(request1.responseText).email;
+              tempData.fname = res1.fname;
+              tempData.lname = res1.lname;
+              tempData.email = res1.email;
 	            tempData.class = "No registered classes";
 
 	            //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
@@ -204,8 +241,8 @@ componentDidMount(){
             	
             }
 
-        }
-    }
+        })
+    })
 
   }
  //debugger;
