@@ -3,16 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-// import logo from '../logo.svg';
-/*import AddUser from './AddUser';
-import DeleteUser from './DeleteUser';
-import ExportUsers from './ExportUsers';
-import ImportUsers from './ImportUsers';
-import UpdateUsers from './UpdateUsers';
-import GetAllStudents from './GetAllStudents';*/
-//import ContentStudentClassDashboard from '../components/ContentStudentClassDashboard';
-import Spinner from '../components/Spinner';
-import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 

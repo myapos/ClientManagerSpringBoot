@@ -1,7 +1,10 @@
 parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 parent.request1 = {};
 parent.rowDescription = {};
-export const getStudentClasses = () => fetch(
+export const getStudentClasses = () => {
+    //debugger;
+   // parent.loadedStudentClasses = 0;
+    fetch(
         parent.BASE_URL + '/api/studentClasses', {
             method: 'get',
             mode: 'cors',
@@ -15,10 +18,16 @@ export const getStudentClasses = () => fetch(
     .then(res => {
         //console.log("classes from server: ", res);
         const classes = res._embedded.studentClasses;
+        //parent.loadedStudentClasses = 1;
         return classes;
+        
     });
+}
 
-export const getStudents = () => fetch(
+export const getStudents = () => {
+    //debugger;
+    parent.loadedStudents = 0; 
+    fetch(
         parent.BASE_URL + '/api/students', {
             method: 'get',
             mode: 'cors',
@@ -32,10 +41,13 @@ export const getStudents = () => fetch(
     .then(res => {
         //console.log("students from server: ", res);
         const students = res._embedded.students;
+        parent.loadedStudents = 1;
         return students;
     });
-
-export const getRegisters = () => fetch(
+}
+export const getRegisters = () => {
+    //debugger;
+    fetch(
         parent.BASE_URL + '/api/registers', {
             method: 'get',
             mode: 'cors',
@@ -50,8 +62,11 @@ export const getRegisters = () => fetch(
         const registers = res._embedded.registers;
         return registers;
     });
+}
 
-export const getPayeds = () => fetch(
+export const getPayeds = () => {
+    //debugger;
+    fetch(
         parent.BASE_URL + '/api/payeds', {
             method: 'get',
             mode: 'cors',
@@ -65,8 +80,10 @@ export const getPayeds = () => fetch(
     .then(res => {
         //console.log("payeds from server: ", res);
         const payeds = res._embedded.payeds;
+
         return payeds;
     });
+}
 
 // Create the XHR object.
 function createCORSRequest1(method, url, data) {
@@ -86,7 +103,7 @@ function createCORSRequest1(method, url, data) {
 };
 
 export const saveNewClass = (row) => {
-
+    //debugger;
     var request1 = createCORSRequest1("post", parent.BASE_URL + "/api/studentClasses");
     if (request1) {
         request1.onload = function() {
@@ -135,7 +152,7 @@ export const saveNewClass = (row) => {
 /*deletes selected class from table -- classId parameter is the id in front end table not in the database*/
 
 export const deleteStudentClass = (classId) => {
-
+    //debugger;
     //console.log("hey from api.deleteStudentClass. Preparing to delete class with id:", classId);
     let x = document.getElementById("studentClasses");
     let rowByClassId = x.querySelectorAll('tr')[classId];
@@ -187,7 +204,7 @@ export const deleteStudentClass = (classId) => {
 /*update selected class from table -- desc parameter is the description in front end table not in the database*/
 
 export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
-
+    //debugger;
     //console.log("hey from api.updateStudentClass. Preparing to update class",rowUpdate," with new desc:", newdesc);
 
     //fetch call for update
@@ -221,7 +238,7 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
 
 
 export const saveNewStudent = (row) => {
-
+    //debugger;
     //check email type
 
     let str = row.email;
@@ -272,7 +289,7 @@ export const saveNewStudent = (row) => {
 /*deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
 
 export const deleteStudent = (studentId) => {
-
+    //debugger;
     //console.log("hey from api.deleteStudentClass. Preparing to delete student with id:", studentId);
     let x = document.getElementById("students");
     let rowByClassId = x.querySelectorAll('tr')[studentId];
@@ -331,7 +348,7 @@ export const deleteStudent = (studentId) => {
 
 
 export const updateStudent = (rowUpdate) => {
-
+    //debugger;
     //console.log("hey from api.updateStudent. Preparing to update student",rowUpdate);
 
     //fetch call for update
@@ -380,7 +397,7 @@ export const addPaymentRegisters = (row) => {
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-debugger;
+//debugger;
 if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
     updateMode === "updateDateOfPayment"){
 
@@ -468,7 +485,7 @@ if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
                                 //console.log("no payments were found. So create one!!");
                                 //let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
                                 let payment = parent.BASE_URL+"/api/payeds/";
-                                //debugger;
+                                ////debugger;
 
                                 //step 3.2 update payments
                                 let date = new Date(row.dateOfPayment.substr(0, 10));
@@ -620,7 +637,7 @@ else if (updateMode === "classUpdate"){
                     let registrations = resObj2._embedded.registers;
                     for (let j=0; j<registrations.length;j++) {
                     let url4 = resObj2._embedded.registers[j]._links.register.href;
-                    debugger;
+                    //debugger;
                     request4.open('PATCH', url4, false);  // `false` makes the request synchronous
                     request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                     request4.setRequestHeader("Content-type", "application/json");
@@ -663,7 +680,7 @@ else if (updateMode === "classUpdate"){
 }
 
 export const deletePaymentRegisters = (id) => {
-
+    //debugger;
     //console.log("hey from api.deletePaymentRegisters. Preparing to delete payment with id:", id);
     let x = document.getElementById("PaymentRegisters");
     let rowByClassId = x.querySelectorAll('tr')[id];
@@ -812,7 +829,7 @@ export const deletePaymentRegisters = (id) => {
 
 
 export const createRegisters = (row) => {
-
+    //debugger;
 //create call -- we need student id, studentClass id, dateOfRegistration
 
 
@@ -895,7 +912,7 @@ export const createRegisters = (row) => {
 
 export const updateRegisters = (row) => {
 
-
+    //debugger;
 //create call -- we need student id, studentClass id, dateOfRegistration
 
 
@@ -991,7 +1008,7 @@ export const updateRegisters = (row) => {
 
 
 export const deleteRegisters = (registerId) => {
-
+    //debugger;
     //console.log("hey from api.deleteRegisters. Preparing to delete register with id:", registerId);
     let x = document.getElementById("registers");
     let rowByClassId = x.querySelectorAll('tr')[registerId];
@@ -1112,7 +1129,7 @@ export const deleteRegisters = (registerId) => {
 }
 
 const send_email = (first,last,email,msg) =>{
-
+    //debugger;
     //console.log("hey from send email");
     //console.log("first: "+first+" last: "+last+" email: "+email+" msg:"+msg);
     //send email request to server side 
@@ -1140,6 +1157,7 @@ const send_email = (first,last,email,msg) =>{
 }//end of send_email
 
 export const msgSubmitted = (msg, selectedClass) => {
+    //debugger;
     parent.msgSubmitted = msg;
 
 

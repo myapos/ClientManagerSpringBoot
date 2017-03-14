@@ -6,9 +6,6 @@ import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-//import ContentStudentDataTable from '../components/ContentStudentDataTable';
-import Spinner from '../components/Spinner';
-import Loading from 'react-loading-spinner';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
@@ -31,7 +28,7 @@ function onAfterInsertRow (row) {
 
   alert('The new row is:\n ' + newRowStr);
   //console.log("insert data to database");
-  debugger;
+  ////debugger;
   this.props.addStudent(row);
 
 }
@@ -54,7 +51,7 @@ class StudentDataTable extends Component {
 
 componentDidMount() {
   const data = this.props.saved_students;
-  //debugger;
+  ////debugger;
   let elSt = document.getElementById("dotsStudents");
   let d = new Date();
   let startTime = d.getTime();
@@ -103,23 +100,25 @@ componentDidUpdate(){
 
 
   let x = document.getElementById("students");
-  let rows = x.querySelectorAll('tr');
-  let el = rows[1];
+  
+  if (x!= null) {
+      let rows = x.querySelectorAll('tr');
+      let el = rows[1];
 
-  let id = rows.length;
+      let id = rows.length;
 
-  el.setAttribute('placeholder', id);
-  //set id for classes in modal window
-  //console.log("modal editing:",el);
-  x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
-  //add date element in modal window
-  x.getElementsByClassName('form-control editor edit-text')[3].type="number";
-  x.getElementsByClassName('form-control editor edit-text')[3].min="6900000000";
-  x.getElementsByClassName('form-control editor edit-text')[4].type="date";
-  x.getElementsByClassName('form-control editor edit-text')[5].type="email";
+      el.setAttribute('placeholder', id);
+      //set id for classes in modal window
+      //console.log("modal editing:",el);
+      x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
+      //add date element in modal window
+      x.getElementsByClassName('form-control editor edit-text')[3].type="number";
+      x.getElementsByClassName('form-control editor edit-text')[3].min="6900000000";
+      x.getElementsByClassName('form-control editor edit-text')[4].type="date";
+      x.getElementsByClassName('form-control editor edit-text')[5].type="email";
+  }
 
-
-  //debugger;
+  ////debugger;
 
 
 }
@@ -132,7 +131,7 @@ afterSaveStudentCell(row, cellName, cellValue) {
   //call action for update
   //get description before
   this.props.updateStudent(row);
-  debugger;
+  ////debugger;
 
 }
 
@@ -163,7 +162,9 @@ render () {
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-      if(data.length>0){
+      //if(data.length>0){
+      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") && data.length>0){  
+        //debugger;
         return (
           <div id="students">
             <BootstrapTable 
@@ -190,13 +191,15 @@ render () {
               <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
               <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
             </BootstrapTable>
+
           </div>
         );
     }
   else{
       return (
         <div>
-            <p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>
+            {/*<p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>*/}
+            <div className="loader"></div>
         </div>
       )
     }

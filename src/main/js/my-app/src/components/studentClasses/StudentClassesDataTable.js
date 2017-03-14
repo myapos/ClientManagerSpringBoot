@@ -11,7 +11,8 @@ import MDSpinner from "react-md-spinner";
 
 
 parent.classesPair = {};
-parent.loaded=0;
+// loadedPaymReg = 0;
+//parent.loaded=0;
 function afterSearch (searchText, result){
   //console.log('Your search text is ' + searchText);
   //console.log('Result is:');
@@ -107,48 +108,76 @@ componentDidMount() {
   
 }
 
+componentWillUpdate(){
+  //debugger;
+  //loadedPaymReg = 0; //reset
+  //this.interval = setInterval(() => this.props.loadingHandling(0), 1000);
+  //this.props.loadingHandling(0);
+
+
+}
+
 componentDidUpdate(){
-
-
+  //debugger;
+  // parent.loadedPaymReg  = 0;
+  // parent.loadedReg = 0;
   //check if checkPeriodInMinutes has passed
 
   let x = document.getElementById("studentClasses");
-  let rows = x.querySelectorAll('tr');
-  let el = rows[1];
+
+  if (x!= null) {
+    let rows = x.querySelectorAll('tr');
+    let el = rows[1];
 
 
-  let id = rows.length;
+    let id = rows.length;
 
-  el.setAttribute('placeholder', id);
-  //set id for classes in modal window
-  x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
-  //console.log("modal editing:",el);
+    el.setAttribute('placeholder', id);
+    //set id for classes in modal window
+    x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
+    //console.log("modal editing:",el);
 
-  let el2 = x.getElementsByClassName('form-group');
-  let childs = el2[2].childNodes;
-  
-  el2[2].removeChild(childs[1])
-  let input = el2[2];
+    let el2 = x.getElementsByClassName('form-group');
+    let childs = el2[2].childNodes;
+    
+    el2[2].removeChild(childs[1])
+    let input = el2[2];
 
-  //Create array of options to be added
-  //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
+    //Create array of options to be added
+    //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
 
-  //Create and append select list
-  let selectList = document.createElement("select");
-  selectList.id = "mySelectStudentClasses";
-  selectList.className = "form-control";
-  el2[2].appendChild(selectList);
+    //Create and append select list
+    let selectList = document.createElement("select");
+    selectList.id = "mySelectStudentClasses";
+    selectList.className = "form-control";
+    el2[2].appendChild(selectList);
 
-  for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-      let option = document.createElement("option");
-      option.value = this.props.saved_studentClasses[i].description;
-      option.text = this.props.saved_studentClasses[i].description;
-      selectList.appendChild(option);
+    for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+        let option = document.createElement("option");
+        option.value = this.props.saved_studentClasses[i].description;
+        option.text = this.props.saved_studentClasses[i].description;
+        selectList.appendChild(option);
+    }
+    // loadedPaymReg = 1;
+    //this.setState({loadedStudentClasses:1 });
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
+      //this.props.loadingHandling(1);
+      // loadedPaymReg =1;
+    }
+    //clearInterval(this.interval);
+  } else if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
+
+    //this.props.loadingHandling(0); //this.setState({loadedStudentClasses:0 }); //loadedPaymReg = 0;
+    // loadedPaymReg = 0;
   }
+    //loadedPaymReg = 1;
+    //debugger;
 
 };
 
 getSubClass(url, parentDesc, obj) {
+  
+
   const fetch1 = 
   fetch(url, { 
      method: 'get', 
@@ -164,6 +193,7 @@ getSubClass(url, parentDesc, obj) {
     
     //console.log("data from server: ",res);
     parent.classesPair[parentDesc] = res;
+    //loadedPaymReg =1;
 
   });
  
@@ -184,6 +214,12 @@ beforeSaveStudentClassCell(row, cellName, cellValue) {
 
 afterSaveSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
+}
+
+makeTimeout(){
+  // parent.loadedPaymReg  = 1;
+  // parent.loadedReg = 1;
+
 }
 
 render () {
@@ -220,10 +256,17 @@ render () {
     //wait for data to be retrieved from fdatabase
 
     //console.log("size of pairs:",Object.size(parent.classesPair));
-    if(Object.size(parent.classesPair)>0){
+    //debugger; 
+    // if(Object.size(parent.classesPair)>0){
+    //   loadedPaymReg =1;
+    // }
+    //debugger;
+
+    //setTimeout(this.makeTimeout.bind(this), 3000);
+    
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") && Object.size(parent.classesPair)>0){  
 
       //console.log("End of async calls");
-      parent.loaded=1; 
 
       for (let j=0; j<data.length; j++){ 
          for (var key in parent.classesPair) {
@@ -247,17 +290,19 @@ render () {
       </div>
     );
 
-
-
     }
 
   else {
+      //loadedPaymReg = 0; //reset
       return (
+
         <div>
-            <p className="loadingText"> Please wait while getting data from database <span id="dots"></span> </p>
+            <div className="loader"></div>
         </div>
       )
+
   }
+
   }
 }
 

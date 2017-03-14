@@ -64,27 +64,57 @@ class Dashboard extends Component {
             >
 
             <div style={styles.links}>
-                <TabLink to="tab1"  style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
-                <TabLink to="tab2" default style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
+                <TabLink to="tab1" default style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
+                <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
                 <TabLink to="tab3" style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
                 <TabLink to="tab4" style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
                 <TabLink to="tab5" style={styles.tabLink}>Επικοινωνία Τμημάτων</TabLink>
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
-                    <div><GetAllStudents/></div>
+                    <div><GetAllStudents 
+                    activeGetAllStudents = {true}
+                    activeStudentClassDashboard = {false}
+                    activePaymentRegisters = {false}
+                    activeRegisters = {false}
+                    activeSendEmailsManually = {false}
+                    /></div>
                 </TabContent>
                 <TabContent for="tab2">
-                    <div><StudentClassDashboard/></div>
+                    <div><StudentClassDashboard 
+                    activeGetAllStudents = {false} 
+                    activeStudentClassDashboard = {true}
+                    activePaymentRegisters = {false}
+                    activeRegisters = {false}
+                    activeSendEmailsManually = {false}
+                    /></div>
                 </TabContent>
                 <TabContent for="tab3">
-                    <div><PaymentRegisters/></div>
+                    <div><PaymentRegisters
+                    activeGetAllStudents = {false} 
+                    activeStudentClassDashboard = {false}
+                    activePaymentRegisters = {true}
+                    activeRegisters = {false}
+                    activeSendEmailsManually = {false}
+                    /></div>
                 </TabContent>
                 <TabContent for="tab4">
-                    <div><Registers/></div>
+                    <div><Registers 
+                    activeGetAllStudents = {false} 
+                    activeStudentClassDashboard = {false}
+                    activePaymentRegisters = {false}
+                    activeRegisters = {true}
+                    activeSendEmailsManually = {false}
+                    /></div>
                 </TabContent>
-                <TabContent for="tab5">
-                    <div><SendEmailsManually/></div>
+                <TabContent  for="tab5">
+                    <div><SendEmailsManually 
+                    activeGetAllStudents = {false} 
+                    activeStudentClassDashboard = {false}
+                    activePaymentRegisters = {false}
+                    activeRegisters = {false}
+                    activeSendEmailsManually = {true}
+                    /></div>
                 </TabContent>
             </div>
         </Tabs>

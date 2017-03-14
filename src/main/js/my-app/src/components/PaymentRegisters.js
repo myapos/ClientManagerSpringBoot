@@ -43,7 +43,33 @@ const selectRowProp = {
 
 class PaymentRegisters extends Component {
 
+componentWillMount(){
+  //debugger;
+  parent.loadedPaymReg = 0;
+
+}
 componentWillUpdate(){
+
+  parent.loadedPaymReg = 0;
+  //this.props.loadingHandling(0);
+}
+
+componentDidUpdate(){
+  //debugger;
+  let x = document.getElementById("PaymentRegisters");
+  
+  if (x!= null) {
+    let rows = x.querySelectorAll('tr');
+    let el2 = x.getElementsByClassName('form-group');
+    //set id for classes in modal window
+
+    el2[1].childNodes[1].value = rows.length-1;
+
+    
+    //add date element in modal window
+    el2[7].childNodes[1].type="date";
+  }
+
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
   //running dots functionality
@@ -101,17 +127,29 @@ componentWillUpdate(){
        
         //get students who has registered already
         url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-        request1 = new XMLHttpRequest();
-        request1.open('GET', url1, false);  // `false` makes the request synchronous
-        request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request1.setRequestHeader("Content-type", "application/json");
-        request1.contentType = "application/json"
-        request1.send(null);
+        // request1 = new XMLHttpRequest();
+        // request1.open('GET', url1, false);  // `false` makes the request synchronous
+        // request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        // request1.setRequestHeader("Content-type", "application/json");
+        // request1.contentType = "application/json"
+        // request1.send(null);
 
-        if (request1.status === 200) {
+      const fetch1 = fetch(url1, {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+            })
+      .then(res1 => res1.json())
+      .then(res1 => {
+        //if (request1.status === 200) {
           
           //console.log(JSON.parse(request1.responseText));
-          let registrations = JSON.parse(request1.responseText);
+          //debugger;
+          let registrations = res1;//JSON.parse(request1.responseText);
          
 
           if(registrations._embedded.registers.length>0) {
@@ -119,17 +157,34 @@ componentWillUpdate(){
 
 
               for(let jw=0; jw<registrations._embedded.registers.length;jw++){
+                
                 let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
-                let request2= new XMLHttpRequest();
-                request2.open('GET', url2, false);  // `false` makes the request synchronous
-                request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                request2.setRequestHeader("Content-type", "application/json");
-                request2.contentType = "application/json"
-                request2.send(null);
-                if (request2.status === 200) {
+                
+                const fetch2 = fetch(url2, {
+                              method: 'get',
+                              mode: 'cors',
+                              cache: 'default',
+                              headers: {
+                                  'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                  'Content-Type': 'application/json'
+                              }
+                      })
+                .then(res2 => {
+                  //debugger;
+                  return res2.json();
+                })
+                .then(res2 => {
+                  
+                // let request2= new XMLHttpRequest();
+                // request2.open('GET', url2, false);  // `false` makes the request synchronous
+                // request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                // request2.setRequestHeader("Content-type", "application/json");
+                // request2.contentType = "application/json"
+                // request2.send(null);
+                // if (request2.status === 200) {
 
                   //console.log("sync call 2:",JSON.parse(request2.responseText));
-                  let payments = JSON.parse(request2.responseText);
+                  let payments = res2;//JSON.parse(request2.responseText);
 
 
                   let tempData ={};
@@ -137,20 +192,34 @@ componentWillUpdate(){
                   tempData.lname = students[jj].lname;
                   tempData.email = students[jj].email;
 
-                  if(payments._embedded.payeds[0]!=undefined) {
+                  if(typeof payments._embedded.payeds !== 'undefined') {
                       //get classes of registered students
-
+                      //debugger;
                       let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      let request3= new XMLHttpRequest();
-                      request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      request3.setRequestHeader("Content-type", "application/json");
-                      request3.contentType = "application/json"
-                      request3.send(null);
-                      if (request3.status === 200) {
+                      const fetch3 = fetch(url3, {
+                                    method: 'get',
+                                    mode: 'cors',
+                                    cache: 'default',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                        'Content-Type': 'application/json'
+                                    }
+                            })
+                      .then(res3 => {
+                        //debugger;
+                        return res3.json();
+                      })
+                      .then(res3 => {
+                      // let request3= new XMLHttpRequest();
+                      // request3.open('GET', url3, false);  // `false` makes the request synchronous
+                      // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                      // request3.setRequestHeader("Content-type", "application/json");
+                      // request3.contentType = "application/json"
+                      // request3.send(null);
+                      // if (request3.status === 200) {
 
                           //console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = JSON.parse(request3.responseText);
+                          let studentClasses = res3;//JSON.parse(request3.responseText);
                           let tempData ={};
                           tempData.fname = students[jj].fname;
                           tempData.lname = students[jj].lname;
@@ -163,22 +232,36 @@ componentWillUpdate(){
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
-
-                      }
+                          parent.loadedPaymReg = 1;
+                      })
 
                   }
                   else {
-                      let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      let request3= new XMLHttpRequest();
-                      request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      request3.setRequestHeader("Content-type", "application/json");
-                      request3.contentType = "application/json"
-                      request3.send(null);
-                      if (request3.status === 200) {
-
+                      //debugger;
+                      let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
+                      // let request3= new XMLHttpRequest();
+                      // request3.open('GET', url3, false);  // `false` makes the request synchronous
+                      // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                      // request3.setRequestHeader("Content-type", "application/json");
+                      // request3.contentType = "application/json"
+                      // request3.send(null);
+                      // if (request3.status === 200) {
+                      const fetch4 = fetch(url4, {
+                                    method: 'get',
+                                    mode: 'cors',
+                                    cache: 'default',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                        'Content-Type': 'application/json'
+                                    }
+                            })
+                      .then(res4 => {
+                        //debugger;
+                        return res4.json();
+                      })
+                      .then(res4 => {
                           //console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = JSON.parse(request3.responseText);
+                          let studentClasses = res4;//JSON.parse(request3.responseText);
                           let tempData ={};
                           tempData.fname = students[jj].fname;
                           tempData.lname = students[jj].lname;
@@ -191,33 +274,20 @@ componentWillUpdate(){
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
-
-                      }
+                          parent.loadedPaymReg = 1;
+                      })
 
                   }
-                }
+                })
               }
 
           }
 
-        }
+        })
     }
-
-
-}
-
-componentDidUpdate(){
-  let x = document.getElementById("PaymentRegisters");
-  let rows = x.querySelectorAll('tr');
-  let el2 = x.getElementsByClassName('form-group');
-  //set id for classes in modal window
-
-  el2[1].childNodes[1].value = rows.length-1;
-
-  
-  //add date element in modal window
-  el2[7].childNodes[1].type="date";
-
+  //debugger;
+  //parent.loadedPaymReg = 1;
+  //this.props.loadingHandling(1);
 
 }
 
@@ -311,7 +381,9 @@ render () {
     //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
     
-    if(dataPaymentRegisters.length>0){
+    //if(dataPaymentRegisters.length>0){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") && dataPaymentRegisters.length>0){
+    //debugger;
     return (
       <div id="PaymentRegisters">
         <BootstrapTable
@@ -352,42 +424,7 @@ render () {
     else{
       return (
         <div>
-          <div>
-              <p id="loadingTextPaymentRegisters" className="loadingText"> Please wait while getting data from database <span id="dotsPaymentRegisters"></span> </p>
-          </div>
-
-          <div id="PaymentRegisters">
-            <BootstrapTable
-              cellEdit={cellEditProp} 
-              data={dataPaymentRegisters} 
-              hover={true} 
-              insertRow={ true } 
-              selectRow={ selectRowProp }
-              exportCSV={true}
-              search={ true }
-              options={ options }
-              tableHeaderClass='payments-registers-header-class'
-              tableBodyClass='payments-registers-body-class'
-              condensed
-              >
-              <TableHeaderColumn dataField="index" editable={ false } hidden={true} isKey={true}>id</TableHeaderColumn>
-              <TableHeaderColumn className='mySelectPaymentRegisters' width='20%' dataSort={true} dataField="fname" editable={ { type: 'select', options: { values: fnames } } }dataSort={true} pagination>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname" dataSort={true} width='20%' editable={ { type: 'select', options: { values: lnames } } }>Last Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
-              <TableHeaderColumn dataField="notes" >Notes</TableHeaderColumn>
-              <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
-              <TableHeaderColumn 
-                dataField="dateOfPayment" 
-                dataAlign="left" 
-                dataSort={false}
-                editable={ { type: 'datetime' } }
-                width='20%'
-              >
-                Date Of Payment
-              </TableHeaderColumn>
-
-            </BootstrapTable>
-          </div>
+          <div className="loader"></div>
       </div>
 
       )
