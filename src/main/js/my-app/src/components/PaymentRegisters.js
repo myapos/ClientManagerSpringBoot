@@ -382,7 +382,7 @@ render () {
     //check if data has loaded
     
     //if(dataPaymentRegisters.length>0){
-    if(typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3"){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") && dataPaymentRegisters.length>0){
     //debugger;
     return (
       <div id="PaymentRegisters">

@@ -330,7 +330,7 @@ render () {
 
     // if(dataRegisters.length>0){
     //
-    if(typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4"){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") && dataRegisters.length>0){
       //debugger;
 	    return (
 	      <div id="registers">

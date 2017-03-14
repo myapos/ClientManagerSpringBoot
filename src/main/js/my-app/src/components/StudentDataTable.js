@@ -163,7 +163,7 @@ render () {
     };
 
       //if(data.length>0){
-      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") && parent.loadedPaymReg){  
+      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") && data.length>0){  
         //debugger;
         return (
           <div id="students">

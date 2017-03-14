@@ -58,7 +58,7 @@ class SendEmailsManually extends Component {
     }
     //console.log("dataRegisters:",dataRegisters);
 
-    if(availableClasses.length>0){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab5") &&availableClasses.length>0){
         return (
                 <div id="sendEmailTestsManually" >
                     <div><DisplayClassesForSendingEmailManually/></div>
