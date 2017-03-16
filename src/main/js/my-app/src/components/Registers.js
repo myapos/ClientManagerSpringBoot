@@ -50,49 +50,51 @@ constructor(props) {
 componentWillMount(){
   //debugger;
   //parent.loadedReg = 0;
-
+  const data = this.props.saved_registers;
+  const students = this.props.saved_student;
+  this.props.dataRegisters(students);
 }
 
 
 componentDidMount(){
   //parent.loadedReg = false;
-  const data = this.props.saved_registers;
-  let el = document.getElementById("dotsRegisters");
-  let d = new Date();
-  let startTime = d.getTime();
-  let endTime = d.getTime();
-  let diffTime = endTime - startTime;
-  let refreshIntervalId = "";
-  let timeThreshold = 15000 ; //ms
-  if (el !== null) {
-  // do stuff
+  //const data = this.props.saved_registers;
+  // let el = document.getElementById("dotsRegisters");
+  // let d = new Date();
+  // let startTime = d.getTime();
+  // let endTime = d.getTime();
+  // let diffTime = endTime - startTime;
+  // let refreshIntervalId = "";
+  // let timeThreshold = 15000 ; //ms
+  // if (el !== null) {
+  // // do stuff
 
-  //anonymoys function to use in setInterval
-  let anon = function(data) {
+  // //anonymoys function to use in setInterval
+  // let anon = function(data) {
 
-      el.innerHTML = el.innerHTML + ".";  
+  //     el.innerHTML = el.innerHTML + ".";  
       
-      if (el.innerHTML == ".................................."){
-        el.innerHTML = "";
-      }
-      d = new Date();
-      endTime = d.getTime();
-      diffTime = endTime - startTime;
+  //     if (el.innerHTML == ".................................."){
+  //       el.innerHTML = "";
+  //     }
+  //     d = new Date();
+  //     endTime = d.getTime();
+  //     diffTime = endTime - startTime;
 
-      if (diffTime > timeThreshold && data.length == 0 ){
+  //     if (diffTime > timeThreshold && data.length == 0 ){
 
-        clearInterval(refreshIntervalId);
-        let msg = document.getElementById("loadingTextRegisters");
-        msg.innerHTML = "No payments are saved in database"; 
-        el.innerHTML = ""; 
-      } else if (diffTime > timeThreshold && data.length > 0 ){
-        clearInterval(refreshIntervalId);
-      }
-    };
+  //       clearInterval(refreshIntervalId);
+  //       let msg = document.getElementById("loadingTextRegisters");
+  //       msg.innerHTML = "No payments are saved in database"; 
+  //       el.innerHTML = ""; 
+  //     } else if (diffTime > timeThreshold && data.length > 0 ){
+  //       clearInterval(refreshIntervalId);
+  //     }
+  //   };
 
-  refreshIntervalId = setInterval( function() { anon(data)} , 100);
+  // refreshIntervalId = setInterval( function() { anon(data)} , 100);
 
-  }
+  // }
   //const registers = this.props.saved_registers;
   const students = this.props.saved_student;
 

@@ -51,6 +51,8 @@ export const LOADING_HANDLING = 'LOADING_HANDLING';
 /*ACTIONS FOR DATA LOADING*/
 export const GET_SUBCLASS = 'GET_SUBCLASS';
 export const SAGAS_GET_SUBCLASS = 'SAGAS_GET_SUBCLASS';
+export const DATA_REGISTERS = 'DATA_REGISTERS';
+export const SAGAS_DATA_REGISTERS = 'SAGAS_DATA_REGISTERS';
 
 export function getAllStudents() {
   //debugger;
@@ -227,3 +229,12 @@ export function getSubClass(url, parentDesc, obj) {
 
   };
 }
+
+export function dataRegisters(saved_student) {
+  //debugger;
+  return {
+    type: DATA_REGISTERS,
+    saved_student
+  };
+}
+
