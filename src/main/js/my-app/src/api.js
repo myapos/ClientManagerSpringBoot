@@ -228,7 +228,7 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
             if(res.status === 200){
 
             alert("Class is updated succsesfully. Prepare for reloading");
-            window.location.reload(true);
+            //window.location.reload(true);
 
         }
 
@@ -271,7 +271,7 @@ export const saveNewStudent = (row) => {
                 if(res.status === 201){
 
                 alert("New student saved succsesfully. Prepare for reloading");
-                window.location.reload(true);
+                //window.location.reload(true);
                 }
                 else {
                     alert("something bad happened.Please check your input data.");    
@@ -380,8 +380,8 @@ export const updateStudent = (rowUpdate) => {
             })
         .then(res => {
             if(res.status === 200){
-            alert("Class is updated succsesfully. Prepare for reloading");
-            window.location.reload(true);
+            alert("Student is updated succsesfully. Prepare for reloading");
+            //window.location.reload(true);
         }
 
         })
@@ -1289,15 +1289,32 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                 })
 
-
             }) 
 
         })
 
-
-
-
 }
 
-
-
+export const getSubClass = (url, parentDesc, obj) => {
+    //debugger;
+    const fetch1 = 
+    fetch(url, { 
+       method: 'get', 
+       mode: 'cors',
+       cache: 'default',
+       headers: {
+         'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+         'Content-Type': 'application/json'
+       }
+     })
+    .then (res => res.json())
+    .then(res => { 
+      //debugger;
+      let classesPair = {};
+      //console.log("data from server: ",res);
+      classesPair[parentDesc] = res;
+      //loadedPaymReg =1;
+      return classesPair;
+    });
+    return fetch1;
+}

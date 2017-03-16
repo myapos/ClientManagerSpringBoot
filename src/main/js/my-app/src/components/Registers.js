@@ -8,7 +8,7 @@ import '../css/App.css';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-
+import Spinner from 'react-spinner-children';
 var flagRMount = false;
 
 const dataRegisters = [];
@@ -47,19 +47,15 @@ constructor(props) {
 }
 
 
-componentDidUpdate(){
-
-}
-
 componentWillMount(){
   //debugger;
-  parent.loadedReg = 0;
+  //parent.loadedReg = 0;
 
 }
 
 
 componentDidMount(){
-
+  //parent.loadedReg = false;
   const data = this.props.saved_registers;
   let el = document.getElementById("dotsRegisters");
   let d = new Date();
@@ -203,7 +199,7 @@ componentDidMount(){
                  tempData.lname = res1.lname;
                  tempData.email = res1.email;
 
-                 tempData.class = res3;//JSON.parse(request3.responseText).description;
+                 tempData.class = res3.description;//JSON.parse(request3.responseText).description;
 
                  let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
 
@@ -213,7 +209,7 @@ componentDidMount(){
                  dataRegisters.push(tempData);
                  parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
                  //debugger;
-                 parent.loadedReg = 1;
+                 parent.loadedReg = true;
   		        })
 
             	}
@@ -305,7 +301,11 @@ beforeSaveRegistersCell(row, cellName, cellValue) {
 
 
 render () {
-
+parent.loadedReg = true;
+    const isLoaded = false;
+    const customSpinConfig = {
+      lines: 10,
+    };
 
  const cellEditProp = {
       mode: 'click',
@@ -326,12 +326,13 @@ render () {
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    //console.log("dataRegisters:",dataRegisters);
-
+    console.log("dataRegisters:",dataRegisters);
+    //debugger;
     // if(dataRegisters.length>0){
     //
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") && dataRegisters.length>0){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4")){
       //debugger;
+      //this.props.loadingHandling(1);
 	    return (
 	      <div id="registers">
 		      <BootstrapTable
@@ -359,10 +360,12 @@ render () {
 	          > Date Of Registration
              </TableHeaderColumn>
 	        </BootstrapTable>
-
 	      </div>
+      
 	     )
-	} else{
+	} 
+  else{
+    //this.props.loadingHandling(0);
 	    return (
 	      <div>
 	          <div className="loader"></div>

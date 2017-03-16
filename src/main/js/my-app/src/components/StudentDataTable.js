@@ -9,7 +9,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
-
+import Spinner from 'react-spinner-children';
+parent.isloading = 0;
 function afterSearch (searchText, result){
   //console.log('Your search text is ' + searchText);
   //console.log('Result is:');
@@ -137,6 +138,12 @@ afterSaveStudentCell(row, cellName, cellValue) {
 
 
 render () {
+    parent.loadedPaymReg = true;
+    const isLoaded = false;
+    const customSpinConfig = {
+      lines: 10,
+    };  // all configs http://fgnass.github.io/spin.js/ 
+
     const data = this.props.saved_student;
     //preprocess data
     data.map((obj, index)=>{
@@ -163,42 +170,47 @@ render () {
     };
 
       //if(data.length>0){
-      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") && data.length>0){  
+      //debugger;
+      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1")){  
         //debugger;
+        parent.isloading = 0;
+        //this.props.loadingHandlingCommplete = 0;
         return (
-          <div id="students">
-            <BootstrapTable 
-            cellEdit={cellEditProp} 
-            data={data} hover={true} 
-            insertRow={ true } 
-            selectRow={ selectRowProp } 
-            deleteRow={ true } 
-            exportCSV={true} 
-            search={ true } 
-            options={ options }
-            >
-              <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
-              <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
-              <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
-              <TableHeaderColumn 
-                dataField="dateOfBirth" 
-                dataAlign="left" 
-                dataSort={false}
+            <div id="students">
+              <BootstrapTable 
+              cellEdit={cellEditProp} 
+              data={data} 
+              hover={true} 
+              insertRow={ true } 
+              selectRow={ selectRowProp } 
+              deleteRow={ true } 
+              exportCSV={true} 
+              search={ true } 
+              options={ options }
               >
-                Date Of Birth
-              </TableHeaderColumn>
-              <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
-              <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
-            </BootstrapTable>
+                <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
+                <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
+                <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
+                <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
+                <TableHeaderColumn 
+                  dataField="dateOfBirth" 
+                  dataAlign="left" 
+                  dataSort={false}
+                >
+                  Date Of Birth
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="email" dataSort={false}>E-mail</TableHeaderColumn>
+                <TableHeaderColumn dataField="facebook" dataSort={false}>Facebook</TableHeaderColumn>
+              </BootstrapTable>
 
-          </div>
+            </div>
         );
     }
   else{
+    parent.isloading = 1;
       return (
         <div>
-            {/*<p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>*/}
+            {<p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>}
             <div className="loader"></div>
         </div>
       )

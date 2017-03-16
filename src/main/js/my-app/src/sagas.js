@@ -195,6 +195,20 @@ function* msgSubmitted () {
 		msg
 	})
 }
+
+function* getSubClass () {
+	
+	//console.log('msgSubmitted');
+	const state = yield select();
+	//debugger;
+	const classesPair = yield call(api.getSubClass, state.url, state.parentDesc, state.obj);
+	//debugger;
+	yield put({
+		type: actions.SAGAS_GET_SUBCLASS,
+		classesPair
+	})
+}
+
 function* rootSaga () {
 
 	yield getDataFromServer();
@@ -212,6 +226,7 @@ function* rootSaga () {
 	yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
 	yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
 	yield takeEvery(actions.MSG_SUBMITTED, msgSubmitted);
+	yield takeEvery(actions.GET_SUBCLASS, getSubClass);
 }
 
 export default rootSaga;

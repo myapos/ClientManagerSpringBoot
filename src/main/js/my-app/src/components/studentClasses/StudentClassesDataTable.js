@@ -59,7 +59,26 @@ const selectRowProp = {
 
 
 class StudentClassesDataTable extends Component {
+componentWillMount(){
+  const data = this.props.saved_studentClasses;
+  data.map((obj, index)=>{
 
+    //console.log("cur index:"+index);
+    obj.index = (index+1);
+    //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
+
+    obj.ManyToOne=obj._links.studentClass[1].href;
+    //this.getSubClass(obj.ManyToOne, obj.description, obj);
+    this.props.getSubClass(obj.ManyToOne, obj.description, obj);
+    //debugger;
+    
+    //debugger;
+    //get description of subclass-- this description lives in obj.ManyToOne
+
+  });
+
+
+}
 componentDidMount() {
 
   const data = this.props.saved_studentClasses;
@@ -175,29 +194,29 @@ componentDidUpdate(){
 
 };
 
-getSubClass(url, parentDesc, obj) {
+// getSubClass(url, parentDesc, obj) {
   
 
-  const fetch1 = 
-  fetch(url, { 
-     method: 'get', 
-     mode: 'cors',
-     cache: 'default',
-     headers: {
-       'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
-       'Content-Type': 'application/json'
-     }
-   })
-  .then (res => res.json())
-  .then(res => { 
+//   const fetch1 = 
+//   fetch(url, { 
+//      method: 'get', 
+//      mode: 'cors',
+//      cache: 'default',
+//      headers: {
+//        'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
+//        'Content-Type': 'application/json'
+//      }
+//    })
+//   .then (res => res.json())
+//   .then(res => { 
     
-    //console.log("data from server: ",res);
-    parent.classesPair[parentDesc] = res;
-    //loadedPaymReg =1;
+//     //console.log("data from server: ",res);
+//     parent.classesPair[parentDesc] = res;
+//     //loadedPaymReg =1;
 
-  });
+//   });
  
-}
+// }
 
 beforeSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
@@ -223,7 +242,7 @@ makeTimeout(){
 }
 
 render () {
-  
+    
 
     const data = this.props.saved_studentClasses;
     //console.log(data);
@@ -240,41 +259,36 @@ render () {
     };
 
     //preprocess data
-    data.map((obj, index)=>{
+    // data.map((obj, index)=>{
 
-      //console.log("cur index:"+index);
-      obj.index = (index+1);
-      //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
+    //   //console.log("cur index:"+index);
+    //   obj.index = (index+1);
+    //   //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
 
-      obj.ManyToOne=obj._links.studentClass[1].href;
-      this.getSubClass(obj.ManyToOne, obj.description, obj);
+    //   obj.ManyToOne=obj._links.studentClass[1].href;
+    //   //this.getSubClass(obj.ManyToOne, obj.description, obj);
+    //   //debugger;
+      
+    //   //debugger;
+    //   //get description of subclass-- this description lives in obj.ManyToOne
 
-      //get description of subclass-- this description lives in obj.ManyToOne
-
-    });
+    // });
     //check if async calls ended
     //wait for data to be retrieved from fdatabase
 
-    //console.log("size of pairs:",Object.size(parent.classesPair));
-    //debugger; 
-    // if(Object.size(parent.classesPair)>0){
-    //   loadedPaymReg =1;
-    // }
-    //debugger;
-
     //setTimeout(this.makeTimeout.bind(this), 3000);
     
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") && Object.size(parent.classesPair)>0){  
-
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){  
+      //this.props.loadingHandlingCommplete = 0;
       //console.log("End of async calls");
-
+      //debugger;
       for (let j=0; j<data.length; j++){ 
-         for (var key in parent.classesPair) {
-            if (parent.classesPair.hasOwnProperty(key)) {
+         for (var key in this.props.classesPair) {
+            if (this.props.classesPair.hasOwnProperty(key)) {
 
               if(data[j].description == key) {
-
-                data[j].subClassDescription = parent.classesPair[key].description;
+                
+                data[j].subClassDescription = this.props.classesPair[key].description;
                 //console.log(key + " -> " + parent.classesPair[key]);
               }
             }

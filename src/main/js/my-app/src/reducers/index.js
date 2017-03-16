@@ -3,7 +3,8 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
 		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
-		studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete } = action;
+		studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete, 
+		url, parentDesc, obj, classesPair} = action;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
@@ -140,6 +141,20 @@ const reducer = (state = {}, action) => {
 	   			...state,
 	            loadingHandlingCommplete 
 	   	};
+	   	case actions.GET_SUBCLASS:
+	   	 //debugger;
+	   			return {
+	   			...state,
+	   	        url,
+	   	        parentDesc,
+	   	        obj 
+	   	};
+	   	case actions.SAGAS_GET_SUBCLASS:
+	   	 //debugger;
+	   			return {
+	   			...state,
+	   	        classesPair
+	   		};
 		default:
 		     return state;
 	 }
