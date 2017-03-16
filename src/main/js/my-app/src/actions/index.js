@@ -48,6 +48,10 @@ export const SAGAS_MSG_SUBMITTED = 'SAGAS_MSG_SUBMITTED';
 /*ACTIONS FOR DATA LOADING*/
 export const LOADING_HANDLING = 'LOADING_HANDLING';
 
+/*ACTIONS FOR DATA LOADING*/
+export const GET_SUBCLASS = 'GET_SUBCLASS';
+export const SAGAS_GET_SUBCLASS = 'SAGAS_GET_SUBCLASS';
+
 export function getAllStudents() {
   //debugger;
   parent.loadedStudentData=0;
@@ -213,3 +217,13 @@ export function loadingHandling(loadingHandlingCommplete) {
   };
 }
 
+export function getSubClass(url, parentDesc, obj) {
+  //debugger;
+  return {
+    type: GET_SUBCLASS,
+    url,
+    parentDesc,
+    obj
+
+  };
+}

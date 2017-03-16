@@ -9,8 +9,9 @@ import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+//debugger;
 let dataPaymentRegisters = [];
-
+parent.count = 0;
 function afterSearch (searchText, result){
   //console.log('Your search text is ' + searchText);
   //console.log('Result is:');
@@ -45,17 +46,18 @@ class PaymentRegisters extends Component {
 
 componentWillMount(){
   //debugger;
-  parent.loadedPaymReg = 0;
+  //parent.loadedPaymReg = 0;
 
 }
 componentWillUpdate(){
 
-  parent.loadedPaymReg = 0;
+  parent.loadedPaymReg = false;
   //this.props.loadingHandling(0);
 }
 
-componentDidUpdate(){
+componentDidMount(){
   //debugger;
+  parent.loadedPaymReg = false;
   let x = document.getElementById("PaymentRegisters");
   
   if (x!= null) {
@@ -145,8 +147,13 @@ componentDidUpdate(){
             })
       .then(res1 => res1.json())
       .then(res1 => {
+        // if (this.props.loadingHandlingCommplete && parent.isloading) {
+        //     //this.props.loadingHandling(0);
+        //     parent.isloading = 1;
+        // } 
         //if (request1.status === 200) {
-          
+          //this.props.loadingHandling(0); //still loading
+          parent.isloading = 0;
           //console.log(JSON.parse(request1.responseText));
           //debugger;
           let registrations = res1;//JSON.parse(request1.responseText);
@@ -174,7 +181,7 @@ componentDidUpdate(){
                   return res2.json();
                 })
                 .then(res2 => {
-                  
+                //this.props.loadingHandling(0);  
                 // let request2= new XMLHttpRequest();
                 // request2.open('GET', url2, false);  // `false` makes the request synchronous
                 // request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
@@ -232,7 +239,19 @@ componentDidUpdate(){
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
-                          parent.loadedPaymReg = 1;
+                          parent.loadedPaymReg = true;
+                          // parent.loadedPaymReg = 1;
+                          //debugger;
+                          //this.props.loadingHandling(1);
+                          //  if(!this.props.loadingHandlingCommplete && parent.count==1) {
+                          //   //this.props.loadingHandling(1);
+                          //   parent.count = 0;
+                          //   //parent.isloading = 1;
+                          // } else if(parent.count>1) {
+                          //     parent.count = 1;
+                          //     //this.props.loadingHandling(0);
+                          //  }
+                          //  else parent.count++;
                       })
 
                   }
@@ -274,7 +293,13 @@ componentDidUpdate(){
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
-                          parent.loadedPaymReg = 1;
+                          parent.loadedPaymReg = true;
+                          
+                          if(!this.props.loadingHandlingCommplete && parent.count==1) {
+                            //this.props.loadingHandling(1);
+                            parent.count++;
+                            //parent.isloading = 1;
+                          } else parent.count = 0;
                       })
 
                   }
@@ -380,9 +405,9 @@ render () {
     }
     //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
-    
+    //debugger;
     //if(dataPaymentRegisters.length>0){
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") && dataPaymentRegisters.length>0){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3")){
     //debugger;
     return (
       <div id="PaymentRegisters">
