@@ -47,17 +47,23 @@ class PaymentRegisters extends Component {
 componentWillMount(){
   //debugger;
   //parent.loadedPaymReg = 0;
+  
+
+  const registers = this.props.saved_registers;
+  const students = this.props.saved_student;
+
+  this.props.dataPaymentsRegisters(students);  
 
 }
 componentWillUpdate(){
 
-  parent.loadedPaymReg = false;
+  //parent.loadedPaymReg = false;
   //this.props.loadingHandling(0);
 }
 
 componentDidMount(){
   //debugger;
-  parent.loadedPaymReg = false;
+  //parent.loadedPaymReg = false;
   let x = document.getElementById("PaymentRegisters");
   
   if (x!= null) {
@@ -75,244 +81,196 @@ componentDidMount(){
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
   //running dots functionality
-  let el = document.getElementById("dotsPaymentRegisters");
-  let d = new Date();
-  let startTime = d.getTime();
-  let endTime = d.getTime();
-  let diffTime = endTime - startTime;
-  let refreshIntervalId = "";
-  let timeThreshold = 15000 ; //ms
-  if (el !== null) {
+  // let el = document.getElementById("dotsPaymentRegisters");
+  // let d = new Date();
+  // let startTime = d.getTime();
+  // let endTime = d.getTime();
+  // let diffTime = endTime - startTime;
+  // let refreshIntervalId = "";
+  // let timeThreshold = 15000 ; //ms
+  // if (el !== null) {
   // do stuff
   
-  //anonymoys function to use in setInterval
-  let anon = function(data) {
-      //debugger;
-      el.innerHTML = el.innerHTML + ".";  
+  // //anonymoys function to use in setInterval
+  // let anon = function(data) {
+  //     //debugger;
+  //     el.innerHTML = el.innerHTML + ".";  
       
-      if (el.innerHTML == ".................................."){
+  //     if (el.innerHTML == ".................................."){
 
-        el.innerHTML = "";
-      }
-      d = new Date();
-      endTime = d.getTime();
-      diffTime = endTime - startTime;
+  //       el.innerHTML = "";
+  //     }
+  //     d = new Date();
+  //     endTime = d.getTime();
+  //     diffTime = endTime - startTime;
 
-      if (diffTime > timeThreshold && data.length == 0 ){
+  //     if (diffTime > timeThreshold && data.length == 0 ){
 
-        clearInterval(refreshIntervalId);
-        let msg = document.getElementById("loadingTextPaymentRegisters");
-        msg.innerHTML = "No payments are saved in database"; 
-        el.innerHTML = ""; 
+  //       clearInterval(refreshIntervalId);
+  //       let msg = document.getElementById("loadingTextPaymentRegisters");
+  //       msg.innerHTML = "No payments are saved in database"; 
+  //       el.innerHTML = ""; 
 
-      } else if (diffTime > timeThreshold && data.length > 0 ){
-        clearInterval(refreshIntervalId);
-      }
-    };
+  //     } else if (diffTime > timeThreshold && data.length > 0 ){
+  //       clearInterval(refreshIntervalId);
+  //     }
+  //   };
 
 
-  refreshIntervalId = setInterval( function() { anon(data)} , 100);
+  // refreshIntervalId = setInterval( function() { anon(data)} , 100);
 
     
-  }
+  // }
   
  
-    const registers = this.props.saved_registers;
-    const students = this.props.saved_student;
+    // const registers = this.props.saved_registers;
+    // const students = this.props.saved_student;
     
-    //debugger;
-    let request1 = {};
-    let url1 = "";
-    for(let jj=0; jj<students.length;jj++){
+    // //debugger;
+    // let request1 = {};
+    // let url1 = "";
+    // for(let jj=0; jj<students.length;jj++){
 
-       //debugger;
+    //    //debugger;
        
-        //get students who has registered already
-        url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-        // request1 = new XMLHttpRequest();
-        // request1.open('GET', url1, false);  // `false` makes the request synchronous
-        // request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        // request1.setRequestHeader("Content-type", "application/json");
-        // request1.contentType = "application/json"
-        // request1.send(null);
+    //     //get students who has registered already
+    //     url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
 
-      const fetch1 = fetch(url1, {
-                    method: 'get',
-                    mode: 'cors',
-                    cache: 'default',
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                        'Content-Type': 'application/json'
-                    }
-            })
-      .then(res1 => res1.json())
-      .then(res1 => {
-        // if (this.props.loadingHandlingCommplete && parent.isloading) {
-        //     //this.props.loadingHandling(0);
-        //     parent.isloading = 1;
-        // } 
-        //if (request1.status === 200) {
-          //this.props.loadingHandling(0); //still loading
-          parent.isloading = 0;
-          //console.log(JSON.parse(request1.responseText));
-          //debugger;
-          let registrations = res1;//JSON.parse(request1.responseText);
+    //   const fetch1 = fetch(url1, {
+    //                 method: 'get',
+    //                 mode: 'cors',
+    //                 cache: 'default',
+    //                 headers: {
+    //                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //         })
+    //   .then(res1 => res1.json())
+    //   .then(res1 => {
+
+    //       parent.isloading = 0;
+    //       //console.log(JSON.parse(request1.responseText));
+    //       //debugger;
+    //       let registrations = res1;//JSON.parse(request1.responseText);
          
 
-          if(registrations._embedded.registers.length>0) {
-          //get payments of those students . if there aren't any then you can set them
+    //       if(registrations._embedded.registers.length>0) {
+    //       //get payments of those students . if there aren't any then you can set them
 
 
-              for(let jw=0; jw<registrations._embedded.registers.length;jw++){
+    //           for(let jw=0; jw<registrations._embedded.registers.length;jw++){
                 
-                let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
+    //             let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
                 
-                const fetch2 = fetch(url2, {
-                              method: 'get',
-                              mode: 'cors',
-                              cache: 'default',
-                              headers: {
-                                  'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                                  'Content-Type': 'application/json'
-                              }
-                      })
-                .then(res2 => {
-                  //debugger;
-                  return res2.json();
-                })
-                .then(res2 => {
-                //this.props.loadingHandling(0);  
-                // let request2= new XMLHttpRequest();
-                // request2.open('GET', url2, false);  // `false` makes the request synchronous
-                // request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                // request2.setRequestHeader("Content-type", "application/json");
-                // request2.contentType = "application/json"
-                // request2.send(null);
-                // if (request2.status === 200) {
+    //             const fetch2 = fetch(url2, {
+    //                           method: 'get',
+    //                           mode: 'cors',
+    //                           cache: 'default',
+    //                           headers: {
+    //                               'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+    //                               'Content-Type': 'application/json'
+    //                           }
+    //                   })
+    //             .then(res2 => {
+    //               //debugger;
+    //               return res2.json();
+    //             })
+    //             .then(res2 => {
 
-                  //console.log("sync call 2:",JSON.parse(request2.responseText));
-                  let payments = res2;//JSON.parse(request2.responseText);
+    //               let payments = res2;//JSON.parse(request2.responseText);
 
 
-                  let tempData ={};
-                  tempData.fname = students[jj].fname;
-                  tempData.lname = students[jj].lname;
-                  tempData.email = students[jj].email;
+    //               let tempData ={};
+    //               tempData.fname = students[jj].fname;
+    //               tempData.lname = students[jj].lname;
+    //               tempData.email = students[jj].email;
 
-                  if(typeof payments._embedded.payeds !== 'undefined') {
-                      //get classes of registered students
-                      //debugger;
-                      let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      const fetch3 = fetch(url3, {
-                                    method: 'get',
-                                    mode: 'cors',
-                                    cache: 'default',
-                                    headers: {
-                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                                        'Content-Type': 'application/json'
-                                    }
-                            })
-                      .then(res3 => {
-                        //debugger;
-                        return res3.json();
-                      })
-                      .then(res3 => {
-                      // let request3= new XMLHttpRequest();
-                      // request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      // request3.setRequestHeader("Content-type", "application/json");
-                      // request3.contentType = "application/json"
-                      // request3.send(null);
-                      // if (request3.status === 200) {
+    //               if(typeof payments._embedded.payeds !== 'undefined') {
+    //                   //get classes of registered students
+    //                   //debugger;
+    //                   let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
+    //                   const fetch3 = fetch(url3, {
+    //                                 method: 'get',
+    //                                 mode: 'cors',
+    //                                 cache: 'default',
+    //                                 headers: {
+    //                                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+    //                                     'Content-Type': 'application/json'
+    //                                 }
+    //                         })
+    //                   .then(res3 => {
+    //                     //debugger;
+    //                     return res3.json();
+    //                   })
+    //                   .then(res3 => {
 
-                          //console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = res3;//JSON.parse(request3.responseText);
-                          let tempData ={};
-                          tempData.fname = students[jj].fname;
-                          tempData.lname = students[jj].lname;
-                          tempData.email = students[jj].email;
-                          tempData.class = studentClasses.description;
-                          tempData.payment = payments._embedded.payeds[0].payment;
-                          tempData.notes = payments._embedded.payeds[0].notes;
-                          let date = new Date(payments._embedded.payeds[0].dateOfPayment);
-                          let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                          tempData.dateOfPayment = formatedDate;
-                          tempData.index = dataPaymentRegisters.length+1;
-                          dataPaymentRegisters.push(tempData);
-                          parent.loadedPaymReg = true;
-                          // parent.loadedPaymReg = 1;
-                          //debugger;
-                          //this.props.loadingHandling(1);
-                          //  if(!this.props.loadingHandlingCommplete && parent.count==1) {
-                          //   //this.props.loadingHandling(1);
-                          //   parent.count = 0;
-                          //   //parent.isloading = 1;
-                          // } else if(parent.count>1) {
-                          //     parent.count = 1;
-                          //     //this.props.loadingHandling(0);
-                          //  }
-                          //  else parent.count++;
-                      })
+    //                       let studentClasses = res3;//JSON.parse(request3.responseText);
+    //                       let tempData ={};
+    //                       tempData.fname = students[jj].fname;
+    //                       tempData.lname = students[jj].lname;
+    //                       tempData.email = students[jj].email;
+    //                       tempData.class = studentClasses.description;
+    //                       tempData.payment = payments._embedded.payeds[0].payment;
+    //                       tempData.notes = payments._embedded.payeds[0].notes;
+    //                       let date = new Date(payments._embedded.payeds[0].dateOfPayment);
+    //                       let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+    //                       tempData.dateOfPayment = formatedDate;
+    //                       tempData.index = dataPaymentRegisters.length+1;
+    //                       dataPaymentRegisters.push(tempData);
+    //                       parent.loadedPaymReg = true;
 
-                  }
-                  else {
-                      //debugger;
-                      let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
-                      // let request3= new XMLHttpRequest();
-                      // request3.open('GET', url3, false);  // `false` makes the request synchronous
-                      // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                      // request3.setRequestHeader("Content-type", "application/json");
-                      // request3.contentType = "application/json"
-                      // request3.send(null);
-                      // if (request3.status === 200) {
-                      const fetch4 = fetch(url4, {
-                                    method: 'get',
-                                    mode: 'cors',
-                                    cache: 'default',
-                                    headers: {
-                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                                        'Content-Type': 'application/json'
-                                    }
-                            })
-                      .then(res4 => {
-                        //debugger;
-                        return res4.json();
-                      })
-                      .then(res4 => {
-                          //console.log("sync call 3:",JSON.parse(request3.responseText));
-                          let studentClasses = res4;//JSON.parse(request3.responseText);
-                          let tempData ={};
-                          tempData.fname = students[jj].fname;
-                          tempData.lname = students[jj].lname;
-                          tempData.email = students[jj].email;
-                          tempData.class = studentClasses.description;
-                          tempData.payment = false;
-                          tempData.notes = "No payment yet";
-                          let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
-                          let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                          tempData.dateOfPayment = formatedDate;
-                          tempData.index = dataPaymentRegisters.length+1;
-                          dataPaymentRegisters.push(tempData);
-                          parent.loadedPaymReg = true;
+    //                   })
+
+    //               }
+    //               else {
+    //                   //debugger;
+    //                   let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
+
+    //                   const fetch4 = fetch(url4, {
+    //                                 method: 'get',
+    //                                 mode: 'cors',
+    //                                 cache: 'default',
+    //                                 headers: {
+    //                                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+    //                                     'Content-Type': 'application/json'
+    //                                 }
+    //                         })
+    //                   .then(res4 => {
+    //                     //debugger;
+    //                     return res4.json();
+    //                   })
+    //                   .then(res4 => {
+
+    //                       let studentClasses = res4;//JSON.parse(request3.responseText);
+    //                       let tempData ={};
+    //                       tempData.fname = students[jj].fname;
+    //                       tempData.lname = students[jj].lname;
+    //                       tempData.email = students[jj].email;
+    //                       tempData.class = studentClasses.description;
+    //                       tempData.payment = false;
+    //                       tempData.notes = "No payment yet";
+    //                       let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
+    //                       let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+    //                       tempData.dateOfPayment = formatedDate;
+    //                       tempData.index = dataPaymentRegisters.length+1;
+    //                       dataPaymentRegisters.push(tempData);
+    //                       parent.loadedPaymReg = true;
                           
-                          if(!this.props.loadingHandlingCommplete && parent.count==1) {
-                            //this.props.loadingHandling(1);
-                            parent.count++;
-                            //parent.isloading = 1;
-                          } else parent.count = 0;
-                      })
+    //                       if(!this.props.loadingHandlingCommplete && parent.count==1) {
+    //                         //this.props.loadingHandling(1);
+    //                         parent.count++;
+    //                         //parent.isloading = 1;
+    //                       } else parent.count = 0;
+    //                   })
 
-                  }
-                })
-              }
+    //               }
+    //             })
+    //           }
 
-          }
+    //       }
 
-        })
-    }
-  //debugger;
-  //parent.loadedPaymReg = 1;
-  //this.props.loadingHandling(1);
+    //     })
+    // }
 
 }
 
@@ -370,6 +328,7 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
   this.props.updatePaymentRegisters(row,updateMode);
 
 }
+
 afterTabChanged() {
 /*    this.refs.table1.forceUpdate();
     this.refs.table2.forceUpdate();*/
@@ -406,14 +365,17 @@ render () {
     //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
     //debugger;
+    console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
     //if(dataPaymentRegisters.length>0){
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3")){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") 
+        && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
+        && this.props.dataPaymentsRegistersLoaded.length > 0){
     //debugger;
     return (
       <div id="PaymentRegisters">
         <BootstrapTable
           cellEdit={cellEditProp} 
-          data={dataPaymentRegisters} 
+          data={this.props.dataPaymentsRegistersLoaded} 
           hover={true} 
           insertRow={ true }
           deleteRow={ true } 
