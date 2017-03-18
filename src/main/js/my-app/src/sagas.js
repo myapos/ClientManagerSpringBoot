@@ -209,6 +209,34 @@ function* getSubClass () {
 	})
 }
 
+function* getDataRegisters () {
+	
+	//console.log('msgSubmitted');
+	const state = yield select();
+	//debugger;
+	const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
+	//debugger;
+	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
+	yield put({
+		type: actions.SAGAS_DATA_REGISTERS,
+		dataRegistersLoaded
+	})
+}
+
+function* getDataPaymentsRegisters () {
+	
+	//console.log('msgSubmitted');
+	const state = yield select();
+	//debugger;
+	const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
+	debugger;
+	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
+	yield put({
+		type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
+		dataPaymentsRegistersLoaded
+	})
+}
+
 function* rootSaga () {
 
 	yield getDataFromServer();
@@ -227,6 +255,8 @@ function* rootSaga () {
 	yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
 	yield takeEvery(actions.MSG_SUBMITTED, msgSubmitted);
 	yield takeEvery(actions.GET_SUBCLASS, getSubClass);
+	yield takeEvery(actions.DATA_REGISTERS, getDataRegisters);
+	yield takeEvery(actions.DATA_PAYMENTS_REGISTERS, getDataPaymentsRegisters);
 }
 
 export default rootSaga;

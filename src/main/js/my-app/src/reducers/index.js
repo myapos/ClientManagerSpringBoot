@@ -4,7 +4,7 @@ const reducer = (state = {}, action) => {
 	const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
 		dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
 		studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete, 
-		url, parentDesc, obj, classesPair} = action;
+		url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded} = action;
 
 	switch (type) {
 		case actions.GET_ALL_STUDENTS:
@@ -154,7 +154,33 @@ const reducer = (state = {}, action) => {
 	   			return {
 	   			...state,
 	   	        classesPair
-	   		};
+	   	};
+	   	case actions.DATA_REGISTERS:
+	   	 //debugger;
+	   			return {
+	   			...state,
+	   			saved_student
+	   	       
+	   	};
+	   	case actions.SAGAS_DATA_REGISTERS:
+	   	 //debugger;
+	   			return {
+	   			...state,
+	   	        dataRegistersLoaded
+	   	};
+	   	case actions.DATA_PAYMENTS_REGISTERS:
+	   	 //debugger;
+	   			return {
+	   			...state,
+	   			saved_student
+	   	       
+	   	};
+	   	case actions.SAGAS_DATA_PAYMENTS_REGISTERS:
+	   	//debugger;
+	   			return {
+	   			...state,
+	   	        dataPaymentsRegistersLoaded
+	   	};
 		default:
 		     return state;
 	 }

@@ -1318,3 +1318,318 @@ export const getSubClass = (url, parentDesc, obj) => {
     });
     return fetch1;
 }
+
+export const getDataRegisters = (saved_student) => {
+    //debugger;
+    
+    let students = saved_student;
+    let dataRegisters = [];
+    let fetch1;
+
+    for(let jj=0; jj<students.length;jj++){
+    //synchronous calls.......... 
+    //get data of registered students
+
+      let url = students[jj]._links.student.href;
+
+      //Get id for register
+      let ar = url.split("/");
+      let s = ar.length;
+      let id = ar[s - 1];
+      // let request1 = new XMLHttpRequest();
+      // request1.open('GET', url, false);  // `false` makes the request synchronous
+      // request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+      // request1.setRequestHeader("Content-type", "application/json");
+      // request1.contentType = "application/json"
+      // request1.send(null);
+      fetch1 = fetch(url, {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+            })
+      .then(res1 => res1.json())
+      .then(res1 => {
+      //if (request1.status === 200) {
+
+        //console.log(JSON.parse(request1.responseText));
+
+        //2nd sync call
+        //get registrations of all students
+
+        let url2 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
+
+        const fetch2 = fetch(url2, {
+                        method: 'get',
+                        mode: 'cors',
+                        cache: 'default',
+                        headers: {
+                            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                            'Content-Type': 'application/json'
+                        }
+                })
+          .then(res2 => res2.json())
+          .then(res2 => {
+            //console.log("sync call 2:",JSON.parse(request2.responseText));
+            let registrations = res2;//JSON.parse(request2.responseText);
+
+            //if student has registers get the classes of registers
+            if (registrations._embedded.registers.length > 0) {
+
+                //console.log("student has registrations");
+                //for every registration get registered classes
+                for (let ww=0; ww<registrations._embedded.registers.length; ww++){
+                
+                let url3 = registrations._embedded.registers[ww]._links.studentClass.href;
+
+                //let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
+
+                // let request3 = new XMLHttpRequest();
+                // request3.open('GET', url3, false);  // 'false' makes the request synchronous
+                // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                // request3.setRequestHeader("Content-type", "application/json");
+                // request3.contentType = "application/json"
+                // request3.send(null);
+
+                // if (request3.status === 200) {
+                const fetch23= fetch(url3, {
+                              method: 'get',
+                              mode: 'cors',
+                              cache: 'default',
+                              headers: {
+                                  'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                  'Content-Type': 'application/json'
+                              }
+                      })
+                .then(res3 => res3.json())
+                .then(res3 => {
+                 //console.log("sync call 3:",JSON.parse(request3.responseText));
+                
+                 //save tempData
+
+                 let tempData ={};
+                 // tempData.fname = JSON.parse(request1.responseText).fname;
+                 // tempData.lname = JSON.parse(request1.responseText).lname;
+                 // tempData.email = JSON.parse(request1.responseText).email;
+                 tempData.fname = res1.fname;
+                 tempData.lname = res1.lname;
+                 tempData.email = res1.email;
+
+                 tempData.class = res3.description;//JSON.parse(request3.responseText).description;
+
+                 let dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
+
+                 let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                 tempData.dateOfRegistration = formatedDate;
+                 tempData.index = dataRegisters.length+1;
+                 dataRegisters.push(tempData);
+                 parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
+                 //debugger;
+                 parent.loadedReg = true;
+                 return dataRegisters;
+                })
+                //debugger;
+                //console.log("log:",fetch23);
+                return fetch23;
+                }
+
+            }
+            else {
+
+                //console.log("no registrations");
+
+                //save tempData
+
+                let tempData ={};
+                // tempData.fname = JSON.parse(request1.responseText).fname;
+                // tempData.lname = JSON.parse(request1.responseText).lname;
+                // tempData.email = JSON.parse(request1.responseText).email;
+                tempData.fname = res1.fname;
+                tempData.lname = res1.lname;
+                tempData.email = res1.email;
+                tempData.class = "No registered classes";
+
+                //let formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                tempData.dateOfRegistration = "No date of registration";
+                tempData.index = dataRegisters.length+1;
+                dataRegisters.push(tempData);
+                return dataRegisters;
+
+            }
+
+        })
+        return fetch2;
+    })
+    //debugger;
+    
+  }
+    console.log("log dataregisters:",fetch1);
+    return dataRegisters;
+}
+
+export const getDataPaymentsRegisters = (saved_student) => {
+    
+    //debugger;
+
+    let fetch1;
+    let dataPaymentRegisters = [];
+
+    let request1 = {};
+    let url1 = "";
+
+    let students = saved_student;
+
+    for(let jj=0; jj<students.length;jj++){
+
+      //debugger;
+       
+      //get students who has registered already
+      url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
+
+      fetch1 = fetch(url1, {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+       })
+      .then(res1 => res1.json())
+      .then(res1 => {
+
+          parent.isloading = 0;
+          //console.log(JSON.parse(request1.responseText));
+          //debugger;
+          let registrations = res1;//JSON.parse(request1.responseText);
+         
+
+          if(registrations._embedded.registers.length>0) {
+          //get payments of those students . if there aren't any then you can set them
+
+
+              for(let jw=0; jw<registrations._embedded.registers.length;jw++){
+                
+                let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
+                
+                const fetch2 = fetch(url2, {
+                              method: 'get',
+                              mode: 'cors',
+                              cache: 'default',
+                              headers: {
+                                  'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                  'Content-Type': 'application/json'
+                              }
+                })
+                .then(res2 => res2.json())
+                .then(res2 => {
+
+                  let payments = res2;//JSON.parse(request2.responseText);
+
+
+                  let tempData ={};
+                  tempData.fname = students[jj].fname;
+                  tempData.lname = students[jj].lname;
+                  tempData.email = students[jj].email;
+
+                  if(typeof payments._embedded.payeds !== 'undefined') {
+                      //get classes of registered students
+                      //debugger;
+                      let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
+                      const fetch3 = fetch(url3, {
+                                    method: 'get',
+                                    mode: 'cors',
+                                    cache: 'default',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                        'Content-Type': 'application/json'
+                                    }
+                            })
+                      .then(res3 => res3.json())
+                      .then(res3 => {
+
+                          let studentClasses = res3;//JSON.parse(request3.responseText);
+                          let tempData ={};
+                          tempData.fname = students[jj].fname;
+                          tempData.lname = students[jj].lname;
+                          tempData.email = students[jj].email;
+                          tempData.class = studentClasses.description;
+                          tempData.payment = payments._embedded.payeds[0].payment;
+                          tempData.notes = payments._embedded.payeds[0].notes;
+                          let date = new Date(payments._embedded.payeds[0].dateOfPayment);
+                          let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                          tempData.dateOfPayment = formatedDate;
+                          tempData.index = dataPaymentRegisters.length+1;
+                          dataPaymentRegisters.push(tempData);
+                          //debugger;
+                          //return dataPaymentRegisters;
+                          //debugger;
+                      })
+                    //return dataPaymentRegisters;
+                  }
+                  else {
+                      //debugger;
+                      let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
+
+                      const fetch4 = fetch(url4, {
+                                    method: 'get',
+                                    mode: 'cors',
+                                    cache: 'default',
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                        'Content-Type': 'application/json'
+                                    }
+                            })
+                      .then(res4 => res4.json())
+                      .then(res4 => {
+
+                          let studentClasses = res4;//JSON.parse(request3.responseText);
+                          let tempData ={};
+                          tempData.fname = students[jj].fname;
+                          tempData.lname = students[jj].lname;
+                          tempData.email = students[jj].email;
+                          tempData.class = studentClasses.description;
+                          tempData.payment = false;
+                          tempData.notes = "No payment yet";
+                          let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
+                          let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                          tempData.dateOfPayment = formatedDate;
+                          tempData.index = dataPaymentRegisters.length+1;
+                          dataPaymentRegisters.push(tempData);
+ 
+                          //return dataPaymentRegisters;
+                          //debugger;
+                          
+                      })
+                    
+                  }
+                })
+                
+                //return dataPaymentRegisters;
+                if(jw == registrations._embedded.registers.length -1){
+                    //debugger;
+                    //return fetch2;
+                    console.log("log datapaymentsregisters2:",fetch2);
+                }
+              }
+              //debugger;
+              //return dataPaymentRegisters;
+
+          }
+
+        })
+        .then(res5 => {
+            //debugger;
+            //return res5;
+        })
+
+       //console.log("log datapaymentsregisters1:",fetch1);
+
+    }
+    
+    //debugger;
+    return dataPaymentRegisters;   
+}
