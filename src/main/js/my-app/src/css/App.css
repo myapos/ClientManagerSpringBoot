@@ -143,12 +143,6 @@ legend a:hover{
     box-shadow: none;
 }
 
-/*button.btn.btn-info:active {
-    border-color: red;
-    border: 1px solid #353030; 
-    background-color: #6d6565;
-}*/
-
 button.btn.btn-info:active, button.btn.btn-info:focus {
     border-color: red;
     border: 1px solid #353030; 
@@ -214,6 +208,7 @@ button, input, select, textarea {
 
 .btn {
   margin-bottom: 20px;
+  margin-left: 5px;
 }
 
 .defloading {
@@ -258,14 +253,12 @@ select option {
   left: 50%;
   top: 50%;
   z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;;
-  border-radius: 50%;
-  border-top: 16px solid #485b67;
   width: 120px;
   height: 120px;
+  margin: -75px 0 0 -75px;
+  border: 14px solid #f3f3f3;;
+  border-radius: 50%;
+  border-top: 14px solid #485b67;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   opacity: 0.7;
@@ -343,9 +336,9 @@ select option {
       /* width: 47%!important;*/
     }
 
-    /*.tab-link{
-      padding:0px 10px;
-    }*/
+    .signaturePosition h5{
+      font-size: 14px;
+    }
 
 }
 
@@ -357,6 +350,7 @@ select option {
     height: 100%; 
     margin: 0 auto;
     margin-top:5%;
+    min-height: 300px;
     border:1px solid black;
     border-radius: 5px;
     background-color:black;
@@ -399,9 +393,26 @@ select option {
     /*width:17%;*/
   }
 
-  /*  .react-bs-table{
-    overflow-x: auto;
-  }*/
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border: 12px solid #f3f3f3;;
+    border-radius: 50%;
+    border-top: 12px solid #485b67;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    opacity: 0.7;
+  }
+
+  .signaturePosition h5{
+    font-size: 13px;
+  }
+
 }
 
 /*between 770px and 600px*/
@@ -410,10 +421,8 @@ select option {
 
   #react{
     font-size: 14px;
-    /*width: 90%; *//*from here you specify responsive width of the app*/
     height: 100%; 
-/*    margin: 0 auto;
-    margin-top:5%;*/
+    min-height: 350px;
     border:1px solid black;
     border-radius: 5px;
     /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
@@ -449,15 +458,25 @@ select option {
   legend span{
     font-size:14px;
   }
-
-  /*  #tabs, .tab-link{
-    display: block;
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 75px;
+    height: 75px;
+    margin: -50px 0 0 -50px;
+    border: 10px solid #f3f3f3;;
+    border-radius: 50%;
+    border-top: 10px solid #485b67;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    opacity: 0.7;
   }
 
-  .tab-link{
-    padding:0px 4px;
-  }*/
-
+  .signaturePosition h5{
+    font-size: 12px;
+  }
 }
 
 /*between 600px and 494px*/
@@ -466,10 +485,7 @@ select option {
 @media screen and (max-width: 600px) and (min-width: 494px) {
   #react{
       font-size: 12px;
-      /*width: auto%;*/ /*from here you specify responsive width of the app*/
-     /* height: 100%; 
-      margin: 0 auto;
-      margin-top:5%;*/
+      min-height: 350px;
       border:1px solid black;
       border-radius: 5px;
       /*background: #D6D3D2;*/ /*css3 patterns http://lea.verou.me/css3patterns/#*/
@@ -526,6 +542,26 @@ select option {
     #notes{
       display:none;
     }
+
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 75px;
+      height: 75px;
+      margin: -25px 0 0 -25px;
+      border: 8px solid #f3f3f3;;
+      border-radius: 50%;
+      border-top: 8px solid #485b67;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+      opacity: 0.7;
+    }
+
+    .signaturePosition h5{
+      font-size: 12px;
+    }
 }
 
 
@@ -535,6 +571,7 @@ select option {
   #react{
       font-size: 12px;
       padding-bottom: 5px;
+      min-height: 300px;
       background-color:black;
       background-image:
       radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
@@ -575,7 +612,25 @@ select option {
       font-size:10px;
     }
 
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 75px;
+      height: 75px;
+      margin: -50px 0 0 -50px;
+      border: 8px solid #f3f3f3;;
+      border-radius: 50%;
+      border-top: 8px solid #485b67;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+      opacity: 0.7;
+    }
 
+    .signaturePosition h5{
+      font-size: 10px;
+    }
 }
 
 
@@ -587,6 +642,7 @@ select option {
 
   #react{
       font-size: 12px;
+      min-height: 300px;
       background-color:black;
       background-image:
       radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
@@ -636,6 +692,26 @@ select option {
 
     .notes{
       display:none;
+    }
+
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 50px;
+      height: 50px;
+      margin: -25px 0 0 -25px;
+      border: 8px solid #f3f3f3;;
+      border-radius: 50%;
+      border-top: 8px solid #485b67;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+      opacity: 0.7;
+    }
+
+    .signaturePosition h5{
+      font-size: 10px;
     }
 }
 
