@@ -11,15 +11,9 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 //debugger;
 let dataPaymentRegisters = [];
-parent.count = 0;
-function afterSearch (searchText, result){
-  //console.log('Your search text is ' + searchText);
-  //console.log('Result is:');
-  for (let i = 0; i < result.length; i++) {
-    //console.log('PaymentRegisters: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-     // +', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
-  }
-}
+const waitForData = 7000; //msecs
+parent.gotData = 0;
+
 
 function onAfterInsertRow (row) {
   //console.log("insert data to database");
@@ -55,11 +49,6 @@ componentWillMount(){
   this.props.dataPaymentsRegisters(students);  
 
 }
-componentWillUpdate(){
-
-  //parent.loadedPaymReg = false;
-  //this.props.loadingHandling(0);
-}
 
 componentDidMount(){
   //debugger;
@@ -80,198 +69,8 @@ componentDidMount(){
 
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
-  //running dots functionality
-  // let el = document.getElementById("dotsPaymentRegisters");
-  // let d = new Date();
-  // let startTime = d.getTime();
-  // let endTime = d.getTime();
-  // let diffTime = endTime - startTime;
-  // let refreshIntervalId = "";
-  // let timeThreshold = 15000 ; //ms
-  // if (el !== null) {
-  // do stuff
-  
-  // //anonymoys function to use in setInterval
-  // let anon = function(data) {
-  //     //debugger;
-  //     el.innerHTML = el.innerHTML + ".";  
-      
-  //     if (el.innerHTML == ".................................."){
-
-  //       el.innerHTML = "";
-  //     }
-  //     d = new Date();
-  //     endTime = d.getTime();
-  //     diffTime = endTime - startTime;
-
-  //     if (diffTime > timeThreshold && data.length == 0 ){
-
-  //       clearInterval(refreshIntervalId);
-  //       let msg = document.getElementById("loadingTextPaymentRegisters");
-  //       msg.innerHTML = "No payments are saved in database"; 
-  //       el.innerHTML = ""; 
-
-  //     } else if (diffTime > timeThreshold && data.length > 0 ){
-  //       clearInterval(refreshIntervalId);
-  //     }
-  //   };
-
-
-  // refreshIntervalId = setInterval( function() { anon(data)} , 100);
-
-    
-  // }
-  
  
-    // const registers = this.props.saved_registers;
-    // const students = this.props.saved_student;
-    
-    // //debugger;
-    // let request1 = {};
-    // let url1 = "";
-    // for(let jj=0; jj<students.length;jj++){
-
-    //    //debugger;
-       
-    //     //get students who has registered already
-    //     url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-
-    //   const fetch1 = fetch(url1, {
-    //                 method: 'get',
-    //                 mode: 'cors',
-    //                 cache: 'default',
-    //                 headers: {
-    //                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-    //                     'Content-Type': 'application/json'
-    //                 }
-    //         })
-    //   .then(res1 => res1.json())
-    //   .then(res1 => {
-
-    //       parent.isloading = 0;
-    //       //console.log(JSON.parse(request1.responseText));
-    //       //debugger;
-    //       let registrations = res1;//JSON.parse(request1.responseText);
-         
-
-    //       if(registrations._embedded.registers.length>0) {
-    //       //get payments of those students . if there aren't any then you can set them
-
-
-    //           for(let jw=0; jw<registrations._embedded.registers.length;jw++){
-                
-    //             let url2 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registrations._embedded.registers[jw]._links.self.href;
-                
-    //             const fetch2 = fetch(url2, {
-    //                           method: 'get',
-    //                           mode: 'cors',
-    //                           cache: 'default',
-    //                           headers: {
-    //                               'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-    //                               'Content-Type': 'application/json'
-    //                           }
-    //                   })
-    //             .then(res2 => {
-    //               //debugger;
-    //               return res2.json();
-    //             })
-    //             .then(res2 => {
-
-    //               let payments = res2;//JSON.parse(request2.responseText);
-
-
-    //               let tempData ={};
-    //               tempData.fname = students[jj].fname;
-    //               tempData.lname = students[jj].lname;
-    //               tempData.email = students[jj].email;
-
-    //               if(typeof payments._embedded.payeds !== 'undefined') {
-    //                   //get classes of registered students
-    //                   //debugger;
-    //                   let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
-    //                   const fetch3 = fetch(url3, {
-    //                                 method: 'get',
-    //                                 mode: 'cors',
-    //                                 cache: 'default',
-    //                                 headers: {
-    //                                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-    //                                     'Content-Type': 'application/json'
-    //                                 }
-    //                         })
-    //                   .then(res3 => {
-    //                     //debugger;
-    //                     return res3.json();
-    //                   })
-    //                   .then(res3 => {
-
-    //                       let studentClasses = res3;//JSON.parse(request3.responseText);
-    //                       let tempData ={};
-    //                       tempData.fname = students[jj].fname;
-    //                       tempData.lname = students[jj].lname;
-    //                       tempData.email = students[jj].email;
-    //                       tempData.class = studentClasses.description;
-    //                       tempData.payment = payments._embedded.payeds[0].payment;
-    //                       tempData.notes = payments._embedded.payeds[0].notes;
-    //                       let date = new Date(payments._embedded.payeds[0].dateOfPayment);
-    //                       let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-    //                       tempData.dateOfPayment = formatedDate;
-    //                       tempData.index = dataPaymentRegisters.length+1;
-    //                       dataPaymentRegisters.push(tempData);
-    //                       parent.loadedPaymReg = true;
-
-    //                   })
-
-    //               }
-    //               else {
-    //                   //debugger;
-    //                   let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
-
-    //                   const fetch4 = fetch(url4, {
-    //                                 method: 'get',
-    //                                 mode: 'cors',
-    //                                 cache: 'default',
-    //                                 headers: {
-    //                                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-    //                                     'Content-Type': 'application/json'
-    //                                 }
-    //                         })
-    //                   .then(res4 => {
-    //                     //debugger;
-    //                     return res4.json();
-    //                   })
-    //                   .then(res4 => {
-
-    //                       let studentClasses = res4;//JSON.parse(request3.responseText);
-    //                       let tempData ={};
-    //                       tempData.fname = students[jj].fname;
-    //                       tempData.lname = students[jj].lname;
-    //                       tempData.email = students[jj].email;
-    //                       tempData.class = studentClasses.description;
-    //                       tempData.payment = false;
-    //                       tempData.notes = "No payment yet";
-    //                       let dateOfPayment = new Date("Sun Feb 01 1970 00:00:00 GMT+0200 (EET)"); //for none payments
-    //                       let formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-    //                       tempData.dateOfPayment = formatedDate;
-    //                       tempData.index = dataPaymentRegisters.length+1;
-    //                       dataPaymentRegisters.push(tempData);
-    //                       parent.loadedPaymReg = true;
-                          
-    //                       if(!this.props.loadingHandlingCommplete && parent.count==1) {
-    //                         //this.props.loadingHandling(1);
-    //                         parent.count++;
-    //                         //parent.isloading = 1;
-    //                       } else parent.count = 0;
-    //                   })
-
-    //               }
-    //             })
-    //           }
-
-    //       }
-
-    //     })
-    // }
-
+  
 }
 
 beforeSavePaymentRegistersCell(row, cellName, cellValue) {
@@ -334,6 +133,30 @@ afterTabChanged() {
     this.refs.table2.forceUpdate();*/
 }
 
+//anonymoys function to use in setInterval
+
+anon(data, refreshIntervalId){
+     //debugger;
+    
+     if (typeof data == 'undefined' || data.length == 0 ){
+      
+      //debugger;
+      console.log("waiting for data");
+
+     } else if (data.length > 0 ){
+       clearInterval(refreshIntervalId);
+       // debugger;
+       // parent.gotData = 1;
+       //rerender
+       //debugger;
+       this.props.loadingHandling(1);
+       // if(parent.gotData && !flag){
+       //   flag = 1;
+       //   this.props.loadingHandling(1);
+       // }
+     }
+};
+
 render () {
 
     const cellEditProp = {
@@ -343,7 +166,6 @@ render () {
     };
 
     const options = {
-      afterSearch: afterSearch,           // define a after search hook
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
@@ -367,6 +189,15 @@ render () {
     //debugger;
     console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
     //if(dataPaymentRegisters.length>0){
+    let count = 0;
+
+    let refreshIntervalId = setInterval( ()=> { 
+        //debugger;
+        this.anon(this.props.dataPaymentsRegistersLoaded, refreshIntervalId)
+
+    } , waitForData);
+
+
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") 
         && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
         && this.props.dataPaymentsRegistersLoaded.length > 0){

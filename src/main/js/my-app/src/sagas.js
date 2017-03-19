@@ -229,7 +229,7 @@ function* getDataPaymentsRegisters () {
 	const state = yield select();
 	//debugger;
 	const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
-	debugger;
+	//debugger;
 	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
 	yield put({
 		type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
