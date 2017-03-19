@@ -163,7 +163,7 @@ parent.loadedReg = true;
         this.anon(this.props.dataRegistersLoaded, refreshIntervalId)
 
     } , waitForData);
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
         && this.props.dataRegistersLoaded.length > 0){
 	    return (

@@ -189,7 +189,7 @@ render () {
           }
       }
     }
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
       && typeof data !== 'undefined'
       && data.length > 0){  
       //this.props.loadingHandlingCommplete = 0;

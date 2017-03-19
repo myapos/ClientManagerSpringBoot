@@ -49,7 +49,11 @@ class SendEmailsManually extends Component {
     console.log(tableSelected[0]);
   }
   
+  clearText(event) {
 
+    this.props.changeText("");
+    
+  }
 
   render () {
     
@@ -64,7 +68,8 @@ class SendEmailsManually extends Component {
     }
     //console.log("dataRegisters:",dataRegisters);
 
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab5") &&availableClasses.length>0){
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab5") 
+      &&availableClasses.length>0){
         return (
                 <div id="sendEmailTestsManually" >
                     <div><DisplayClassesForSendingEmailManually/></div>
@@ -75,6 +80,7 @@ class SendEmailsManually extends Component {
                       className="form-control" rows="10" cols="100" id="message" value={this.props.text}/>
                     </div>
                    <button type="button" onClick={this.handleSubmit.bind(this)} className="btn btn-default">Submit</button>
+                   <button type="button" onClick={this.clearText.bind(this)} className="btn btn-default">Clear Text</button>
                 </div>
         );
       }

@@ -169,7 +169,7 @@ render () {
     } , waitForData);
 
 
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") 
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") 
         && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
         && this.props.dataPaymentsRegistersLoaded.length > 0){
     //debugger;
@@ -187,8 +187,10 @@ render () {
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    //console.log("dataPaymentRegisters:",dataPaymentRegisters);
+
     //check if data has loaded
+    // i can set hidden={true} in one cell in order to hide it. it can be useful if i don't
+    //want increasing number to be displayd. For now it is not used
     //debugger;
     return (
       <div id="PaymentRegisters">
@@ -196,19 +198,19 @@ render () {
           cellEdit={cellEditProp} 
           data={this.props.dataPaymentsRegistersLoaded} 
           hover={true} 
-          insertRow={ true }
-          deleteRow={ true } 
-          selectRow={ selectRowProp }
+          insertRow={true}
+          deleteRow={true} 
+          selectRow={selectRowProp}
           exportCSV={true}
-          search={ true }
-          options={ options }
+          search={true}
+          options={options}
           tableHeaderClass='payments-registers-header-class'
           tableBodyClass='payments-registers-body-class'
           condensed
           >
-          <TableHeaderColumn dataField="index" editable={ false } hidden={true} isKey={true} width='5%'>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname" width='20%' dataSort={true}>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="lname" width='20%' dataSort={true}>Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="index" editable={false} isKey={true} width='5%'>id</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname" editable={false}  width='20%' dataSort={true}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" editable={false}  width='20%' dataSort={true}>Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn  dataField="notes" >Notes</TableHeaderColumn>
           <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>

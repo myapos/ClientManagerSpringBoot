@@ -134,16 +134,16 @@ export function changeSelectedTab(selectedTab, tabNamespace) {
   let act = "";
   ////debugger;
   if (selectedTab == 'tab1'){
-    act = "GET_ALL_STUDENTS";
-  }
-  else if (selectedTab == 'tab2'){
-    act = "STUDENT_CLASS_DASHBOARD";
-  }
-  else if (selectedTab == 'tab3'){
     act = "PAYMENTS_REGISTERS";
   }
-  else if (selectedTab == 'tab4'){
+  else if (selectedTab == 'tab2'){
     act = "REGISTERS";
+  }
+  else if (selectedTab == 'tab3'){
+    act = "GET_ALL_STUDENTS";
+  }
+  else if (selectedTab == 'tab4'){
+    act = "STUDENT_CLASS_DASHBOARD";
   }
   else if (selectedTab == 'tab5'){
     act = "SEND_EMAILS_MANUALLY";
