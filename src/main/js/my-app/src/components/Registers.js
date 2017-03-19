@@ -154,11 +154,9 @@ parent.loadedReg = true;
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
         availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-    //console.log("dataRegisters:",dataRegisters);
-    //debugger;
-    console.log("log registers:",this.props.dataRegistersLoaded);
-    // if(dataRegisters.length>0){
-    //debugger;
+
+    //console.log("log registers:",this.props.dataRegistersLoaded);
+
 
     let refreshIntervalId = setInterval( ()=> { 
         //debugger;
@@ -168,8 +166,6 @@ parent.loadedReg = true;
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
         && this.props.dataRegistersLoaded.length > 0){
-      //debugger;
-      //this.props.loadingHandling(1);
 	    return (
 	      <div id="registers">
 		      <BootstrapTable
