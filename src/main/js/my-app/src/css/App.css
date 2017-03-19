@@ -249,6 +249,44 @@ th, td {
   word-wrap: break-word;  
 }
 
+select { 
+  outline:none; 
+}
+
+select option {
+  background-color: #0d0d61;
+}
+
+
+
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;;
+  border-radius: 50%;
+  border-top: 16px solid #485b67;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  opacity: 0.7;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 /*1000px and wider -desktop view*/
 @media screen and (min-width: 1000px) {
@@ -256,6 +294,7 @@ th, td {
   #react{
       width: 95%; /*from here you specify responsive width of the app*/
       height: 100%; 
+      min-height: 350px;
       margin: 0 auto;
       margin-top:5%;
       border:1px solid black;
@@ -579,30 +618,4 @@ th, td {
 }
 
 
-.loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;;
-  border-radius: 50%;
-  border-top: 16px solid #485b67;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  opacity: 0.7;
-}
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}

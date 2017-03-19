@@ -12,7 +12,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 //debugger;
 let dataPaymentRegisters = [];
 const waitForData = 7000; //msecs
-parent.gotData = 0;
 
 
 function onAfterInsertRow (row) {
@@ -40,10 +39,8 @@ class PaymentRegisters extends Component {
 
 componentWillMount(){
   //debugger;
-  //parent.loadedPaymReg = 0;
-  
 
-  const registers = this.props.saved_registers;
+  
   const students = this.props.saved_student;
 
   this.props.dataPaymentsRegisters(students);  
@@ -136,24 +133,15 @@ afterTabChanged() {
 //anonymoys function to use in setInterval
 
 anon(data, refreshIntervalId){
-     //debugger;
-    
+
      if (typeof data == 'undefined' || data.length == 0 ){
-      
-      //debugger;
-      console.log("waiting for data");
+
+      console.log("waiting for payments registers data");
 
      } else if (data.length > 0 ){
        clearInterval(refreshIntervalId);
-       // debugger;
-       // parent.gotData = 1;
        //rerender
-       //debugger;
        this.props.loadingHandling(1);
-       // if(parent.gotData && !flag){
-       //   flag = 1;
-       //   this.props.loadingHandling(1);
-       // }
      }
 };
 
@@ -170,6 +158,22 @@ render () {
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
+    
+    console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
+    //if(dataPaymentRegisters.length>0){
+    let count = 0;
+
+    let refreshIntervalId = setInterval( ()=> { 
+        //debugger;
+        this.anon(this.props.dataPaymentsRegistersLoaded, refreshIntervalId)
+
+    } , waitForData);
+
+
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") 
+        && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
+        && this.props.dataPaymentsRegistersLoaded.length > 0){
+    //debugger;
     const paymentTypes = ["true", "false"];
 
     const fnames = [];
@@ -186,21 +190,6 @@ render () {
     }
     //console.log("dataPaymentRegisters:",dataPaymentRegisters);
     //check if data has loaded
-    //debugger;
-    console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
-    //if(dataPaymentRegisters.length>0){
-    let count = 0;
-
-    let refreshIntervalId = setInterval( ()=> { 
-        //debugger;
-        this.anon(this.props.dataPaymentsRegistersLoaded, refreshIntervalId)
-
-    } , waitForData);
-
-
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3") 
-        && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
-        && this.props.dataPaymentsRegistersLoaded.length > 0){
     //debugger;
     return (
       <div id="PaymentRegisters">

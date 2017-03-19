@@ -89,7 +89,7 @@ const init = () => {
                                 .then(res => {
 
                                     parent.payeds = res._embedded.payeds;
-                                    // parent.loaded = 1;
+                                    
                                     //return classes;
                                     const placeholder = document.getElementById('react');
 
@@ -100,9 +100,10 @@ const init = () => {
                                         saved_payeds: parent.payeds,
                                     };
 
-                                    ReactDOM.render( < Provider store = { configureStore(initialState) } >
-                                        < App / >
-                                        < /Provider>,
+                                    ReactDOM.render(<Provider 
+                                        store = {configureStore(initialState)}>
+                                        <App/>
+                                        </Provider>,
                                         placeholder)
 
                                 });
@@ -111,11 +112,21 @@ const init = () => {
                 });
 
         });
-
-
-
-
 };
 
+const init2 = () => {
 
+    const placeholder = document.getElementById('react');
+
+    const initialState = {};
+
+    ReactDOM.render(<Provider 
+        store = {configureStore(initialState)}>
+        <App/>
+        </Provider>,
+        placeholder)
+
+}
+
+//init2();
 init();

@@ -9,6 +9,8 @@ import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Spinner from 'react-spinner-children';
+
+const waitForData = 7000; //msecs
 var flagRMount = false;
 
 const dataRegisters = [];
@@ -48,35 +50,16 @@ constructor(props) {
 
 
 componentWillMount(){
-  //debugger;
-  //parent.loadedReg = 0;
-  //const data = this.props.saved_registers;
   const students = this.props.saved_student;
+  //debugger;
   this.props.dataRegisters(students);
 }
 
 
 componentDidMount(){
-// debugger;
-// console.log("log:", this.props.dataRegistersLoaded);
-
-// if(typeof this.props.dataRegistersLoaded === 'undefined' || this.props.dataRegistersLoaded.length == 0){
-//     const students = this.props.saved_student;
-//     this.props.dataRegisters(students);
-// }
-
 }
 
 componentDidUpdate(){
-
-//debugger;
-// console.log("log:", this.props.dataRegistersLoaded);
-
-// if(typeof this.props.dataRegistersLoaded === 'undefined' || this.props.dataRegistersLoaded.length == 0){
-//     const students = this.props.saved_student;
-//     this.props.dataRegisters(students);
-// }
-
 
 }
 
@@ -132,6 +115,18 @@ beforeSaveRegistersCell(row, cellName, cellValue) {
 
 }
 
+anon(data, refreshIntervalId){
+
+     if (typeof data == 'undefined' || data.length == 0 ){
+
+      console.log("waiting for registers data");
+
+     } else if (data.length > 0 ){
+       clearInterval(refreshIntervalId);
+       //rerender
+       this.props.loadingHandling(1);
+     }
+};
 
 render () {
 parent.loadedReg = true;
@@ -164,6 +159,12 @@ parent.loadedReg = true;
     console.log("log registers:",this.props.dataRegistersLoaded);
     // if(dataRegisters.length>0){
     //debugger;
+
+    let refreshIntervalId = setInterval( ()=> { 
+        //debugger;
+        this.anon(this.props.dataRegistersLoaded, refreshIntervalId)
+
+    } , waitForData);
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
         && this.props.dataRegistersLoaded.length > 0){

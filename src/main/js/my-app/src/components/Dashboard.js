@@ -72,49 +72,19 @@ class Dashboard extends Component {
             </div>
             <div style={styles.content}>
                 <TabContent for="tab1">
-                    <div><GetAllStudents 
-                    activeGetAllStudents = {true}
-                    activeStudentClassDashboard = {false}
-                    activePaymentRegisters = {false}
-                    activeRegisters = {false}
-                    activeSendEmailsManually = {false}
-                    /></div>
+                    <div><GetAllStudents/></div>
                 </TabContent>
                 <TabContent for="tab2">
-                    <div><StudentClassDashboard 
-                    activeGetAllStudents = {false} 
-                    activeStudentClassDashboard = {true}
-                    activePaymentRegisters = {false}
-                    activeRegisters = {false}
-                    activeSendEmailsManually = {false}
-                    /></div>
+                    <div><StudentClassDashboard/></div>
                 </TabContent>
                 <TabContent for="tab3">
-                    <div><PaymentRegisters
-                    activeGetAllStudents = {false} 
-                    activeStudentClassDashboard = {false}
-                    activePaymentRegisters = {true}
-                    activeRegisters = {false}
-                    activeSendEmailsManually = {false}
-                    /></div>
+                    <div><PaymentRegisters/></div>
                 </TabContent>
                 <TabContent for="tab4">
-                    <div><Registers 
-                    activeGetAllStudents = {false} 
-                    activeStudentClassDashboard = {false}
-                    activePaymentRegisters = {false}
-                    activeRegisters = {true}
-                    activeSendEmailsManually = {false}
-                    /></div>
+                    <div><Registers/></div>
                 </TabContent>
                 <TabContent  for="tab5">
-                    <div><SendEmailsManually 
-                    activeGetAllStudents = {false} 
-                    activeStudentClassDashboard = {false}
-                    activePaymentRegisters = {false}
-                    activeRegisters = {false}
-                    activeSendEmailsManually = {true}
-                    /></div>
+                    <div><SendEmailsManually/></div>
                 </TabContent>
             </div>
         </Tabs>

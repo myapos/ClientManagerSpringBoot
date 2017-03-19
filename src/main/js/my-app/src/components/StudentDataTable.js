@@ -10,15 +10,8 @@ import '../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 import Spinner from 'react-spinner-children';
-parent.isloading = 0;
-function afterSearch (searchText, result){
-  //console.log('Your search text is ' + searchText);
-  //console.log('Result is:');
-  for (let i = 0; i < result.length; i++) {
-    //console.log('Student: ' + result[i].index + ', ' + result[i].fname + ', ' + result[i].lname
-      //+', '+result[i].phone +', ',result[i].dateOfBirth+ ', ' + result[i].email + ', ' + result[i].facebook);
-  }
-}
+
+const waitForData = 7000; //msecs
 
 function onAfterInsertRow (row) {
   let newRowStr = '';
@@ -42,7 +35,6 @@ function onAfterDeleteRow (rowKeys) {
 
 }
 
-
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
@@ -52,53 +44,9 @@ class StudentDataTable extends Component {
 
 componentDidMount() {
   const data = this.props.saved_students;
-  ////debugger;
-  let elSt = document.getElementById("dotsStudents");
-  let d = new Date();
-  let startTime = d.getTime();
-  let endTime = d.getTime();
-  let diffTime = endTime - startTime;
-  let refreshIntervalId = "";
-  let timeThreshold = 15000 ; //ms
-  if (elSt !== null) {
-  // do stuff
-  
-  //anonymoys function to use in setInterval
-  let anon = function(data) {
-
-      elSt.innerHTML = elSt.innerHTML + ".";  
-      
-      if (elSt.innerHTML == ".................................."){
-        //reset dots
-
-        elSt.innerHTML = "";
-      }
-      d = new Date();
-      endTime = d.getTime();
-      diffTime = endTime - startTime;
-      //console.log("diffTime:",diffTime," startTime:",startTime," endTime:",endTime);
-      //if waiting time is more than 30sec then display message
-
-      if (diffTime > timeThreshold && data.length == 0 ){
-        clearInterval(refreshIntervalId);
-        let msg = document.getElementById("loadingTextStudents");
-        msg.innerHTML = "No payments are saved in database"; 
-        elSt.innerHTML = ""; 
-      } else if (diffTime > timeThreshold && data.length > 0 ){
-        clearInterval(refreshIntervalId);
-      }
-    };
-
-
-  refreshIntervalId = setInterval( function() { anon(data)} , 100);
-
-    
-  }
-
 }
 
 componentDidUpdate(){
-
 
   let x = document.getElementById("students");
   
@@ -110,7 +58,6 @@ componentDidUpdate(){
 
       el.setAttribute('placeholder', id);
       //set id for classes in modal window
-      //console.log("modal editing:",el);
       x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
       //add date element in modal window
       x.getElementsByClassName('form-control editor edit-text')[3].type="number";
@@ -118,8 +65,6 @@ componentDidUpdate(){
       x.getElementsByClassName('form-control editor edit-text')[4].type="date";
       x.getElementsByClassName('form-control editor edit-text')[5].type="email";
   }
-
-  ////debugger;
 
 
 }
@@ -130,32 +75,32 @@ beforeSaveStudentCell(row, cellName, cellValue) {
 afterSaveStudentCell(row, cellName, cellValue) {
   // do your stuff...
   //call action for update
-  //get description before
   this.props.updateStudent(row);
-  ////debugger;
 
 }
 
+//anonymoys function to use in setInterval
+
+anon(data, refreshIntervalId){
+
+     if (typeof data == 'undefined' || data.length == 0 ){
+
+      console.log("waiting for student data");
+
+     } else if (data.length > 0 ){
+       clearInterval(refreshIntervalId);
+
+       //rerender
+       this.props.loadingHandling(1);
+     }
+};
 
 render () {
-    parent.loadedPaymReg = true;
-    const isLoaded = false;
-    const customSpinConfig = {
-      lines: 10,
-    };  // all configs http://fgnass.github.io/spin.js/ 
 
     const data = this.props.saved_student;
+    //const data = this.props.initDataStudents;
     //preprocess data
-    data.map((obj, index)=>{
-
-      let date=new Date(obj.dateOfBirth);
-      let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g);
-      obj.dateOfBirth = formatedDate;
-      //console.log("cur index:"+index);
-      obj.index = (index+1);
-    });
-
-    //console.log(data);
+    
 
     const cellEditProp = {
       mode: 'click',
@@ -164,17 +109,29 @@ render () {
     };
 
     const options = {
-      afterSearch: afterSearch,           // define a after search hook
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-      //if(data.length>0){
+
+      let refreshIntervalId = setInterval( ()=> { 
+          this.anon(data, refreshIntervalId)
+
+      } , waitForData);
       //debugger;
-      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1")){  
-        //debugger;
-        parent.isloading = 0;
-        //this.props.loadingHandlingCommplete = 0;
+      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1")
+        && typeof data !== 'undefined'
+        && data.length > 0){  
+
+        data.map((obj, index)=>{
+
+          let date=new Date(obj.dateOfBirth);
+          let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g);
+          obj.dateOfBirth = formatedDate;
+
+          obj.index = (index+1);
+        });
+
         return (
             <div id="students">
               <BootstrapTable 
@@ -207,7 +164,6 @@ render () {
         );
     }
   else{
-    parent.isloading = 1;
       return (
         <div>
             {<p id="loadingTextStudents" className="loadingText"> Please wait while getting data from database <span id="dotsStudents"></span> </p>}
