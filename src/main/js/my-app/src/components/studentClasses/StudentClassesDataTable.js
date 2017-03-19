@@ -9,17 +9,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as api from '../../api';
 import MDSpinner from "react-md-spinner";
 
-
+const waitForData = 7000; //msecs
 parent.classesPair = {};
-// loadedPaymReg = 0;
-//parent.loaded=0;
-function afterSearch (searchText, result){
-  //console.log('Your search text is ' + searchText);
-  //console.log('Result is:');
-  for (let i = 0; i < result.length; i++) {
-    //console.log('StudentClass: ' + result[i].index + ', ' + result[i].description);
-  }
-}
 
 function onAfterInsertRow(row) {
 
@@ -59,6 +50,7 @@ const selectRowProp = {
 
 
 class StudentClassesDataTable extends Component {
+
 componentWillMount(){
   const data = this.props.saved_studentClasses;
   data.map((obj, index)=>{
@@ -68,71 +60,17 @@ componentWillMount(){
     //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
 
     obj.ManyToOne=obj._links.studentClass[1].href;
-    //this.getSubClass(obj.ManyToOne, obj.description, obj);
     this.props.getSubClass(obj.ManyToOne, obj.description, obj);
-    //debugger;
-    
-    //debugger;
-    //get description of subclass-- this description lives in obj.ManyToOne
-
   });
+
 
 
 }
 componentDidMount() {
 
-  const data = this.props.saved_studentClasses;
-
-  let elStCl = document.getElementById("dots");
-  let d = new Date();
-  let startTime = d.getTime();
-  let endTime = d.getTime();
-  let diffTime = endTime - startTime;
-  let refreshIntervalId = "";
-  let timeThreshold = 15000 ; //ms
-  if (elStCl !== null) {
-  // do stuff
-  
-  //anonymoys function to use in setInterval
-  let anon = function(data) {
-
-      elStCl.innerHTML = elStCl.innerHTML + ".";  
-      
-      if (elStCl.innerHTML == ".................................."){
-
-        //clearInterval();
-        elStCl.innerHTML = "";
-      }
-      d = new Date();
-      endTime = d.getTime();
-      diffTime = endTime - startTime;
-
-      //if waiting time is more than 30sec then display message
-
-      if (diffTime > timeThreshold && data.length == 0 ){
-
-        clearInterval(refreshIntervalId);
-        let msg = document.getElementById("loadingTextRegisters");
-        msg.innerHTML = "No payments are saved in database"; 
-        elStCl.innerHTML = ""; 
-      } else if (diffTime > timeThreshold && data.length > 0 ){
-        clearInterval(refreshIntervalId);
-      }
-    };
-
-
-  refreshIntervalId = setInterval( function() { anon(data)} , 100);
-    
-  }
-  
 }
 
 componentWillUpdate(){
-  //debugger;
-  //loadedPaymReg = 0; //reset
-  //this.interval = setInterval(() => this.props.loadingHandling(0), 1000);
-  //this.props.loadingHandling(0);
-
 
 }
 
@@ -177,46 +115,11 @@ componentDidUpdate(){
         option.text = this.props.saved_studentClasses[i].description;
         selectList.appendChild(option);
     }
-    // loadedPaymReg = 1;
-    //this.setState({loadedStudentClasses:1 });
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
-      //this.props.loadingHandling(1);
-      // loadedPaymReg =1;
-    }
-    //clearInterval(this.interval);
-  } else if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
 
-    //this.props.loadingHandling(0); //this.setState({loadedStudentClasses:0 }); //loadedPaymReg = 0;
-    // loadedPaymReg = 0;
-  }
-    //loadedPaymReg = 1;
-    //debugger;
+} //end if
 
 };
 
-// getSubClass(url, parentDesc, obj) {
-  
-
-//   const fetch1 = 
-//   fetch(url, { 
-//      method: 'get', 
-//      mode: 'cors',
-//      cache: 'default',
-//      headers: {
-//        'Authorization': 'Basic '+btoa('myapos:Apostolakis1981'), 
-//        'Content-Type': 'application/json'
-//      }
-//    })
-//   .then (res => res.json())
-//   .then(res => { 
-    
-//     //console.log("data from server: ",res);
-//     parent.classesPair[parentDesc] = res;
-//     //loadedPaymReg =1;
-
-//   });
- 
-// }
 
 beforeSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
@@ -227,19 +130,27 @@ beforeSaveStudentClassCell(row, cellName, cellValue) {
   let descBefore = el.getAttribute("value");
   this.props.updateClass(row, cellValue,descBefore);
 
-
-
 }
 
 afterSaveSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...
 }
 
-makeTimeout(){
-  // parent.loadedPaymReg  = 1;
-  // parent.loadedReg = 1;
+//anonymoys function to use in setInterval
 
-}
+anon(data, refreshIntervalId){
+
+     if (typeof data == 'undefined' || data.length == 0 ){
+
+      console.log("waiting for classes data");
+
+     } else if (data.length > 0 ){
+       clearInterval(refreshIntervalId);
+       //debugger;
+       //rerender
+       this.props.loadingHandling(1);
+     }
+};
 
 render () {
     
@@ -258,42 +169,33 @@ render () {
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-    //preprocess data
-    // data.map((obj, index)=>{
-
-    //   //console.log("cur index:"+index);
-    //   obj.index = (index+1);
-    //   //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
-
-    //   obj.ManyToOne=obj._links.studentClass[1].href;
-    //   //this.getSubClass(obj.ManyToOne, obj.description, obj);
-    //   //debugger;
-      
-    //   //debugger;
-    //   //get description of subclass-- this description lives in obj.ManyToOne
-
-    // });
-    //check if async calls ended
     //wait for data to be retrieved from fdatabase
 
-    //setTimeout(this.makeTimeout.bind(this), 3000);
-    
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){  
+    let refreshIntervalId = setInterval( ()=> { 
+        this.anon(this.props.saved_studentClasses, refreshIntervalId)
+
+    } , waitForData);
+    //debugger;
+
+    for (let j=0; j<data.length; j++){ 
+       for (var key in this.props.classesPair) {
+          if (this.props.classesPair.hasOwnProperty(key)) {
+
+            if(data[j].description == key) {
+              
+              data[j].subClassDescription = this.props.classesPair[key].description;
+              //console.log(key + " -> " + parent.classesPair[key]);
+            }
+          }
+      }
+    }
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
+      && typeof data !== 'undefined'
+      && data.length > 0){  
       //this.props.loadingHandlingCommplete = 0;
       //console.log("End of async calls");
       //debugger;
-      for (let j=0; j<data.length; j++){ 
-         for (var key in this.props.classesPair) {
-            if (this.props.classesPair.hasOwnProperty(key)) {
 
-              if(data[j].description == key) {
-                
-                data[j].subClassDescription = this.props.classesPair[key].description;
-                //console.log(key + " -> " + parent.classesPair[key]);
-              }
-            }
-        }
-      }
      return (
       <div id="studentClasses" >
           <BootstrapTable  data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>

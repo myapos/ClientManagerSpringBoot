@@ -6,7 +6,7 @@ import * as actions from './actions';
 
 
 function* getDataFromServer () {
-
+	//debugger;
 	//console.log('getDataFromServer');
 	let state = yield select();
 	const initDataStudentClasses = yield call(api.getStudentClasses, state);

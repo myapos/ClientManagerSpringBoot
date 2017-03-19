@@ -41,7 +41,7 @@ export const getStudents = () => {
     .then(res => {
         //console.log("students from server: ", res);
         const students = res._embedded.students;
-        parent.loadedStudents = 1;
+        //parent.loadedStudents = 1;
         return students;
     });
 }
