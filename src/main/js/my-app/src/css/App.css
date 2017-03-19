@@ -249,16 +249,9 @@ th, td {
   word-wrap: break-word;  
 }
 
-select { 
-  outline:none; 
-}
-
 select option {
   background-color: #0d0d61;
 }
-
-
-
 
 .loader {
   position: absolute;
@@ -287,6 +280,35 @@ select option {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.signaturePosition{
+  text-align: right;
+}
+
+.signaturePosition a{
+  text-decoration: none;
+}
+/* unvisited link */
+.signaturePosition a:link {
+    color: #B53A4E!important ;
+}
+
+/* visited link */
+.signaturePosition a:visited {
+    color: #6b5959;
+}
+
+/* mouse over link */
+.signaturePosition a:hover {
+    color: lightgrey;
+    text-decoration: none;
+}
+/* selected link */
+.signaturePosition a:active {
+    color: orange;
+}
+
 
 /*1000px and wider -desktop view*/
 @media screen and (min-width: 1000px) {

@@ -5,7 +5,6 @@ import * as actions from '../actions/';
 import { Link } from 'react-router';
 
 import '../css/App.css';
-import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
@@ -159,7 +158,7 @@ render () {
     };
 
     
-    console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
+    //console.log("log paym registers:",this.props.dataPaymentsRegistersLoaded);
     //if(dataPaymentRegisters.length>0){
     let count = 0;
 

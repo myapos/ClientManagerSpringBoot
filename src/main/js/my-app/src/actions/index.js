@@ -56,6 +56,9 @@ export const SAGAS_DATA_REGISTERS = 'SAGAS_DATA_REGISTERS';
 export const DATA_PAYMENTS_REGISTERS = 'DATA_PAYMENTS_REGISTERS';
 export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 
+/*ACTIONS FOR TEXT HANDLING IN MESSAGE TEXTAREA*/
+export const CHANGE_TEXT = 'CHANGE_TEXT';
+
 export function getAllStudents() {
   //debugger;
   parent.loadedStudentData=0;
@@ -248,3 +251,9 @@ export function dataPaymentsRegisters(saved_student) {
   };
 }
 
+export function changeText(text) {
+  return {
+    type: CHANGE_TEXT,
+    text
+  };
+}

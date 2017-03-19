@@ -18,6 +18,7 @@ import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import '../css/App.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import Signature from './Signature';
 
 const styles = {
     tabs: {
@@ -48,46 +49,47 @@ class Dashboard extends Component {
   render () {
     return (
       <div className="App" id="content">
-          <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
+        
+        <h2>Καλωσήρθατε στην διαχείριση πελατών του Ferrum Gym </h2>
         <div className="labelContainer">
           <legend><span>Πίνακας Ελέγχου</span></legend>
         </div>
- 
             <Tabs
-            name="selectedTab"
-            handleSelect={this.props.changeSelectedTab}
-            selectedTab={this.props.selectedTab}
-            activeLinkStyle={styles.activeLinkStyle}
-            visibleTabStyle={styles.visibleTabStyle}
-            style={styles.tabs}
-            id="tabs"
-            >
+                name="selectedTab"
+                handleSelect={this.props.changeSelectedTab}
+                selectedTab={this.props.selectedTab}
+                activeLinkStyle={styles.activeLinkStyle}
+                visibleTabStyle={styles.visibleTabStyle}
+                style={styles.tabs}
+                id="tabs"
+                >
 
-            <div style={styles.links}>
-                <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
-                <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
-                <TabLink to="tab3" default style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
-                <TabLink to="tab4" style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
-                <TabLink to="tab5" style={styles.tabLink}>Επικοινωνία Τμημάτων</TabLink>
-            </div>
-            <div style={styles.content}>
-                <TabContent for="tab1">
-                    <div><GetAllStudents/></div>
-                </TabContent>
-                <TabContent for="tab2">
-                    <div><StudentClassDashboard/></div>
-                </TabContent>
-                <TabContent for="tab3">
-                    <div><PaymentRegisters/></div>
-                </TabContent>
-                <TabContent for="tab4">
-                    <div><Registers/></div>
-                </TabContent>
-                <TabContent  for="tab5">
-                    <div><SendEmailsManually/></div>
-                </TabContent>
-            </div>
-        </Tabs>
+                <div style={styles.links}>
+                    <TabLink to="tab1" style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
+                    <TabLink to="tab2" style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
+                    <TabLink to="tab3" style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
+                    <TabLink to="tab4" style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
+                    <TabLink to="tab5" default style={styles.tabLink}>Επικοινωνία Τμημάτων</TabLink>
+                </div>
+                <div style={styles.content}>
+                    <TabContent for="tab1">
+                        <div><GetAllStudents/></div>
+                    </TabContent>
+                    <TabContent for="tab2">
+                        <div><StudentClassDashboard/></div>
+                    </TabContent>
+                    <TabContent for="tab3">
+                        <div><PaymentRegisters/></div>
+                    </TabContent>
+                    <TabContent for="tab4">
+                        <div><Registers/></div>
+                    </TabContent>
+                    <TabContent  for="tab5">
+                        <div><SendEmailsManually/></div>
+                    </TabContent>
+                </div>
+            </Tabs>
+            <Signature/>
       </div>
 
     );

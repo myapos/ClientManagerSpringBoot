@@ -2,8 +2,6 @@ parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:818
 parent.request1 = {};
 parent.rowDescription = {};
 export const getStudentClasses = () => {
-    //debugger;
-   // parent.loadedStudentClasses = 0;
     fetch(
         parent.BASE_URL + '/api/studentClasses', {
             method: 'get',
@@ -16,16 +14,13 @@ export const getStudentClasses = () => {
         })
     .then(res => res.json())
     .then(res => {
-        //console.log("classes from server: ", res);
         const classes = res._embedded.studentClasses;
-        //parent.loadedStudentClasses = 1;
         return classes;
         
     });
 }
 
 export const getStudents = () => {
-    //debugger;
     parent.loadedStudents = 0; 
     fetch(
         parent.BASE_URL + '/api/students', {
@@ -39,14 +34,11 @@ export const getStudents = () => {
         })
     .then(res => res.json())
     .then(res => {
-        //console.log("students from server: ", res);
         const students = res._embedded.students;
-        //parent.loadedStudents = 1;
         return students;
     });
 }
 export const getRegisters = () => {
-    //debugger;
     fetch(
         parent.BASE_URL + '/api/registers', {
             method: 'get',
@@ -58,14 +50,12 @@ export const getRegisters = () => {
         }})
     .then(res => res.json())
     .then(res => {
-        //console.log("registers from server: ", res);
         const registers = res._embedded.registers;
         return registers;
     });
 }
 
 export const getPayeds = () => {
-    //debugger;
     fetch(
         parent.BASE_URL + '/api/payeds', {
             method: 'get',
@@ -78,7 +68,6 @@ export const getPayeds = () => {
         })
     .then(res => res.json())
     .then(res => {
-        //console.log("payeds from server: ", res);
         const payeds = res._embedded.payeds;
 
         return payeds;
@@ -103,13 +92,12 @@ function createCORSRequest1(method, url, data) {
 };
 
 export const saveNewClass = (row) => {
-    //debugger;
+
     var request1 = createCORSRequest1("post", parent.BASE_URL + "/api/studentClasses");
     if (request1) {
         request1.onload = function() {
             if (request1.status === 201) {
                 alert("A new record has been created in database. Page is reloading");
-                //console.log("responseText:", request1.responseText);
                 window.location.reload(true);
             }
 
@@ -135,7 +123,6 @@ export const saveNewClass = (row) => {
         .then(res => res.json())
         .then(res => { 
 
-            //console.log("data from server studentclass with select: ", res);
             let body = JSON.stringify({
                 "description": parent.rowDescription,
                 "studentClass": res._links.studentClass[0].href
@@ -152,8 +139,7 @@ export const saveNewClass = (row) => {
 /*deletes selected class from table -- classId parameter is the id in front end table not in the database*/
 
 export const deleteStudentClass = (classId) => {
-    //debugger;
-    //console.log("hey from api.deleteStudentClass. Preparing to delete class with id:", classId);
+
     let x = document.getElementById("studentClasses");
     let rowByClassId = x.querySelectorAll('tr')[classId];
     let description = rowByClassId.childNodes[2].innerHTML;
@@ -204,9 +190,6 @@ export const deleteStudentClass = (classId) => {
 /*update selected class from table -- desc parameter is the description in front end table not in the database*/
 
 export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
-    //debugger;
-    //console.log("hey from api.updateStudentClass. Preparing to update class",rowUpdate," with new desc:", newdesc);
-
     //fetch call for update
     //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
 
@@ -238,9 +221,7 @@ export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
 
 
 export const saveNewStudent = (row) => {
-    //debugger;
     //check email type
-
     let str = row.email;
     let n = str.includes("@");
 
@@ -289,8 +270,7 @@ export const saveNewStudent = (row) => {
 /*deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
 
 export const deleteStudent = (studentId) => {
-    //debugger;
-    //console.log("hey from api.deleteStudentClass. Preparing to delete student with id:", studentId);
+
     let x = document.getElementById("students");
     let rowByClassId = x.querySelectorAll('tr')[studentId];
     let fname = rowByClassId.childNodes[2].innerHTML;
@@ -307,7 +287,7 @@ export const deleteStudent = (studentId) => {
             })
         .then(res => res.json())
         .then(res => {
-            //console.log("data from server: ", res);
+
             try{
             
             let ar = res._links.self.href.split("/");
@@ -325,7 +305,6 @@ export const deleteStudent = (studentId) => {
                 }
             })
             .then(res => { 
-                //console.log(res.status);
                 if(res.status === 204){
                     alert("Student is deleted succesfully.Prepare to reload");
                     window.location.reload(true);
@@ -348,9 +327,6 @@ export const deleteStudent = (studentId) => {
 
 
 export const updateStudent = (rowUpdate) => {
-    //debugger;
-    //console.log("hey from api.updateStudent. Preparing to update student",rowUpdate);
-
     //fetch call for update
     //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
 
@@ -391,297 +367,256 @@ export const updateStudent = (rowUpdate) => {
     }
 }
 
-
 export const addPaymentRegisters = (row) => {
 
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-//debugger;
-if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
-    updateMode === "updateDateOfPayment"){
+    if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
+        updateMode === "updateDateOfPayment"){
 
-    //sync requests
+        //sync requests
 
-    //step 1 find student by student fname and lname
+        //step 1 find student by student fname and lname
 
-    //http://localhost:8181/api/students/search/findByFnameAndLname?fname=myros&lname=myroslname
-    let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
-    let request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
-    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-    request.setRequestHeader("Content-type", "application/json");
-    request.contentType = "application/json"
-    request.send(null);
+        let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
+        let request = new XMLHttpRequest();
+        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        request.setRequestHeader("Content-type", "application/json");
+        request.contentType = "application/json"
+        request.send(null);
 
-    if (request.status === 200) {
+        if (request.status === 200) {
 
-            let resObj = JSON.parse(request.responseText);
-            //console.log("sync call 1:", resObj);
-            let student = resObj._links.self.href;
+                let resObj = JSON.parse(request.responseText);
+                let student = resObj._links.self.href;
 
-            //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
+                //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
 
-            let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-            let request2St = new XMLHttpRequest();
-            request2St.open('GET', url2St, false);  // `false` makes the request synchronous
-            request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request2St.setRequestHeader("Content-type", "application/json");
-            request2St.contentType = "application/json"
-            request2St.send(null);
+                let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+                let request2St = new XMLHttpRequest();
+                request2St.open('GET', url2St, false);  // `false` makes the request synchronous
+                request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                request2St.setRequestHeader("Content-type", "application/json");
+                request2St.contentType = "application/json"
+                request2St.send(null);
 
-            if (request2St.status === 200) {   
-                let resObj2St = JSON.parse(request2St.responseText);
-                //console.log("sync call 2St:", resObj2St);
+                if (request2St.status === 200) {   
+                        let resObj2St = JSON.parse(request2St.responseText);
 
-                    //step 2.1 find register by student class
+                        //step 2.1 find register by student class
 
-                    let url21 = parent.BASE_URL+"/api/registers/search/findByStudentAndStudentClass?student="
-                        +student+"&studentClass="+resObj2St._links.self.href;
+                        let url21 = parent.BASE_URL+"/api/registers/search/findByStudentAndStudentClass?student="
+                            +student+"&studentClass="+resObj2St._links.self.href;
 
-                    let request21 = new XMLHttpRequest();
-                    request21.open('GET', url21, false);  // `false` makes the request synchronous
-                    request21.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                    request21.setRequestHeader("Content-type", "application/json");
-                    request21.contentType = "application/json"
-                    request21.send(null);
+                        let request21 = new XMLHttpRequest();
+                        request21.open('GET', url21, false);  // `false` makes the request synchronous
+                        request21.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request21.setRequestHeader("Content-type", "application/json");
+                        request21.contentType = "application/json"
+                        request21.send(null);
 
-                    if (request21.status === 200) {
+                        if (request21.status === 200) {
 
-                        let resObj21 = JSON.parse(request21.responseText);
-                        //console.log("sync call 2:", resObj21);
+                            let resObj21 = JSON.parse(request21.responseText); {
+                            //has to be fixed for many
+                            let register = resObj21._links.self.href; //has to be fixed for many
+                            //update only the selected payment 
 
-                       /* for(let x=0; x<resObj21._embedded.registers.length; x++){*/    //for 1
-                        {
-                        //has to be fixed for many
-                        let register = resObj21._links.self.href; //has to be fixed for many
-                        //update only the selected payment 
+                            //step 3 update payments
 
+                            //step 3.1 find payment id to update
 
-                        //step 3 update payments
+                            let ar = register.split("/");
+                            let s = ar.length;
+                            let registerId = ar[s - 1];
 
-                        //step 3.1 find payment id to update
+                            let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
+                            let request3 = new XMLHttpRequest();
+                            request3.open('GET', url3, false);  // `false` makes the request synchronous
+                            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                            request3.setRequestHeader("Content-type", "application/json");
+                            request3.contentType = "application/json"
+                            request3.send(null);
 
-                        let ar = register.split("/");
-                        let s = ar.length;
-                        let registerId = ar[s - 1];
+                            if (request3.status === 200) {
+                                
+                                let resObj3 = JSON.parse(request3.responseText);
 
-                        let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
-                        let request3 = new XMLHttpRequest();
-                        request3.open('GET', url3, false);  // `false` makes the request synchronous
-                        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                        request3.setRequestHeader("Content-type", "application/json");
-                        request3.contentType = "application/json"
-                        request3.send(null);
+                                //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
 
-                        if (request3.status === 200) {
-                            
-                            let resObj3 = JSON.parse(request3.responseText);
-                            //console.log("sync call 3:", resObj3);
+                                if (resObj3._embedded.payeds.length ==0) {
 
-                            //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
+                                    let payment = parent.BASE_URL+"/api/payeds/";
 
-                            if (resObj3._embedded.payeds.length ==0) {
-                                //console.log("no payments were found. So create one!!");
-                                //let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
-                                let payment = parent.BASE_URL+"/api/payeds/";
-                                ////debugger;
+                                    //step 3.2 update payments
+                                    let date = new Date(row.dateOfPayment.substr(0, 10));
 
-                                //step 3.2 update payments
-                                let date = new Date(row.dateOfPayment.substr(0, 10));
+                                    let bodyData = JSON.stringify({
+                                            "payment" : row.payment,
+                                            "dateOfPayment": date,
+                                            "notes": row.notes,
+                                            "register": register
+                                    });
 
-                                let bodyData = JSON.stringify({
-                                        "payment" : row.payment,
-                                        "dateOfPayment": date,
-                                        "notes": row.notes,
-                                        "register": register
-                                });
+                                    let request5 = new XMLHttpRequest();
+                                    request5.open('POST', payment, false);  // `false` makes the request synchronous
+                                    request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                    request5.setRequestHeader("Content-type", "application/json");
+                                    request5.contentType = "application/json"
+                                    request5.send(bodyData);
 
-                                let request5 = new XMLHttpRequest();
-                                request5.open('POST', payment, false);  // `false` makes the request synchronous
-                                request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                                request5.setRequestHeader("Content-type", "application/json");
-                                request5.contentType = "application/json"
-                                request5.send(bodyData);
+                                    if (request5.status === 201) {
 
-                                if (request5.status === 201) {
-
-                                    let resObj5 = JSON.parse(request5.responseText);
-
-                                    //console.log("sync call 5:", resObj5);
-
-
+                                        let resObj5 = JSON.parse(request5.responseText);
                                         alert("Payment has been updated in database. Page is reloading");
+                                    }
+                                    else {
 
-
+                                        alert("Something bad has happened. Please try again");
+                                    }
                                 }
                                 else {
+                                    for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
+                                    let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
 
-                                    alert("Something bad has happened. Please try again");
+                                    //step 3.2 update payments
+                                    let date = new Date(row.dateOfPayment.substr(0, 10));
 
+                                    let bodyData = JSON.stringify({
+                                            "payment" : row.payment,
+                                            "dateOfPayment": date,
+                                            "notes": row.notes,
+                                            "register": register
+                                    });
+
+                                    let request4 = new XMLHttpRequest();
+                                    request4.open('PATCH', payment, false);  // `false` makes the request synchronous
+                                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                    request4.setRequestHeader("Content-type", "application/json");
+                                    request4.contentType = "application/json"
+                                    request4.send(bodyData);
+
+                                    if (request4.status === 200) {
+
+                                        let resObj4 = JSON.parse(request4.responseText);
+
+                                         if (s === resObj3._embedded.payeds.length -1){
+                                            alert("Payment has been updated in database. Page is reloading");
+     
+                                        }
+
+                                    }
+                                    else {
+
+                                        alert("Something bad has happened. Please try again");
+
+                                    }
+                                }//end of for 2
+                            } //end of else
+                            }
+
+                        }
+                } //end of for 1
+                }     
+        }
+    } 
+
+    else if (updateMode === "classUpdate"){
+
+        //sync calls
+        //prepei na kanw update tin eggrafi register ara na allaksw to class id mesa ston pinaka register
+
+        //step 1 find student by fname and lname
+
+        let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
+        let request = new XMLHttpRequest();
+        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        request.setRequestHeader("Content-type", "application/json");
+        request.contentType = "application/json"
+        request.send(null);
+
+            if (request.status === 200) {
+
+                    let resObj = JSON.parse(request.responseText);
+                    //console.log("sync call 1:", resObj);
+                    let student = resObj._links.self.href;
+
+
+                    //step2 find register id by student 
+                    let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
+
+                    let request2 = new XMLHttpRequest();
+                    request2.open('GET', url2, false);  // `false` makes the request synchronous
+                    request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request2.setRequestHeader("Content-type", "application/json");
+                    request2.contentType = "application/json"
+                    request2.send(null);
+
+                        if (request2.status === 200) {
+
+                            let resObj2 = JSON.parse(request2.responseText);
+                 
+                            //step 3 find classes by description
+                            let url3 = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+                            let request3 = new XMLHttpRequest();
+                            request3.open('GET', url3, false);  // `false` makes the request synchronous
+                            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                            request3.setRequestHeader("Content-type", "application/json");
+                            request3.contentType = "application/json"
+                            request3.send(null);
+
+                            if (request3.status === 200) {
+
+                                let resObj3 = JSON.parse(request3.responseText);
+
+                                //step 4 make the patch request
+                                let date = new Date(row.dateOfPayment.substr(0, 10));
+                                let bodyData = JSON.stringify({
+                                            "dateOfRegistration" : date,
+                                            "student": student,
+                                            "studentClass": resObj3._links.self.href
+                                    });
+
+                                    let request4 = new XMLHttpRequest();
+                                    let registrations = resObj2._embedded.registers;
+                                    for (let j=0; j<registrations.length;j++) {
+                                    let url4 = resObj2._embedded.registers[j]._links.register.href;
+                                    request4.open('PATCH', url4, false);  // `false` makes the request synchronous
+                                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                    request4.setRequestHeader("Content-type", "application/json");
+                                    request4.contentType = "application/json"
+                                    request4.send(bodyData);
+
+                                    if (request4.status === 200) {
+
+                                        let resObj4 = JSON.parse(request4.responseText);
+
+                                        if (j === registrations.length -1){
+                                            alert("Payment has been updated in database. Page is reloading");
+                                            window.location.reload(true);
+                                        }
+
+                                    }
+                                    else {
+
+                                        alert("Something bad has happened. Please try again");
+
+                                    }
                                 }
                             }
-                            else {
-                                for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
-                                let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
-
-
-                                //step 3.2 update payments
-                                let date = new Date(row.dateOfPayment.substr(0, 10));
-
-                                let bodyData = JSON.stringify({
-                                        "payment" : row.payment,
-                                        "dateOfPayment": date,
-                                        "notes": row.notes,
-                                        "register": register
-                                });
-
-                                let request4 = new XMLHttpRequest();
-                                request4.open('PATCH', payment, false);  // `false` makes the request synchronous
-                                request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                                request4.setRequestHeader("Content-type", "application/json");
-                                request4.contentType = "application/json"
-                                request4.send(bodyData);
-
-                                if (request4.status === 200) {
-
-                                    let resObj4 = JSON.parse(request4.responseText);
-
-                                    //console.log("sync call 4:", resObj4);
-
-                                     if (s === resObj3._embedded.payeds.length -1){
-                                        alert("Payment has been updated in database. Page is reloading");
- 
-                                    }
-
-
-                                }
-                                else {
-
-                                    alert("Something bad has happened. Please try again");
-
-                                }
-                            }//end of for 2
-                        } //end of else
-                        }
 
                     }
-            } //end of for 1
-            }     
-
-    }
-
-} 
-
-else if (updateMode === "classUpdate"){
-
-    //sync calls
-    //prepei na kanw update tin eggrafi register ara na allaksw to class id mesa ston pinaka register
-
-    //step 1 find student by fname and lname
-
-    let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
-    let request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
-    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-    request.setRequestHeader("Content-type", "application/json");
-    request.contentType = "application/json"
-    request.send(null);
-
-    if (request.status === 200) {
-
-            let resObj = JSON.parse(request.responseText);
-            //console.log("sync call 1:", resObj);
-            let student = resObj._links.self.href;
-
-
-            //step2 find register id by student 
-            let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
-
-            let request2 = new XMLHttpRequest();
-            request2.open('GET', url2, false);  // `false` makes the request synchronous
-            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request2.setRequestHeader("Content-type", "application/json");
-            request2.contentType = "application/json"
-            request2.send(null);
-
-            if (request2.status === 200) {
-
-                let resObj2 = JSON.parse(request2.responseText);
-                //console.log("sync call 2:", resObj2);
-
-
-            //step 3 find classes by description
-            let url3 = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-            let request3 = new XMLHttpRequest();
-            request3.open('GET', url3, false);  // `false` makes the request synchronous
-            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request3.setRequestHeader("Content-type", "application/json");
-            request3.contentType = "application/json"
-            request3.send(null);
-
-            if (request3.status === 200) {
-
-                let resObj3 = JSON.parse(request3.responseText);
-                //console.log("sync call 3:", resObj3); 
-
-                //step 4 make the patch request
-                let date = new Date(row.dateOfPayment.substr(0, 10));
-                let bodyData = JSON.stringify({
-                            "dateOfRegistration" : date,
-                            "student": student,
-                            "studentClass": resObj3._links.self.href
-                    });
-
-                    let request4 = new XMLHttpRequest();
-                    let registrations = resObj2._embedded.registers;
-                    for (let j=0; j<registrations.length;j++) {
-                    let url4 = resObj2._embedded.registers[j]._links.register.href;
-                    //debugger;
-                    request4.open('PATCH', url4, false);  // `false` makes the request synchronous
-                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                    request4.setRequestHeader("Content-type", "application/json");
-                    request4.contentType = "application/json"
-                    request4.send(bodyData);
-
-                    if (request4.status === 200) {
-
-                        let resObj4 = JSON.parse(request4.responseText);
-
-                        //console.log("sync call 4:", resObj4);
-
-                        if (j === registrations.length -1){
-                            alert("Payment has been updated in database. Page is reloading");
-                            window.location.reload(true);
-                        }
-
-                    }
-                    else {
-
-                        alert("Something bad has happened. Please try again");
-
-                    }
-
-                }
-
             }
 
-
-            
-            }
-
-    }
-
-
-
-} 
-
+    } 
 
 }
 
 export const deletePaymentRegisters = (id) => {
-    //debugger;
-    //console.log("hey from api.deletePaymentRegisters. Preparing to delete payment with id:", id);
+
     let x = document.getElementById("PaymentRegisters");
     let rowByClassId = x.querySelectorAll('tr')[id];
     let description = rowByClassId.childNodes[2].innerHTML;
@@ -711,11 +646,7 @@ export const deletePaymentRegisters = (id) => {
         .then(res => res.json())
         .then(res => {
 
-            //console.log("data from server: ", res);
-
             // step 2 find registration id by class
-
-            //http://localhost:8181/api/registers/search/findByStudentClass?studentClass=http://localhost:8181/api/studentClasses/1
 
             const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudentClass" +
                 "?studentClass=" + res._links.self.href, {
@@ -730,19 +661,14 @@ export const deletePaymentRegisters = (id) => {
             .then(res2 => res2.json())
             .then(res2 => {
                 
-                //console.log("data from server2: ", res2);
-
-
                 //for all registers get registration id's
 
                 let url =""; //initialization
 
                 for(let jj=0; jj< res2._embedded.registers.length; jj++){
 
-
                     //find payment by registration
                     url = res2._embedded.registers[jj]._links.self.href;
-
 
                     const fetch3 = fetch(parent.BASE_URL + "/api/payeds/search/findByRegister" +
                     "?register=" + url, {
@@ -757,19 +683,15 @@ export const deletePaymentRegisters = (id) => {
                     .then(res3 => res3.json())
                     .then(res3 => {
 
-                         //console.log("data from server: ", res3);
                          // step 3 find payments by registration id
 
                          if(res3._embedded.payeds.length>0){
-                            //console.log("found payments:"+res3._embedded.payeds.length);
-
-                            //console.log("preparing to delete payments");
+ 
                             //step 4  delete payment which is found
                             for(let vv=0; vv< res3._embedded.payeds.length; vv++){
 
 
                                 let paymentUrl = res3._embedded.payeds[vv]._links.self.href;;
-                                //console.log("paymentUrl:"+paymentUrl);
 
                                 const fetch4 = fetch(paymentUrl, {
                                     method: 'delete',
@@ -781,9 +703,6 @@ export const deletePaymentRegisters = (id) => {
                                     }
                                 })
                                 .then(res4 => {
-
-                                    //console.log("data from server: ", res4);
-
                                      if (res4.status === 204) {
                                         alert("deleted payment succesfully. Page is reloading");
                                         window.location.reload(true);
@@ -792,51 +711,32 @@ export const deletePaymentRegisters = (id) => {
                                         alert("Something bad happened");
 
                                      }
-
                                })
                              }
 
-
-
-
                          }
-                         
-
-
                     })
-
-
 
                 }
 
-
-
             })
 
-
         })
-
-
 
     } 
     else {
 
         alert("Payment is not set yet!");
     }
-
 }
 
 
 
 export const createRegisters = (row) => {
-    //debugger;
 //create call -- we need student id, studentClass id, dateOfRegistration
 
 
 //find studentClass id
-
-//http://localhost:8181/api/studentClasses/search/findBydescription?description=row.class
-
 
     let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
     let request = new XMLHttpRequest();
@@ -849,7 +749,6 @@ export const createRegisters = (row) => {
     if (request.status === 200) {
 
         let resObj = JSON.parse(request.responseText);
-        //console.log("sync call 1:", resObj);
 
         let classLink = resObj._links.self.href; //has to be fixed for many
 
@@ -866,12 +765,11 @@ export const createRegisters = (row) => {
 
             //step 2 find student id to update
             let resObj2 = JSON.parse(request2.responseText);
-            //console.log("sync call 2:", resObj2);
+
 
             let studentLink = resObj2._links.self.href; //has to be fixed for many
 
             //new registration call
-
 
             let date = new Date(row.dateOfRegistration.substr(0, 10));
 
@@ -892,7 +790,6 @@ export const createRegisters = (row) => {
             if (request3.status === 201) {
 
                 let resObj3 = JSON.parse(request2.responseText);
-                //console.log("sync call 3:", resObj3);
                 alert("Registration has been created in database. Page is reloading");
                 window.location.reload(true);
 
@@ -912,14 +809,8 @@ export const createRegisters = (row) => {
 
 export const updateRegisters = (row) => {
 
-    //debugger;
 //create call -- we need student id, studentClass id, dateOfRegistration
-
-
 //find studentClass id
-
-//http://localhost:8181/api/studentClasses/search/findBydescription?description=row.class
-
 
     let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
     let request = new XMLHttpRequest();
@@ -932,8 +823,6 @@ export const updateRegisters = (row) => {
     if (request.status === 200) {
 
         let resObj = JSON.parse(request.responseText);
-        //console.log("sync call 1:", resObj);
-
         let classLink = resObj._links.self.href; //has to be fixed for many????
 
         let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
@@ -948,8 +837,6 @@ export const updateRegisters = (row) => {
             
             //step 2 find student id to update
             let resObj2 = JSON.parse(request2.responseText);
-            //console.log("sync call 2:", resObj2);
-
             let studentLink = resObj2._links.self.href; //has to be fixed for many
 
             //new registration call
@@ -965,8 +852,6 @@ export const updateRegisters = (row) => {
             if (request3.status === 200) {
                 
                 let resObj3 = JSON.parse(request3.responseText);
-                //console.log("sync call 3:", resObj3);
-
                 let date = new Date(row.dateOfRegistration.substr(0, 10));
 
                 let bodyData = JSON.stringify({
@@ -1008,8 +893,7 @@ export const updateRegisters = (row) => {
 
 
 export const deleteRegisters = (registerId) => {
-    //debugger;
-    //console.log("hey from api.deleteRegisters. Preparing to delete register with id:", registerId);
+
     let x = document.getElementById("registers");
     let rowByClassId = x.querySelectorAll('tr')[registerId];
     let fname = rowByClassId.childNodes[2].innerHTML;
@@ -1028,8 +912,6 @@ export const deleteRegisters = (registerId) => {
             })
         .then(res => res.json())
         .then(res => {
-
-            //console.log("data from server: ", res);
             try{
             
                 //get studentLink
@@ -1050,8 +932,6 @@ export const deleteRegisters = (registerId) => {
                 .then(res => res.json())
                 .then(res => {
 
-
-                   // console.log("data from server: ", res);
                     if(res._embedded.registers.length>0) {
 
                         let registerLink = res._embedded.registers[0]._links.self.href;
@@ -1129,11 +1009,7 @@ export const deleteRegisters = (registerId) => {
 }
 
 const send_email = (first,last,email,msg) =>{
-    //debugger;
-    //console.log("hey from send email");
-    //console.log("first: "+first+" last: "+last+" email: "+email+" msg:"+msg);
     //send email request to server side 
-    //http://localhost:8181/email?fname=myros&lname=Apostolakis&email=myapos@yahoo.com&msg=test%20message%20sdfaf%20asdsd
     const fetch1 = fetch(parent.BASE_URL + "/email?fname="+first+"&lname="+last+"&email="+email+"&msg="+msg+"&mode=selectedClasses", {
         method: 'get',
         mode: 'cors',
@@ -1160,7 +1036,6 @@ export const msgSubmitted = (msg, selectedClass) => {
     //debugger;
     parent.msgSubmitted = msg;
 
-
     //steps
 
     //find students who have payed for the selected class
@@ -1180,7 +1055,6 @@ export const msgSubmitted = (msg, selectedClass) => {
         .then(res => res.json())
         .then(res => {
 
-            //console.log("data from server: ", res);
             parent.classDescriptionForEmails = res.description;
             //get registrations by student class
 
@@ -1196,9 +1070,6 @@ export const msgSubmitted = (msg, selectedClass) => {
             })
             .then(res2 => res2.json())
             .then(res2 => {
-
-                //console.log("data from server: ", res2);
-
 
                 //for all registrations get students who have payed for them and send emails
                 //so in this step get payments by registrations
@@ -1222,17 +1093,15 @@ export const msgSubmitted = (msg, selectedClass) => {
                         if (requestT.status === 200) {
                             let resObjT = JSON.parse(requestT.responseText);
                             if(resObjT._embedded.payeds.length>0){
-                                //alert("No student have payed yet for class:"+parent.classDescriptionForEmails);
-                                 parent.flagPaymentsExist = 1;
-                                 return; //stop execution of function
+                                
+                                parent.flagPaymentsExist = 1;
+                                return; //stop execution of function
                             }
                         }
                     })
 
                 res2._embedded.registers.map((el,count)=>{
                     
-                    //console.log("e:",el);
-                    //console.log("count registrations:"+count);
                     //use sync calls here!!
 
                     let url = parent.BASE_URL + "/api/payeds/search/findByRegister" +
@@ -1247,7 +1116,6 @@ export const msgSubmitted = (msg, selectedClass) => {
                     if (request.status === 200) {
 
                         let resObj = JSON.parse(request.responseText);
-                        //console.log("sync call 1:", resObj);
 
                         //get student
                         if(!parent.flagPaymentsExist){
@@ -1266,13 +1134,10 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                                 if (request2.status === 200) {
                                     let student = JSON.parse(request2.responseText);
-                                    //console.log("sync call 2:", student);
-
 
                                     //send emails if payment is true
 
                                     if(p.payment) {
-
 
                                         //send email to student
                                         send_email(student.fname, student.lname, student.email,parent.msgSubmitted);
@@ -1296,7 +1161,7 @@ export const msgSubmitted = (msg, selectedClass) => {
 }
 
 export const getSubClass = (url, parentDesc, obj) => {
-    //debugger;
+
     const fetch1 = 
     fetch(url, { 
        method: 'get', 
@@ -1309,18 +1174,17 @@ export const getSubClass = (url, parentDesc, obj) => {
      })
     .then (res => res.json())
     .then(res => { 
-      //debugger;
+
       let classesPair = {};
-      //console.log("data from server: ",res);
+
       classesPair[parentDesc] = res;
-      //loadedPaymReg =1;
+
       return classesPair;
     });
     return fetch1;
 }
 
 export const getDataRegisters = (saved_student) => {
-    //debugger;
     
     let students = saved_student;
     let dataRegisters = [];
@@ -1336,12 +1200,7 @@ export const getDataRegisters = (saved_student) => {
       let ar = url.split("/");
       let s = ar.length;
       let id = ar[s - 1];
-      // let request1 = new XMLHttpRequest();
-      // request1.open('GET', url, false);  // `false` makes the request synchronous
-      // request1.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-      // request1.setRequestHeader("Content-type", "application/json");
-      // request1.contentType = "application/json"
-      // request1.send(null);
+
       fetch1 = fetch(url, {
                     method: 'get',
                     mode: 'cors',
@@ -1353,9 +1212,6 @@ export const getDataRegisters = (saved_student) => {
             })
       .then(res1 => res1.json())
       .then(res1 => {
-      //if (request1.status === 200) {
-
-        //console.log(JSON.parse(request1.responseText));
 
         //2nd sync call
         //get registrations of all students
@@ -1373,28 +1229,16 @@ export const getDataRegisters = (saved_student) => {
                 })
           .then(res2 => res2.json())
           .then(res2 => {
-            //console.log("sync call 2:",JSON.parse(request2.responseText));
-            let registrations = res2;//JSON.parse(request2.responseText);
+            let registrations = res2;
 
             //if student has registers get the classes of registers
             if (registrations._embedded.registers.length > 0) {
 
-                //console.log("student has registrations");
                 //for every registration get registered classes
                 for (let ww=0; ww<registrations._embedded.registers.length; ww++){
                 
                 let url3 = registrations._embedded.registers[ww]._links.studentClass.href;
 
-                //let url3 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
-
-                // let request3 = new XMLHttpRequest();
-                // request3.open('GET', url3, false);  // 'false' makes the request synchronous
-                // request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                // request3.setRequestHeader("Content-type", "application/json");
-                // request3.contentType = "application/json"
-                // request3.send(null);
-
-                // if (request3.status === 200) {
                 const fetch23= fetch(url3, {
                               method: 'get',
                               mode: 'cors',
@@ -1406,14 +1250,11 @@ export const getDataRegisters = (saved_student) => {
                       })
                 .then(res3 => res3.json())
                 .then(res3 => {
-                 //console.log("sync call 3:",JSON.parse(request3.responseText));
                 
                  //save tempData
 
                  let tempData ={};
-                 // tempData.fname = JSON.parse(request1.responseText).fname;
-                 // tempData.lname = JSON.parse(request1.responseText).lname;
-                 // tempData.email = JSON.parse(request1.responseText).email;
+
                  tempData.fname = res1.fname;
                  tempData.lname = res1.lname;
                  tempData.email = res1.email;
@@ -1427,26 +1268,19 @@ export const getDataRegisters = (saved_student) => {
                  tempData.index = dataRegisters.length+1;
                  dataRegisters.push(tempData);
                  parent.studentIndexWithRegistrations.push(tempData.index); //save index of students with registrations
-                 //debugger;
                  parent.loadedReg = true;
                  return dataRegisters;
                 })
-                //debugger;
-                //console.log("log:",fetch23);
+
                 return fetch23;
                 }
 
             }
             else {
 
-                //console.log("no registrations");
-
                 //save tempData
 
                 let tempData ={};
-                // tempData.fname = JSON.parse(request1.responseText).fname;
-                // tempData.lname = JSON.parse(request1.responseText).lname;
-                // tempData.email = JSON.parse(request1.responseText).email;
                 tempData.fname = res1.fname;
                 tempData.lname = res1.lname;
                 tempData.email = res1.email;
@@ -1457,16 +1291,13 @@ export const getDataRegisters = (saved_student) => {
                 tempData.index = dataRegisters.length+1;
                 dataRegisters.push(tempData);
                 return dataRegisters;
-
             }
 
         })
         return fetch2;
     })
-    //debugger;
     
   }
-    console.log("log dataregisters:",fetch1);
     return dataRegisters;
 }
 
@@ -1484,8 +1315,6 @@ export const getDataPaymentsRegisters = (saved_student) => {
 
     for(let jj=0; jj<students.length;jj++){
 
-      //debugger;
-       
       //get students who has registered already
       url1 = parent.BASE_URL +"/api/registers/search/findByStudent?student="+students[jj]._links.self.href;
 
@@ -1502,14 +1331,12 @@ export const getDataPaymentsRegisters = (saved_student) => {
       .then(res1 => {
 
           parent.isloading = 0;
-          //console.log(JSON.parse(request1.responseText));
-          //debugger;
-          let registrations = res1;//JSON.parse(request1.responseText);
+
+          let registrations = res1;
          
 
           if(registrations._embedded.registers.length>0) {
           //get payments of those students . if there aren't any then you can set them
-
 
               for(let jw=0; jw<registrations._embedded.registers.length;jw++){
                 
@@ -1527,7 +1354,7 @@ export const getDataPaymentsRegisters = (saved_student) => {
                 .then(res2 => res2.json())
                 .then(res2 => {
 
-                  let payments = res2;//JSON.parse(request2.responseText);
+                  let payments = res2;
 
 
                   let tempData ={};
@@ -1537,7 +1364,6 @@ export const getDataPaymentsRegisters = (saved_student) => {
 
                   if(typeof payments._embedded.payeds !== 'undefined') {
                       //get classes of registered students
-                      //debugger;
                       let url3 = registrations._embedded.registers[jw]._links.studentClass.href;
                       const fetch3 = fetch(url3, {
                                     method: 'get',
@@ -1564,14 +1390,12 @@ export const getDataPaymentsRegisters = (saved_student) => {
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
-                          //debugger;
-                          //return dataPaymentRegisters;
-                          //debugger;
+
                       })
-                    //return dataPaymentRegisters;
+
                   }
                   else {
-                      //debugger;
+
                       let url4 = registrations._embedded.registers[jw]._links.studentClass.href;
 
                       const fetch4 = fetch(url4, {
@@ -1599,37 +1423,17 @@ export const getDataPaymentsRegisters = (saved_student) => {
                           tempData.dateOfPayment = formatedDate;
                           tempData.index = dataPaymentRegisters.length+1;
                           dataPaymentRegisters.push(tempData);
- 
-                          //return dataPaymentRegisters;
-                          //debugger;
-                          
+
                       })
                     
                   }
                 })
                 
-                //return dataPaymentRegisters;
-                if(jw == registrations._embedded.registers.length -1){
-                    //debugger;
-                    //return fetch2;
-                    console.log("log datapaymentsregisters2:",fetch2);
-                }
               }
-              //debugger;
-              //return dataPaymentRegisters;
-
           }
 
         })
-        .then(res5 => {
-            //debugger;
-            //return res5;
-        })
-
-       //console.log("log datapaymentsregisters1:",fetch1);
-
     }
     
-    //debugger;
     return dataPaymentRegisters;   
 }
