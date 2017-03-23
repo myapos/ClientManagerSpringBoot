@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			http
 			.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
 			.authorizeRequests()
-			.antMatchers("/static/**","/static/css/**").permitAll()
+			.antMatchers("/static/**","/static/css/**","/static/media/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

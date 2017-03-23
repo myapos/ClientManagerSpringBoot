@@ -8,7 +8,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var url = require('url');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
-var node_dir = '../node_modules';
+var node_dir = '/home/myros/Desktop/security/node_modules';
 
 function ensureSlash(path, needsSlash) {
   var hasSlash = path.endsWith('/');
@@ -144,7 +144,7 @@ module.exports = {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         loader: 'file',
         query: {
-          name: '../src/main/resources/media/[name].[ext]'
+          name: '../media/[name].[ext]'
         }
       },
       // "url" loader works just like "file" loader but it also embeds
@@ -154,7 +154,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: '../src/main/resources/media/[name].[ext]'
+          name: '../media/[name].[ext]'
         }
       }
     ]
@@ -238,7 +238,9 @@ module.exports = {
     tls: 'empty'
   }
 };
+console.log("log123456:",module.exports.module.loaders[3]);
 
+//throw new Error("my error message");
 function processPath(s){
 console.log(s);
 console.log(publicPath);
