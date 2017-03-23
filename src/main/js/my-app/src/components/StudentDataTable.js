@@ -6,8 +6,8 @@ import { Link } from 'react-router';
 import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import '../../node_modules/react-loading-spinner/src/css/index.css';
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
+import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 import Spinner from 'react-spinner-children';
 

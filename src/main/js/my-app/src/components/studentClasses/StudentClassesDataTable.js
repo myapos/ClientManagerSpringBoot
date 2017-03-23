@@ -7,7 +7,7 @@ import '../../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as api from '../../api';
-import MDSpinner from "react-md-spinner";
+//import MDSpinner from "react-md-spinner";
 
 const waitForData = 7000; //msecs
 parent.classesPair = {};

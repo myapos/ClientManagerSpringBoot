@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 
 import App from './containers/App';
 import './index.css';
-import when from 'when';
+// import when from 'when';
 
-import stompClient from './websocket-listener';
+// import stompClient from './websocket-listener';
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 

@@ -13,8 +13,8 @@ import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
 //import ContentApp from '../components/ContentApp';
-import '../../node_modules/react-loading-spinner/src/css/index.css';
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
+import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 
 class App extends Component {
