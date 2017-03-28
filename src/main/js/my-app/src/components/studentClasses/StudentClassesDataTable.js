@@ -148,7 +148,7 @@ anon(data, refreshIntervalId){
        clearInterval(refreshIntervalId);
        //debugger;
        //rerender
-       this.props.loadingHandling(1);
+       //this.props.loadingHandling(0);
      }
 };
 
@@ -171,10 +171,10 @@ render () {
 
     //wait for data to be retrieved from fdatabase
 
-    let refreshIntervalId = setInterval( ()=> { 
-        this.anon(this.props.saved_studentClasses, refreshIntervalId)
+    // let refreshIntervalId = setInterval( ()=> { 
+    //     this.anon(this.props.saved_studentClasses, refreshIntervalId)
 
-    } , waitForData);
+    // } , waitForData);
     //debugger;
 
     for (let j=0; j<data.length; j++){ 

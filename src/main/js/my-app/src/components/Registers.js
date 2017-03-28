@@ -10,7 +10,7 @@ import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Spinner from 'react-spinner-children';
 
-const waitForData = 7000; //msecs
+const waitForDataRegisters = 7000; //msecs
 var flagRMount = false;
 
 const dataRegisters = [];
@@ -115,16 +115,20 @@ beforeSaveRegistersCell(row, cellName, cellValue) {
 
 }
 
-anon(data, refreshIntervalId){
-
+//anon(data, refreshIntervalId){
+  anon(data){
+     debugger;
      if (typeof data == 'undefined' || data.length == 0 ){
 
       console.log("waiting for registers data");
 
      } else if (data.length > 0 ){
-       clearInterval(refreshIntervalId);
-       //rerender
-       this.props.loadingHandling(1);
+
+      if(!this.props.loadingHandlingCommplete)
+         this.props.loadingHandling(1);
+       //clearInterval(refreshIntervalId);
+       //reresnder
+       //this.props.loadingHandling(0);
      }
 };
 
@@ -157,12 +161,18 @@ parent.loadedReg = true;
 
     //console.log("log registers:",this.props.dataRegistersLoaded);
 
+    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
+      setTimeout( ()=> { 
+           this.anon(this.props.dataRegistersLoaded)
+      } , waitForDataRegisters); 
+    } 
 
-    let refreshIntervalId = setInterval( ()=> { 
-        //debugger;
-        this.anon(this.props.dataRegistersLoaded, refreshIntervalId)
+    // let refreshIntervalId = setInterval( ()=> { 
+    //     //debugger;
+    //     this.anon(this.props.dataRegistersLoaded, refreshIntervalId)
 
-    } , waitForData);
+    // } , waitForData);
+
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
         && this.props.dataRegistersLoaded.length > 0){

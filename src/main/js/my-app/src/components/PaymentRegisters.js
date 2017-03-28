@@ -131,16 +131,19 @@ afterTabChanged() {
 
 //anonymoys function to use in setInterval
 
-anon(data, refreshIntervalId){
-
+//anon(data, refreshIntervalId){
+anon(data){
      if (typeof data == 'undefined' || data.length == 0 ){
 
       console.log("waiting for payments registers data");
 
      } else if (data.length > 0 ){
-       clearInterval(refreshIntervalId);
+       //debugger;
+       //clearInterval(refreshIntervalId);
        //rerender
-       this.props.loadingHandling(1);
+       if(!this.props.loadingHandlingCommplete)
+          this.props.loadingHandling(1);
+       
      }
 };
 
@@ -162,13 +165,14 @@ render () {
     //if(dataPaymentRegisters.length>0){
     let count = 0;
 
-    let refreshIntervalId = setInterval( ()=> { 
-        //debugger;
-        this.anon(this.props.dataPaymentsRegistersLoaded, refreshIntervalId)
+    //let refreshIntervalId = setInterval( ()=> { 
+      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1")){
+        setTimeout( ()=> { 
+             this.anon(this.props.dataPaymentsRegistersLoaded)
+        } , waitForData); 
+      } 
 
-    } , waitForData);
-
-
+    //debugger;
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") 
         && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
         && this.props.dataPaymentsRegistersLoaded.length > 0){
@@ -230,6 +234,7 @@ render () {
     );
   }
     else{
+      //debugger;
       return (
         <div>
           <div className="loader"></div>

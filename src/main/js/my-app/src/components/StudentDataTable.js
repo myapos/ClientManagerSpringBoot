@@ -91,7 +91,7 @@ anon(data, refreshIntervalId){
        clearInterval(refreshIntervalId);
 
        //rerender
-       this.props.loadingHandling(1);
+       //this.props.loadingHandling(0);
      }
 };
 
@@ -114,10 +114,10 @@ render () {
     };
 
 
-      let refreshIntervalId = setInterval( ()=> { 
-          this.anon(data, refreshIntervalId)
+      // let refreshIntervalId = setInterval( ()=> { 
+      //     this.anon(data, refreshIntervalId)
 
-      } , waitForData);
+      // } , waitForData);
       //debugger;
       if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3")
         && typeof data !== 'undefined'
