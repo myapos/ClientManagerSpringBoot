@@ -3,13 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
-import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import '../css/App.css';
-import Spinner from 'react-spinner-children';
 
 const waitForData = 7000; //msecs
 
@@ -21,8 +16,6 @@ function onAfterInsertRow (row) {
   }
 
   alert('The new row is:\n ' + newRowStr);
-  //console.log("insert data to database");
-  ////debugger;
   this.props.addStudent(row);
 
 }
@@ -30,7 +23,6 @@ function onAfterInsertRow (row) {
 function onAfterDeleteRow (rowKeys) {
 
   alert('The rowkey you drop: ' + rowKeys);
-  //console.log("delete data from database");
   this.props.deleteStudent(rowKeys);
 
 }

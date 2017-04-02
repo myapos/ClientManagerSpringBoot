@@ -16,8 +16,7 @@ import Registers from './Registers';
 import SendEmailsManually from './SendEmailsManually';
 import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
-import '../css/App.css';
-import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
 import Signature from './Signature';
 
 const styles = {

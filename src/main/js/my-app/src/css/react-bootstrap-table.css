@@ -1,6 +1,6 @@
 /*editor error animate*/
 /*@import "~toastr/build/toastr.min.css";*/
-
+/*
 .react-bs-table-container .react-bs-table-search-form {
   margin-bottom: 0;
 }
@@ -37,15 +37,15 @@
 .react-bs-container-header {
   overflow: hidden;
   width: 100%;
-}
-
+}*/
+/*
 .react-bs-container-body {
-  /*height: 154px;*/
+
   overflow: auto;
   width: 100%;
 }
-
-.react-bs-table .table-bordered {
+*/
+/*.react-bs-table .table-bordered {
     border: 0;
 }
 
@@ -62,20 +62,20 @@
 .react-bs-table .table-bordered > tfoot > tr > th,
 .react-bs-table .table-bordered > tfoot > tr > td {
   border-bottom-width: 0;
-}
+}*/
 
 /*Esquerda*/
-.react-bs-table .table-bordered > thead > tr > th:first-child,
+/*.react-bs-table .table-bordered > thead > tr > th:first-child,
 .react-bs-table .table-bordered > tbody > tr > th:first-child,
 .react-bs-table .table-bordered > tfoot > tr > th:first-child,
 .react-bs-table .table-bordered > thead > tr > td:first-child,
 .react-bs-table .table-bordered > tbody > tr > td:first-child,
 .react-bs-table .table-bordered > tfoot > tr > td:first-child {
   border-left-width: 0;
-}
+}*/
 
 /*Direita*/
-.react-bs-table .table-bordered > thead > tr > th:last-child,
+/*.react-bs-table .table-bordered > thead > tr > th:last-child,
 .react-bs-table .table-bordered > tbody > tr > th:last-child,
 .react-bs-table .table-bordered > tfoot > tr > th:last-child,
 .react-bs-table .table-bordered > thead > tr > td:last-child,
@@ -83,19 +83,19 @@
 .react-bs-table .table-bordered > tfoot > tr > td:last-child {
   border-right-width: 0;
 }
-
+*/
 /*Topo*/
-.react-bs-table .table-bordered > thead > tr:first-child > th,
+/*.react-bs-table .table-bordered > thead > tr:first-child > th,
 .react-bs-table .table-bordered > thead > tr:first-child > td {
   border-top-width: 0;
-}
+}*/
 
 /*Baixo*/
-.react-bs-table .table-bordered > tfoot > tr:last-child > th,
+/*.react-bs-table .table-bordered > tfoot > tr:last-child > th,
 .react-bs-table .table-bordered > tfoot > tr:last-child > td {
   border-bottom-width: 0;
-}
-
+}*/
+/*
 .react-bs-table .react-bs-container-header > table > thead > tr > th {
   vertical-align: middle;
 }
@@ -137,17 +137,13 @@
 
 .react-bs-table .react-bs-container-header .sort-column {
   cursor: pointer;
-}
+}*/
 
 /*inline editor default style*/
-.react-bs-container .form-control.editor{
-  /*width:100%;
-  top:0;
-  left:0;*/
-  /*height: 100%;
-  position: absolute;*/
-}
+/*.react-bs-container .form-control.editor{
 
+}*/
+/*
 .react-bs-container  .textarea-save-btn{
   position: absolute;
   z-index: 100;
@@ -157,13 +153,13 @@
 
 .react-bs-table-no-data {
   text-align: center;
-}
+}*/
 
 /*error tip style*/
-.animated {
+/*.animated {
   animation-fill-mode: both;
-}
-
+}*/
+/*
 .animated.bounceIn,
 .animated.bounceOut{
   animation-duration: .75s;
@@ -247,3 +243,4 @@
 .bounceOut {
   animation-name: bounceOut;
 }
+*/
