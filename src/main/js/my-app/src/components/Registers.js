@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-
-import '../css/App.css';
-import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import Spinner from 'react-spinner-children';
 
 const waitForDataRegisters = 7000; //msecs
 var flagRMount = false;
@@ -117,7 +113,7 @@ beforeSaveRegistersCell(row, cellName, cellValue) {
 
 //anon(data, refreshIntervalId){
   anon(data){
-     debugger;
+     //debugger;
      if (typeof data == 'undefined' || data.length == 0 ){
 
       console.log("waiting for registers data");

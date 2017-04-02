@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-
 import App from './containers/App';
 import './index.css';
 // import when from 'when';
-
 // import stompClient from './websocket-listener';
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
-
 
 const url1 = 'http://localhost:8181/api/students';
 const url2 = 'http://localhost:8181/api/studentClasses/';

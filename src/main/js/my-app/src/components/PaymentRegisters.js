@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-
-import '../css/App.css';
 import {Table, Column, Cell} from 'fixed-data-table';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
@@ -12,13 +10,19 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 let dataPaymentRegisters = [];
 const waitForData = 7000; //msecs
 
-
+//document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='none'
 function onAfterInsertRow (row) {
   //console.log("insert data to database");
   this.props.addPaymentRegisters(row);
 
 }
+function onBeforeInsertRow (row) {
+  debugger;
+  document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='block';
+  //console.log("insert data to database");
+  this.props.addPaymentRegisters(row);
 
+}
 function onAfterDeleteRow (rowKeys) {
 
 
@@ -156,6 +160,7 @@ render () {
     };
 
     const options = {
+      beforeInsertRow: onBeforeInsertRow.bind(this),   // A hook for after insert rows
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };

@@ -3,26 +3,18 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
-import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-
-import '../css/App.css';
-import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-import $ from "jquery";
 import StudentClassesDataTable from './studentClasses/StudentClassesDataTable';
-import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
-
 
 class StudentClassDashboard extends Component {
 
-    handleChange(event, myprops) {
-        // do something with event.target.checked
-        console.log("hey from handlechange ", event);
-        if (event.data) {
-            event.toggleState(event);
-        }
-        //console.log("changed state succesfully");
-    };
+  handleChange(event, myprops) {
+      // do something with event.target.checked
+      console.log("hey from handlechange ", event);
+      if (event.data) {
+          event.toggleState(event);
+      }
+      //console.log("changed state succesfully");
+  };
 
   cancelFunction(){
     //console.log("hey form cancel function");

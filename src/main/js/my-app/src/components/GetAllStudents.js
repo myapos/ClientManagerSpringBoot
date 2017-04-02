@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import { Link } from 'react-router';
-import '../css/App.css';
 import StudentDataTable from './StudentDataTable';
 
 class GetAllStudents extends Component {

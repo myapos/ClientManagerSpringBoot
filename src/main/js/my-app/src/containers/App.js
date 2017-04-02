@@ -12,10 +12,20 @@ import GetAllStudents from '../components/GetAllStudents';
 import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
-//import ContentApp from '../components/ContentApp';
-import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
+import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
+
+// fixes warning with change of routes in every render --> you cannot change router routes it will be ignored
+// https://github.com/reactjs/react-router-redux/issues/179
+const routes = (
+  <Route path='/' component={Container}>
+    <IndexRoute component={Dashboard} />
+    <Route path='/studentclassdashboard' component={StudentClassDashboard} />
+    <Route path='*' component={NotFound} />
+  </Route>
+);
 
 class App extends Component {
  
@@ -34,11 +44,7 @@ constructor (props) {
 
     return (
       <Router history={hashHistory}>
-        <Route path='/' component={Container}>
-          <IndexRoute component={Dashboard} />
-          <Route path='/studentclassdashboard' component={StudentClassDashboard} />
-          <Route path='*' component={NotFound} />
-        </Route>
+        {routes}
       </Router>
     )
   }
