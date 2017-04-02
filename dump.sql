@@ -294,19 +294,23 @@ ALTER TABLE ONLY student_class ALTER COLUMN id SET DEFAULT nextval('student_clas
 -- Data for Name: databasechangelog; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO databasechangelog VALUES ('1', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.167851', 1, 'EXECUTED', '7:6a229c9f90aaaba830eb6b5265928106', 'createTable tableName=manager', '', NULL, '3.5.3', NULL, NULL, '3527573974');
-INSERT INTO databasechangelog VALUES ('2', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.434325', 2, 'EXECUTED', '7:d8ab94d8eb2e92856f75752a241ea77a', 'createTable tableName=student', '', NULL, '3.5.3', NULL, NULL, '3527573974');
-INSERT INTO databasechangelog VALUES ('3', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.612153', 3, 'EXECUTED', '7:1489468b84141181cf968027f368ae6f', 'createTable tableName=student_class', '', NULL, '3.5.3', NULL, NULL, '3527573974');
-INSERT INTO databasechangelog VALUES ('4', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.723208', 4, 'EXECUTED', '7:a0932cce82299afd441c5d81420ba52a', 'createTable tableName=payed', '', NULL, '3.5.3', NULL, NULL, '3527573974');
-INSERT INTO databasechangelog VALUES ('5', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.789269', 5, 'EXECUTED', '7:4a6f0c26f11d3a2aadca1dded71299b9', 'createTable tableName=register', '', NULL, '3.5.3', NULL, NULL, '3527573974');
-INSERT INTO databasechangelog VALUES ('6', 'myapos', '../database_liqui.json', '2017-01-04 12:59:34.848045', 6, 'EXECUTED', '7:4c40011e3a1498f396a66b4fe79e87b3', 'addColumn tableName=payed', '', NULL, '3.5.3', NULL, NULL, '3527573974');
+COPY databasechangelog (id, author, filename, dateexecuted, orderexecuted, exectype, md5sum, description, comments, tag, liquibase, contexts, labels, deployment_id) FROM stdin;
+1	myapos	../database_liqui.json	2017-01-04 12:59:34.167851	1	EXECUTED	7:6a229c9f90aaaba830eb6b5265928106	createTable tableName=manager		\N	3.5.3	\N	\N	3527573974
+2	myapos	../database_liqui.json	2017-01-04 12:59:34.434325	2	EXECUTED	7:d8ab94d8eb2e92856f75752a241ea77a	createTable tableName=student		\N	3.5.3	\N	\N	3527573974
+3	myapos	../database_liqui.json	2017-01-04 12:59:34.612153	3	EXECUTED	7:1489468b84141181cf968027f368ae6f	createTable tableName=student_class		\N	3.5.3	\N	\N	3527573974
+4	myapos	../database_liqui.json	2017-01-04 12:59:34.723208	4	EXECUTED	7:a0932cce82299afd441c5d81420ba52a	createTable tableName=payed		\N	3.5.3	\N	\N	3527573974
+5	myapos	../database_liqui.json	2017-01-04 12:59:34.789269	5	EXECUTED	7:4a6f0c26f11d3a2aadca1dded71299b9	createTable tableName=register		\N	3.5.3	\N	\N	3527573974
+6	myapos	../database_liqui.json	2017-01-04 12:59:34.848045	6	EXECUTED	7:4c40011e3a1498f396a66b4fe79e87b3	addColumn tableName=payed		\N	3.5.3	\N	\N	3527573974
+\.
 
 
 --
 -- Data for Name: databasechangeloglock; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO databasechangeloglock VALUES (1, false, NULL, NULL);
+COPY databasechangeloglock (id, locked, lockgranted, lockedby) FROM stdin;
+1	f	\N	\N
+\.
 
 
 --
@@ -320,8 +324,10 @@ SELECT pg_catalog.setval('hibernate_sequence', 155, true);
 -- Data for Name: manager; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO manager VALUES (16, 'greg', '$2a$10$IpcIynx8Zzds56lqxWzS3ewO7GxTHfZN/bogqW0Hd46WoXHEUCnOS', '\xaced0005757200135b4c6a6176612e6c616e672e537472696e673badd256e7e91d7b4702000078700000000174000c524f4c455f4d414e41474552');
-INSERT INTO manager VALUES (17, 'myapos', '$2a$10$tAehrcSDiexCTDiLDLwkqOvmNQfG5MWpQY5DmwhNvufhDYiYlO23a', '\xaced0005757200135b4c6a6176612e6c616e672e537472696e673badd256e7e91d7b4702000078700000000174000c524f4c455f4d414e41474552');
+COPY manager (id, name, password, roles) FROM stdin;
+16	greg	$2a$10$IpcIynx8Zzds56lqxWzS3ewO7GxTHfZN/bogqW0Hd46WoXHEUCnOS	\\xaced0005757200135b4c6a6176612e6c616e672e537472696e673badd256e7e91d7b4702000078700000000174000c524f4c455f4d414e41474552
+17	myapos	$2a$10$tAehrcSDiexCTDiLDLwkqOvmNQfG5MWpQY5DmwhNvufhDYiYlO23a	\\xaced0005757200135b4c6a6176612e6c616e672e537472696e673badd256e7e91d7b4702000078700000000174000c524f4c455f4d414e41474552
+\.
 
 
 --
@@ -335,11 +341,13 @@ SELECT pg_catalog.setval('manager_id_seq', 1, false);
 -- Data for Name: payed; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO payed VALUES (17, true, '2001-01-01 00:00:00', 'payed test 123', 141);
-INSERT INTO payed VALUES (150, false, '2001-01-01 00:00:00', 'payed 123', 147);
-INSERT INTO payed VALUES (155, true, '2001-02-01 00:00:00', 'No payment yet', 154);
-INSERT INTO payed VALUES (19, false, '2001-01-01 00:00:00', 'payed y', 148);
-INSERT INTO payed VALUES (153, false, '2001-01-01 00:00:00', 'payed 111', 152);
+COPY payed (id, payment, date_of_payment, notes, register_id) FROM stdin;
+17	t	2001-01-01 00:00:00	payed test 123	141
+150	f	2001-01-01 00:00:00	payed 123ghjfjghj	147
+155	t	2001-02-01 00:00:00	No payment yet hghg	154
+153	t	2001-01-01 00:00:00	payed 111	152
+19	t	2001-01-01 00:00:00	payed y	148
+\.
 
 
 --
@@ -353,11 +361,13 @@ SELECT pg_catalog.setval('payed_id_seq', 19, true);
 -- Data for Name: register; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO register VALUES (148, '2001-01-01 00:00:00', 1, 117);
-INSERT INTO register VALUES (141, '2001-01-01 00:00:00', 18, 117);
-INSERT INTO register VALUES (152, '2001-01-01 00:00:00', 151, 117);
-INSERT INTO register VALUES (154, '2017-01-01 02:00:00', 139, 1);
-INSERT INTO register VALUES (147, '2001-01-01 00:00:00', 136, 117);
+COPY register (id, date_of_registration, student_id, student_class_id) FROM stdin;
+147	2017-01-01 02:00:00	136	1
+148	2001-01-01 00:00:00	1	117
+141	2001-01-01 00:00:00	18	117
+152	2001-01-01 00:00:00	151	117
+154	2017-01-01 02:00:00	139	1
+\.
 
 
 --
@@ -371,20 +381,24 @@ SELECT pg_catalog.setval('register_id_seq', 4, true);
 -- Data for Name: student; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO student VALUES (136, 'myaposgmail', 'test', '2017-01-19 00:00:00', 'myapos@gmail.com', '6979791029', 'ff', 17);
-INSERT INTO student VALUES (151, 'another123456', 'test', '2017-02-15 00:00:00', 'myapos@yahoo.com', '6900000002', 'fff@facebook.com', 17);
-INSERT INTO student VALUES (1, 'myros3', 'm3123', '1982-01-10 00:00:00', 'myapos@gmail.com', '6979791029', 'myapos3@facebook.com', 17);
-INSERT INTO student VALUES (18, 'myros1', 'myroslname', '2013-04-02 00:00:00', 'myapos@yahoo.com', '6979791029', 'https://www.facebook.com/myapos', 17);
-INSERT INTO student VALUES (144, 'tttt', 'ttttl', '2017-02-09 00:00:00', 't@t.gr', '6900000001', 't@t.gr', 17);
-INSERT INTO student VALUES (139, 'another test123', 'another test', '2017-02-12 00:00:00', 'm@m.gr', '6900000019', 'm@m.gr', 17);
+COPY student (id, fname, lname, date_of_birth, email, phone, facebook, manager_id) FROM stdin;
+18	myros	myroslname	2013-04-02 11:35:42	myapos@yahoo.com	6979791029	https://www.facebook.com/myapos	17
+139	another test	another test	2017-02-10 02:00:00	m@m.gr	6900000012	m@m.gr	17
+144	tttt	tttt	2017-02-09 02:00:00	t@t.gr	6900000001	t@t.gr	17
+136	myaposgmail	test	2017-01-19 00:00:00	myapos@gmail.com	6979791029	ff	17
+1	myros3	m3123	1982-01-10 00:00:00	myapos@gmail.com	6979791029	myapos3@facebook.com	17
+151	another 	test	2017-02-15 02:00:00	myapos@yahoo.com	6900000002	fff@facebook.com	17
+\.
 
 
 --
 -- Data for Name: student_class; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-INSERT INTO student_class VALUES (117, 'kvmg', 117);
-INSERT INTO student_class VALUES (1, 'kettlebels', 1);
+COPY student_class (id, description, student_class_id) FROM stdin;
+117	kvmg	117
+1	kettlebelasd	117
+\.
 
 
 --
