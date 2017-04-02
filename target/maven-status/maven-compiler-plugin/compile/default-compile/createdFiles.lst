@@ -1,8 +1,8 @@
 com/myapos/clientmanager/controllers/EmailController.class
 com/myapos/clientmanager/SpringDataRestEventHandler.class
 com/myapos/clientmanager/model/StudentClassRepository.class
-com/myapos/clientmanager/controllers/NotificationService.class
 com/myapos/clientmanager/scheduledTasks/ScheduledTasks.class
+com/myapos/clientmanager/controllers/NotificationService.class
 com/myapos/clientmanager/WebSocketConfiguration.class
 com/myapos/clientmanager/model/PayedRepository.class
 com/myapos/clientmanager/CorsFilter.class
@@ -13,8 +13,8 @@ com/myapos/clientmanager/ReactAndSpringDataRestApplication.class
 com/myapos/clientmanager/controllers/StudentController.class
 com/myapos/clientmanager/model/Payed.class
 com/myapos/clientmanager/EventHandler.class
-com/myapos/clientmanager/model/StudentClass.class
 com/myapos/clientmanager/model/Student.class
+com/myapos/clientmanager/model/StudentClass.class
 com/myapos/clientmanager/model/StudentRepository.class
 com/myapos/clientmanager/WebMvcConfiguration.class
 com/myapos/clientmanager/controllers/StudentClassController.class

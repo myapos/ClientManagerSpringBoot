@@ -16,6 +16,13 @@ import NotFound from '../components/NotFound';
 import '../../../../../../node_modules/react-loading-spinner/src/css/index.css';
 import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
+const routes = (
+  <Route path='/' component={Container}>
+    <IndexRoute component={Dashboard} />
+    <Route path='/studentclassdashboard' component={StudentClassDashboard} />
+    <Route path='*' component={NotFound} />
+  </Route>
+);
 
 class App extends Component {
  
@@ -34,11 +41,7 @@ constructor (props) {
 
     return (
       <Router history={hashHistory}>
-        <Route path='/' component={Container}>
-          <IndexRoute component={Dashboard} />
-          <Route path='/studentclassdashboard' component={StudentClassDashboard} />
-          <Route path='*' component={NotFound} />
-        </Route>
+        {stores}
       </Router>
     )
   }

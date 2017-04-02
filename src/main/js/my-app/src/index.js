@@ -11,11 +11,12 @@ import './index.css';
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
+parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 
-const url1 = 'http://localhost:8181/api/students';
-const url2 = 'http://localhost:8181/api/studentClasses/';
-const url3 = 'http://localhost:8181/api/registers/';
-const url4 = 'http://localhost:8181/api/payeds/';
+const url1 = parent.BASE_URL+'/api/students';
+const url2 = parent.BASE_URL+'/api/studentClasses/';
+const url3 = parent.BASE_URL+'/api/registers/';
+const url4 = parent.BASE_URL+'/api/payeds/';
 
 const pageSize = 1;
 var that = this;
