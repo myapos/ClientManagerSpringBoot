@@ -89,22 +89,22 @@ componentDidUpdate(){
 
     let id = rows.length;
 
-    el.setAttribute('placeholder', id);
+/*    el.setAttribute('placeholder', id);
     //set id for classes in modal window
     x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
-    //console.log("modal editing:",el);
+*/
 
-    let el2 = x.getElementsByClassName('form-group');
+    /*let el2 = x.getElementsByClassName('form-group');
     let childs = el2[2].childNodes;
     
     el2[2].removeChild(childs[1])
-    let input = el2[2];
+    let input = el2[2];*/
 
     //Create array of options to be added
     //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
 
     //Create and append select list
-    let selectList = document.createElement("select");
+/*    let selectList = document.createElement("select");
     selectList.id = "mySelectStudentClasses";
     selectList.className = "form-control";
     el2[2].appendChild(selectList);
@@ -114,7 +114,7 @@ componentDidUpdate(){
         option.value = this.props.saved_studentClasses[i].description;
         option.text = this.props.saved_studentClasses[i].description;
         selectList.appendChild(option);
-    }
+    }*/
 
 } //end if
 

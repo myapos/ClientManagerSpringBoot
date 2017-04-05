@@ -67,7 +67,7 @@ export function getAllStudents() {
   };
 }
 export function addStudent(row) {
-
+  debugger;
   return {
     type: ADD_STUDENT,
     row

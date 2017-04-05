@@ -1,4 +1,3 @@
-parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 parent.request1 = {};
 parent.rowDescription = {};
 export const getStudentClasses = () => {
@@ -173,17 +172,17 @@ export const deleteStudentClass = (classId) => {
                     'Content-Type': 'application/json'
                 }
             })
-        	.then(res => { 
+            .then(res => { 
 
-        		//console.log(res);
-        		if(res.status === 204){
-        			alert("Student class is deleted succesfully");
-        			window.location.reload(true);
-        		}
+                //console.log(res);
+                if(res.status === 204){
+                    alert("Student class is deleted succesfully");
+                    window.location.reload(true);
+                }
                 else{
                     alert("The class you are trying to delete is subclass to another class. Please try to delete the parent class first");
                 }
-        	})
+            })
         });
 }
 
@@ -235,7 +234,7 @@ export const saveNewStudent = (row) => {
             "dateOfBirth": date,
             "facebook": row.facebook,
             "phone": row.phone,
-            "manager": "http://localhost:8181/api/managers/17",
+            "manager": parent.BASE_URL + "/api/managers/17",
         });
 
         const fetch1 = fetch(parent.BASE_URL + "/api/students" , {
@@ -342,7 +341,7 @@ export const updateStudent = (rowUpdate) => {
             "dateOfBirth": date,
             "facebook": rowUpdate.facebook,
             "phone": rowUpdate.phone,
-            "manager": "http://localhost:8181/api/managers/17",
+            "manager": parent.BASE_URL + "/api/managers/17",
         });
     const fetch1 = fetch(rowUpdate._links.self.href , {
                 method: 'PATCH',

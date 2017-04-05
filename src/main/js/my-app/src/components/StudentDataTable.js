@@ -32,6 +32,123 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
+class CustomInsertModal extends React.Component {
+
+  handleSaveBtnClick = () => {
+    const { columns, onSave, addStudentRow } = this.props;
+    const newRow = {};
+    columns.forEach((column, i) => {
+      newRow[column.field] = this.refs[column.field].value;
+    }, this);
+    // You should call onSave function and give the new row
+    debugger;
+    addStudentRow(newRow);
+    //onSave(newRow);
+  }
+
+  render() {
+
+    const {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      addStudent
+    } = this.props;
+    return (
+      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+        <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη πελάτη</h2>
+        <div className='container-fluid'>
+          {
+            columns.map((column, i) => {
+              const {
+                editable,
+                format,
+                field,
+                name,
+                hiddenOnInsert
+              } = column;
+
+              if (hiddenOnInsert) {
+                // when you want same auto generate value
+                // and not allow edit, for example ID field
+                return null;
+              }
+              console.log("log:", column);
+              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              
+              if(field === 'fname'){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label>Όνομα</label>
+                    <input ref={ field } className='form-control' defaultValue={ '' } />
+                    { error }
+                   </div>);
+               
+              } else if(field === 'lname'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Επίθετο</label>
+                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+              }  
+              else if(field === 'dateOfBirth'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Ημερομηνία</label>
+                      <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else if(field === 'phone'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Κινητό</label>
+                      <input ref={ field } className='form-control' type='number' min='6900000000' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else if(field === 'facebook'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>{ name }</label>
+                      <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else if(field === 'email'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>{ name }</label>
+                      <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else {
+
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>{ name }</label>
+                      <input ref={ field } className='form-control' type='email' defaultValue={ parent.students.length+1 } />
+                      { error }
+                     </div>);
+                 
+                } 
+            })
+          }
+        </div>
+        <div>
+          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+        </div>
+      </div>
+    );
+  }
+}
+
 class StudentDataTable extends Component {
 
 componentDidMount() {
@@ -50,12 +167,12 @@ componentDidUpdate(){
 
       el.setAttribute('placeholder', id);
       //set id for classes in modal window
-      x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
+      // x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
       //add date element in modal window
-      x.getElementsByClassName('form-control editor edit-text')[3].type="number";
-      x.getElementsByClassName('form-control editor edit-text')[3].min="6900000000";
-      x.getElementsByClassName('form-control editor edit-text')[4].type="date";
-      x.getElementsByClassName('form-control editor edit-text')[5].type="email";
+      // x.getElementsByClassName('form-control editor edit-text')[3].type="number";
+      // x.getElementsByClassName('form-control editor edit-text')[3].min="6900000000";
+      // x.getElementsByClassName('form-control editor edit-text')[4].type="date";
+      // x.getElementsByClassName('form-control editor edit-text')[5].type="email";
   }
 
 
@@ -86,6 +203,15 @@ anon(data, refreshIntervalId){
        //this.props.loadingHandling(0);
      }
 };
+createCustomModal (onModalClose, onSave, columns, validateState, ignoreEditable, addStudent) {
+    const addStudentRow = this.props.addStudent;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, addStudentRow
+    };
+    return (
+      <CustomInsertModal { ... attr } />
+    );
+  }
 
 render () {
 
@@ -101,6 +227,7 @@ render () {
     };
 
     const options = {
+      insertModal: this.createCustomModal.bind(this),
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
@@ -140,7 +267,11 @@ render () {
                 <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
                 <TableHeaderColumn dataField="fname" dataAlign="center" dataSort={true} pagination>Name</TableHeaderColumn>
                 <TableHeaderColumn dataField="lname" dataSort={true}>Last Name</TableHeaderColumn>
-                <TableHeaderColumn dataField="phone" dataSort={false}>Mobile phone</TableHeaderColumn>
+                <TableHeaderColumn 
+                  dataField="phone" 
+                  dataSort={false}>
+                  Mobile phone 
+                </TableHeaderColumn>
                 <TableHeaderColumn 
                   dataField="dateOfBirth" 
                   dataAlign="left" 
