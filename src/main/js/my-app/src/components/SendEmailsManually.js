@@ -78,8 +78,8 @@ class SendEmailsManually extends Component {
                       <textarea onChange={this.handleChange.bind(this)} 
                       className="form-control" rows="10" cols="100" id="message" value={this.props.text}/>
                     </div>
-                   <button type="button" onClick={this.handleSubmit.bind(this)} className="btn btn-default">Submit</button>
-                   <button type="button" onClick={this.clearText.bind(this)} className="btn btn-default">Clear Text</button>
+                   <button type="button" onClick={this.handleSubmit.bind(this)} className="btn btn-default">Αποστολή</button>
+                   <button type="button" onClick={this.clearText.bind(this)} className="btn btn-default">Καθαρισμός</button>
                 </div>
         );
       }
