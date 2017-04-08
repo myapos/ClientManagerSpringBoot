@@ -109,7 +109,7 @@ export const saveNewClass = (row) => {
 
         /*this has to be fixed* sets subclass*/
         //find subclass by row.subClassdescription
-        debugger;
+        //debugger;
         const fetch2 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
             "?description=" + row.subClassDescription, {
                 method: 'get',
@@ -202,7 +202,7 @@ export const updateStudentClass = (newdesc, rowUpdate) => {
         "description": newdesc,
         "studentClass": rowUpdate._links.self.href
     });
-    debugger;
+    //debugger;
     if(rowUpdate.description === "No subclass") {
         alert("You can not update this class. It is used for declaring classes with no subclasses. Please choose a different one.")
     } else {
@@ -382,6 +382,7 @@ export const addPaymentRegisters = (row) => {
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
+    //debugger;
     if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
         updateMode === "updateDateOfPayment"){
 
@@ -1146,7 +1147,8 @@ export const msgSubmitted = (msg, selectedClass) => {
                                     let student = JSON.parse(request2.responseText);
 
                                     //send emails if payment is true
-
+                                    //debugger;
+                                    console.log('log:', p);
                                     if(p.payment) {
 
                                         //send email to student
@@ -1389,17 +1391,21 @@ export const getDataPaymentsRegisters = (saved_student) => {
 
                           let studentClasses = res3;//JSON.parse(request3.responseText);
                           let tempData ={};
-                          tempData.fname = students[jj].fname;
-                          tempData.lname = students[jj].lname;
-                          tempData.email = students[jj].email;
-                          tempData.class = studentClasses.description;
-                          tempData.payment = payments._embedded.payeds[0].payment;
-                          tempData.notes = payments._embedded.payeds[0].notes;
-                          let date = new Date(payments._embedded.payeds[0].dateOfPayment);
-                          let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
-                          tempData.dateOfPayment = formatedDate;
-                          tempData.index = dataPaymentRegisters.length+1;
-                          dataPaymentRegisters.push(tempData);
+                          if (typeof payments._embedded.payeds[0] !== 'undefined'){
+                            tempData.fname = students[jj].fname;
+                            tempData.lname = students[jj].lname;
+                            tempData.email = students[jj].email;
+                            tempData.class = studentClasses.description;
+                            
+                            tempData.payment = payments._embedded.payeds[0].payment;
+                            tempData.notes = payments._embedded.payeds[0].notes;
+                            let date = new Date(payments._embedded.payeds[0].dateOfPayment);
+                            let formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];                 
+                            tempData.dateOfPayment = formatedDate;
+                            tempData.index = dataPaymentRegisters.length+1;
+                            dataPaymentRegisters.push(tempData);
+                          }
+
 
                       })
 

@@ -52,7 +52,7 @@ class InsertPaymentRegistersModal extends React.Component {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    debugger;
+    //debugger;
     addPaymentRegisters(newRow);
     //onSave(newRow);
   }
@@ -206,6 +206,54 @@ componentDidMount(){
  
   
 }
+afterSavePaymentRegistersCell(row, cellName, cellValue) {
+  // do your stuff...
+
+  let x = document.getElementById("PaymentRegisters");
+  let y = x.getElementsByClassName("react-bs-container-body");
+  let updateMode = "";
+ 
+  let el;
+  let cellIndex;
+  if (y[0].querySelector("select") != null){
+
+    el = y[0].querySelector("select")[0];
+    cellIndex  = el.parentElement.parentElement.cellIndex;
+  }
+  else if (y[0].getElementsByClassName("form-control editor edit-text")[0] != null){
+    
+    el = y[0].getElementsByClassName("form-control editor edit-text")[0];
+    cellIndex = el.parentElement.cellIndex;
+  }
+  else if (y[0].getElementsByClassName("form-control editor edit-datetime")[0] != null){
+    el = y[0].getElementsByClassName("form-control editor edit-datetime")[0];
+    cellIndex = el.parentElement.cellIndex;
+  }
+  //console.log(el);
+
+
+  if (cellIndex == 4){
+    updateMode = "paymentUpdate";
+  } 
+  else if (cellIndex == 5){
+
+    updateMode = "paymentNotesUpdate";
+  } 
+  else if (cellIndex == 6){
+
+    updateMode = "classUpdate";
+
+  } 
+  else if (cellIndex == 7){
+
+    updateMode = "updateDateOfPayment";
+
+  } 
+  
+  let descBefore = el.getAttribute("value");
+  this.props.updatePaymentRegisters(row,updateMode);
+
+}
 
 //anon(data, refreshIntervalId){
 anon(data){
@@ -236,7 +284,8 @@ createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState,
 render () {
 
     const cellEditProp = {
-      mode: 'click'
+      mode: 'click',
+      afterSaveCell: this.afterSavePaymentRegistersCell.bind(this)
     };
 
     const options = {

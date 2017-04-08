@@ -74,7 +74,7 @@ render () {
     
     return (
       <div id="dataDisplayClassesForSendingEmailManually">
-        Please select class, write your message and press enter
+        Please select class, write your message and press enter. The message will be send only to those students that has registerd to classes and has payed
         <BootstrapTable 
           cellEdit={cellEditProp} 
           data={dataDisplayClassesForSendingEmailManually} 
