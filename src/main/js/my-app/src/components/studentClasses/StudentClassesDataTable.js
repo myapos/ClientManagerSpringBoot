@@ -231,7 +231,13 @@ render () {
     const cellEditProp = {
       mode: 'click',
       beforeSaveCell: this.beforeSaveStudentClassCell.bind(this),
-      afterSaveCell: this.afterSaveSaveStudentClassCell.bind(this)
+      afterSaveCell: this.afterSaveSaveStudentClassCell.bind(this),
+      nonEditableRows: function() {
+            //debugger;
+            // if product id less than 3, will cause the whole row noneditable
+            // this function should return an array of row keys
+            return data.filter(el => el.description === "No subclass").map(el => el.index);
+          }
     };
     const options = {
       insertModal: this.createInsertStudentClassesModal.bind(this),

@@ -144,47 +144,52 @@ export const deleteStudentClass = (classId) => {
     let rowByClassId = x.querySelectorAll('tr')[classId];
     let description = rowByClassId.childNodes[2].innerHTML;
 
-    const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
-            "?description=" + description, {
-                method: 'get',
-                mode: 'cors',
-                cache: 'default',
-                headers: {
-                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                    'Content-Type': 'application/json'
-                }
-            })
-        .then(res => res.json())
-        .then(res => {
+    if( description === "No subclass") {
+        alert("You can not delete this class. It is used for declaring classes with no subclasses. Please choose a different one.")
+    } else {
+        const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
+             "?description=" + description, {
+                 method: 'get',
+                 mode: 'cors',
+                 cache: 'default',
+                 headers: {
+                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                     'Content-Type': 'application/json'
+                 }
+             })
+         .then(res => res.json())
+         .then(res => {
 
-            //console.log("data from server: ", res);
-            let ar = res._links.self.href.split("/");
-            let s = ar.length;
-            let id = ar[s - 1];
+             //console.log("data from server: ", res);
+             let ar = res._links.self.href.split("/");
+             let s = ar.length;
+             let id = ar[s - 1];
 
-            //delete record student class with id
+             //delete record student class with id
 
-            fetch(parent.BASE_URL + "/api/studentClasses/"+id, {
-                method: 'delete',
-                mode: 'cors',
-                cache: 'default',
-                headers: {
-                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => { 
+             fetch(parent.BASE_URL + "/api/studentClasses/"+id, {
+                 method: 'delete',
+                 mode: 'cors',
+                 cache: 'default',
+                 headers: {
+                     'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                     'Content-Type': 'application/json'
+                 }
+             })
+             .then(res => { 
 
-                //console.log(res);
-                if(res.status === 204){
-                    alert("Student class is deleted succesfully");
-                    window.location.reload(true);
-                }
-                else{
-                    alert("The class you are trying to delete is subclass to another class. Please try to delete the parent class first");
-                }
-            })
-        });
+                 //console.log(res);
+                 if(res.status === 204){
+                     alert("Student class is deleted succesfully");
+                     window.location.reload(true);
+                 }
+                 else{
+                     alert("The class you are trying to delete is subclass to another class. Please try to delete the parent class first");
+                 }
+             })
+         });   
+    }
+
 }
 
 /*update selected class from table -- desc parameter is the description in front end table not in the database*/
@@ -192,12 +197,16 @@ export const deleteStudentClass = (classId) => {
 export const updateStudentClass = (newdesc, rowUpdate) => {
     //fetch call for update
     //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
-    debugger;
+
     let bodyData = JSON.stringify({
         "description": newdesc,
         "studentClass": rowUpdate._links.self.href
     });
-    const fetch1 = fetch(rowUpdate._links.self.href , {
+    debugger;
+    if(rowUpdate.description === "No subclass") {
+        alert("You can not update this class. It is used for declaring classes with no subclasses. Please choose a different one.")
+    } else {
+        const fetch1 = fetch(rowUpdate._links.self.href , {
                 method: 'PATCH',
                 mode: 'cors',
                 cache: 'default',
@@ -216,6 +225,7 @@ export const updateStudentClass = (newdesc, rowUpdate) => {
         }
 
         })
+    }
 
 }
 
