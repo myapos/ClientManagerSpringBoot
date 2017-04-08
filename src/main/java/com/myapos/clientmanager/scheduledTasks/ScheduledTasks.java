@@ -29,6 +29,7 @@ public class ScheduledTasks {
 	private final ManagerRepository managers;
 	private final PayedRepository payeds;
 
+
 	//private Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
 
 	@Autowired
@@ -67,7 +68,8 @@ public class ScheduledTasks {
 
 		//1. find all payments with false
 		Iterable<Payed> allPayeds = this.payeds.findAll();
-		//int size = sizeOfIterablePayed(allPayeds); //deactivate for the time moment!!!!!
+		//uncomment next line for cron scheduling email sending
+		int size = sizeOfIterablePayed(allPayeds); //deactivate for the time moment!!!!!
 
 		//2. find all register that matches false payments
 
