@@ -122,9 +122,7 @@ class InsertStudentClassesModal extends React.Component {
                       </select>
                       { error }
                      </div>);
-              }
-                 
-             
+              }                         
             })
            }
         </div>
@@ -136,46 +134,25 @@ class InsertStudentClassesModal extends React.Component {
     );
   }
 }
-
-
 class StudentClassesDataTable extends Component {
 
 componentWillMount(){
   const data = this.props.saved_studentClasses;
   data.map((obj, index)=>{
-
     //console.log("cur index:"+index);
     obj.index = (index+1);
     //what is happening when there are more subclasses??? i need to parse all subclasses!!!!
-
     obj.ManyToOne=obj._links.studentClass[1].href;
     this.props.getSubClass(obj.ManyToOne, obj.description, obj);
   });
-
-
-
-}
-componentDidMount() {
-
-}
-
-componentWillUpdate(){
-
 }
 
 componentDidUpdate(){
-  //debugger;
-  // parent.loadedPaymReg  = 0;
-  // parent.loadedReg = 0;
-  //check if checkPeriodInMinutes has passed
-
   let x = document.getElementById("studentClasses");
 
   if (x!= null) {
     let rows = x.querySelectorAll('tr');
     let el = rows[1];
-
-
     let id = rows.length;
 } //end if
 
@@ -192,10 +169,6 @@ beforeSaveStudentClassCell(row, cellName, cellValue) {
   // let descBefore = el.getAttribute("value");
    this.props.updateClass(row, cellValue);
 
-}
-
-afterSaveSaveStudentClassCell(row, cellName, cellValue) {
-  // do your stuff...
 }
 
 //anonymoys function to use in setInterval
@@ -231,9 +204,7 @@ render () {
     const cellEditProp = {
       mode: 'click',
       beforeSaveCell: this.beforeSaveStudentClassCell.bind(this),
-      afterSaveCell: this.afterSaveSaveStudentClassCell.bind(this),
       nonEditableRows: function() {
-            //debugger;
             // if product id less than 3, will cause the whole row noneditable
             // this function should return an array of row keys
             return data.filter(el => el.description === "No subclass").map(el => el.index);
@@ -246,12 +217,6 @@ render () {
     };
 
     //wait for data to be retrieved from fdatabase
-
-    // let refreshIntervalId = setInterval( ()=> { 
-    //     this.anon(this.props.saved_studentClasses, refreshIntervalId)
-
-    // } , waitForData);
-    //debugger;
 
     for (let j=0; j<data.length; j++){ 
        for (var key in this.props.classesPair) {

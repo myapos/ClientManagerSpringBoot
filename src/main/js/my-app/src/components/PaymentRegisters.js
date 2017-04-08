@@ -10,24 +10,18 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 let dataPaymentRegisters = [];
 const waitForData = 7000; //msecs
 const paymentTypes = ["true", "false"];
-//document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='none'
+
 function onAfterInsertRow (row) {
-  //console.log("insert data to database");
   this.props.addPaymentRegisters(row);
 
 }
 function onBeforeInsertRow (row) {
   document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='block';
-  //console.log("insert data to database");
   this.props.addPaymentRegisters(row);
 
 }
 function onAfterDeleteRow (rowKeys) {
-
-
-  //console.log("delete data from database");
   this.props.deletePaymentRegisters(rowKeys);
-
 }
 
 // If you want to enable deleteRow, you must enable row selection also.
@@ -40,7 +34,7 @@ function formatSelectOptionClasses () {
   var html = '';
   //get parent.StudentClasses and return html string to render it in return function
   //html += `<select className="form-control">`;
-                      // </select>
+  // </select>
   for( let i=0; i<parent.studentClasses.length; i++){
     //debugger;
     html += `<option value="${parent.studentClasses[i].description}">${parent.studentClasses[i].description}</option>`;

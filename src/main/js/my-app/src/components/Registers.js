@@ -12,29 +12,147 @@ var flagRMount = false;
 const dataRegisters = [];
 parent.studentIndexWithRegistrations = [];
 
-function afterSearch (searchText, result){
-
-}
-
-function onAfterInsertRow (row) {
-
-
-}
-
 function onAfterDeleteRow (rowKeys) {
-
-  //console.log("delete data from database");
-
   this.props.deleteRegisters(rowKeys[0]);
-
 }
 
 // If you want to enable deleteRow, you must enable row selection also.
 const selectRowProp = {
   mode: 'checkbox'
 };
+const paymentTypes = ["true", "false"];
 
+function formatSelectOptionregisters () { 
+  var html = '';
+  //get parent.StudentClasses and return html string to render it in return function
+  //html += `<select className="form-control">`;
+  // </select>
+  for( let i=0; i<parent.studentClasses.length; i++){
+    //debugger;
+    html += `<option value="${parent.studentClasses[i].description}">${parent.studentClasses[i].description}</option>`;
+  }
+  //html += `</select>`;
+  return {__html: html};
+}
 
+class InsertRegistersModal extends React.Component {
+
+  handleSaveBtnClick = () => {
+    const { columns, onSave, addRegisters } = this.props;
+    const newRow = {};
+    columns.forEach((column, i) => {
+      newRow[column.field] = this.refs[column.field].value;
+    }, this);
+    // You should call onSave function and give the new row
+    addRegisters(newRow);
+    //onSave(newRow);
+  }
+  render() {
+    const {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      addStudent
+    } = this.props;
+    return (
+      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+        <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη εγγραφής</h2>
+        <div className='container-fluid'>
+          {
+            columns.map((column, i) => {
+              const {
+                editable,
+                format,
+                field,
+                name,
+                hiddenOnInsert
+              } = column;
+
+              if (hiddenOnInsert) {
+                // when you want same auto generate value
+                // and not allow edit, for example ID field
+                return null;
+              }
+              //debugger;
+              console.log("log:", column);
+              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              //debugger;
+              if( field === 'index') {
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label>ID</label>
+                    <input ref={ field } className='form-control' defaultValue={ parent.registers.length + 1} />
+                    { error }
+                   </div>);
+              } else if ( field === 'fname' ){
+                return( 
+                <div className='form-group col-xs-6' key={ field }>
+                  <label>Όνομα</label>
+                   <select ref={ field } className="form-control"> 
+                    {
+                      parent.students.map( (el, i) => {
+                        return <option key={i} value={el.fname}>{el.fname}</option>
+                      })
+                    } 
+                   </select>
+                  { error }
+                 </div>);
+              } else if ( field === 'lname' ){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label >Επίθετο</label>
+                   <select ref={ field } className="form-control"> 
+                    {
+                      parent.students.map( (el, i) => {
+                        return <option key={i} value={el.lname}>{el.lname}</option>
+                      })
+                    } 
+                   </select>
+                  { error }
+                   </div>);
+              } else if ( field === 'email' ){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label >Email</label>
+                    <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                    { error }
+                   </div>);
+              } else if ( field === 'class' ){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label >Τάξη</label>
+                   <select ref={ field } className="form-control"> 
+                    {
+                      parent.studentClasses.map( (el, i) => {
+                        if(el.description !== "No subclass"){
+                          return <option key={i} value={el.description}>{el.description}</option>
+                        }
+                      })
+                    } 
+                   </select>
+                  { error }
+                   </div>);
+              } else if ( field === 'dateOfRegistration' ){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label >Ημερομηνία εγγραφής</label>
+                    <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                    { error }
+                   </div>);
+              }
+            })
+          }
+        </div>
+        <div>
+          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+        </div>
+      </div>
+    );
+  }
+}
 class Registers extends Component {
 
 constructor(props) {
@@ -44,24 +162,13 @@ constructor(props) {
     }
 }
 
-
 componentWillMount(){
   const students = this.props.saved_student;
   //debugger;
   this.props.dataRegisters(students);
 }
 
-
-componentDidMount(){
-}
-
-componentDidUpdate(){
-
-}
-
 afterSaveRegistersCell(row, cellName, cellValue) {
-
-
 
 let studentHasRegistrations = false;
 //get index of row
@@ -71,9 +178,7 @@ let studentHasRegistrations = false;
 for (let jj=0; jj<parent.studentIndexWithRegistrations.length; jj++){
 
   if (parent.studentIndexWithRegistrations[jj] == row.index) {
-
     studentHasRegistrations = true;
-
   }
 }
 
@@ -97,36 +202,30 @@ if (!studentHasRegistrations) {
 }
 
 else {
-
-      alert("Update registrations");
-      this.props.updateRegisters(row);
-
+    alert("Update registrations");
+    this.props.updateRegisters(row);
 }
-  
-
-
-}
-
-beforeSaveRegistersCell(row, cellName, cellValue) {
-
 }
 
 //anon(data, refreshIntervalId){
   anon(data){
-     //debugger;
      if (typeof data == 'undefined' || data.length == 0 ){
-
       console.log("waiting for registers data");
-
      } else if (data.length > 0 ){
 
       if(!this.props.loadingHandlingCommplete)
-         this.props.loadingHandling(1);
-       //clearInterval(refreshIntervalId);
-       //reresnder
-       //this.props.loadingHandling(0);
+        this.props.loadingHandling(1);
      }
 };
+createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const addRegisters = this.props.addRegisters;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, addRegisters
+    };
+    return (
+      <InsertRegistersModal { ... attr } />
+    );
+}
 
 render () {
 parent.loadedReg = true;
@@ -137,37 +236,24 @@ parent.loadedReg = true;
 
  const cellEditProp = {
       mode: 'click',
-      beforeSaveCell: this.beforeSaveRegistersCell.bind(this),
       afterSaveCell: this.afterSaveRegistersCell.bind(this)
     };
 
     const options = {
-      afterSearch: afterSearch,           // define a after search hook
-      afterInsertRow: onAfterInsertRow,   // A hook for after insert rows
+      // insertModal: this.createInsertRegistersModal.bind(this),
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
-    const paymentTypes = ["true", "false"];
-
-
     const availableClasses = [];
     for (let i=0;i<this.props.saved_studentClasses.length;i++){
-        availableClasses.push(this.props.saved_studentClasses[i].description)
+      availableClasses.push(this.props.saved_studentClasses[i].description)
     }
-
-    //console.log("log registers:",this.props.dataRegistersLoaded);
 
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2")){
       setTimeout( ()=> { 
            this.anon(this.props.dataRegistersLoaded)
       } , waitForDataRegisters); 
     } 
-
-    // let refreshIntervalId = setInterval( ()=> { 
-    //     //debugger;
-    //     this.anon(this.props.dataRegistersLoaded, refreshIntervalId)
-
-    // } , waitForData);
 
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
@@ -205,7 +291,6 @@ parent.loadedReg = true;
 	     )
 	} 
   else{
-    //this.props.loadingHandling(0);
 	    return (
 	      <div>
 	          <div className="loader"></div>
