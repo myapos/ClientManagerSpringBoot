@@ -47,7 +47,7 @@ public class ScheduledTasks {
 		this.payeds = payedRepository;
 	}
 
-    @Scheduled(fixedRate = 18000)
+    @Scheduled(fixedRate = 18000000)
     public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
 
