@@ -66,7 +66,7 @@ function* updateStudentClass () {
 
 	//console.log('updateStudentClass');
 	const state = yield select();
-	const desc = yield call(api.updateStudentClass, state.desc, state.descBefore, state.rowUpdate);
+	const desc = yield call(api.updateStudentClass, state.desc, state.rowUpdate);
 
 	
 	yield put({

@@ -109,6 +109,7 @@ export const saveNewClass = (row) => {
 
         /*this has to be fixed* sets subclass*/
         //find subclass by row.subClassdescription
+        debugger;
         const fetch2 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
             "?description=" + row.subClassDescription, {
                 method: 'get',
@@ -188,10 +189,10 @@ export const deleteStudentClass = (classId) => {
 
 /*update selected class from table -- desc parameter is the description in front end table not in the database*/
 
-export const updateStudentClass = (newdesc, descBefore, rowUpdate) => {
+export const updateStudentClass = (newdesc, rowUpdate) => {
     //fetch call for update
     //curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/studentClasses/74
-
+    debugger;
     let bodyData = JSON.stringify({
         "description": newdesc,
         "studentClass": rowUpdate._links.self.href

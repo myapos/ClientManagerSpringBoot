@@ -9,7 +9,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 //debugger;
 let dataPaymentRegisters = [];
 const waitForData = 7000; //msecs
-
+const paymentTypes = ["true", "false"];
 //document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='none'
 function onAfterInsertRow (row) {
   //console.log("insert data to database");
@@ -17,7 +17,6 @@ function onAfterInsertRow (row) {
 
 }
 function onBeforeInsertRow (row) {
-  debugger;
   document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='block';
   //console.log("insert data to database");
   this.props.addPaymentRegisters(row);
@@ -37,6 +36,151 @@ const selectRowProp = {
   columnWidth: '30px'
 };
 
+function formatSelectOptionClasses () { 
+  var html = '';
+  //get parent.StudentClasses and return html string to render it in return function
+  //html += `<select className="form-control">`;
+                      // </select>
+  for( let i=0; i<parent.studentClasses.length; i++){
+    //debugger;
+    html += `<option value="${parent.studentClasses[i].description}">${parent.studentClasses[i].description}</option>`;
+  }
+  //html += `</select>`;
+  return {__html: html};
+}
+
+class InsertPaymentRegistersModal extends React.Component {
+
+  handleSaveBtnClick = () => {
+    const { columns, onSave, addPaymentRegisters } = this.props;
+    const newRow = {};
+    columns.forEach((column, i) => {
+      newRow[column.field] = this.refs[column.field].value;
+    }, this);
+    // You should call onSave function and give the new row
+    debugger;
+    addPaymentRegisters(newRow);
+    //onSave(newRow);
+  }
+
+
+  render() {
+
+    const {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      addStudent
+    } = this.props;
+    return (
+      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+        <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη πληρωμής</h2>
+        <div className='container-fluid'>
+          {
+            columns.map((column, i) => {
+              const {
+                editable,
+                format,
+                field,
+                name,
+                hiddenOnInsert
+              } = column;
+
+              if (hiddenOnInsert) {
+                // when you want same auto generate value
+                // and not allow edit, for example ID field
+                return null;
+              }
+              //debugger;
+              console.log("log:", column);
+              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              //debugger;
+              if(field === 'fname'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Όνομα</label>
+                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+              } else if(field === 'lname'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Επίθετο</label>
+                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+              }  
+              else if(field === 'payment'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Πληρωμή</label>
+                      <select ref={ field } className="form-control"> 
+                       {
+                         paymentTypes.map( (el, i) => {
+                          //debugger;
+                          return <option key={i} value={el}>{el}</option>
+                         })
+                       } 
+                      </select>
+                      { error }
+                     </div>);
+                 
+                } else if(field === 'notes'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label >Σημειώσεις</label>
+                      <input ref={ field } className='form-control' type='text' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else if (field === 'class'){
+                  const html_ = formatSelectOptionClasses();
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Τάξη</label>
+                       <select ref={ field } className="form-control"> 
+                        {
+                          parent.studentClasses.map( (el, i) => {
+                            return <option key={i} value={el.description}>{el.description}</option>
+                          })
+                        } 
+                       </select>
+                      { error }
+                     </div>);
+                 
+                } else if(field === 'dateOfPayment'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Ημερομηνία πληρωμής</label>
+                      <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+                } else {
+
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>{ name }</label>
+                      <input ref={ field } className='form-control' defaultValue={ parent.payeds.length+1 } />
+                      { error }
+                     </div>);
+                 
+                } 
+            })
+          }
+        </div>
+        <div>
+          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+        </div>
+      </div>
+    );
+  }
+}
 
 class PaymentRegisters extends Component {
 
@@ -73,68 +217,6 @@ componentDidMount(){
   
 }
 
-beforeSavePaymentRegistersCell(row, cellName, cellValue) {
-
-  // do your stuff...
-  //call action for update
-}
-
-afterSavePaymentRegistersCell(row, cellName, cellValue) {
-  // do your stuff...
-
-  let x = document.getElementById("PaymentRegisters");
-  let y = x.getElementsByClassName("react-bs-container-body");
-  let updateMode = "";
- 
-  let el;
-  let cellIndex;
-  if (y[0].querySelector("select") != null){
-
-    el = y[0].querySelector("select")[0];
-    cellIndex  = el.parentElement.parentElement.cellIndex;
-  }
-  else if (y[0].getElementsByClassName("form-control editor edit-text")[0] != null){
-    
-    el = y[0].getElementsByClassName("form-control editor edit-text")[0];
-    cellIndex = el.parentElement.cellIndex;
-  }
-  else if (y[0].getElementsByClassName("form-control editor edit-datetime")[0] != null){
-    el = y[0].getElementsByClassName("form-control editor edit-datetime")[0];
-    cellIndex = el.parentElement.cellIndex;
-  }
-  //console.log(el);
-
-
-  if (cellIndex == 4){
-    updateMode = "paymentUpdate";
-  } 
-  else if (cellIndex == 5){
-
-    updateMode = "paymentNotesUpdate";
-  } 
-  else if (cellIndex == 6){
-
-    updateMode = "classUpdate";
-
-  } 
-  else if (cellIndex == 7){
-
-    updateMode = "updateDateOfPayment";
-
-  } 
-  
-  let descBefore = el.getAttribute("value");
-  this.props.updatePaymentRegisters(row,updateMode);
-
-}
-
-afterTabChanged() {
-/*    this.refs.table1.forceUpdate();
-    this.refs.table2.forceUpdate();*/
-}
-
-//anonymoys function to use in setInterval
-
 //anon(data, refreshIntervalId){
 anon(data){
      if (typeof data == 'undefined' || data.length == 0 ){
@@ -151,15 +233,24 @@ anon(data){
      }
 };
 
+createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const addPaymentRegisters = this.props.addPaymentRegisters;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, addPaymentRegisters
+    };
+    return (
+      <InsertPaymentRegistersModal { ... attr } />
+    );
+}
+
 render () {
 
     const cellEditProp = {
-      mode: 'click',
-      beforeSaveCell: this.beforeSavePaymentRegistersCell.bind(this),
-      afterSaveCell: this.afterSavePaymentRegistersCell.bind(this)
+      mode: 'click'
     };
 
     const options = {
+      insertModal: this.createInsertPaymentRegistersModal.bind(this),
       beforeInsertRow: onBeforeInsertRow.bind(this),   // A hook for after insert rows
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
@@ -181,8 +272,7 @@ render () {
     if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") 
         && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
         && this.props.dataPaymentsRegistersLoaded.length > 0){
-    //debugger;
-    const paymentTypes = ["true", "false"];
+
 
     const fnames = [];
     const lnames = [];
@@ -207,7 +297,6 @@ render () {
           cellEdit={cellEditProp} 
           data={this.props.dataPaymentsRegistersLoaded} 
           hover={true} 
-          insertRow={true}
           deleteRow={true} 
           selectRow={selectRowProp}
           exportCSV={true}

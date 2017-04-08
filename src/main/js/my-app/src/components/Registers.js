@@ -178,6 +178,7 @@ parent.loadedReg = true;
 	          cellEdit={cellEditProp} 
 	          data={this.props.dataRegistersLoaded} 
 	          hover={true} 
+            insertRow={ true } 
             deleteRow={true} 
 	          selectRow={ selectRowProp }
 	          exportCSV={true}

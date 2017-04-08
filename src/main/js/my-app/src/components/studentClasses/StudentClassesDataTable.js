@@ -24,7 +24,7 @@ function onAfterInsertRow(row) {
   //console.log("insert data to database",this.props);
   row.subClassDescription = selectedSubClass;
   this.props.saveNewClass(row);
-   alert('The new row is:\n ' + row.description + " "+row.subClassDescription);
+  alert('The new row is:\n ' + row.description + " "+row.subClassDescription);
 }
 
 function onAfterDeleteRow(rowKeys) {
@@ -46,7 +46,96 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
+class InsertStudentClassesModal extends React.Component {
 
+  handleSaveBtnClick = () => {
+    const { columns, onSave, saveNewClass } = this.props;
+    const newRow = {};
+    columns.forEach((column, i) => {
+      newRow[column.field] = this.refs[column.field].value;
+    }, this);
+    // You should call onSave function and give the new row
+    saveNewClass(newRow);
+    //onSave(newRow);
+  }
+
+  render() {
+
+    const {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      addStudent
+    } = this.props;
+    return (
+      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+        <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη Τάξης</h2>
+        <div className='container-fluid'>
+           {
+            columns.map((column, i) => {
+              const {
+                editable,
+                format,
+                field,
+                name,
+                hiddenOnInsert
+              } = column;
+
+              if (hiddenOnInsert) {
+                // when you want same auto generate value
+                // and not allow edit, for example ID field
+                return null;
+              }
+              console.log("log:", column);
+              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              if(field === 'index'){
+                return( 
+                  <div className='form-group col-xs-6' key={ field }>
+                    <label>ID</label>
+                    <input ref={ field } className='form-control' defaultValue={ parent.studentClasses.length+1 } />
+                    { error }
+                   </div>);
+               
+              } else if(field === 'description'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                       <label>Τάξη</label>
+                       <input ref={ field } className='form-control' defaultValue={ '' } />
+                      { error }
+                     </div>);
+                 
+              }  
+              else if(field === 'subClassDescription'){
+                  return( 
+                    <div className='form-group col-xs-6' key={ field }>
+                      <label>Υποτμήμα</label>
+
+                      <select ref={ field } className="form-control"> 
+                        <option value="No subclass">No subclass</option>
+                       {
+                         parent.studentClasses.map( (el, i) => {
+                           return <option key={i} value={el.description}>{el.description}</option>
+                         })
+                       } 
+                      </select>
+                      { error }
+                     </div>);
+              }
+                 
+             
+            })
+           }
+        </div>
+        <div>
+          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+        </div>
+      </div>
+    );
+  }
+}
 
 
 class StudentClassesDataTable extends Component {
@@ -88,34 +177,6 @@ componentDidUpdate(){
 
 
     let id = rows.length;
-
-/*    el.setAttribute('placeholder', id);
-    //set id for classes in modal window
-    x.getElementsByClassName('form-control editor edit-text')[0].value = rows.length;
-*/
-
-    /*let el2 = x.getElementsByClassName('form-group');
-    let childs = el2[2].childNodes;
-    
-    el2[2].removeChild(childs[1])
-    let input = el2[2];*/
-
-    //Create array of options to be added
-    //let arrayOfOptions = ["Volvo","Saab","Mercades","Audi"];
-
-    //Create and append select list
-/*    let selectList = document.createElement("select");
-    selectList.id = "mySelectStudentClasses";
-    selectList.className = "form-control";
-    el2[2].appendChild(selectList);
-
-    for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-        let option = document.createElement("option");
-        option.value = this.props.saved_studentClasses[i].description;
-        option.text = this.props.saved_studentClasses[i].description;
-        selectList.appendChild(option);
-    }*/
-
 } //end if
 
 };
@@ -126,9 +187,10 @@ beforeSaveStudentClassCell(row, cellName, cellValue) {
   //call action for update
 
   let x = document.getElementById("studentClasses");
-  let el = x.getElementsByClassName(" form-control editor edit-text")[2];
-  let descBefore = el.getAttribute("value");
-  this.props.updateClass(row, cellValue,descBefore);
+  //get the value before
+  // let el = x.getElementsByClassName(" form-control editor edit-text")[2];
+  // let descBefore = el.getAttribute("value");
+   this.props.updateClass(row, cellValue);
 
 }
 
@@ -151,20 +213,28 @@ anon(data, refreshIntervalId){
        //this.props.loadingHandling(0);
      }
 };
+createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const saveNewClass = this.props.saveNewClass;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass
+    };
+    return (
+      <InsertStudentClassesModal { ... attr } />
+    );
+}
 
 render () {
     
 
     const data = this.props.saved_studentClasses;
     //console.log(data);
-
-
     const cellEditProp = {
       mode: 'click',
       beforeSaveCell: this.beforeSaveStudentClassCell.bind(this),
       afterSaveCell: this.afterSaveSaveStudentClassCell.bind(this)
     };
     const options = {
+      insertModal: this.createInsertStudentClassesModal.bind(this),
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
@@ -198,7 +268,15 @@ render () {
 
      return (
       <div id="studentClasses" >
-          <BootstrapTable  data={data} cellEdit={cellEditProp} selectRow={selectRowProp} hover={true} insertRow={true} deleteRow={true} options={options}>
+          <BootstrapTable  
+          data={data} 
+          cellEdit={cellEditProp} 
+          selectRow={selectRowProp} 
+          hover={true} 
+          insertRow={true} 
+          deleteRow={true} 
+          options={options}
+          trClassName="studentClassesRows">
             <TableHeaderColumn dataField="index" isKey={true} dataSort={true} editable={false} >id</TableHeaderColumn>
             <TableHeaderColumn dataField="description" dataAlign="center" dataSort={true} pagination>Description</TableHeaderColumn>
             <TableHeaderColumn dataField="subClassDescription" dataAlign="center" dataSort={true} pagination>Subclass</TableHeaderColumn>
