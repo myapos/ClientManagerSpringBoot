@@ -32,6 +32,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import java.util.*;
+import java.text.SimpleDateFormat;
 /**
  * @author Myron Apostolakis
  */
@@ -61,16 +63,18 @@ public class NotificationService {
 			String text = "You are receiving this because you are a member of Ferrum Gym.";
 			mail.setTo(email);
 			mail.setFrom("ferrumgym@gmail.com");
-			mail.setSubject("Notification ");
+			mail.setSubject("Notification");
 			mail.setText(text + msg);
 			javaMailSender.send(mail);
 			System.out.println("Email Sent!");
 		}
 		else {
 			//String text = "You are receiving this because you are a member of Ferrum Gym.";
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			Date date = new Date();
 			mail.setTo(email);
 			mail.setFrom("ferrumgym@gmail.com");
-			mail.setSubject("Check your registration fee ");
+			mail.setSubject("Check your registration fee. Reporting at " + dateFormat.format(date));
 			mail.setText(msg);
 			javaMailSender.send(mail);
 			System.out.println("Email Sent!");
