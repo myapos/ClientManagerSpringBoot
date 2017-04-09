@@ -405,38 +405,37 @@ export const addPaymentRegisters = (row) => {
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-    debugger;
     if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
         updateMode === "updateDateOfPayment" || updateMode === "addPayment"){
-
-        //sync requests
-
-        //step 1 find student by student fname and lname
-
+        
+         //step 1 find student by student fname and lname
         let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
         let request = new XMLHttpRequest();
-        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.open('GET', url, true);  // `false` makes the request synchronous
         request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
         request.setRequestHeader("Content-type", "application/json");
-        request.contentType = "application/json"
-        request.send(null);
+        request.contentType = "application/json";
+        request.row = row; //pass row in object 
+        request.onload = function (e) {
+          if (request.readyState === 4) {
+            if (request.status === 200) {
+              console.log(request.responseText);
+              
+              let resObj = JSON.parse(request.responseText);
+              let student = resObj._links.self.href;
 
-        if (request.status === 200) {
+              //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
+              let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+this.row.class;
+              let request2St = new XMLHttpRequest();
+              request2St.open('GET', url2St, true);  // `false` makes the request synchronous
+              request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+              request2St.setRequestHeader("Content-type", "application/json");
+              request2St.contentType = "application/json";
+              request2St.row = this.row; //pass row in object
+              request2St.onload = function (e){
+                if(request2St.readyState === 4){
+                    if(request2St.status === 200) {
 
-                let resObj = JSON.parse(request.responseText);
-                let student = resObj._links.self.href;
-
-                //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
-
-                let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-                let request2St = new XMLHttpRequest();
-                request2St.open('GET', url2St, false);  // `false` makes the request synchronous
-                request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                request2St.setRequestHeader("Content-type", "application/json");
-                request2St.contentType = "application/json"
-                request2St.send(null);
-
-                if (request2St.status === 200) {   
                         let resObj2St = JSON.parse(request2St.responseText);
 
                         //step 2.1 find register by student class
@@ -445,204 +444,139 @@ export const updatePaymentRegisters = (updateMode , row) => {
                             +student+"&studentClass="+resObj2St._links.self.href;
 
                         let request21 = new XMLHttpRequest();
-                        request21.open('GET', url21, false);  // `false` makes the request synchronous
+                        request21.open('GET', url21, true);  // `false` makes the request synchronous
                         request21.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                         request21.setRequestHeader("Content-type", "application/json");
-                        request21.contentType = "application/json"
-                        request21.send(null);
+                        request21.contentType = "application/json";
+                        request21.row = this.row; //pass row in object
+                        request21.onload = function (e){
+                            if(request21.readyState === 4){
+                                if(request21.status === 200){
+                                    
+                                    let resObj21 = JSON.parse(request21.responseText); 
+                                    //has to be fixed for many
+                                    let register = resObj21._links.self.href; //has to be fixed for many
+                                    //update only the selected payment 
 
-                        if (request21.status === 200) {
+                                    //step 3 update payments
 
-                            let resObj21 = JSON.parse(request21.responseText); {
-                            //has to be fixed for many
-                            let register = resObj21._links.self.href; //has to be fixed for many
-                            //update only the selected payment 
+                                    //step 3.1 find payment id to update
 
-                            //step 3 update payments
+                                    let ar = register.split("/");
+                                    let s = ar.length;
+                                    let registerId = ar[s - 1];
 
-                            //step 3.1 find payment id to update
+                                    let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
+                                    let request3 = new XMLHttpRequest();
+                                    request3.open('GET', url3, true);  // `false` makes the request synchronous
+                                    request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                    request3.setRequestHeader("Content-type", "application/json");
+                                    request3.contentType = "application/json";
+                                    request3.row = this.row;
+                                    request3.onload = function(e) {
+                                        if(request3.readyState === 4) {
+                                            if(request3.status === 200){
+                                                let resObj3 = JSON.parse(request3.responseText);
 
-                            let ar = register.split("/");
-                            let s = ar.length;
-                            let registerId = ar[s - 1];
+                                                //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
+                                                if (resObj3._embedded.payeds.length ==0) {
+                                                    //edw
+                                                    let payment = parent.BASE_URL+"/api/payeds/";
 
-                            let url3 = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+register;
-                            let request3 = new XMLHttpRequest();
-                            request3.open('GET', url3, false);  // `false` makes the request synchronous
-                            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                            request3.setRequestHeader("Content-type", "application/json");
-                            request3.contentType = "application/json"
-                            request3.send(null);
+                                                    //step 3.2 update payments
+                                                    let date = new Date(row.dateOfPayment.substr(0, 10));
 
-                            if (request3.status === 200) {
-                                
-                                let resObj3 = JSON.parse(request3.responseText);
+                                                    let bodyData = JSON.stringify({
+                                                            "payment" : row.payment,
+                                                            "dateOfPayment": date,
+                                                            "notes": row.notes,
+                                                            "register": register
+                                                    });
 
-                                //ean den iparxei plirwmi tote dimiourgise ti alliws kane update
+                                                    let request5 = new XMLHttpRequest();
+                                                    request5.open('POST', payment, true);  // `false` makes the request synchronous
+                                                    request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                                    request5.setRequestHeader("Content-type", "application/json");
+                                                    request5.contentType = "application/json";
+                                                    request5.row = this.row;
+                                                    request5.onload = function(e){
+                                                        if(request5.readyState === 4){
+                                                            if (request5.status === 201) {
+                                                                let resObj5 = JSON.parse(request5.responseText);
+                                                                alert("Payment has been updated in database. Page is reloading");
+                                                                window.location.reload(true);  
+                                                            }
+                                                            else {
 
-                                if (resObj3._embedded.payeds.length ==0) {
+                                                                alert("Something bad has happened. Please try again");
+                                                            }
+                                                        }
+                                                    }
+                                                    request5.send(bodyData);
 
-                                    let payment = parent.BASE_URL+"/api/payeds/";
 
-                                    //step 3.2 update payments
-                                    let date = new Date(row.dateOfPayment.substr(0, 10));
+                                                    
+                                                } else {
+                                                    //ki edw
+                                                    for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
+                                                    let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
 
-                                    let bodyData = JSON.stringify({
-                                            "payment" : row.payment,
-                                            "dateOfPayment": date,
-                                            "notes": row.notes,
-                                            "register": register
-                                    });
+                                                    //step 3.2 update payments
+                                                    let date = new Date(row.dateOfPayment.substr(0, 10));
 
-                                    let request5 = new XMLHttpRequest();
-                                    request5.open('POST', payment, false);  // `false` makes the request synchronous
-                                    request5.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                                    request5.setRequestHeader("Content-type", "application/json");
-                                    request5.contentType = "application/json"
-                                    request5.send(bodyData);
+                                                    let bodyData = JSON.stringify({
+                                                            "payment" : row.payment,
+                                                            "dateOfPayment": date,
+                                                            "notes": row.notes,
+                                                            "register": register
+                                                    });
 
-                                    if (request5.status === 201) {
+                                                    let request4 = new XMLHttpRequest();
+                                                    request4.open('PATCH', payment, true);  // `false` makes the request synchronous
+                                                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                                    request4.setRequestHeader("Content-type", "application/json");
+                                                    request4.contentType = "application/json";
+                                                    request4.row = this.row;
+                                                    request4.onload = function(e) {
+                                                        if(request4.readyState === 4){
+                                                            if (request4.status === 200){
+                                                                let resObj4 = JSON.parse(request4.responseText);
+                                                                 if (s === resObj3._embedded.payeds.length -1){
+                                                                    alert("Payment has been updated in database. Page is reloading");
+                                                                    window.location.reload(true);  
+                                                                }else {
 
-                                        let resObj5 = JSON.parse(request5.responseText);
-                                        alert("Payment has been updated in database. Page is reloading");
-                                    }
-                                    else {
+                                                                    alert("Something bad has happened. Please try again");
 
-                                        alert("Something bad has happened. Please try again");
-                                    }
-                                }
-                                else {
-                                    for(let s=0; s<resObj3._embedded.payeds.length; s++){ // for 2
-                                    let payment = resObj3._embedded.payeds[s]._links.payed.href; //has to be fixed for many
+                                                                }
+                                                            }
+                                                        }
 
-                                    //step 3.2 update payments
-                                    let date = new Date(row.dateOfPayment.substr(0, 10));
+                                                    }
+                                                    request4.send(bodyData);
 
-                                    let bodyData = JSON.stringify({
-                                            "payment" : row.payment,
-                                            "dateOfPayment": date,
-                                            "notes": row.notes,
-                                            "register": register
-                                    });
+                                                }//end of for 2
+                                            } //end of else
 
-                                    let request4 = new XMLHttpRequest();
-                                    request4.open('PATCH', payment, false);  // `false` makes the request synchronous
-                                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                                    request4.setRequestHeader("Content-type", "application/json");
-                                    request4.contentType = "application/json"
-                                    request4.send(bodyData);
-
-                                    if (request4.status === 200) {
-                                        let resObj4 = JSON.parse(request4.responseText);
-                                         if (s === resObj3._embedded.payeds.length -1){
-                                            alert("Payment has been updated in database. Page is reloading");
-                                            window.location.reload(true);  
+                                            }
                                         }
                                     }
-                                    else {
-
-                                        alert("Something bad has happened. Please try again");
-
-                                    }
-                                }//end of for 2
-                            } //end of else
+                                    request3.send(null);
+                                }
                             }
-
                         }
-                } //end of for 1
-                }     
-        }
-    } 
-
-    else if (updateMode === "classUpdate"){
-
-        //sync calls
-        //prepei na kanw update tin eggrafi register ara na allaksw to class id mesa ston pinaka register
-
-        //step 1 find student by fname and lname
-
-        let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
-        let request = new XMLHttpRequest();
-        request.open('GET', url, true);  // `false` makes the request synchronous
-        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request.setRequestHeader("Content-type", "application/json");
-        request.contentType = "application/json"
-        request.send(null);
-
-            if (request.status === 200) {
-
-                    let resObj = JSON.parse(request.responseText);
-                    //console.log("sync call 1:", resObj);
-                    let student = resObj._links.self.href;
-
-
-                    //step2 find register id by student 
-                    let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
-
-                    let request2 = new XMLHttpRequest();
-                    request2.open('GET', url2, true);  // `false` makes the request synchronous
-                    request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                    request2.setRequestHeader("Content-type", "application/json");
-                    request2.contentType = "application/json"
-                    request2.send(null);
-
-                        if (request2.status === 200) {
-
-                            let resObj2 = JSON.parse(request2.responseText);
-                 
-                            //step 3 find classes by description
-                            let url3 = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-                            let request3 = new XMLHttpRequest();
-                            request3.open('GET', url3, true);  // `false` makes the request synchronous
-                            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                            request3.setRequestHeader("Content-type", "application/json");
-                            request3.contentType = "application/json"
-                            request3.send(null);
-
-                            if (request3.status === 200) {
-
-                                let resObj3 = JSON.parse(request3.responseText);
-
-                                //step 4 make the patch request
-                                let date = new Date(row.dateOfPayment.substr(0, 10));
-                                let bodyData = JSON.stringify({
-                                            "dateOfRegistration" : date,
-                                            "student": student,
-                                            "studentClass": resObj3._links.self.href
-                                    });
-
-                                    let request4 = new XMLHttpRequest();
-                                    let registrations = resObj2._embedded.registers;
-                                    for (let j=0; j<registrations.length;j++) {
-                                    let url4 = resObj2._embedded.registers[j]._links.register.href;
-                                    request4.open('PATCH', url4, true);  // `false` makes the request synchronous
-                                    request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                                    request4.setRequestHeader("Content-type", "application/json");
-                                    request4.contentType = "application/json"
-                                    request4.send(bodyData);
-
-                                    if (request4.status === 200) {
-
-                                        let resObj4 = JSON.parse(request4.responseText);
-
-                                        if (j === registrations.length -1){
-                                            alert("Payment has been updated in database. Page is reloading");
-                                            window.location.reload(true);
-                                        }
-
-                                    }
-                                    else {
-
-                                        alert("Something bad has happened. Please try again");
-
-                                    }
-                                }
-                            }
-
+                        request21.send(null);
                     }
+                }
+              }
+              request2St.send(null);
+            } else {
+              console.error(request.statusText);
             }
-
-    } 
+          }
+        }
+        request.send(null);
+    }
 
 }
 
@@ -761,82 +695,84 @@ export const deletePaymentRegisters = (id) => {
     }
 }
 
-
-
 export const createRegisters = (row) => {
-//create call -- we need student id, studentClass id, dateOfRegistration
+    //create call -- we need student id, studentClass id, dateOfRegistration
 
 
-//find studentClass id
+    //find studentClass id
 
-    let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-    let request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
-    request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-    request.setRequestHeader("Content-type", "application/json");
-    request.contentType = "application/json"
-    request.send(null);
+        let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+        let request = new XMLHttpRequest();
+        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+        request.setRequestHeader("Content-type", "application/json");
+        request.contentType = "application/json";
+        request.row = row;
+        request.onload = function(e) {
+            if (request.readyState === 4) {
+                if(request.status === 200) {
+                    let resObj = JSON.parse(request.responseText);
 
-    if (request.status === 200) {
-
-        let resObj = JSON.parse(request.responseText);
-
-        let classLink = resObj._links.self.href; //has to be fixed for many
-
-
-        let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
-        let request2 = new XMLHttpRequest();
-        request2.open('GET', url2, false);  // `false` makes the request synchronous
-        request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request2.setRequestHeader("Content-type", "application/json");
-        request2.contentType = "application/json"
-        request2.send(null);
-
-        if (request2.status === 200) {
-
-            //step 2 find student id to update
-            let resObj2 = JSON.parse(request2.responseText);
+                    let classLink = resObj._links.self.href; //has to be fixed for many
 
 
-            let studentLink = resObj2._links.self.href; //has to be fixed for many
+                    let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+this.row.fname+"&lname="+this.row.lname;
+                    let request2 = new XMLHttpRequest();
+                    request2.open('GET', url2, false);  // `false` makes the request synchronous
+                    request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                    request2.setRequestHeader("Content-type", "application/json");
+                    request2.contentType = "application/json";
+                    request2.row = this.row;
+                    request2.onload = function (e) {
+                        if (request2.readyState === 4) {
+                            if (request2.status === 200){
+                               //step 2 find student id to update
+                               let resObj2 = JSON.parse(request2.responseText);
 
-            //new registration call
 
-            let date = new Date(row.dateOfRegistration.substr(0, 10));
+                               let studentLink = resObj2._links.self.href; //has to be fixed for many
 
-            let bodyData = JSON.stringify({
-                    "studentClass" : classLink,
-                    "dateOfRegistration": date,
-                    "student": studentLink
-            });
+                               //new registration call
 
-            let url3 = parent.BASE_URL+"/api/registers/";
-            let request3 = new XMLHttpRequest();
-            request3.open('POST', url3, false);  // `false` makes the request synchronous
-            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request3.setRequestHeader("Content-type", "application/json");
-            request3.contentType = "application/json"
-            request3.send(bodyData);
-            
-            if (request3.status === 201) {
+                               let date = new Date(row.dateOfRegistration.substr(0, 10));
 
-                let resObj3 = JSON.parse(request2.responseText);
-                alert("Registration has been created in database. Page is reloading");
-                window.location.reload(true);
+                               let bodyData = JSON.stringify({
+                                       "studentClass" : classLink,
+                                       "dateOfRegistration": date,
+                                       "student": studentLink
+                               });
 
-            } else {
+                               let url3 = parent.BASE_URL+"/api/registers/";
+                               let request3 = new XMLHttpRequest();
+                               request3.open('POST', url3, false);  // `false` makes the request synchronous
+                               request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                               request3.setRequestHeader("Content-type", "application/json");
+                               request3.contentType = "application/json";
+                               request3.row = this.row;
+                               request3.onload = function (e){
+                                if(request3.readyState ===4) {
+                                    if(request3.status === 201){
+                                        let resObj3 = JSON.parse(request2.responseText);
+                                        alert("Registration has been created in database. Page is reloading");
+                                        window.location.reload(true);
+                                    } else {
                 
-                alert("Something bad has happened. Please try again");
+                                        alert("Something bad has happened. Please try again");
 
+                                    }
+
+                                }
+                               }
+                               request3.send(bodyData); 
+                            }
+                        }
+                    }
+                    request2.send(null);
+                }
             }
-
         }
-
-
-    }
-
+        request.send(null);
 }
-
 
 export const updateRegisters = (row) => {
 
