@@ -12,12 +12,13 @@ const waitForData = 7000; //msecs
 const paymentTypes = ["true", "false"];
 
 function onAfterInsertRow (row) {
-  this.props.addPaymentRegisters(row);
+  debugger;
+  //this.props.addPaymentRegisters("addPayment", row);
 
 }
 function onBeforeInsertRow (row) {
   document.getElementsByClassName('modal fade bs-table-modal-sm8 in')[0].style.display='block';
-  this.props.addPaymentRegisters(row);
+  //this.props.addPaymentRegisters(row);
 
 }
 function onAfterDeleteRow (rowKeys) {
@@ -46,14 +47,14 @@ function formatSelectOptionClasses () {
 class InsertPaymentRegistersModal extends React.Component {
 
   handleSaveBtnClick = () => {
-    const { columns, onSave, addPaymentRegisters } = this.props;
+    const { columns, onSave, updatePaymentRegisters } = this.props;
     const newRow = {};
     columns.forEach((column, i) => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
     //debugger;
-    addPaymentRegisters(newRow);
+    updatePaymentRegisters(newRow, "addPayment");
     //onSave(newRow);
   }
 
@@ -88,14 +89,20 @@ class InsertPaymentRegistersModal extends React.Component {
                 return null;
               }
               //debugger;
-              console.log("log:", column);
+              //console.log("log:", column);
               const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
               //debugger;
               if(field === 'fname'){
                   return( 
                     <div className='form-group col-xs-6' key={ field }>
                       <label>Όνομα</label>
-                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      <select ref={ field } className="form-control"> 
+                        {
+                          parent.students.map( (el, i) => {
+                            return <option key={i} value={el.fname}>{el.fname}</option>
+                          })
+                        } 
+                       </select>
                       { error }
                      </div>);
                  
@@ -103,7 +110,13 @@ class InsertPaymentRegistersModal extends React.Component {
                   return( 
                     <div className='form-group col-xs-6' key={ field }>
                       <label>Επίθετο</label>
-                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      <select ref={ field } className="form-control"> 
+                       {
+                         parent.students.map( (el, i) => {
+                           return <option key={i} value={el.lname}>{el.lname}</option>
+                         })
+                       } 
+                      </select>
                       { error }
                      </div>);
                  
@@ -249,7 +262,7 @@ afterSavePaymentRegistersCell(row, cellName, cellValue) {
     updateMode = "updateDateOfPayment";
 
   } 
-  
+  debugger;
   let descBefore = el.getAttribute("value");
   this.props.updatePaymentRegisters(row,updateMode);
 
@@ -272,9 +285,9 @@ anon(data){
 };
 
 createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
-    const addPaymentRegisters = this.props.addPaymentRegisters;
+    const updatePaymentRegisters = this.props.updatePaymentRegisters;
     const attr = {
-      onModalClose, onSave, columns, validateState, ignoreEditable, addPaymentRegisters
+      onModalClose, onSave, columns, validateState, ignoreEditable, updatePaymentRegisters
     };
     return (
       <InsertPaymentRegistersModal { ... attr } />
@@ -338,6 +351,7 @@ render () {
           hover={true} 
           deleteRow={true} 
           selectRow={selectRowProp}
+          insertRow = { true }
           exportCSV={true}
           search={true}
           options={options}
