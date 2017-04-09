@@ -220,7 +220,7 @@ export const updateStudentClass = (newdesc, rowUpdate) => {
             if(res.status === 200){
 
             alert("Class is updated succsesfully. Prepare for reloading");
-            //window.location.reload(true);
+            window.location.reload(true);
 
         }
 
@@ -262,7 +262,7 @@ export const saveNewStudent = (row) => {
                 if(res.status === 201){
 
                 alert("New student saved succsesfully. Prepare for reloading");
-                //window.location.reload(true);
+                window.location.reload(true);
                 }
                 else {
                     alert("something bad happened.Please check your input data.");    
@@ -367,7 +367,7 @@ export const updateStudent = (rowUpdate) => {
         .then(res => {
             if(res.status === 200){
             alert("Student is updated succsesfully. Prepare for reloading");
-            //window.location.reload(true);
+            window.location.reload(true);
         }
 
         })
