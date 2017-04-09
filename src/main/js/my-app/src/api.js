@@ -376,15 +376,38 @@ export const updateStudent = (rowUpdate) => {
          window.location.reload(true);  
     }
 }
-
+//this is not used/ updatePaymentRegisters is used for creation also
 export const addPaymentRegisters = (row) => {
 
+    // let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
+    // //step 1 find student by fname and lname
+
+    // let request = new XMLHttpRequest();
+    // request.open('GET', url, false);  // `false` makes the request synchronous
+    // request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+    // request.setRequestHeader("Content-type", "application/json");
+    // request.contentType = "application/json"
+    // request.send(null); 
+    // if (request.status === 200) {
+
+    //     let resObj = JSON.parse(request.responseText);
+    //     let student = resObj._links.self.href;
+    //     //step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
+
+    //     let url2St = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
+    //     let request2St = new XMLHttpRequest();
+    //     request2St.open('GET', url2St, true);  // `false` makes the request synchronous
+    //     request2St.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+    //     request2St.setRequestHeader("Content-type", "application/json");
+    //     request2St.contentType = "application/json"
+    //     request2St.send(null);
+    // } 
 }
 
 export const updatePaymentRegisters = (updateMode , row) => {
-    //debugger;
+    debugger;
     if (updateMode === "paymentUpdate" || updateMode === "paymentNotesUpdate" ||
-        updateMode === "updateDateOfPayment"){
+        updateMode === "updateDateOfPayment" || updateMode === "addPayment"){
 
         //sync requests
 
@@ -510,14 +533,11 @@ export const updatePaymentRegisters = (updateMode , row) => {
                                     request4.send(bodyData);
 
                                     if (request4.status === 200) {
-
                                         let resObj4 = JSON.parse(request4.responseText);
-
                                          if (s === resObj3._embedded.payeds.length -1){
                                             alert("Payment has been updated in database. Page is reloading");
-     
+                                            window.location.reload(true);  
                                         }
-
                                     }
                                     else {
 
@@ -543,7 +563,7 @@ export const updatePaymentRegisters = (updateMode , row) => {
 
         let url = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
         let request = new XMLHttpRequest();
-        request.open('GET', url, false);  // `false` makes the request synchronous
+        request.open('GET', url, true);  // `false` makes the request synchronous
         request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
         request.setRequestHeader("Content-type", "application/json");
         request.contentType = "application/json"
@@ -560,7 +580,7 @@ export const updatePaymentRegisters = (updateMode , row) => {
                     let url2 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+student;
 
                     let request2 = new XMLHttpRequest();
-                    request2.open('GET', url2, false);  // `false` makes the request synchronous
+                    request2.open('GET', url2, true);  // `false` makes the request synchronous
                     request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                     request2.setRequestHeader("Content-type", "application/json");
                     request2.contentType = "application/json"
@@ -573,7 +593,7 @@ export const updatePaymentRegisters = (updateMode , row) => {
                             //step 3 find classes by description
                             let url3 = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
                             let request3 = new XMLHttpRequest();
-                            request3.open('GET', url3, false);  // `false` makes the request synchronous
+                            request3.open('GET', url3, true);  // `false` makes the request synchronous
                             request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                             request3.setRequestHeader("Content-type", "application/json");
                             request3.contentType = "application/json"
@@ -595,7 +615,7 @@ export const updatePaymentRegisters = (updateMode , row) => {
                                     let registrations = resObj2._embedded.registers;
                                     for (let j=0; j<registrations.length;j++) {
                                     let url4 = resObj2._embedded.registers[j]._links.register.href;
-                                    request4.open('PATCH', url4, false);  // `false` makes the request synchronous
+                                    request4.open('PATCH', url4, true);  // `false` makes the request synchronous
                                     request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                                     request4.setRequestHeader("Content-type", "application/json");
                                     request4.contentType = "application/json"
@@ -1095,7 +1115,7 @@ export const msgSubmitted = (msg, selectedClass) => {
                         let urlT = parent.BASE_URL + "/api/payeds/search/findByRegister" +
                          "?register=" + el._links.self.href;
                         let requestT = new XMLHttpRequest();
-                        requestT.open('GET', urlT, false);  // `false` makes the request synchronous
+                        requestT.open('GET', urlT, true);  // `false` makes the request synchronous
                         requestT.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                         requestT.setRequestHeader("Content-type", "application/json");
                         requestT.contentType = "application/json"
@@ -1118,7 +1138,7 @@ export const msgSubmitted = (msg, selectedClass) => {
                     let url = parent.BASE_URL + "/api/payeds/search/findByRegister" +
                      "?register=" + el._links.self.href;
                     let request = new XMLHttpRequest();
-                    request.open('GET', url, false);  // `false` makes the request synchronous
+                    request.open('GET', url, true);  // `false` makes the request synchronous
                     request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                     request.setRequestHeader("Content-type", "application/json");
                     request.contentType = "application/json"
@@ -1137,7 +1157,7 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                                 let url2 = el._links.student.href;
                                 let request2 = new XMLHttpRequest();
-                                request2.open('GET', url2, false);  // `false` makes the request synchronous
+                                request2.open('GET', url2, true);  // `false` makes the request synchronous
                                 request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                                 request2.setRequestHeader("Content-type", "application/json");
                                 request2.contentType = "application/json"
