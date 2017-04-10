@@ -8,13 +8,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.2.RELEASE</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<groupId>com.myapos</groupId>
 	<artifactId>ClientManager</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>React.js and Spring Data REST - Security</name>
 	<description>An SPA with ReactJS in the frontend and Spring Data REST in the backend</description>
@@ -110,7 +110,14 @@
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+        <execution>
+          <goals>
+            <goal>repackage</goal>
+          </goals>
+        </execution>
+      </executions>
 			</plugin>
 			<!-- <plugin>
 				<groupId>com.github.eirslett</groupId>
