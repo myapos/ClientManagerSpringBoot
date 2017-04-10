@@ -1051,7 +1051,7 @@ export const msgSubmitted = (msg, selectedClass) => {
                         let urlT = parent.BASE_URL + "/api/payeds/search/findByRegister" +
                          "?register=" + el._links.self.href;
                         let requestT = new XMLHttpRequest();
-                        requestT.open('GET', urlT, true);  // `false` makes the request synchronous
+                        requestT.open('GET', urlT, false);  // `false` makes the request synchronous
                         requestT.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                         requestT.setRequestHeader("Content-type", "application/json");
                         requestT.contentType = "application/json"
@@ -1074,7 +1074,7 @@ export const msgSubmitted = (msg, selectedClass) => {
                     let url = parent.BASE_URL + "/api/payeds/search/findByRegister" +
                      "?register=" + el._links.self.href;
                     let request = new XMLHttpRequest();
-                    request.open('GET', url, true);  // `false` makes the request synchronous
+                    request.open('GET', url, false);  // `false` makes the request synchronous
                     request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                     request.setRequestHeader("Content-type", "application/json");
                     request.contentType = "application/json"
@@ -1093,7 +1093,7 @@ export const msgSubmitted = (msg, selectedClass) => {
 
                                 let url2 = el._links.student.href;
                                 let request2 = new XMLHttpRequest();
-                                request2.open('GET', url2, true);  // `false` makes the request synchronous
+                                request2.open('GET', url2, false);  // `false` makes the request synchronous
                                 request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                                 request2.setRequestHeader("Content-type", "application/json");
                                 request2.contentType = "application/json"
