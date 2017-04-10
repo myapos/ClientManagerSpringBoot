@@ -774,169 +774,102 @@ export const createRegisters = (row) => {
         request.send(null);
 }
 
-export const createRegisters____= (row) => {
-    //create call -- we need student id, studentClass id, dateOfRegistration
+export const updateRegisters = (row) => {
 
+    //create call -- we need student id, studentClass id, dateOfRegistration
 
     //find studentClass id
 
-        let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
-        let request = new XMLHttpRequest();
-        request.open('GET', url, false);  // `false` makes the request synchronous
-        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request.setRequestHeader("Content-type", "application/json");
-        request.contentType = "application/json";
-        request.row = row;
-        request.onload = function(e) {
-            if (request.readyState === 4) {
-                if(request.status === 200) {
-                    let resObj = JSON.parse(request.responseText);
-
-                    let classLink = resObj._links.self.href; //has to be fixed for many
-
-
-                    let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+this.row.fname+"&lname="+this.row.lname;
-                    let request2 = new XMLHttpRequest();
-                    request2.open('GET', url2, false);  // `false` makes the request synchronous
-                    request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                    request2.setRequestHeader("Content-type", "application/json");
-                    request2.contentType = "application/json";
-                    request2.row = this.row;
-                    request2.onload = function (e) {
-                        if (request2.readyState === 4) {
-                            if (request2.status === 200){
-                               //step 2 find student id to update
-                               let resObj2 = JSON.parse(request2.responseText);
-
-
-                               let studentLink = resObj2._links.self.href; //has to be fixed for many
-
-                               //new registration call
-
-                               let date = new Date(row.dateOfRegistration.substr(0, 10));
-
-                               let bodyData = JSON.stringify({
-                                       "studentClass" : classLink,
-                                       "dateOfRegistration": date,
-                                       "student": studentLink
-                               });
-
-                               let url3 = parent.BASE_URL+"/api/registers/";
-                               let request3 = new XMLHttpRequest();
-                               request3.open('POST', url3, false);  // `false` makes the request synchronous
-                               request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                               request3.setRequestHeader("Content-type", "application/json");
-                               request3.contentType = "application/json";
-                               request3.row = this.row;
-                               request3.onload = function (e){
-                                if(request3.readyState ===4) {
-                                    if(request3.status === 201){
-                                        let resObj3 = JSON.parse(request2.responseText);
-                                        alert("Registration has been created in database. Page is reloading");
-                                        window.location.reload(true);
-                                    } else {
-                
-                                        alert("Something bad has happened. Please try again");
-
-                                    }
-
-                                }
-                               }
-                               request3.send(bodyData); 
-                            }
-                        }
-                    }
-                    request2.send(null);
-                }
-            }
-        }
-        request.send(null);
-}
-
-export const updateRegisters = (row) => {
-
-//create call -- we need student id, studentClass id, dateOfRegistration
-//find studentClass id
-
     let url = parent.BASE_URL+"/api/studentClasses/search/findBydescription?description="+row.class;
     let request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
+    request.open('GET', url, true);  // `false` makes the request synchronous
     request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
     request.setRequestHeader("Content-type", "application/json");
-    request.contentType = "application/json"
-    request.send(null);
+    request.contentType = "application/json";
+    request.row = row;
+    request.onload = function (e){
+        if(request.readyState === 4){
+            if(request.status === 200){
+                let resObj = JSON.parse(request.responseText);
+                let classLink = resObj._links.self.href; //has to be fixed for many????
 
-    if (request.status === 200) {
+                let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+this.row.fname+"&lname="+this.row.lname;
+                let request2 = new XMLHttpRequest();
+                request2.open('GET', url2, true);  // `false` makes the request synchronous
+                request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                request2.setRequestHeader("Content-type", "application/json");
+                request2.contentType = "application/json";
+                request2.onload = function (e){
+                    if(request2.readyState === 4){
+                        if(request2.status === 200){
+                            //step 2 find student id to update
+                            let resObj2 = JSON.parse(request2.responseText);
+                            let studentLink = resObj2._links.self.href; //has to be fixed for many
 
-        let resObj = JSON.parse(request.responseText);
-        let classLink = resObj._links.self.href; //has to be fixed for many????
+                            //new registration call
 
-        let url2 = parent.BASE_URL+"/api/students/search/findByFnameAndLname?fname="+row.fname+"&lname="+row.lname;
-        let request2 = new XMLHttpRequest();
-        request2.open('GET', url2, false);  // `false` makes the request synchronous
-        request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-        request2.setRequestHeader("Content-type", "application/json");
-        request2.contentType = "application/json"
-        request2.send(null);
+                            let url3 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+studentLink;
+                            let request3 = new XMLHttpRequest();
+                            request3.open('GET', url3, true);  // `false` makes the request synchronous
+                            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                            request3.setRequestHeader("Content-type", "application/json");
+                            request3.contentType = "application/json";
+                            request3.onload = function (e){
+                                if(request3.readyState === 4){
+                                    if(request3.status === 200){
+                                        let resObj3 = JSON.parse(request3.responseText);
+                                        let date = new Date(row.dateOfRegistration.substr(0, 10));
 
-        if (request2.status === 200) {
-            
-            //step 2 find student id to update
-            let resObj2 = JSON.parse(request2.responseText);
-            let studentLink = resObj2._links.self.href; //has to be fixed for many
+                                        let bodyData = JSON.stringify({
+                                                "studentClass" : classLink,
+                                                "dateOfRegistration": date,
+                                                "student": studentLink
+                                        });
 
-            //new registration call
+                                        //update registration for student
+                                        let url4 = resObj3._embedded.registers[0]._links.self.href;
+                                        let request4 = new XMLHttpRequest();
+                                        request4.open('PATCH', url4, true);  // `false` makes the request synchronous
+                                        request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                        request4.setRequestHeader("Content-type", "application/json");
+                                        request4.contentType = "application/json";
+                                        request4.onload = function (e){
+                                            if(request4.readyState === 4){
+                                                if(request4.status === 200){
+                                                    if (request4.status === 200) {
+                                                        
+                                                        let resObj4 = JSON.parse(request4.responseText);
+                                                        //console.log("sync call 4:", resObj4);
+                                                        alert("Registration has been updated in database. Page is reloading");
+                                                        window.location.reload(true);
 
-            let url3 = parent.BASE_URL+"/api/registers/search/findByStudent?student="+studentLink;
-            let request3 = new XMLHttpRequest();
-            request3.open('GET', url3, false);  // `false` makes the request synchronous
-            request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-            request3.setRequestHeader("Content-type", "application/json");
-            request3.contentType = "application/json"
-            request3.send(null);
+                                                    } else {
+                                                    
+                                                        alert("Something bad has happened. Please try again");
 
-            if (request3.status === 200) {
-                
-                let resObj3 = JSON.parse(request3.responseText);
-                let date = new Date(row.dateOfRegistration.substr(0, 10));
+                                                    } 
+                                                }
+                                            }
 
-                let bodyData = JSON.stringify({
-                        "studentClass" : classLink,
-                        "dateOfRegistration": date,
-                        "student": studentLink
-                });
+                                        }
 
-                //update registration for student
-                let url4 = resObj3._embedded.registers[0]._links.self.href;
-                let request4 = new XMLHttpRequest();
-                request4.open('PATCH', url4, false);  // `false` makes the request synchronous
-                request4.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
-                request4.setRequestHeader("Content-type", "application/json");
-                request4.contentType = "application/json"
-                request4.send(bodyData);
+                                        request4.send(bodyData);
+                                    }
+                                }
 
-                if (request4.status === 200) {
-                    
-                    let resObj4 = JSON.parse(request4.responseText);
-                    //console.log("sync call 4:", resObj4);
-                    alert("Registration has been updated in database. Page is reloading");
-                    window.location.reload(true);
+                            }
+                            request3.send(null);
+                        }
+                    }
 
-                } else {
-                
-                    alert("Something bad has happened. Please try again");
-
-                }   
-
+                }
+                request2.send(null);
             }
-
         }
 
-
     }
-
+    request.send(null);
 }
-
 
 export const deleteRegisters = (registerId) => {
 
