@@ -200,7 +200,7 @@ export function deletePaymentRegisters(rowUpdate, paymentId) {
 }
 
 export function deleteRegisters(registerId) {
-
+  debugger;
   return {
     type: DELETE_REGISTERS,
     registerId
@@ -236,7 +236,7 @@ export function getSubClass(url, parentDesc, obj) {
 }
 
 export function dataRegisters(saved_student) {
-  //debugger;
+
   return {
     type: DATA_REGISTERS,
     saved_student

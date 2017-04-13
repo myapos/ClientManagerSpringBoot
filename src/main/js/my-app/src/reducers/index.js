@@ -131,6 +131,7 @@ const reducer = (state = {}, action) => {
 	   			rowUpdate
 	    };
 	    case actions.DELETE_REGISTERS:
+	    debugger;
 	   		return {
 	   			...state,
 	            registerId 

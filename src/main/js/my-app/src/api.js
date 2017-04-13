@@ -870,9 +870,132 @@ export const updateRegisters = (row) => {
     }
     request.send(null);
 }
+export const deleteRegisters__ = (registerId) => {
+
+    let x = document.getElementById("registers");
+    let rowByClassId = x.querySelectorAll('tr')[registerId];
+    let fname = rowByClassId.childNodes[2].innerHTML;
+    let lname = rowByClassId.childNodes[3].innerHTML;
+
+    //step 1 find student 
+    const fetch1 = fetch(parent.BASE_URL + "/api/students/search/findByFnameAndLname?fname="+fname+"&lname="+lname,
+                {
+                    method: 'get',
+                    mode: 'cors',
+                    cache: 'default',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                        'Content-Type': 'application/json'
+                    }
+            })
+        .then(res => res.json())
+        .then(res => {
+            try{
+            
+                //get studentLink
+                let studentLink = res._links.self.href;
+
+                //find registrations of studentLink
+
+                 const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudent?student="+studentLink,
+                        {
+                            method: 'get',
+                            mode: 'cors',
+                            cache: 'default',
+                            headers: {
+                                'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                .then(res => res.json())
+                .then(res => {
+                    debugger;
+                    if(res._embedded.registers.length>0) {
+
+                        let registerLink = res._embedded.registers[0]._links.self.href;
+
+                        //delete corresponding payment of register
+
+                        // let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
+                        //get payments
+
+                        let url = parent.BASE_URL+"/api/payeds/search/findByRegister?register="+registerLink;
+                        let request = new XMLHttpRequest();
+                        request.open('GET', url, true);  // `false` makes the request synchronous
+                        request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        request.setRequestHeader("Content-type", "application/json");
+                        request.contentType = "application/json";
+                        request.onload = function (e){
+                            if(request.readyState === 4){
+                                if(request.status === 200){
+                                    let resObj = JSON.parse(request.responseText);
+                                    //console.log("sync call 1:", resObj);
+                                    debugger;
+                                    let paymentLinks = resObj._embedded.payeds; //has to be fixed for many????
+                                    //delete all payments first
+                                        let url2=""; 
+                                        let request2 ="";
+
+                                        for(let ww=0; ww<paymentLinks.length; ww++){
+                                            url2 = paymentLinks[ww]._links.payed.href;
+                                            request2 = new XMLHttpRequest();
+                                            request2.open('delete', url2, true);  // `false` makes the request synchronous
+                                            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                            request2.setRequestHeader("Content-type", "application/json");
+                                            request2.contentType = "application/json";
+                                            request2.onload = function (e){
+                                                if(request2.readyState === 4){
+                                                    if(request2.status === 204){
+                                                        console.log("deleted payment:"+paymentLinks[ww]);
+
+                                                        //delete registration after deleted payments
+                                                        debugger;
+                                                        let url3 = registerLink;
+                                                        let request3 = new XMLHttpRequest();
+                                                        request3.open('delete', url3, true);  // `false` makes the request synchronous
+                                                        request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                                        request3.setRequestHeader("Content-type", "application/json");
+                                                        request3.contentType = "application/json";
+                                                        request3.send(null); 
+                                                        request3.onload = function (e){
+                                                            if(request3.readyState === 4){
+                                                                if(request3.status === 204){
+                                                                    alert("Register is deleted succesfully");
+                                                                    window.location.reload(true);
+                                                                }else {
+                                                                    alert("Something bad happened.Please try again!");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            request2.send(null);
+                                        }
+                                }
+                                else {
+                                    alert("Student has no registrations to delete");
+                                    window.location.reload(true);
+                                }
+                            }
+
+                        }
+                        request.send(null);
+                    }
+                });
+           
+            }
+            catch (e){
+                alert("Something bad happened. Error: "+e.message+". Please try again");
+                window.location.reload(true);
+            }
+
+        });
+}
 
 export const deleteRegisters = (registerId) => {
-
+    debugger;
     let x = document.getElementById("registers");
     let rowByClassId = x.querySelectorAll('tr')[registerId];
     let fname = rowByClassId.childNodes[2].innerHTML;
@@ -925,7 +1048,7 @@ export const deleteRegisters = (registerId) => {
                         request.open('GET', url, false);  // `false` makes the request synchronous
                         request.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                         request.setRequestHeader("Content-type", "application/json");
-                        request.contentType = "application/json"
+                        request.contentType = "application/json";
                         request.send(null);
 
                         if (request.status === 200) {
@@ -944,7 +1067,7 @@ export const deleteRegisters = (registerId) => {
                                     request2.open('delete', url2, false);  // `false` makes the request synchronous
                                     request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                                     request2.setRequestHeader("Content-type", "application/json");
-                                    request2.contentType = "application/json"
+                                    request2.contentType = "application/json";
                                     request2.send(null);
                                     
                                     if (request2.status === 204) {
@@ -959,7 +1082,7 @@ export const deleteRegisters = (registerId) => {
                                 request3.open('delete', url3, false);  // `false` makes the request synchronous
                                 request3.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
                                 request3.setRequestHeader("Content-type", "application/json");
-                                request3.contentType = "application/json"
+                                request3.contentType = "application/json";
                                 request3.send(null); 
                                 if (request3.status === 204) {
                                     alert("Register is deleted succesfully");
@@ -1001,7 +1124,7 @@ const send_email = (first,last,email,msg) =>{
     .then(res => {
 
         if(res.status === 200) {
-            alert("Emails where send succesfully");
+            console.log('Emails where send succesfully');
         }
         else{
             alert("Something bad happened");
@@ -1010,8 +1133,125 @@ const send_email = (first,last,email,msg) =>{
   }); 
 
 }//end of send_email
-
 export const msgSubmitted = (msg, selectedClass) => {
+    //debugger;
+    parent.msgSubmitted = msg;
+
+    //steps
+
+    //find students who have payed for the selected class
+
+    //get selected classes from server
+
+        const fetch1 = fetch(parent.BASE_URL + "/api/studentClasses/search/findBydescription" +
+            "?description=" + selectedClass, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(res => res.json())
+        .then(res => {
+
+            parent.classDescriptionForEmails = res.description;
+            //get registrations by student class
+
+            const fetch2 = fetch(parent.BASE_URL + "/api/registers/search/findByStudentClass" +
+            "?studentClass=" + res._links.self.href, {
+                method: 'get',
+                mode: 'cors',
+                cache: 'default',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res2 => res2.json())
+            .then(res2 => {
+
+                //for all registrations get students who have payed for them and send emails
+                //so in this step get payments by registrations
+
+                //first search to set a flag if payments exist. This is useful in order to display messages to the user
+
+                    parent.flagPaymentsExist = 0;
+                    var flagPaymentsExistAr = [];
+                    var checkNumOfRegisters = res2._embedded.registers.length;
+
+                    res2._embedded.registers.map((el,count)=>{
+                        //console.log('log:', count);
+
+                        let urlT = parent.BASE_URL + "/api/payeds/search/findByRegister" +
+                         "?register=" + el._links.self.href;
+                        let requestT = new XMLHttpRequest();
+                        requestT.open('GET', urlT, true);  // `false` makes the request synchronous
+                        requestT.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                        requestT.setRequestHeader("Content-type", "application/json");
+                        requestT.contentType = "application/json";
+                        requestT.count = count;
+                        requestT.onload = function (e){
+                            if(requestT.readyState === 4){
+                                if(requestT.status === 200){
+                                    let resObjT = JSON.parse(requestT.responseText);
+
+                                    if(resObjT._embedded.payeds.length>0){
+                                        flagPaymentsExistAr.push(1);
+                                        resObjT._embedded.payeds.map((p)=>{
+
+                                            let url2 = el._links.student.href;
+                                            let request2 = new XMLHttpRequest();
+                                            request2.open('GET', url2, true);  // `false` makes the request synchronous
+                                            request2.setRequestHeader("Authorization", 'Basic ' + btoa('myapos:Apostolakis1981'));
+                                            request2.setRequestHeader("Content-type", "application/json");
+                                            request2.contentType = "application/json";
+                                            request2.onload = function (e){
+                                                if(request2.readyState === 4){
+                                                    if(request2.status === 200){
+                                                        let student = JSON.parse(request2.responseText);
+
+                                                        //send emails if payment is true
+
+                                                        if(p.payment) {
+                                                            //send email to student
+                                                            send_email(student.fname, student.lname, student.email,parent.msgSubmitted);
+                                                        }
+                                                    } else {
+                                                       alert("Something bad happened");
+                                                    }
+                                                }
+
+                                            }
+                                            request2.send(null);
+                                        })
+                                    } else {
+                                        flagPaymentsExistAr.push(0);
+
+                                    }
+
+                                    //ean teleiwsan ta requests kai to a8roisma olwn twn el tou flagPaymentsExistAr einai 0 
+                                    //tote den iparxoun plirwmes
+                                    const sum = flagPaymentsExistAr.reduce((total, el) => {
+                                        return total + el;
+                                    });
+                                    //debugger;
+                                    if(!sum && (this.count + 1) === checkNumOfRegisters) {
+                                        alert("No student have payed yet for the selected class");
+                                    } else        if ( (this.count + 1) === checkNumOfRegisters ) {
+                                        alert("All emails where send succesfully");
+                                    }
+                                }
+                            }
+
+                        }
+                        requestT.send(null);
+                    })
+            })
+        })
+}
+export const msgSubmitted____ = (msg, selectedClass) => {
     //debugger;
     parent.msgSubmitted = msg;
 

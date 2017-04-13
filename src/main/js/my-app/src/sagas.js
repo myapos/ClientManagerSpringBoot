@@ -175,6 +175,7 @@ function* updateRegisters () {
 function* deleteRegisters () {
 
 	//console.log('deleteRegister');
+	debugger;
 	const state = yield select();
 	const registerId = yield call(api.deleteRegisters, state.registerId);
 
