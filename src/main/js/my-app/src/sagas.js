@@ -175,12 +175,11 @@ function* updateRegisters () {
 function* deleteRegisters () {
 
 	//console.log('deleteRegister');
-	debugger;
 	const state = yield select();
 	const registerId = yield call(api.deleteRegisters, state.registerId);
 
 	yield put({
-		type: actions.SAGAS_DELETE_REGISTER,
+		type: actions.SAGAS_DELETE_REGISTERS,
 		registerId
 	})
 }
