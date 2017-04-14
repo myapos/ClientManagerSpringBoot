@@ -200,6 +200,7 @@ export function deletePaymentRegisters(rowUpdate, paymentId) {
 }
 
 export function deleteRegisters(registerId) {
+  
   return {
     type: DELETE_REGISTERS,
     registerId
