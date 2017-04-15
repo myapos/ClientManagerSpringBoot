@@ -226,53 +226,72 @@ export const updateStudentClass = (newdesc, rowUpdate) => {
 
         })
     }
-
 }
-
 
 export const saveNewStudent = (row) => {
     //check email type
     let str = row.email;
     let n = str.includes("@");
+    let exist = false;
+    //check if student exist already in database due to fname, lname, mobile
+    let students = parent.students;
+    students.push(row);
+    exist = students.map((obj, key) => {
+        let rowtoCheck = students[students.length -1];
+        if( key <= students.length -2 
+            && rowtoCheck.fname === obj.fname 
+            && rowtoCheck.lname === obj.lname 
+            && rowtoCheck.phone === obj.phone) {
+            return true;
+        } else return false;
+    })
 
-    if(n) {
-        let date = new Date(row.dateOfBirth);
+    let existV = exist.reduce((total, num) => {
+        console.log('total:', total, ' num ', num);
+        return total || num;
+    });
+    if(!existV) {
+        if(n) {
+            let date = new Date(row.dateOfBirth);
 
-        let bodyData = JSON.stringify({
-            "fname": row.fname,
-            "lname": row.lname,
-            "email": row.email,
-            "dateOfBirth": date,
-            "facebook": row.facebook,
-            "phone": row.phone,
-            "manager": parent.BASE_URL + "/api/managers/17",
-        });
+            let bodyData = JSON.stringify({
+                "fname": row.fname,
+                "lname": row.lname,
+                "email": row.email,
+                "dateOfBirth": date,
+                "facebook": row.facebook,
+                "phone": row.phone,
+                "manager": parent.BASE_URL + "/api/managers/17",
+            });
 
-        const fetch1 = fetch(parent.BASE_URL + "/api/students" , {
-                    method: 'post',
-                    mode: 'cors',
-                    cache: 'default',
-                    body: bodyData,
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                        'Content-Type': 'application/json'
+            const fetch1 = fetch(parent.BASE_URL + "/api/students" , {
+                        method: 'post',
+                        mode: 'cors',
+                        cache: 'default',
+                        body: bodyData,
+                        headers: {
+                            'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                .then(res => {
+                    if(res.status === 201){
+
+                    alert("New student saved succsesfully. Prepare for reloading");
+                    window.location.reload(true);
                     }
-                })
-            .then(res => {
-                if(res.status === 201){
-
-                alert("New student saved succsesfully. Prepare for reloading");
-                window.location.reload(true);
-                }
-                else {
-                    alert("something bad happened.Please check your input data.");    
-                }
-
-        })
-    } 
-    else {
-         alert("Please check email input and try again. It has to be of email type. Example test@test.com");   
+                    else {
+                        alert("something bad happened.Please check your input data.");    
+                    }
+            })
+        } 
+        else {
+            alert("Please check email input and try again. It has to be of email type. Example test@test.com");   
+        }
+    } else {
+        alert("User already exists in database"); 
     }
+    
 
 }
 

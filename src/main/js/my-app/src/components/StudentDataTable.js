@@ -41,7 +41,6 @@ class InsertStudentModal extends React.Component {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    debugger;
     addStudentRow(newRow);
     //onSave(newRow);
   }

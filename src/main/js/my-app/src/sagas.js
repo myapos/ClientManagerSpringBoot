@@ -211,11 +211,8 @@ function* getSubClass () {
 
 function* getDataRegisters () {
 	
-	//console.log('msgSubmitted');
 	const state = yield select();
-	//debugger;
 	const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
-	//debugger;
 	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
 	yield put({
 		type: actions.SAGAS_DATA_REGISTERS,
@@ -227,9 +224,7 @@ function* getDataPaymentsRegisters () {
 	
 	//console.log('msgSubmitted');
 	const state = yield select();
-	//debugger;
 	const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
-	//debugger;
 	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
 	yield put({
 		type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
