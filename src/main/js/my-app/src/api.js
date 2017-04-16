@@ -1683,7 +1683,7 @@ export const getDataRegisters = (saved_student) => {
     });
     Promise.all(studentPromises)
       .then(results => {
-            debugger;
+            //debugger;
             console.log('All studentPromises from getDataRegisters are done!!!');
             hideloader('loader registers');
       })

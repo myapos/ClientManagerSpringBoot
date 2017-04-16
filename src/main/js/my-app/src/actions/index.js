@@ -131,15 +131,14 @@ export function updateClass(rowUpdate, desc, descBefore) {
 export function changeSelectedTab(selectedTab, tabNamespace) {
 
   let act = "";
-  ////debugger;
   if (selectedTab == 'tab1'){
-    act = "PAYMENTS_REGISTERS";
+    act =  "GET_ALL_STUDENTS";
   }
   else if (selectedTab == 'tab2'){
-    act = "REGISTERS";
+    act = "PAYMENTS_REGISTERS";
   }
   else if (selectedTab == 'tab3'){
-    act = "GET_ALL_STUDENTS";
+    act =  "REGISTERS";
   }
   else if (selectedTab == 'tab4'){
     act = "STUDENT_CLASS_DASHBOARD";
