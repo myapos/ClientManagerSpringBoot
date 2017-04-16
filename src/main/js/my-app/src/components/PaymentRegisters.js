@@ -202,17 +202,17 @@ componentDidMount(){
   //parent.loadedPaymReg = false;
   let x = document.getElementById("PaymentRegisters");
   
-  if (x!= null) {
-    let rows = x.querySelectorAll('tr');
-    let el2 = x.getElementsByClassName('form-group');
-    //set id for classes in modal window
+  // if (x!= null) {
+  //   let rows = x.querySelectorAll('tr');
+  //   let el2 = x.getElementsByClassName('form-group');
+  //   //set id for classes in modal window
 
-    el2[1].childNodes[1].value = rows.length-1;
+  //   el2[1].childNodes[1].value = rows.length-1;
 
     
-    //add date element in modal window
-    el2[7].childNodes[1].type="date";
-  }
+  //   //add date element in modal window
+  //   el2[7].childNodes[1].type="date";
+  // }
 
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
@@ -321,7 +321,7 @@ render () {
       } 
 
     //debugger;
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") 
+    if(1 || (typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab1") 
         && typeof this.props.dataPaymentsRegistersLoaded !== 'undefined'
         && this.props.dataPaymentsRegistersLoaded.length > 0){
 
@@ -345,6 +345,7 @@ render () {
     //debugger;
     return (
       <div id="PaymentRegisters">
+      <div className="loader payments"></div>
         <BootstrapTable
           cellEdit={cellEditProp} 
           data={this.props.dataPaymentsRegistersLoaded} 

@@ -255,11 +255,12 @@ parent.loadedReg = true;
       } , waitForDataRegisters); 
     } 
 
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
+    if(1 || (typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab2") 
         && typeof this.props.dataRegistersLoaded !== 'undefined'
         && this.props.dataRegistersLoaded.length > 0){
 	    return (
 	      <div id="registers">
+        <div className="loader registers"></div>
 		      <BootstrapTable
 	          cellEdit={cellEditProp} 
 	          data={this.props.dataRegistersLoaded} 

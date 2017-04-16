@@ -210,7 +210,7 @@ render () {
 
       // } , waitForData);
       //debugger;
-      if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3")
+      if(1 || (typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab3")
         && typeof data !== 'undefined'
         && data.length > 0){  
 
@@ -225,6 +225,7 @@ render () {
 
         return (
             <div id="students">
+            <div className="loader students"></div>
               <BootstrapTable 
               cellEdit={cellEditProp} 
               data={data} 
