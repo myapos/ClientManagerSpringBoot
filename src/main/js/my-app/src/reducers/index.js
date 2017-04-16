@@ -96,7 +96,7 @@ const reducer = (state = {}, action) => {
 	            initDataStudentClasses,
 	            initDataStudents,
 	            initDataPayeds,
-	            initDataRegisters  
+	            initDataRegisters 
 	   	};
 	   	case actions.SAVE_NEW_CLASS:
 	   		return {

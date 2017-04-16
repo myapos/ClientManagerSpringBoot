@@ -136,7 +136,8 @@ class InsertStudentClassesModal extends React.Component {
 }
 class StudentClassesDataTable extends Component {
 
-componentWillMount(){
+componentDidMount(){
+  // debugger;
   const data = this.props.saved_studentClasses;
   data.map((obj, index)=>{
     //console.log("cur index:"+index);
@@ -171,21 +172,6 @@ beforeSaveStudentClassCell(row, cellName, cellValue) {
 
 }
 
-//anonymoys function to use in setInterval
-
-anon(data, refreshIntervalId){
-
-     if (typeof data == 'undefined' || data.length == 0 ){
-
-      console.log("waiting for classes data");
-
-     } else if (data.length > 0 ){
-       clearInterval(refreshIntervalId);
-       //debugger;
-       //rerender
-       //this.props.loadingHandling(0);
-     }
-};
 createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const saveNewClass = this.props.saveNewClass;
     const attr = {
@@ -230,15 +216,15 @@ render () {
           }
       }
     }
-    if((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
+    if(1 || (typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == "tab4") 
       && typeof data !== 'undefined'
       && data.length > 0){  
       //this.props.loadingHandlingCommplete = 0;
       //console.log("End of async calls");
       //debugger;
-
      return (
       <div id="studentClasses" >
+      <div className="loader studentClasses"></div>
           <BootstrapTable  
           data={data} 
           cellEdit={cellEditProp} 

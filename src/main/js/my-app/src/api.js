@@ -28,6 +28,7 @@ export const getStudentClasses = () => {
     .then(res => {
         const classes = res._embedded.studentClasses;
         parent.studentClasses = classes;
+        hideloader('loader studentClasses');
         return classes;
         
     });
@@ -947,7 +948,7 @@ export const deleteRegisters__ = (registerId) => {
                         })
                 .then(res => res.json())
                 .then(res => {
-                    debugger;
+                    //debugger;
                     if(res._embedded.registers.length>0) {
 
                         let registerLink = res._embedded.registers[0]._links.self.href;
@@ -968,7 +969,7 @@ export const deleteRegisters__ = (registerId) => {
                                 if(request.status === 200){
                                     let resObj = JSON.parse(request.responseText);
                                     //console.log("sync call 1:", resObj);
-                                    debugger;
+                                    //debugger;
                                     let paymentLinks = resObj._embedded.payeds; //has to be fixed for many????
                                     //delete all payments first
                                         let url2=""; 
@@ -987,7 +988,7 @@ export const deleteRegisters__ = (registerId) => {
                                                         console.log("deleted payment:"+paymentLinks[ww]);
 
                                                         //delete registration after deleted payments
-                                                        debugger;
+                                                        //debugger;
                                                         let url3 = registerLink;
                                                         let request3 = new XMLHttpRequest();
                                                         request3.open('delete', url3, true);  // `false` makes the request synchronous
@@ -1578,7 +1579,7 @@ export const getSubClass = (url, parentDesc, obj) => {
 }
 
 export const getDataRegisters = (saved_student) => {
-    
+ 
     let students = saved_student;
     let dataRegisters = [];
 
@@ -1690,7 +1691,7 @@ export const getDataRegisters = (saved_student) => {
     return dataRegisters;
 }
 
-export const getDataPaymentsRegisters__ = (saved_student) => {
+export const getDataPaymentsRegisters = (saved_student) => {
     
     //debugger;
 
@@ -1837,7 +1838,7 @@ export const getDataPaymentsRegisters__ = (saved_student) => {
     //debugger;
     return dataPaymentRegisters;   
 }
-export const getDataPaymentsRegisters = (saved_student) => {
+export const getDataPaymentsRegisters__ = (saved_student) => {
     
     //debugger;
 
