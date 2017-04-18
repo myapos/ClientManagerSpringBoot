@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import Dashboard from '../components/Dashboard';
-/*import AddUser from '../components/AddUser';
-import DeleteUser from '../components/DeleteUser';
-import ExportUsers from '../components/ExportUsers';
-import ImportUsers from '../components/ImportUsers';
-import UpdateUsers from '../components/UpdateUsers';*/
-import GetAllStudents from '../components/GetAllStudents';
 import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
@@ -28,27 +22,21 @@ const routes = (
 );
 
 class App extends Component {
- 
-constructor (props) {
+
+  constructor (props) {
     super(props);
 
     this.state = {
-      ...props
-    }
+      ...props,
+    };
   }
-  componentWillMount() {
-
-  }
-
-  render() {
-
+  render () {
     return (
       <Router history={hashHistory}>
         {routes}
       </Router>
-    )
+    );
   }
 }
-
 
 export default connect(state => state, actions)(App);

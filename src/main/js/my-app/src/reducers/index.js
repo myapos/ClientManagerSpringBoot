@@ -174,7 +174,6 @@ const reducer = (state = {}, action) => {
         dataPaymentsRegistersLoaded,
       };
     case actions.CHANGE_TEXT:
-      // debugger;
       return {
         ...state,
         text,
