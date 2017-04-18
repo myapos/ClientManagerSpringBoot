@@ -7,7 +7,7 @@ import './index.css';
 // import when from 'when';
 // import stompClient from './websocket-listener';
 
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+// import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
 parent.BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 const url1 = parent.BASE_URL+'/api/students';
@@ -15,31 +15,24 @@ const url2 = parent.BASE_URL+'/api/studentClasses/';
 const url3 = parent.BASE_URL+'/api/registers/';
 const url4 = parent.BASE_URL+'/api/payeds/';
 
-const pageSize = 1;
-var that = this;
-var save = {};
 const init = () => {
-    parent.students = {};
-    parent.studentClasses = {};
-    parent.registers = {};
-    parent.payeds = {};
-    //parent.loaded = 0;
-    parent.loadedStudents = 0;
-    //debugger;
-    const fetch1 =
-        fetch(url1, {
-            method: 'get',
-            mode: 'cors',
-            cache: 'default',
-            headers: {
-                'Authorization': 'Basic ' + btoa('myapos:Apostolakis1981'),
-                'Content-Type': 'application/json'
-            }
-        })
+  parent.students = {};
+  parent.studentClasses = {};
+  parent.registers = {};
+  parent.payeds = {};
+  // parent.loaded = 0;
+  parent.loadedStudents = 0;
+  fetch(url1, {
+    method: 'get',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+  })
         .then(res => res.json())
         .then(res => {
-
-
             parent.students = res._embedded.students;
             //return classes;
 

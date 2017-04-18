@@ -199,6 +199,7 @@ render () {
     };
 
     const options = {
+      noDataText: 'There are no data loaded yet',
       insertModal: this.createInsertStudentModal.bind(this),
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.

@@ -300,6 +300,7 @@ render () {
     };
 
     const options = {
+      noDataText: 'There are no data loaded yet',
       insertModal: this.createInsertPaymentRegistersModal.bind(this),
       beforeInsertRow: onBeforeInsertRow.bind(this),   // A hook for after insert rows
       afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows

@@ -240,7 +240,7 @@ parent.loadedReg = true;
     };
 
     const options = {
-      // insertModal: this.createInsertRegistersModal.bind(this),
+      noDataText: 'There are no data loaded yet',
       afterDeleteRow: onAfterDeleteRow.bind(this)  // A hook for after droping rows.
     };
 
