@@ -36,7 +36,9 @@ function onAfterDeleteRow(rowKeys) {
 Object.size = function(obj) {
   var size = 0, key;
   for (key in obj) {
-      if (obj.hasOwnProperty(key)) size++;
+      if (obj.hasOwnProperty(key)) {
+        size++;
+      }
   }
   return size;
 };
@@ -70,9 +72,9 @@ class InsertStudentClassesModal extends React.Component {
       addStudent
     } = this.props;
     return (
-      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+      <div style={ { backgroundColor: '#4c2727' } } className="modal-content">
         <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη Τάξης</h2>
-        <div className='container-fluid'>
+        <div className="container-fluid">
            {
             columns.map((column, i) => {
               const {
@@ -89,27 +91,27 @@ class InsertStudentClassesModal extends React.Component {
                 return null;
               }
               console.log("log:", column);
-              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
-              if(field === 'index'){
+              const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
+              if(field === "index"){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label>ID</label>
-                    <input ref={ field } className='form-control' defaultValue={ parent.studentClasses.length+1 } />
+                    <input ref={ field } className="form-control" defaultValue={ parent.studentClasses.length+1 } />
                     { error }
                    </div>);
                
               } else if(field === 'description'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                        <label>Τάξη</label>
-                       <input ref={ field } className='form-control' defaultValue={ '' } />
+                       <input ref={ field } className="form-control" defaultValue={ '' } />
                       { error }
                      </div>);
                  
               }  
               else if(field === 'subClassDescription'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Υποτμήμα</label>
 
                       <select ref={ field } className="form-control"> 
@@ -127,8 +129,8 @@ class InsertStudentClassesModal extends React.Component {
            }
         </div>
         <div>
-          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
-          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+          <button style={ { marginLeft:'30px' } } className="btn btn-danger" onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className="btn btn-danger" onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
         </div>
       </div>
     );
@@ -156,9 +158,7 @@ componentDidUpdate(){
     let el = rows[1];
     let id = rows.length;
 } //end if
-
-};
-
+}
 
 beforeSaveStudentClassCell(row, cellName, cellValue) {
   // do your stuff...

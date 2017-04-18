@@ -101,7 +101,7 @@ export function exportStudents() {
 export function studentClassDashboard() {
 
   return {
-    type: STUDENT_CLASS_DASHBOARD,
+    type: STUDENT_CLASS_DASHBOARD
   };
 }
 export function saveNewClass(row) {
@@ -193,7 +193,7 @@ export function deletePaymentRegisters(rowUpdate, paymentId) {
   return {
     type: DELETE_PAYMENTS_REGISTERS,
     rowUpdate,
-    paymentId,
+    paymentId
   };
 }
 

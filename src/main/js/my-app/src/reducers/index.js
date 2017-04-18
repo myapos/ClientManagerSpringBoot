@@ -73,11 +73,11 @@ const reducer = (state = {}, action) => {
 	    };
 	   	case actions.IMPORT_STUDENTS:
 	       return {
-	            ...state,
+	            ...state
 	    };
 	   	case actions.EXPORT_STUDENTS:
 	       return {
-	            ...state,
+	            ...state
 	    };
 	    case actions.STUDENT_CLASS_DASHBOARD:
 		return {

@@ -57,9 +57,9 @@ class InsertRegistersModal extends React.Component {
       addStudent
     } = this.props;
     return (
-      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+      <div style={ { backgroundColor: '#4c2727' } } className="modal-content">
         <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη εγγραφής</h2>
-        <div className='container-fluid'>
+        <div className="container-fluid">
           {
             columns.map((column, i) => {
               const {
@@ -77,18 +77,18 @@ class InsertRegistersModal extends React.Component {
               }
               //debugger;
               console.log("log:", column);
-              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
               //debugger;
               if( field === 'index') {
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label>ID</label>
-                    <input ref={ field } className='form-control' defaultValue={ parent.registers.length + 1} />
+                    <input ref={ field } className="form-control" defaultValue={ parent.registers.length + 1} />
                     { error }
                    </div>);
               } else if ( field === 'fname' ){
                 return( 
-                <div className='form-group col-xs-6' key={ field }>
+                <div className="form-group col-xs-6" key={ field }>
                   <label>Όνομα</label>
                    <select ref={ field } className="form-control"> 
                     {
@@ -101,7 +101,7 @@ class InsertRegistersModal extends React.Component {
                  </div>);
               } else if ( field === 'lname' ){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label >Επίθετο</label>
                    <select ref={ field } className="form-control"> 
                     {
@@ -114,14 +114,14 @@ class InsertRegistersModal extends React.Component {
                    </div>);
               } else if ( field === 'email' ){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label >Email</label>
-                    <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                    <input ref={ field } className="form-control" type="email" defaultValue={ '' } />
                     { error }
                    </div>);
               } else if ( field === 'class' ){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label >Τάξη</label>
                    <select ref={ field } className="form-control"> 
                     {
@@ -136,9 +136,9 @@ class InsertRegistersModal extends React.Component {
                    </div>);
               } else if ( field === 'dateOfRegistration' ){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label >Ημερομηνία εγγραφής</label>
-                    <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                    <input ref={ field } className="form-control" type="date" defaultValue={ '' } />
                     { error }
                    </div>);
               }
@@ -146,8 +146,8 @@ class InsertRegistersModal extends React.Component {
           }
         </div>
         <div>
-          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
-          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+          <button style={ { marginLeft:'30px' } } className="btn btn-danger" onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className="btn btn-danger" onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
         </div>
       </div>
     );
@@ -216,7 +216,7 @@ else {
       if(!this.props.loadingHandlingCommplete)
         this.props.loadingHandling(1);
      }
-};
+}
 createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const addRegisters = this.props.addRegisters;
     const attr = {
@@ -231,7 +231,7 @@ render () {
 parent.loadedReg = true;
     const isLoaded = false;
     const customSpinConfig = {
-      lines: 10,
+      lines: 10
     };
 
  const cellEditProp = {
@@ -270,8 +270,8 @@ parent.loadedReg = true;
 	          exportCSV={true}
 	          search={ true }
 	          options={ options }
-	          tableHeaderClass='payments-registers-header-class'
-	          tableBodyClass='payments-registers-body-class'
+	          tableHeaderClass="payments-registers-header-class"
+	          tableBodyClass="payments-registers-body-class"
 	          >
 	          <TableHeaderColumn dataField="index" editable={ false } isKey={true} dataSort={true}>id</TableHeaderColumn>
 	          <TableHeaderColumn dataField="fname" editable={ false } dataSort={true} pagination>Name</TableHeaderColumn>

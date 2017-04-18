@@ -1,18 +1,12 @@
-import { takeEvery } from 'redux-saga/effects';
-import { call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import * as api from './api';
 import * as actions from './actions';
-
-
 function* getDataFromServer () {
-	//debugger;
 	console.log('getDataFromServer');
 	let state = yield select();
 	const initDataStudentClasses = yield call(api.getStudentClasses, state);
-
 	const initDataStudents = yield call(api.getStudents, state);
-
 	const initDataPayeds = yield call(api.getPayeds, state);
 	const initDataRegisters = yield call(api.getRegisters, state);
 
@@ -26,11 +20,9 @@ function* getDataFromServer () {
 }
 
 function* getStudentClasses () {
-
 	//console.log('getStudentClasses');
 	const state = yield select();
 	const dataFetchedStudentClasses = yield call(api.getStudentClasses, state);
-
 	yield put({
 		type: actions.STUDENT_CLASS_DATA_FETCHED,
 		dataFetchedStudentClasses
@@ -38,11 +30,9 @@ function* getStudentClasses () {
 }
 
 function* saveNewStudentClass () {
-
 	//console.log('saveNewStudentClass');
 	const state = yield select();
 	const saveNewClass = yield call(api.saveNewClass, state.row);
-
 	yield put({
 		type: actions.SAGAS_SAVE_NEW_CLASS,
 		saveNewClass
@@ -50,7 +40,6 @@ function* saveNewStudentClass () {
 }
 
 function* deleteStudentClass () {
-
 	//console.log('deleteStudentClass');
 	const state = yield select();
 	const deleteStudentClass = yield call(api.deleteStudentClass, state.classId);
@@ -124,11 +113,9 @@ function* addPaymentRegisters () {
 }
 
 function* updatePaymentRegisters () {
-
-	//console.log('updatePaymentRegisters');
+	// console.log('updatePaymentRegisters');
 	const state = yield select();
-	const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode,  state.rowUpdate);
-	
+	const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode, state.rowUpdate);
 	yield put({
 		type: actions.SAGAS_UPDATE_PAYMENTS_REGISTERS,
 		rowUpdate
@@ -136,11 +123,9 @@ function* updatePaymentRegisters () {
 }
 
 function* deletePaymentRegisters () {
-
-	//console.log('deletePaymentRegisters');
+	// console.log('deletePaymentRegisters');
 	const state = yield select();
 	const row = yield call(api.deletePaymentRegisters,state.rowUpdate, state.paymentId);
-	
 	yield put({
 		type: actions.SAGAS_DELETE_PAYMENTS_REGISTERS,
 		row
@@ -148,11 +133,9 @@ function* deletePaymentRegisters () {
 }
 
 function* createRegisters () {
-
-	//console.log('createRegisters');
+	// console.log('createRegisters');
 	const state = yield select();
 	const row = yield call(api.createRegisters, state.rowUpdate);
-	
 	yield put({
 		type: actions.SAGAS_CREATE_REGISTERS,
 		row
@@ -196,61 +179,54 @@ function* msgSubmitted () {
 }
 
 function* getSubClass () {
-	
-	//console.log('msgSubmitted');
-	const state = yield select();
-	//debugger;
-	const classesPair = yield call(api.getSubClass, state.url, state.parentDesc, state.obj);
-	//debugger;
-	yield put({
-		type: actions.SAGAS_GET_SUBCLASS,
-		classesPair
-	})
+  // console.log('msgSubmitted');
+  const state = yield select();
+  const classesPair = yield call(api.getSubClass, state.url, state.parentDesc, state.obj);
+  yield put({
+    type: actions.SAGAS_GET_SUBCLASS,
+    classesPair,
+  });
 }
 
 function* getDataRegisters () {
-	
-	const state = yield select();
-	const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
-	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
-	yield put({
-		type: actions.SAGAS_DATA_REGISTERS,
-		dataRegistersLoaded
-	})
+  const state = yield select();
+  const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
+  yield put({
+    type: actions.SAGAS_DATA_REGISTERS,
+    dataRegistersLoaded,
+  });
 }
 
 function* getDataPaymentsRegisters () {
-	
-	//console.log('msgSubmitted');
-	const state = yield select();
-	const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
-	//console.log("SAGAS_DATA_REGISTERS",dataRegisters);
-	yield put({
-		type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
-		dataPaymentsRegistersLoaded
-	})
+  // console.log('msgSubmitted');
+  const state = yield select();
+  const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
+  // console.log("SAGAS_DATA_REGISTERS",dataRegisters);
+  yield put({
+    type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
+    dataPaymentsRegistersLoaded,
+  });
 }
 
 function* rootSaga () {
-
-	yield getDataFromServer();
-	yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
-	yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
-	yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);
-	yield takeEvery(actions.UPDATE_CLASS, updateStudentClass);
-	yield takeEvery(actions.ADD_STUDENT, saveNewStudent);
-	yield takeEvery(actions.DELETE_STUDENT, deleteStudent);
-	yield takeEvery(actions.UPDATE_STUDENT, updateStudent);
-	yield takeEvery(actions.CREATE_PAYMENTS_REGISTERS, addPaymentRegisters);
-	yield takeEvery(actions.UPDATE_PAYMENTS_REGISTERS, updatePaymentRegisters);
-	yield takeEvery(actions.DELETE_PAYMENTS_REGISTERS, deletePaymentRegisters);
-	yield takeEvery(actions.CREATE_REGISTERS, createRegisters);
-	yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
-	yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
-	yield takeEvery(actions.MSG_SUBMITTED, msgSubmitted);
-	yield takeEvery(actions.GET_SUBCLASS, getSubClass);
-	yield takeEvery(actions.DATA_REGISTERS, getDataRegisters);
-	yield takeEvery(actions.DATA_PAYMENTS_REGISTERS, getDataPaymentsRegisters);
+  yield getDataFromServer();
+  yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
+  yield takeEvery(actions.SAVE_NEW_CLASS, saveNewStudentClass);
+  yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);
+  yield takeEvery(actions.UPDATE_CLASS, updateStudentClass);
+  yield takeEvery(actions.ADD_STUDENT, saveNewStudent);
+  yield takeEvery(actions.DELETE_STUDENT, deleteStudent);
+  yield takeEvery(actions.UPDATE_STUDENT, updateStudent);
+  yield takeEvery(actions.CREATE_PAYMENTS_REGISTERS, addPaymentRegisters);
+  yield takeEvery(actions.UPDATE_PAYMENTS_REGISTERS, updatePaymentRegisters);
+  yield takeEvery(actions.DELETE_PAYMENTS_REGISTERS, deletePaymentRegisters);
+  yield takeEvery(actions.CREATE_REGISTERS, createRegisters);
+  yield takeEvery(actions.UPDATE_REGISTERS, updateRegisters);
+  yield takeEvery(actions.DELETE_REGISTERS, deleteRegisters);
+  yield takeEvery(actions.MSG_SUBMITTED, msgSubmitted);
+  yield takeEvery(actions.GET_SUBCLASS, getSubClass);
+  yield takeEvery(actions.DATA_REGISTERS, getDataRegisters);
+  yield takeEvery(actions.DATA_PAYMENTS_REGISTERS, getDataPaymentsRegisters);
 }
 
 export default rootSaga;

@@ -10,7 +10,6 @@ let dataDisplayClassesForSendingEmailManually = [];
 
 function onAfterInsertRow (row) {
   this.props.addPaymentRegisters(row);
-
 }
 
 // If you want to enable deleteRow, you must enable row selection also.
@@ -47,7 +46,7 @@ render () {
     };
 
     const options = {
-      afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
+      afterInsertRow: onAfterInsertRow.bind(this)   // A hook for after insert rows
     };
 
 

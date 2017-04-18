@@ -1,23 +1,33 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
-import { Link } from 'react-router';
 import StudentDataTable from './StudentDataTable';
 
-class GetAllStudents extends Component {
+// class GetAllStudents extends Component {
 
-  render () {
+//   render () {
+//     return (
+//       <div className="App" id="content">
+//         <div className="labelContainer">
+//           <StudentDataTable />
+//         </div>
+//       </div>
+//     );
+//   }
+// }
 
-      return (
-        <div className="App" id="content">
-          <div className="labelContainer">
-            <StudentDataTable/>
-          </div>
-        </div>
-      );
+// export default connect(state => state, actions)(GetAllStudents);
 
-  }
+const GetAllStudents = (context) => (
+	<div className="App" id="content">
+	  <div className="labelContainer">
+	    <StudentDataTable />
+	  </div>
+	</div>
+);
+
+GetAllStudents.contextTypes = {
+  router: React.PropTypes.object.isRequired,
 }
 
-export default connect(state => state, actions)(GetAllStudents);
+export default GetAllStudents;

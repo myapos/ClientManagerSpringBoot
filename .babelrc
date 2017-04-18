@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["env",
+      {
+        "targets": {
+          "browser": "IE 10"
+        }
+      }
+    ],
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "plugins": ["transform-runtime"]
+}

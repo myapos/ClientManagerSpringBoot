@@ -56,9 +56,9 @@ class InsertStudentModal extends React.Component {
       addStudent
     } = this.props;
     return (
-      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+      <div style={ { backgroundColor: '#4c2727' } } className="modal-content">
         <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη πελάτη</h2>
-        <div className='container-fluid'>
+        <div className="container-fluid">
           {
             columns.map((column, i) => {
               const {
@@ -75,63 +75,63 @@ class InsertStudentModal extends React.Component {
                 return null;
               }
               // console.log("log:", column);
-              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
               
               if(field === 'fname'){
                 return( 
-                  <div className='form-group col-xs-6' key={ field }>
+                  <div className="form-group col-xs-6" key={ field }>
                     <label>Όνομα</label>
-                    <input ref={ field } className='form-control' defaultValue={ '' } />
+                    <input ref={ field } className="form-control" defaultValue={ '' } />
                     { error }
                    </div>);
                
               } else if(field === 'lname'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Επίθετο</label>
-                      <input ref={ field } className='form-control' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" defaultValue={ '' } />
                       { error }
                      </div>);
                  
               }  
               else if(field === 'dateOfBirth'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Ημερομηνία</label>
-                      <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="date" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else if(field === 'phone'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Κινητό</label>
-                      <input ref={ field } className='form-control' type='number' min='6900000000' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="number" min="6900000000" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else if(field === 'facebook'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>{ name }</label>
-                      <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="email" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else if(field === 'email'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>{ name }</label>
-                      <input ref={ field } className='form-control' type='email' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="email" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else {
 
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>{ name }</label>
-                      <input ref={ field } className='form-control' defaultValue={ parent.students.length+1 } />
+                      <input ref={ field } className="form-control" defaultValue={ parent.students.length+1 } />
                       { error }
                      </div>);
                  
@@ -140,8 +140,8 @@ class InsertStudentModal extends React.Component {
           }
         </div>
         <div>
-          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
-          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+          <button style={ { marginLeft:'30px' } } className="btn btn-danger" onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className="btn btn-danger" onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
         </div>
       </div>
     );
@@ -175,7 +175,7 @@ anon(data, refreshIntervalId){
        //rerender
        //this.props.loadingHandling(0);
      }
-};
+}
 createInsertStudentModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const addStudentRow = this.props.addStudent;
     const attr = {

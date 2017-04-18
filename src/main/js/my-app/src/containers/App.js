@@ -20,10 +20,10 @@ import '../css/App.css';
 // fixes warning with change of routes in every render --> you cannot change router routes it will be ignored
 // https://github.com/reactjs/react-router-redux/issues/179
 const routes = (
-  <Route path='/' component={Container}>
+  <Route path="/" component={Container}>
     <IndexRoute component={Dashboard} />
-    <Route path='/studentclassdashboard' component={StudentClassDashboard} />
-    <Route path='*' component={NotFound} />
+    <Route path="/studentclassdashboard" component={StudentClassDashboard} />
+    <Route path="*" component={NotFound} />
   </Route>
 );
 
@@ -33,7 +33,7 @@ constructor (props) {
     super(props);
 
     this.state = {
-      ...props,
+      ...props
     }
   }
   componentWillMount() {

@@ -70,9 +70,9 @@ class InsertPaymentRegistersModal extends React.Component {
       addStudent
     } = this.props;
     return (
-      <div style={ { backgroundColor: '#4c2727' } } className='modal-content'>
+      <div style={ { backgroundColor: '#4c2727' } } className="modal-content">
         <h2 style={ { color: '#fff', marginLeft:'10px' } }>Προσθήκη πληρωμής</h2>
-        <div className='container-fluid'>
+        <div className="container-fluid">
           {
             columns.map((column, i) => {
               const {
@@ -90,11 +90,11 @@ class InsertPaymentRegistersModal extends React.Component {
               }
               //debugger;
               //console.log("log:", column);
-              const error = validateState[field] ? (<span className='help-block bg-danger'>{ validateState[field] }</span>) : null;
+              const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
               //debugger;
               if(field === 'fname'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Όνομα</label>
                       <select ref={ field } className="form-control"> 
                         {
@@ -108,7 +108,7 @@ class InsertPaymentRegistersModal extends React.Component {
                  
               } else if(field === 'lname'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Επίθετο</label>
                       <select ref={ field } className="form-control"> 
                        {
@@ -123,7 +123,7 @@ class InsertPaymentRegistersModal extends React.Component {
               }  
               else if(field === 'payment'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Πληρωμή</label>
                       <select ref={ field } className="form-control"> 
                        {
@@ -138,16 +138,16 @@ class InsertPaymentRegistersModal extends React.Component {
                  
                 } else if(field === 'notes'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label >Σημειώσεις</label>
-                      <input ref={ field } className='form-control' type='text' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="text" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else if (field === 'class'){
                   const html_ = formatSelectOptionClasses();
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Τάξη</label>
                        <select ref={ field } className="form-control"> 
                         {
@@ -161,18 +161,18 @@ class InsertPaymentRegistersModal extends React.Component {
                  
                 } else if(field === 'dateOfPayment'){
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>Ημερομηνία πληρωμής</label>
-                      <input ref={ field } className='form-control' type='date' defaultValue={ '' } />
+                      <input ref={ field } className="form-control" type="date" defaultValue={ '' } />
                       { error }
                      </div>);
                  
                 } else {
 
                   return( 
-                    <div className='form-group col-xs-6' key={ field }>
+                    <div className="form-group col-xs-6" key={ field }>
                       <label>{ name }</label>
-                      <input ref={ field } className='form-control' defaultValue={ parent.payeds.length+1 } />
+                      <input ref={ field } className="form-control" defaultValue={ parent.payeds.length+1 } />
                       { error }
                      </div>);
                  
@@ -181,8 +181,8 @@ class InsertPaymentRegistersModal extends React.Component {
           }
         </div>
         <div>
-          <button style={ { marginLeft:'30px' } } className='btn btn-danger' onClick={ onModalClose }>Έξοδος</button>
-          <button style={ { marginLeft:'15px' } } className='btn btn-danger' onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
+          <button style={ { marginLeft:'30px' } } className="btn btn-danger" onClick={ onModalClose }>Έξοδος</button>
+          <button style={ { marginLeft:'15px' } } className="btn btn-danger" onClick={ () => this.handleSaveBtnClick(columns, onSave) }>Αποθήκευση</button>
         </div>
       </div>
     );
@@ -216,8 +216,6 @@ componentDidMount(){
 
   dataPaymentRegisters = []; //reset
   const data = this.props.saved_payeds;
- 
-  
 }
 afterSavePaymentRegistersCell(row, cellName, cellValue) {
   // do your stuff...
@@ -282,7 +280,7 @@ anon(data){
           this.props.loadingHandling(1);
        
      }
-};
+}
 
 createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const updatePaymentRegisters = this.props.updatePaymentRegisters;
@@ -356,22 +354,22 @@ render () {
           exportCSV={true}
           search={true}
           options={options}
-          tableHeaderClass='payments-registers-header-class'
-          tableBodyClass='payments-registers-body-class'
+          tableHeaderClass="payments-registers-header-class"
+          tableBodyClass="payments-registers-body-class"
           condensed
           >
-          <TableHeaderColumn dataField="index" editable={false} isKey={true} width='5%'>id</TableHeaderColumn>
-          <TableHeaderColumn dataField="fname" editable={false}  width='20%' dataSort={true}>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="lname" editable={false}  width='20%' dataSort={true}>Last Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="index" editable={false} isKey={true} width="5%">id</TableHeaderColumn>
+          <TableHeaderColumn dataField="fname" editable={false}  width="20%" dataSort={true}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lname" editable={false}  width="20%" dataSort={true}>Last Name</TableHeaderColumn>
           <TableHeaderColumn dataField="payment" editable={ { type: 'select', options: { values: paymentTypes } } }>Payment</TableHeaderColumn>
           <TableHeaderColumn  dataField="notes" >Notes</TableHeaderColumn>
-          <TableHeaderColumn dataField="class" width='15%' editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
+          <TableHeaderColumn dataField="class" width="15%" editable={ { type: 'select', options: { values: availableClasses } } }>Class</TableHeaderColumn>
           <TableHeaderColumn 
             dataField="dateOfPayment" 
             dataAlign="left" 
             dataSort={false}
             editable={ { type: 'datetime' } }
-            width='20%'
+            width="20%"
           >
             Date Of Payment
           </TableHeaderColumn>

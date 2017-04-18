@@ -7,12 +7,11 @@ parent.payeds = {};
 
 /* hide all loaders*/
 const hideloader = (className) => {
-    //debugger;
-    console.log('preparing to hide loader with className');
-    let loader = document.getElementsByClassName(className)[0];
-    loader.style.display = 'none';
-}
-
+  // debugger;
+  console.log('preparing to hide loader with className');
+  let loader = document.getElementsByClassName(className)[0];
+  loader.style.display = 'none';
+};
 export const getStudentClasses = () => {
     fetch(
         parent.BASE_URL + '/api/studentClasses', {
@@ -29,11 +28,9 @@ export const getStudentClasses = () => {
         const classes = res._embedded.studentClasses;
         parent.studentClasses = classes;
         hideloader('loader studentClasses');
-        return classes;
-        
+        return classes;     
     });
-}
-
+};
 export const getStudents = () => {
 
     parent.loadedStudents = 0; 
@@ -108,7 +105,7 @@ function createCORSRequest1(method, url, data) {
         xhr1 = null;
     }
     return xhr1;
-};
+}
 
 export const saveNewClass = (row) => {
 
@@ -263,7 +260,9 @@ export const saveNewStudent = (row) => {
             && rowtoCheck.lname === obj.lname 
             && rowtoCheck.phone === obj.phone) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     })
 
     let existV = exist.reduce((total, num) => {
@@ -281,7 +280,7 @@ export const saveNewStudent = (row) => {
                 "dateOfBirth": date,
                 "facebook": row.facebook,
                 "phone": row.phone,
-                "manager": parent.BASE_URL + "/api/managers/17",
+                "manager": parent.BASE_URL + "/api/managers/17"
             });
 
             const fetch1 = fetch(parent.BASE_URL + "/api/students" , {
@@ -391,7 +390,7 @@ export const updateStudent = (rowUpdate) => {
             "dateOfBirth": date,
             "facebook": rowUpdate.facebook,
             "phone": rowUpdate.phone,
-            "manager": parent.BASE_URL + "/api/managers/17",
+            "manager": parent.BASE_URL + "/api/managers/17"
         });
     const fetch1 = fetch(rowUpdate._links.self.href , {
                 method: 'PATCH',
@@ -695,7 +694,7 @@ export const deletePaymentRegisters = (id) => {
                             for(let vv=0; vv< res3._embedded.payeds.length; vv++){
 
 
-                                let paymentUrl = res3._embedded.payeds[vv]._links.self.href;;
+                                let paymentUrl = res3._embedded.payeds[vv]._links.self.href;
 
                                 const fetch4 = fetch(paymentUrl, {
                                     method: 'delete',

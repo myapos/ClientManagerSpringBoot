@@ -2,19 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 /*import AddUser from './AddUser';
 import DeleteUser from './DeleteUser';
 import ExportUsers from './ExportUsers';
 import ImportUsers from './ImportUsers';
-import UpdateUsers from './UpdateUsers'*/;
+import UpdateUsers from './UpdateUsers'*/
 import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';
 import SendEmailsManually from './SendEmailsManually';
-import { browserHistory } from 'react-router';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 
 import Signature from './Signature';
@@ -58,8 +57,11 @@ defaultTab(tab){
     if (lastActiveTab === lastNum -1){
       return true;
     }
-    else return false
-};
+
+    else {
+        return false;
+    }
+}
 render () {
 
 window.onbeforeunload = () => {
@@ -71,7 +73,9 @@ window.onbeforeunload = () => {
     if (item.className.includes('active')){
         return key;
 
-    } else return -1;
+    } else {
+        return -1;
+    }
     });
 
     console.log('positions:', positions); 
@@ -126,14 +130,14 @@ window.onbeforeunload = () => {
                 id="tabs"
                 >
 
-                <div id='tabLinks' style={styles.links}>
+                <div id="tabLinks" style={styles.links}>
                     <TabLink to="tab1" default={this.defaultTab('tab1')} style={styles.tabLink}>Διαχείριση Πελατών</TabLink>
                     <TabLink to="tab2" default={this.defaultTab('tab2')} style={styles.tabLink}>Διαχείριση Πληρωμών</TabLink>
                     <TabLink to="tab3" default={this.defaultTab('tab3')} style={styles.tabLink}>Διαχείριση Εγγραφών</TabLink>
                     <TabLink to="tab4" default={this.defaultTab('tab4')} style={styles.tabLink}>Διαχείριση Τμημάτων</TabLink>
                     <TabLink to="tab5" default={this.defaultTab('tab5')} style={styles.tabLink}>Επικοινωνία Τμημάτων</TabLink>
                 </div>
-                <div id='tabContent' style={styles.content}>
+                <div id="tabContent" style={styles.content}>
                     <TabContent for="tab1">
                         <div id = "tab1"><GetAllStudents/></div>
                     </TabContent>

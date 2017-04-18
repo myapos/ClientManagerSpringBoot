@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
-import { Link } from 'react-router';
 import StudentClassesDataTable from './studentClasses/StudentClassesDataTable';
 
 class StudentClassDashboard extends Component {
@@ -14,9 +12,9 @@ class StudentClassDashboard extends Component {
           event.toggleState(event);
       }
       //console.log("changed state succesfully");
-  };
+  }
 
-  cancelFunction(){
+  cancelFunction() {
     //console.log("hey form cancel function");
     //redirect to main dashboard page
     window.parent.location.href= "/";
@@ -35,8 +33,6 @@ class StudentClassDashboard extends Component {
                 </div>
           </div>
         </div>
-
-
     );
   }
 }
