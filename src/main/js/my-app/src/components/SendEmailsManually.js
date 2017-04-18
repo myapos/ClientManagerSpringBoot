@@ -14,7 +14,7 @@ class SendEmailsManually extends Component {
     this.props.changeText(event.target.value);
   }
 
-  handleSubmit (event) {
+  handleSubmit () {
     // get message
     const msg = document.getElementById('message').value;
     console.log('message to submit:', msg);
@@ -34,7 +34,7 @@ class SendEmailsManually extends Component {
     console.log(tableSelected[0]);
   }
 
-  clearText (event) {
+  clearText () {
     this.props.changeText('');
   }
 
@@ -48,7 +48,7 @@ class SendEmailsManually extends Component {
     }
     // console.log("dataRegisters:",dataRegisters);
 
-    if ((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == 'tab5')
+    if ((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab === 'tab5')
       && availableClasses.length > 0) {
       return (
         <div id="sendEmailTestsManually" >
