@@ -10,6 +10,12 @@ const url1 = `${parent.BASE_URL}/api/students`;
 const url2 = `${parent.BASE_URL}/api/studentClasses/`;
 const url3 = `${parent.BASE_URL}/api/registers/`;
 const url4 = `${parent.BASE_URL}/api/payeds/`;
+parent.request1 = {};
+parent.rowDescription = {};
+parent.students = {};
+parent.studentClasses = {};
+parent.registers = {};
+parent.payeds = {};
 
 const init = () => {
   parent.students = {};
