@@ -86,12 +86,22 @@ module.exports = {
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
+    // preLoaders: [
+    //   {
+    //     test: /\.(js|jsx)$/,
+    //     loader: 'eslint',
+    //     include: paths.appSrc,
+    //   }
+    // ],
+    rules: [
       {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc,
-      }
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          // eslint options (if necessary)
+        },
+      },
     ],
     loaders: [
       {

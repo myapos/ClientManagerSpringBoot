@@ -43,11 +43,11 @@ function* saveNewStudentClass () {
 function* deleteStudentClass () {
 	// console.log('deleteStudentClass');
   const state = yield select();
-  const deleteStudentClass = yield call(api.deleteStudentClass, state.classId);
+  const deleteStudentClassRes = yield call(api.deleteStudentClass, state.classId);
 
   yield put({
     type: actions.SAGAS_DELETE_CLASS,
-    deleteStudentClass,
+    deleteStudentClassRes,
   });
 }
 
@@ -65,11 +65,11 @@ function* updateStudentClass () {
 function* saveNewStudent () {
 	// console.log('saveNewStudent');
   const state = yield select();
-  const saveNewStudent = yield call(api.saveNewStudent, state.row);
+  const saveNewStudentRes = yield call(api.saveNewStudent, state.row);
 
   yield put({
     type: actions.SAGAS_SAVE_NEW_STUDENT,
-    saveNewStudent,
+    saveNewStudentRes,
   });
 }
 

@@ -8,8 +8,8 @@ This package provides Phaistos Networks's .eslintrc as an extensible shared conf
 ### How to update
 
 1. `git commit -am …`
-2. `git push`
-3. `npm version patch`
+2. `npm version patch`
+3. `git push`
 4. `npm publish`
 
 ## Usage
