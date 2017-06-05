@@ -1,6 +1,6 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
-import * as api from './api';
+import * as api from './api/index.js';
 import * as actions from './actions';
 
 function* getDataFromServer () {
