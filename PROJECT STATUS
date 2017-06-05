@@ -1,0 +1,49 @@
+useful commands and urls
+
+running database locally in url
+
+http://localhost/phppgadmin/
+http://localhost:3000/#/
+http://localhost:8181/#/
+
+
+bugs to solve:
+
+ΝΑ ΑΛΛΑΞΩ ΤΟ WORKFLOW ΣΥΜΦΩΝΑ ΜΕ ΤΑ ΒΗΜΑΤΑ 1,2,3
+
+improvements 
+
+na spasw to api se polla arxeia kanontas xrisi toy async/await
+na ginei sintirisimo
+pagination
+mobile sms
+
+documentation
+
+gitbook
+
+ΣΕΝΑΡΙΑ ΧΡΗΣΗΣ
+
+1. αρχικα γραφεται ο χρηστης
+2. εγγραφεται σε τμημα ΕΠΙΛΕΓΕΙΣ ΣΕ ΠΟΙΟ ΤΜΗΜΑ ΘΕΛΕΙΣ ΝΑ ΕΓΓΡΑΦΕΙ Ο ΧΡΗΣΤΗΣ ΑΝΟΙΓΕΙ SELECT LIST
+3. καταχωριση της πληρωμης TRUE/FALSE ΓΙΑ ΤΟ ΤΜΗΜΑ ΠΟΥ ΕΓΓΡΑΦΗΚΕ Ο ΧΡΗΣΤΗΣ
+
+
+ΔΙΑΧΕΙΡΙΣΗ ΧΡΗΣΤΩΝ 
+
+ΕΓΓΡΑΦΗ ok/ΑΝΑΝΕΩΣΗ ok/ΔΙΑΓΡΑΦΗ ok ΧΡΗΣΤΗ 
+
+ΔΙΑΧΕΙΡΙΣΗ ΠΛΗΡΩΜΩΝ 
+
+ΚΤΑΧΩΡΙΣΗ ΟΚ /ΑΝΑΝΕΩΣΗ/ΔΙΑΓΡΑΦΗ ΟΚ ΠΛΗΡΩΜΗ ΧΡΗΣΤΗ ΣΕ ΤΜΗΜΑ Η ΔΙΑΓΡΑΦΗ ΠΛΗΡΩΜΩΝ ΔΕΝ ΔΟΥΛΕΥΕΙ ΣΩΣΤΑ
+
+Η ΔΙΑΓΡΑΦΗ ΣΒΗΝΕΙ ΟΛΕΣ ΤΙΣ ΠΛΗΡΩΜΕΣ BUG
+
+ΔΙΑΧΕΙΡΙΣΗ ΤΜΗΜΑΤΩΝ
+
+ΕΓΓΡΑΦΗ OK/ΔΙΑΓΡΑΦΗ OK ΧΡΗΣΤΗ ΣΕ ΤΜΗΜΑ
+
+ΕΠΙΚΟΙΝΩΝΙΑ ΤΜΗΜΑΤΩΝ ΜΕ EMAIL ΑΥΤΟΜΑΤΑ OK /ΣΕ ΤΜΗΜΑ OK LOCALLY
+
+
+
