@@ -13,8 +13,8 @@ bugs to solve:
 
 improvements 
 
-na spasw to api se polla arxeia ok kanontas xrisi toy async/await
-constants files
+na spasw to api se polla arxeia kanontas xrisi toy async/await ok oxi akoma to async await
+constants files stin poreia
 na ginei sintirisimo
 pagination
 mobile sms
@@ -40,9 +40,9 @@ gitbook
 
 Η ΔΙΑΓΡΑΦΗ ΣΒΗΝΕΙ ΟΛΕΣ ΤΙΣ ΠΛΗΡΩΜΕΣ BUG ΠΟΥ ΑΝΗΚΟΥΝ ΣΤΟ ΙΔΙΟ ΤΜΗΜΑ. ΠΡΕΠΕΙ ΝΑ ΣΒΗΝΕΤΑΙ ΜΟΝΟ Η ΠΛΗΡΩΜΗ ΠΟΥ ΑΝΤΙΣΤΟΙΧΕΙ 
 
-ΣΤΗΝ ΕΠΙΛΕΧΘΕΙΣΑ ΕΓΓΡΑΦΗ
+ΣΤΗΝ ΕΠΙΛΕΧΘΕΙΣΑ ΕΓΓΡΑΦΗ ok 
 
-ΔΙΑΧΕΙΡΙΣΗ ΤΜΗΜΑΤΩΝ
+ΔΙΑΧΕΙΡΙΣΗ ΤΜΗΜΑΤΩΝ ok
 
 ΕΓΓΡΑΦΗ OK/ΔΙΑΓΡΑΦΗ OK ΧΡΗΣΤΗ ΣΕ ΤΜΗΜΑ
 
@@ -50,6 +50,6 @@ gitbook
 
 ΝΑ ΑΛΛΑΞΩ / ΒΕΛΤΙΩΣΩ ΤΟΥΣ SPINNERS
 
-DISABLE EDIT CLASS IN PAYMENT REGISTERS
+DISABLE EDIT CLASS IN PAYMENT REGISTERS ok 
 
-εγγραφη σε πολλά τμήματα κάποιου χρήστη
+εγγραφη σε πολλά τμήματα κάποιου χρήστη ??

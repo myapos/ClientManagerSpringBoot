@@ -192,13 +192,13 @@ class PaymentRegisters extends Component {
 
     let el;
     let cellIndex;
-    if (y[0].querySelector('select') != null) {
+    if (y[0].querySelector('select') !== null) {
       el = y[0].querySelector('select')[0];
       cellIndex = el.parentElement.parentElement.cellIndex;
-    } else if (y[0].getElementsByClassName('form-control editor edit-text')[0] != null) {
+    } else if (y[0].getElementsByClassName('form-control editor edit-text')[0] !== null) {
       el = y[0].getElementsByClassName('form-control editor edit-text')[0];
       cellIndex = el.parentElement.cellIndex;
-    } else if (y[0].getElementsByClassName('form-control editor edit-datetime')[0] != null) {
+    } else if (y[0].getElementsByClassName('form-control editor edit-datetime')[0] !== null) {
       el = y[0].getElementsByClassName('form-control editor edit-datetime')[0];
       cellIndex = el.parentElement.cellIndex;
     }
