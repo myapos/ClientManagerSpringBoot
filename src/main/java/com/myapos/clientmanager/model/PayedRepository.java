@@ -33,7 +33,7 @@ public interface PayedRepository extends PagingAndSortingRepository<Payed, Long>
 
 	List<Payed> findByRegister(@Param("register") Register register);
 
-	List<Payed> findByRegister_Id(@Param("id") Long id);
+	List<Payed> findByRegisterId(@Param("id") Long id);
 
 }
 // end::code[]
