@@ -324,7 +324,7 @@ class PaymentRegisters extends Component {
             <TableHeaderColumn
               dataField="class"
               width="15%"
-              editable={{ type: 'select', options: { values: availableClasses } }}>Class
+              editable={false} >Class
             </TableHeaderColumn>
             <TableHeaderColumn
               dataField="dateOfPayment"

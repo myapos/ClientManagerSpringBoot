@@ -44,7 +44,7 @@ export default id => {
             .then(res2 => {
               // step3 find payment by register id
               console.log('res2:', res2);
-              const registerId = extractId (res2._embedded.registers[0]._links.self.href);
+              const registerId = extractId(res2._embedded.registers[0]._links.self.href);
               console.log('registerId:', registerId);
               fetch(`${parent.BASE_URL}/api/payeds/search/findByRegisterId`
                   + `?id=${registerId}`, {
