@@ -1,0 +1,11 @@
+{
+  "../media/glyphicons-halflings-regular.eot": "../media/glyphicons-halflings-regular.eot",
+  "../media/glyphicons-halflings-regular.svg": "../media/glyphicons-halflings-regular.svg",
+  "../media/glyphicons-halflings-regular.ttf": "../media/glyphicons-halflings-regular.ttf",
+  "../media/glyphicons-halflings-regular.woff": "../media/glyphicons-halflings-regular.woff",
+  "../media/glyphicons-halflings-regular.woff2": "../media/glyphicons-halflings-regular.woff2",
+  "main.css": "../src/main/resources/static/css/main.css",
+  "main.css.map": "../src/main/resources/static/css/main.css.map",
+  "main.js": "../src/main/resources/static/js/main.js",
+  "main.js.map": "../src/main/resources/static/js/main.js.map"
+}

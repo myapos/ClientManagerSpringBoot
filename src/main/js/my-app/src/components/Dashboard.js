@@ -93,12 +93,12 @@ class Dashboard extends Component {
             <TabLink
               to="tab2"
               default={this.defaultTab('tab2')}
-              style={styles.tabLink}>Διαχείριση Πληρωμών
+              style={styles.tabLink}>Διαχείριση Εγγραφών
             </TabLink>
             <TabLink
               to="tab3"
               default={this.defaultTab('tab3')}
-              style={styles.tabLink}>Διαχείριση Εγγραφών
+              style={styles.tabLink}>Διαχείριση Πληρωμών
             </TabLink>
             <TabLink
               to="tab4"
@@ -116,10 +116,10 @@ class Dashboard extends Component {
               <div id="tab1"><GetAllStudents /></div>
             </TabContent>
             <TabContent for="tab2">
-              <div id="tab2"><PaymentRegisters /></div>
+              <div id="tab2"><Registers /></div>
             </TabContent>
             <TabContent for="tab3">
-              <div id="tab3"><Registers /></div>
+              <div id="tab3"><PaymentRegisters /></div>
             </TabContent>
             <TabContent for="tab4">
               <div id="tab4"><StudentClassDashboard /></div>
