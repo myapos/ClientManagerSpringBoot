@@ -55,7 +55,7 @@ class DisplayClassesForSendingEmailManually extends Component {
         The message will be send only to those students that has registerd to classes and has payed
         <BootstrapTable
           cellEdit={cellEditProp}
-          data={dataDisplayClassesForSendingEmailManually}
+          data={[]}
           hover
           selectRow={selectRowProp}
           options={options}>

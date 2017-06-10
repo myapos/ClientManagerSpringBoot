@@ -19,7 +19,7 @@ export default className => {
   console.log('localStorage.lastTabLoaded:', localStorage.lastTabLoaded);
   // find out if there are data loaded in active tab
   // debugger;
-  if (1 || (parseInt(localStorage.lastTabLoaded)+1) === tabFromClassName) {
+  if (loader && (parseInt(localStorage.lastTabLoaded)+1) === tabFromClassName) {
     loader.style.display = 'none';
   }
   // when className contains the info of the current tab and there are data

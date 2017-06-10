@@ -35,6 +35,10 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  static propTypes = {
+    initRegistrations: PropTypes.array,
+  }
+
   constructor (props) {
     super(props);
     this.state = {
@@ -56,6 +60,8 @@ class Dashboard extends Component {
     }
   }
   render () {
+    // debugger;
+    const { initRegistrations } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -93,17 +99,17 @@ class Dashboard extends Component {
           id="tabs">
 
           <div id="tabLinks" style={styles.links}>
-            <TabLink
+{/*            <TabLink
               to="tab1"
               default={this.defaultTab('tab1')}
               style={styles.tabLink}>Διαχείριση Πελατών
-            </TabLink>
+            </TabLink>*/}
             <TabLink
               to="tab2"
               default={this.defaultTab('tab2')}
               style={styles.tabLink}>Διαχείριση Εγγραφών
             </TabLink>
-            <TabLink
+           {/* <TabLink
               to="tab3"
               default={this.defaultTab('tab3')}
               style={styles.tabLink}>Διαχείριση Πληρωμών
@@ -117,14 +123,14 @@ class Dashboard extends Component {
               to="tab5"
               default={this.defaultTab('tab5')}
               style={styles.tabLink}>Επικοινωνία Τμημάτων
-            </TabLink>
+            </TabLink>*/}
           </div>
           <div id="tabContent" style={styles.content}>
 {/*            <TabContent for="tab1">
               <div id="tab1"><GetAllStudents /></div>
             </TabContent>*/}
             <TabContent for="tab2">
-              <div id="tab2"><Registers registers={this.props.saved_registers} /></div>
+              <div id="tab2"><Registers initRegistrations={initRegistrations} /></div>
             </TabContent>
 {/*            <TabContent for="tab3">
               <div id="tab3"><PaymentRegisters /></div>
@@ -143,7 +149,5 @@ class Dashboard extends Component {
     );
   }
 }
-Dashboard.propTypes = {
-  saved_registers: PropTypes.array,
-};
+
 export default connect(state => state, actions)(Dashboard);

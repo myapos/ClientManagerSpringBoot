@@ -197,7 +197,7 @@ class StudentClassesDataTable extends Component {
         <div id="studentClasses" >
           <div className="loader studentClasses" />
           <BootstrapTable
-            data={data}
+            data={[]}
             cellEdit={cellEditProp}
             selectRow={selectRowProp}
             hover

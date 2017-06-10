@@ -6,18 +6,22 @@ import * as actions from './actions';
 function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
-  const initDataStudentClasses = yield call(api.getStudentClasses, state);
-  const initDataStudents = yield call(api.getStudents, state);
-  const initDataPayeds = yield call(api.getPayeds, state);
-  const initDataRegisters = yield call(api.getRegisters, state);
-
+  // const initDataStudentClasses = yield call(api.getStudentClasses, state);
+  // const initDataStudents = yield call(api.getStudents, state);
+  // const initDataPayeds = yield call(api.getPayeds, state);
+  const initRegistrations = yield call(api.getRegisters, state);
+  console.log('initRegistrations:', initRegistrations);
   yield put({
     type: actions.DATA_INITIALIZATION,
-    initDataStudentClasses,
-    initDataStudents,
-    initDataPayeds,
-    initDataRegisters,
+    initRegistrations,
   });
+  // yield put({
+  //   type: actions.DATA_INITIALIZATION,
+  //   initDataStudentClasses,
+  //   initDataStudents,
+  //   initDataPayeds,
+  //   initDataRegisters,
+  // });
 }
 
 function* getStudentClasses () {
@@ -181,7 +185,9 @@ function* getSubClass () {
 
 function* getDataRegisters () {
   const state = yield select();
-  const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
+  const dataRegistersLoaded = yield call(api.getDataRegisters);
+
+  console.log('dataRegistersLoaded:', dataRegistersLoaded);
   yield put({
     type: actions.SAGAS_DATA_REGISTERS,
     dataRegistersLoaded,

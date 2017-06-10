@@ -146,10 +146,12 @@ const wrap_async_actions = async () => {
   return outputData;
 };
 
-export default async saved_student => {
+export default async () => {
   // const students = saved_student;
 
   const ret = await wrap_async_actions();
   console.log('ret:', ret);
-  return await ret;
+  hideLoader('loader registers');
+  //debugger;
+  return ret;
 };

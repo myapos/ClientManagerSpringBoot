@@ -286,7 +286,7 @@ class PaymentRegisters extends Component {
           <div className="loader payments" />
           <BootstrapTable
             cellEdit={cellEditProp}
-            data={this.props.dataPaymentsRegistersLoaded}
+            data={[]}
             hover
             deleteRow
             selectRow={selectRowProp}

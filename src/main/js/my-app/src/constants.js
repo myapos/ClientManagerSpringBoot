@@ -1,0 +1,11 @@
+export const BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
+export const studentsAPI = `${BASE_URL}/api/students`;
+export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
+export const registersAPI = `${BASE_URL}/api/registers/`;
+export const payementsAPI = `${BASE_URL}/api/payeds/`;
+// parent.request1 = {};
+// parent.rowDescription = {};
+// parent.students = {};
+// parent.studentClasses = {};
+// parent.registers = {};
+// parent.payeds = {};

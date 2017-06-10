@@ -7,8 +7,4 @@ const Signature = () => (
   </div>
 );
 
-Signature.contextTypes = {
-  router: React.PropTypes.object.isRequired,
-};
-
 export default Signature;

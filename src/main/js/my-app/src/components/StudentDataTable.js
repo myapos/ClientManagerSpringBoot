@@ -210,7 +210,7 @@ class StudentDataTable extends Component {
           <div className="loader students" />
           <BootstrapTable
             cellEdit={cellEditProp}
-            data={data}
+            data={[]}
             hover
             insertRow
             selectRow={selectRowProp}

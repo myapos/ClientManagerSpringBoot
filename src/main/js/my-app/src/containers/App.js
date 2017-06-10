@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import Dashboard from '../components/Dashboard';
-import Container from './Container';
-import NotFound from '../components/NotFound';
 import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 
-// fixes warning with change of routes in every render --> you cannot change router routes it will be ignored
-// https://github.com/reactjs/react-router-redux/issues/179
-const routes = (
-  <Route path="/" component={Container}>
-    <IndexRoute component={Dashboard} />
-    <Route path="*" component={NotFound} />
-  </Route>
-);
-
 class App extends Component {
+  static propTypes = {
+    isLoading: PropTypes.bool,
+  }
   constructor (props) {
     super(props);
     this.state = {
@@ -27,10 +19,19 @@ class App extends Component {
     };
   }
   render () {
+    //debugger;
+    // Get the size of an object
+    const hasData = Object.keys(this.props.initRegistrations[0]).length > 0;
     return (
-      <Router history={hashHistory}>
-        {routes}
-      </Router>
+      <div>
+      <Dashboard 
+      initRegistrations = {this.props.initRegistrations}/>
+      {
+        !hasData
+        ? <div className="loader registers" />
+        : null
+      }
+      </div>
     );
   }
 }
