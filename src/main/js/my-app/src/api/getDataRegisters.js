@@ -1,11 +1,61 @@
 import hideLoader from './hideLoader';
 
-export default saved_student => {
-  const students = saved_student;
-  const dataRegisters = [];
-  const studentPromises = students.map(student => {
-    const url = student._links.student.href;
-    const fetch1 = fetch(url, {
+const fetchStudentClassDescriptions = async url => {
+  const responseClassDescription = await fetch(url, {
+    method: 'get',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const classDescrResp = await responseClassDescription.json();
+  return classDescrResp;
+};
+
+const wrap_async_actions = async () => {
+  // fetchStudents
+  const fetchStudents = `${parent.BASE_URL}/api/students`;
+  let response = {};
+
+  response = await fetch(fetchStudents, {
+    method: 'get',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const studentsResp = await response.json();
+  const students = studentsResp._embedded.students;
+
+  // fetchStudents
+  const fetchClasses = `${parent.BASE_URL}/api/studentClasses`;
+  let classesResponse = {};
+
+  classesResponse = await fetch(fetchClasses, {
+    method: 'get',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const classesResp = await classesResponse.json();
+  const classes = classesResp._embedded.studentClasses;
+  console.log('classes:', classes);
+
+  const registrationPromises = await students.map(async (student, indexS, students) => {
+
+    const url2 = `${parent.BASE_URL}/api/registers/search/findByStudent?student=${student._links.self.href}`;
+
+    const response2 = await fetch(url2, {
       method: 'get',
       mode: 'cors',
       cache: 'default',
@@ -13,83 +63,93 @@ export default saved_student => {
         'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
         'Content-Type': 'application/json',
       },
-    })
-          .then(res1 => res1.json())
-          .then(res1 => {
-            // 2nd async call
-            // get registrations of all students
+    });
 
-            const url2 = `${parent.BASE_URL}/api/registers/search/findByStudent?student=${student._links.self.href}`;
+    const studentInfo = await response2.json();
+    studentInfo.studentLink = student._links.self.href;
+    // console.log('studentInfo:', studentInfo);
+    return studentInfo;
+  }); // end of map students
 
-            const fetch2 = fetch(url2, {
-              method: 'get',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-              .then(res2 => res2.json())
-              .then(res2 => {
-                const registrations = res2;
+  let registrationResults = [];
+  for (let registration of registrationPromises) {
+    registrationResults.push(await registration);
+  }
 
-                // if student has registers get the classes of registers
-                if (registrations._embedded.registers.length > 0) {
-                    // for every registration get registered classes
-                  for (let ww = 0; ww < registrations._embedded.registers.length; ww++) {
-                    const url3 = registrations._embedded.registers[ww]._links.studentClass.href;
+  // console.log('registrationPromises:', registrationPromises);
+  // console.log('students:', students);
+  // console.log('registrationResults:', registrationResults);
+  // match students with registration results in order to compose final display results
+  // criteria is registrationResults[i].studentLink === students[i]._links.student.href
+  // then construct final results array of objects as the following template
+  //     const tempData = {};
+  //     tempData.fname = obj._embedded.registers[0].student.fname;
+  //     tempData.lname = obj._embedded.registers[0].student.lname;
+  //     tempData.email = obj._embedded.registers[0].student.email;
+  //     tempData.class = 'No registered classes';
+  //     tempData.dateOfRegistration = 'No date of registration';
+  //     tempData.index = dataRegisters.length + 1;
 
-                    fetch(url3, {
-                      method: 'get',
-                      mode: 'cors',
-                      cache: 'default',
-                      headers: {
-                        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                        'Content-Type': 'application/json',
-                      },
-                    })
-                    .then(res3 => res3.json())
-                    .then(res3 => {
-                      // save tempData
-                      const tempData = {};
-                      tempData.fname = res1.fname;
-                      tempData.lname = res1.lname;
-                      tempData.email = res1.email;
-                      tempData.class = res3.description;
-                      const dateOfRegistration = new Date(registrations._embedded.registers[ww].dateOfRegistration);
-                      const formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
-                      tempData.dateOfRegistration = formatedDate;
-                      tempData.index = dataRegisters.length + 1;
-                      dataRegisters.push(tempData);
-                      parent.studentIndexWithRegistrations.push(tempData.index); // save index of students with registrations
-                      parent.loadedReg = true;
-                      return dataRegisters;
-                    });
-                  }
-                } else {
-                  // save tempData
-                  const tempData = {};
-                  tempData.fname = res1.fname;
-                  tempData.lname = res1.lname;
-                  tempData.email = res1.email;
-                  tempData.class = 'No registered classes';
-                  tempData.dateOfRegistration = 'No date of registration';
-                  tempData.index = dataRegisters.length + 1;
-                  dataRegisters.push(tempData);
-                  return dataRegisters;
-                }
-              });
-            return fetch2;
-          });
-    return fetch1;
+  const outputData = [];
+  // We need two loops for each array
+  // step 1 loop students array
+  await students.map(async student => {
+
+    await registrationResults.map(async registers => {
+      // console.log('registers:', registers.studentLink);
+      // criteria condition
+      if (registers.studentLink === student._links.student.href) {
+        //console.log('studentLinks:', student._links.student.href);
+        // console.log('criteria found in registration array:', registers._embedded.registers); // isArray
+        const registrations = registers._embedded.registers;
+        registrations.map( async registration => {
+          //console.log('registration:', registration);
+          // get class description from server
+
+          const fetchStudentClassDescription = registration._links.studentClass.href;
+          let responseClassDescription = {};
+          const classDescrResp = await fetchStudentClassDescriptions(fetchStudentClassDescription);
+          //console.log('classDescrResp:', classDescrResp);
+          // responseClassDescription = await fetch(fetchStudentClassDescription, {
+          //   method: 'get',
+          //   mode: 'cors',
+          //   cache: 'default',
+          //   headers: {
+          //     'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+          //     'Content-Type': 'application/json',
+          //   },
+          // });
+
+          // const classDescrResp = await responseClassDescription.json();
+
+          // console.log('classDescrResp:', classDescrResp);
+
+          // for every registration save data in output
+          const tempData = {};
+          tempData.fname = student.fname;
+          tempData.lname = student.lname;
+          tempData.email = student.email;
+          tempData.class = classDescrResp.description;
+          const dateOfRegistration = new Date(registration.dateOfRegistration);
+          const formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
+          tempData.dateOfRegistration = formatedDate;
+          tempData.index = outputData.length + 1;
+          //debugger;
+          outputData.push(tempData);
+          // console.log('tempData:', tempData);
+        });
+      }
+    });
   });
-  Promise.all(studentPromises)
-      .then(() => {
-        // debugger;
-        console.log('All studentPromises from getDataRegisters are done!!!');
-        hideLoader('loader registers');
-      });
+  //debugger;
+  //console.log('outputData:', outputData);
+  return outputData;
+};
 
-  return dataRegisters;
+export default async saved_student => {
+  // const students = saved_student;
+
+  const ret = await wrap_async_actions();
+  console.log('ret:', ret);
+  return await ret;
 };

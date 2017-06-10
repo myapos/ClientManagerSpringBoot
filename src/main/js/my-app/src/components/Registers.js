@@ -3,7 +3,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 
-const waitForDataRegisters = 7000; // msecs
 parent.studentIndexWithRegistrations = [];
 
 function onAfterDeleteRow (rowKeys) {
@@ -163,6 +162,7 @@ class InsertRegistersModal extends React.Component {
     );
   }
 }
+
 class Registers extends Component {
 
   constructor (props) {
@@ -170,6 +170,7 @@ class Registers extends Component {
     this.state = {
       ...props,
     };
+    //debugger;
   }
 
   componentWillMount () {
@@ -219,6 +220,7 @@ class Registers extends Component {
   }
 
   render () {
+    //debugger;
     parent.loadedReg = true;
     const cellEditProp = {
       mode: 'click',
@@ -231,25 +233,17 @@ class Registers extends Component {
     };
 
     const availableClasses = [];
-    for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
+ /*   for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
       availableClasses.push(this.props.saved_studentClasses[i].description);
     }
-
-    // if ((typeof this.props.selectedTab === 'undefined' || this.props.selectedTab == 'tab2')) {
-    //   setTimeout(() => {
-    //     this.anon(this.props.dataRegistersLoaded);
-    //   }, waitForDataRegisters);
-    // }
-
-    if (1 || (typeof this.props.selectedTab === 'undefined' || this.props.selectedTab === 'tab2')
-        && typeof this.props.dataRegistersLoaded !== 'undefined'
-        && this.props.dataRegistersLoaded.length > 0) {
+*/
+    if (1) {
 	    return (
   <div id="registers">
     <div className="loader registers" />
     <BootstrapTable
       cellEdit={cellEditProp}
-      data={this.props.dataRegistersLoaded}
+      data={this.props.registers}
       hover
       deleteRow
       selectRow={selectRowProp}
@@ -288,12 +282,6 @@ class Registers extends Component {
       </TableHeaderColumn>
     </BootstrapTable>
   </div>);
-    } else {
-	    return (
-  <div>
-    <div className="loader" />
-  </div>
-	    );
     }
   }
 }

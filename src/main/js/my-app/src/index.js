@@ -18,96 +18,88 @@ parent.registers = {};
 parent.payeds = {};
 
 const init = () => {
-  parent.students = {};
-  parent.studentClasses = {};
-  parent.registers = {};
-  parent.payeds = {};
-  // parent.loaded = 0;
-  parent.loadedStudents = 0;
-  fetch(url1, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-.then(res2 => res2.json())
-.then(res3 => {
-  parent.students = res3._embedded.students;
-  // return classes;
-  // inner fetch 1
-  fetch(url2, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(res4 => res4.json())
-    .then(res5 => {
-      parent.studentClasses = res5._embedded.studentClasses;
-      // inner fetch 2
-      fetch(url3, {
-        method: 'get',
-        mode: 'cors',
-        cache: 'default',
-        headers: {
-          'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-          'Content-Type': 'application/json',
-        },
-      })
-    .then(res6 => res6.json())
-    .then(res7 => {
-      // debugger;
-      parent.registers = res7._embedded.registers;
-      // return registers;
-      // inner fetch 3
-      fetch(url4, {
-        method: 'get',
-        mode: 'cors',
-        cache: 'default',
-        headers: {
-          'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-          'Content-Type': 'application/json',
-        },
-      })
-    .then(res8 => res8.json())
-    .then(res9 => {
-      parent.payeds = res9._embedded.payeds;
-      // return classes;
-      const placeholder = document.getElementById('react');
-      const initialState = {
-        saved_student: parent.students,
-        saved_studentClasses: parent.studentClasses,
-        saved_registers: parent.registers,
-        saved_payeds: parent.payeds,
-      };
-      ReactDOM.render(<Provider
-        store={configureStore(initialState)}>
-        <App />
-      </Provider>,
-            placeholder);
-    });
-    });
-    });
-});
-};
-
-const init2 = () => {
+//   parent.students = {};
+//   parent.studentClasses = {};
+//   parent.registers = {};
+//   parent.payeds = {};
+//   // parent.loaded = 0;
+//   parent.loadedStudents = 0;
+//   fetch(url1, {
+//     method: 'get',
+//     mode: 'cors',
+//     cache: 'default',
+//     headers: {
+//       'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+//       'Content-Type': 'application/json',
+//     },
+//   })
+// .then(res2 => res2.json())
+// .then(res3 => {
+//   parent.students = res3._embedded.students;
+//   // return classes;
+//   // inner fetch 1
+//   fetch(url2, {
+//     method: 'get',
+//     mode: 'cors',
+//     cache: 'default',
+//     headers: {
+//       'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//     .then(res4 => res4.json())
+//     .then(res5 => {
+//       parent.studentClasses = res5._embedded.studentClasses;
+//       // inner fetch 2
+//       fetch(url3, {
+//         method: 'get',
+//         mode: 'cors',
+//         cache: 'default',
+//         headers: {
+//           'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//     .then(res6 => res6.json())
+//     .then(res7 => {
+//       // debugger;
+//       parent.registers = res7._embedded.registers;
+//       // return registers;
+//       // inner fetch 3
+//       fetch(url4, {
+//         method: 'get',
+//         mode: 'cors',
+//         cache: 'default',
+//         headers: {
+//           'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//     .then(res8 => res8.json())
+//     .then(res9 => {
+//       parent.payeds = res9._embedded.payeds;
+//       // return classes;
+//       const placeholder = document.getElementById('react');
+//       const initialState = {
+//         saved_student: parent.students,
+//         saved_studentClasses: parent.studentClasses,
+//         saved_registers: parent.registers,
+//         saved_payeds: parent.payeds,
+//       };
+//       ReactDOM.render(<Provider
+//         store={configureStore(initialState)}>
+//         <App />
+//       </Provider>, placeholder);
+//     });
+//     });
+//     });
+// });
   const placeholder = document.getElementById('react');
-
   const initialState = {};
-
   ReactDOM.render(<Provider
     store={configureStore(initialState)}>
     <App />
-  </Provider>,
-        placeholder);
+  </Provider>, placeholder);
 };
 
-// init2();
 init();

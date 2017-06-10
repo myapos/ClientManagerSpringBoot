@@ -279,7 +279,7 @@ class PaymentRegisters extends Component {
 
     // check if data has loaded
     // i can set hidden={true} in one cell in order to hide it. it can be useful if i don't
-    // want increasing number to be displayd. For now it is not used
+    // want increasing number to be displayed. For now it is not used
     // debugger;
       return (
         <div id="PaymentRegisters">

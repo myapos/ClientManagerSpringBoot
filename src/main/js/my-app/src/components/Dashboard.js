@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import * as actions from '../actions/';
@@ -34,6 +35,13 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      ...props,
+    };
+    //debugger;
+  }
 
   defaultTab (tab) {
     // get last active tab from local storage
@@ -112,13 +120,13 @@ class Dashboard extends Component {
             </TabLink>
           </div>
           <div id="tabContent" style={styles.content}>
-            <TabContent for="tab1">
+{/*            <TabContent for="tab1">
               <div id="tab1"><GetAllStudents /></div>
-            </TabContent>
+            </TabContent>*/}
             <TabContent for="tab2">
-              <div id="tab2"><Registers /></div>
+              <div id="tab2"><Registers registers={this.props.saved_registers} /></div>
             </TabContent>
-            <TabContent for="tab3">
+{/*            <TabContent for="tab3">
               <div id="tab3"><PaymentRegisters /></div>
             </TabContent>
             <TabContent for="tab4">
@@ -126,7 +134,7 @@ class Dashboard extends Component {
             </TabContent>
             <TabContent for="tab5">
               <div id="tab5"><SendEmailsManually /></div>
-            </TabContent>
+            </TabContent>*/}
           </div>
         </Tabs>
 
@@ -135,5 +143,7 @@ class Dashboard extends Component {
     );
   }
 }
-
+Dashboard.propTypes = {
+  saved_registers: PropTypes.array,
+};
 export default connect(state => state, actions)(Dashboard);

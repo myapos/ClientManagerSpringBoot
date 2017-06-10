@@ -3,7 +3,6 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import Dashboard from '../components/Dashboard';
-import StudentClassDashboard from '../components/StudentClassDashboard';
 import Container from './Container';
 import NotFound from '../components/NotFound';
 import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
@@ -16,7 +15,6 @@ import '../css/App.css';
 const routes = (
   <Route path="/" component={Container}>
     <IndexRoute component={Dashboard} />
-    <Route path="/studentclassdashboard" component={StudentClassDashboard} />
     <Route path="*" component={NotFound} />
   </Route>
 );
