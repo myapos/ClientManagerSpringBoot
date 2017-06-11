@@ -13,7 +13,7 @@ const init = () => {
   const placeholder = document.getElementById('react');
 
   const initialState = {
-    initRegistrations: [{}],
+    initRegistrations: [[]],
     isLoading: true,
   };
 

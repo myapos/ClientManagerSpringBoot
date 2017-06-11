@@ -11,6 +11,7 @@ import '../css/App.css';
 class App extends Component {
   static propTypes = {
     isLoading: PropTypes.bool,
+    initRegistrations: PropTypes.array,
   }
   constructor (props) {
     super(props);
@@ -23,15 +24,13 @@ class App extends Component {
     // debugger;
     let hasData = false;
     // Get the size of an object
-
-    if (this.props.initRegistrations[0].length > 0){
+    if (this.props.initRegistrations[0].length > 0) {
       hasData = Object.keys(this.props.initRegistrations).length > 0;
     }
-    console.log('log:');
     return (
       <div>
         <Dashboard
-          initRegistrations = {this.props.initRegistrations}/>
+          initRegistrations={this.props.initRegistrations} />
         {
           !hasData
           ? <div className="loader registers" />

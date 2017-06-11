@@ -35,26 +35,40 @@ class Registers extends Component {
 
   render () {
     const { initRegistrations } = this.props;
+    // alternative implementation with es6 functions
+    // let initRegistrations__ = [];
+    // for (let i = 0; i < initRegistrations.length; i++) {
+    //   initRegistrations__.push(initRegistrations[i].filter(item_ => {
+    //     return ((typeof item_ !== 'undefined') && item_.length > 0) ;
+    //   }));
+    // }
+    // initRegistrations__ = initRegistrations__.filter(item => {
+    //   return item.length > 0;
+    // });
+
+    // const initRegistrations_ = [];
+    // for (let j = 0; j < initRegistrations__.length; j++) {
+    //   [initRegistrations_[j]] = initRegistrations__[j][0];
+    // }
+
     // debugger;
     const sumAr = [];
-    const test = initRegistrations.map(curAr => {
-      
+    initRegistrations.map(curAr => {
       // console.log('curAr:', curAr, 'l:', curAr.length);
-      for (let i = 0; i < curAr.length; i++){
-        if (typeof curAr[i] !== 'undefined'){
+      for (let i = 0; i < curAr.length; i++) {
+        if (typeof curAr[i] !== 'undefined') {
           console.log('item:', curAr[i], 'l:', curAr[i].length);
-
-          if(curAr[i].length > 0) {
-            //debugger;
+          if (curAr[i].length > 0) {
             sumAr.push(curAr[i]);
           }
         }
       }
+      return 1;
     });
 
     const initRegistrations_ = sumAr.map(value => value[0]);
-    console.log('initRegistrations12:', initRegistrations_);
-    //debugger;
+    console.log('initRegistrations_:', initRegistrations_);
+    // const initRegistrations__ = [{}];
     return (
       <div id="registers">
         <BootstrapTable data={initRegistrations_}>
