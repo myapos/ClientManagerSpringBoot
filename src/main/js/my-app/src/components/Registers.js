@@ -2,23 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
+import insertRegistersModal from './insertRegistersModal';
 import * as actions from '../actions/';
-
-const products = [];
-
-function addProducts(quantity) {
-  const startId = products.length;
-  for (let i = 0; i < quantity; i++) {
-    const id = startId + i;
-    products.push({
-      id: id,
-      name: 'Item name ' + id,
-      price: 2100 + i
-    });
-  }
-}
-
-addProducts(5);
 
 class Registers extends Component {
   static propTypes = {
@@ -31,6 +16,34 @@ class Registers extends Component {
       ...props,
     };
     // debugger;
+  }
+
+  onAfterDeleteRow (rowKeys) {
+    this.props.deleteRegisters(rowKeys[0]);
+  }
+
+  afterSaveRegistersCell (row) {
+    let studentHasRegistrations = false;
+   // get index of row
+   // check if row.index has a registration already. If it has then action is update. Otherwise action is update
+    // for (let jj = 0; jj < parent.studentIndexWithRegistrations.length; jj++) {
+    //   if (parent.studentIndexWithRegistrations[jj] === row.index) {
+    //     studentHasRegistrations = true;
+    //   }
+    // }
+    // if (!studentHasRegistrations) {
+    //   if (row.dateOfRegistration !== 'No date of registration' && row.class === 'No registered classes') {
+    //     alert('Please give class input');
+    //   } else if (row.dateOfRegistration === 'No date of registration' && row.class !== 'No registered classes') {
+    //     alert('Please give date of registration input');
+    //   } else {
+    //     alert('create registers........');
+    //     this.props.createRegisters(row);
+    //   }
+    // } else {
+    //   alert('Update registrations');
+    //   this.props.updateRegisters(row);
+    // }
   }
 
   render () {
@@ -51,10 +64,10 @@ class Registers extends Component {
     //   [initRegistrations_[j]] = initRegistrations__[j][0];
     // }
 
-    // debugger;
+    // data preprocess area
     const sumAr = [];
     initRegistrations.map(curAr => {
-      // console.log('curAr:', curAr, 'l:', curAr.length);
+      console.log('curAr:', curAr, 'l:', curAr.length);
       for (let i = 0; i < curAr.length; i++) {
         if (typeof curAr[i] !== 'undefined') {
           console.log('item:', curAr[i], 'l:', curAr[i].length);
@@ -66,12 +79,40 @@ class Registers extends Component {
       return 1;
     });
 
-    const initRegistrations_ = sumAr.map(value => value[0]);
+    const initRegistrations_ = sumAr.map((value, index) => {
+      value[0].index = index + 1;
+      return value[0];
+    });
     console.log('initRegistrations_:', initRegistrations_);
     // const initRegistrations__ = [{}];
+
+    // If you want to enable deleteRow, you must enable row selection also.
+    const selectRowProp = {
+      mode: 'checkbox',
+    };
+    const cellEditProp = {
+      mode: 'click',
+      afterSaveCell: this.afterSaveRegistersCell,
+    };
+
+    const options = {
+      noDataText: 'There are no data loaded yet',
+      afterDeleteRow: this.onAfterDeleteRow,  // A hook for after droping rows.
+    };
+
     return (
       <div id="registers">
-        <BootstrapTable data={initRegistrations_}>
+        <BootstrapTable
+          cellEdit={cellEditProp}
+          hover
+          deleteRow
+          selectRow={selectRowProp}
+          exportCSV
+          search
+          data={initRegistrations_}
+          options={options}
+          tableHeaderClass="payments-registers-header-class"
+          tableBodyClass="payments-registers-body-class">
           <TableHeaderColumn
             dataField="index"
             editable={false}
@@ -79,7 +120,7 @@ class Registers extends Component {
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="fname"
-            emailditable={false}
+            editable={false}
             dataSort pagination>Name
           </TableHeaderColumn>
           <TableHeaderColumn
