@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
+import preprocessRegistrations from '../utils/preprocessRegistrations';
+import preprocessStudentClasses from '../utils/preprocessStudentClasses';
 import insertRegistersModal from './insertRegistersModal';
 import * as actions from '../actions/';
 
 class Registers extends Component {
   static propTypes = {
     initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    deleteRegisters: PropTypes.func,
   }
 
   constructor (props) {
@@ -22,14 +26,11 @@ class Registers extends Component {
   }
 
   afterSaveRegistersCell (row) {
-    let studentHasRegistrations = false;
+    // update
+    this.props.updateRegisters(row);
+
+    // let studentHasRegistrations = false;
    // get index of row
-   // check if row.index has a registration already. If it has then action is update. Otherwise action is update
-    // for (let jj = 0; jj < parent.studentIndexWithRegistrations.length; jj++) {
-    //   if (parent.studentIndexWithRegistrations[jj] === row.index) {
-    //     studentHasRegistrations = true;
-    //   }
-    // }
     // if (!studentHasRegistrations) {
     //   if (row.dateOfRegistration !== 'No date of registration' && row.class === 'No registered classes') {
     //     alert('Please give class input');
@@ -63,26 +64,7 @@ class Registers extends Component {
     //   [initRegistrations_[j]] = initRegistrations__[j][0];
     // }
 
-    // data preprocess area
-    const sumAr = [];
-    initRegistrations.map(curAr => {
-      console.log('curAr:', curAr, 'l:', curAr.length);
-      for (let i = 0; i < curAr.length; i++) {
-        if (typeof curAr[i] !== 'undefined') {
-          // console.log('item:', curAr[i], 'l:', curAr[i].length);
-          if (curAr[i].length > 0) {
-            sumAr.push(curAr[i]);
-          }
-        }
-      }
-      return 1;
-    });
-
-    const initRegistrations_ = sumAr.map((value, index) => {
-      value[0].index = index + 1;
-      return value[0];
-    });
-    // console.log('initRegistrations_:', initRegistrations_);
+    const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -94,19 +76,20 @@ class Registers extends Component {
     };
 
     const options = {
-      noDataText: 'There are no data loaded yet',
+      noDataText: 'There are no data',
       afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
-    const availableClasses = initDataStudentClasses;
-    // preprocess area for availableClasses 
 
-    debugger;
+    // preprocess area for availableClasses
+    const availableClasses = preprocessStudentClasses(initDataStudentClasses);
+
     return (
       <div id="registers">
         <BootstrapTable
           cellEdit={cellEditProp}
           hover
           deleteRow
+          insertRow
           selectRow={selectRowProp}
           exportCSV
           search
@@ -133,14 +116,14 @@ class Registers extends Component {
             editable={false} >E-mail
           </TableHeaderColumn>
           <TableHeaderColumn
+            dataField="class"
+            editable={{ type: 'select', options: { values: availableClasses } }} >Class
+          </TableHeaderColumn>
+          <TableHeaderColumn
             dataField="dateOfRegistration"
             dataAlign="left"
             dataSort={false}
             editable={{ type: 'datetime' }}> Date Of Registration
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField="class"
-            editable={{ type: 'select', options: { values: availableClasses } }} >Class
           </TableHeaderColumn>
         </BootstrapTable>
       </div>
