@@ -46,6 +46,16 @@ class Registers extends Component {
     // }
   }
 
+  createInsertRegistersModal () {
+    // const addRegisters = this.props.addRegisters;
+    // const attr = {
+    //   onModalClose, onSave, columns, validateState, ignoreEditable, addRegisters,
+    // };
+    return (
+      <insertRegistersModal />
+    );
+  }
+
   render () {
     const { initRegistrations, initDataStudentClasses } = this.props;
     // alternative implementation with es6 functions
@@ -77,6 +87,7 @@ class Registers extends Component {
 
     const options = {
       noDataText: 'There are no data',
+      insertModal: this.createInsertRegistersModal.bind(this),
       afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
 

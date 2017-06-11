@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 
-class InsertRegistersModal extends React.Component {
+class InsertRegistersModal extends Component {
 
   handleSaveBtnClick = () => {
     const {
