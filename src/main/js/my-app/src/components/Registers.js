@@ -15,7 +15,6 @@ class Registers extends Component {
     this.state = {
       ...props,
     };
-    // debugger;
   }
 
   onAfterDeleteRow (rowKeys) {
@@ -47,7 +46,7 @@ class Registers extends Component {
   }
 
   render () {
-    const { initRegistrations } = this.props;
+    const { initRegistrations, initDataStudentClasses } = this.props;
     // alternative implementation with es6 functions
     // let initRegistrations__ = [];
     // for (let i = 0; i < initRegistrations.length; i++) {
@@ -70,7 +69,7 @@ class Registers extends Component {
       console.log('curAr:', curAr, 'l:', curAr.length);
       for (let i = 0; i < curAr.length; i++) {
         if (typeof curAr[i] !== 'undefined') {
-          console.log('item:', curAr[i], 'l:', curAr[i].length);
+          // console.log('item:', curAr[i], 'l:', curAr[i].length);
           if (curAr[i].length > 0) {
             sumAr.push(curAr[i]);
           }
@@ -83,8 +82,7 @@ class Registers extends Component {
       value[0].index = index + 1;
       return value[0];
     });
-    console.log('initRegistrations_:', initRegistrations_);
-    // const initRegistrations__ = [{}];
+    // console.log('initRegistrations_:', initRegistrations_);
 
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -92,14 +90,17 @@ class Registers extends Component {
     };
     const cellEditProp = {
       mode: 'click',
-      afterSaveCell: this.afterSaveRegistersCell,
+      afterSaveCell: this.afterSaveRegistersCell.bind(this),
     };
 
     const options = {
       noDataText: 'There are no data loaded yet',
-      afterDeleteRow: this.onAfterDeleteRow,  // A hook for after droping rows.
+      afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
+    const availableClasses = initDataStudentClasses;
+    // preprocess area for availableClasses 
 
+    debugger;
     return (
       <div id="registers">
         <BootstrapTable
@@ -138,7 +139,8 @@ class Registers extends Component {
             editable={{ type: 'datetime' }}> Date Of Registration
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField="class">Class
+            dataField="class"
+            editable={{ type: 'select', options: { values: availableClasses } }} >Class
           </TableHeaderColumn>
         </BootstrapTable>
       </div>

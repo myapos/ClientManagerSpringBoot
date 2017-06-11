@@ -6,7 +6,7 @@ import * as actions from './actions';
 function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
-  // const initDataStudentClasses = yield call(api.getStudentClasses, state);
+  const initDataStudentClasses = yield call(api.getStudentClasses, state);
   // const initDataStudents = yield call(api.getStudents, state);
   // const initDataPayeds = yield call(api.getPayeds, state);
   // const initRegistrations = yield call(api.getRegisters, state);
@@ -16,6 +16,7 @@ function* getDataFromServer () {
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
+    initDataStudentClasses,
   });
   // yield put({
   //   type: actions.DATA_INITIALIZATION,

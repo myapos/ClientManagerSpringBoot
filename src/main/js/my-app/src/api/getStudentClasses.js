@@ -1,8 +1,8 @@
-import hideLoader from './hideLoader';
+import * as constants from '../constants';
 
 export default () => {
-  fetch(
-        `${parent.BASE_URL}/api/studentClasses`, {
+  const studentClasses = fetch(
+        constants.studentClassesAPI, {
           method: 'get',
           mode: 'cors',
           cache: 'default',
@@ -13,9 +13,9 @@ export default () => {
         })
     .then(res => res.json())
     .then(res => {
+
       const classes = res._embedded.studentClasses;
-      parent.studentClasses = classes;
-      hideLoader('loader studentClasses');
       return classes;
     });
+  return studentClasses;
 };

@@ -14,6 +14,7 @@ const init = () => {
 
   const initialState = {
     initRegistrations: [[]],
+    initDataStudentClasses:[[]],
     isLoading: true,
   };
 

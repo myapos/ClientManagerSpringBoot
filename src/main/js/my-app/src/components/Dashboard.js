@@ -37,6 +37,7 @@ const styles = {
 class Dashboard extends Component {
   static propTypes = {
     initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
   }
 
   constructor (props) {
@@ -59,7 +60,7 @@ class Dashboard extends Component {
     }
   }
   render () {
-    const { initRegistrations } = this.props;
+    const { initRegistrations, initDataStudentClasses } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -128,7 +129,9 @@ class Dashboard extends Component {
               <div id="tab1"><GetAllStudents /></div>
             </TabContent>*/}
             <TabContent for="tab2">
-              <div id="tab2"><Registers initRegistrations={initRegistrations} /></div>
+              <div id="tab2"><Registers 
+                initRegistrations={initRegistrations}
+                initDataStudentClasses={this.props.initDataStudentClasses}  /></div>
             </TabContent>
 {/*            <TabContent for="tab3">
               <div id="tab3"><PaymentRegisters /></div>

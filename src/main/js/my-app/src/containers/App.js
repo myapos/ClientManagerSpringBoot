@@ -12,6 +12,7 @@ class App extends Component {
   static propTypes = {
     isLoading: PropTypes.bool,
     initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
   }
   constructor (props) {
     super(props);
@@ -30,7 +31,8 @@ class App extends Component {
     return (
       <div>
         <Dashboard
-          initRegistrations={this.props.initRegistrations} />
+          initRegistrations={this.props.initRegistrations}
+          initDataStudentClasses={this.props.initDataStudentClasses} />
         {
           !hasData
           ? <div className="loader registers" />
