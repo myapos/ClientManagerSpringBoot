@@ -44,7 +44,6 @@ class Dashboard extends Component {
     this.state = {
       ...props,
     };
-    //debugger;
   }
 
   defaultTab (tab) {
@@ -60,7 +59,6 @@ class Dashboard extends Component {
     }
   }
   render () {
-    // debugger;
     const { initRegistrations } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');

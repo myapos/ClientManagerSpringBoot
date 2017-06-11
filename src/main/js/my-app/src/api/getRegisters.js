@@ -15,5 +15,6 @@ export default () => {
       parent.registers = registers;
       return registers;
     });
+    console.log('registersData paizei :', registersData );
   return registersData;
 };

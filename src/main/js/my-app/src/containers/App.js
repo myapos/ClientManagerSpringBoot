@@ -18,19 +18,25 @@ class App extends Component {
       ...props,
     };
   }
+
   render () {
-    //debugger;
+    // debugger;
+    let hasData = false;
     // Get the size of an object
-    const hasData = Object.keys(this.props.initRegistrations[0]).length > 0;
+
+    if (this.props.initRegistrations[0].length > 0){
+      hasData = Object.keys(this.props.initRegistrations).length > 0;
+    }
+    console.log('log:');
     return (
       <div>
-      <Dashboard 
-      initRegistrations = {this.props.initRegistrations}/>
-      {
-        !hasData
-        ? <div className="loader registers" />
-        : null
-      }
+        <Dashboard
+          initRegistrations = {this.props.initRegistrations}/>
+        {
+          !hasData
+          ? <div className="loader registers" />
+          : null
+        }
       </div>
     );
   }

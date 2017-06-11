@@ -34,12 +34,57 @@ class Registers extends Component {
   }
 
   render () {
-    //debugger; 
     const { initRegistrations } = this.props;
+    // debugger;
+    const sumAr = [];
+    const test = initRegistrations.map(curAr => {
+      
+      // console.log('curAr:', curAr, 'l:', curAr.length);
+      for (let i = 0; i < curAr.length; i++){
+        if (typeof curAr[i] !== 'undefined'){
+          console.log('item:', curAr[i], 'l:', curAr[i].length);
+
+          if(curAr[i].length > 0) {
+            //debugger;
+            sumAr.push(curAr[i]);
+          }
+        }
+      }
+    });
+
+    const initRegistrations_ = sumAr.map(value => value[0]);
+    console.log('initRegistrations12:', initRegistrations_);
+    //debugger;
     return (
       <div id="registers">
-        <BootstrapTable data={initRegistrations}>
-          <TableHeaderColumn dataField="dateOfRegistration" isKey>Product ID</TableHeaderColumn>
+        <BootstrapTable data={initRegistrations_}>
+          <TableHeaderColumn
+            dataField="index"
+            editable={false}
+            isKey dataSort>id
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="fname"
+            emailditable={false}
+            dataSort pagination>Name
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="lname"
+            editable={false} >Last Name
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="email"
+            editable={false} >E-mail
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="dateOfRegistration"
+            dataAlign="left"
+            dataSort={false}
+            editable={{ type: 'datetime' }}> Date Of Registration
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="class">Class
+          </TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
