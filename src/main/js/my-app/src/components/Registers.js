@@ -4,7 +4,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import preprocessRegistrations from '../utils/preprocessRegistrations';
 import preprocessStudentClasses from '../utils/preprocessStudentClasses';
-import insertRegistersModal from './insertRegistersModal';
+import InsertRegistersModal from './InsertRegistersModal';
 import * as actions from '../actions/';
 
 class Registers extends Component {
@@ -12,6 +12,7 @@ class Registers extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     deleteRegisters: PropTypes.func,
+    createRegisters: PropTypes.func,
   }
 
   constructor (props) {
@@ -25,35 +26,15 @@ class Registers extends Component {
     this.props.deleteRegisters(rowKeys[0]);
   }
 
-  afterSaveRegistersCell (row) {
-    // update
-    this.props.updateRegisters(row);
-
-    // let studentHasRegistrations = false;
-   // get index of row
-    // if (!studentHasRegistrations) {
-    //   if (row.dateOfRegistration !== 'No date of registration' && row.class === 'No registered classes') {
-    //     alert('Please give class input');
-    //   } else if (row.dateOfRegistration === 'No date of registration' && row.class !== 'No registered classes') {
-    //     alert('Please give date of registration input');
-    //   } else {
-    //     alert('create registers........');
-    //     this.props.createRegisters(row);
-    //   }
-    // } else {
-    //   alert('Update registrations');
-    //   this.props.updateRegisters(row);
-    // }
+  createInsertRegistersModal(onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const createRegisters = this.props.createRegisters;
+    const attr = { onModalClose, onSave, columns, validateState, ignoreEditable, createRegisters };
+    return (<InsertRegistersModal {... attr} />);
   }
 
-  createInsertRegistersModal () {
-    // const addRegisters = this.props.addRegisters;
-    // const attr = {
-    //   onModalClose, onSave, columns, validateState, ignoreEditable, addRegisters,
-    // };
-    return (
-      <insertRegistersModal />
-    );
+  afterSaveRegistersCell (row) {
+    // update
+    this.props.createRegisters(row);
   }
 
   render () {

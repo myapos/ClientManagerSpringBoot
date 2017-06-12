@@ -62,7 +62,7 @@
     "nodemailer-smtp-transport": "^2.7.2",
     "prop-types": "^15.5.10",
     "react": "^15.3.2",
-    "react-bootstrap-table": "^3.3.8",
+    "react-bootstrap-table": "^4.0.0-beta.6 ",
     "react-delay": "0.0.3",
     "react-dom": "^15.3.2",
     "react-loadable": "^2.0.3",

@@ -5,18 +5,19 @@ import * as actions from '../actions/';
 
 class InsertRegistersModal extends Component {
 
-  handleSaveBtnClick = () => {
+  handleSaveBtnClick () {
+
     const {
       columns,
       onSave,
-      addRegisters,
+      createRegisters,
     } = this.props;
     const newRow = {};
     columns.forEach(column => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    addRegisters(newRow);
+    createRegisters(newRow);
     // onSave(newRow);
   }
   render () {
@@ -44,8 +45,7 @@ class InsertRegistersModal extends Component {
                 // and not allow edit, for example ID field
                 return null;
               }
-              // debugger;
-              console.log('log:', column);
+              // console.log('log:', column);
               const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
               // debugger;
               if (field === 'index') {
@@ -64,7 +64,7 @@ class InsertRegistersModal extends Component {
                     <label>Όνομα</label>
                     <select ref={field} className="form-control">
                       {
-                      parent.students.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
+                      //parent.students.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
                     }
                     </select>
                     { error }
@@ -75,7 +75,7 @@ class InsertRegistersModal extends Component {
                     <label >Επίθετο</label>
                     <select ref={field} className="form-control">
                       {
-                      parent.students.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
+                      //parent.students.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
                     }
                     </select>
                     { error }
@@ -97,11 +97,11 @@ class InsertRegistersModal extends Component {
                     <label >Τάξη</label>
                     <select ref={field} className="form-control">
                       {
-                      parent.studentClasses.map((el, i) => {
-                        if (el.description !== 'No subclass') {
-                          return <option key={i} value={el.description}>{el.description}</option>;
-                        }
-                      })
+                      // parent.studentClasses.map((el, i) => {
+                      //   if (el.description !== 'No subclass') {
+                      //     return <option key={i} value={el.description}>{el.description}</option>;
+                      //   }
+                      // })
                     }
                     </select>
                     { error }
