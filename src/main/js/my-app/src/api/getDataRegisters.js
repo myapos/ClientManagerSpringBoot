@@ -1,27 +1,6 @@
 import * as constants from '../constants';
-const makeMeLookSync = fn => {
-  let iterator = fn();
-  let current;
 
-  do {
-    current = iterator.next();
-    console.log(current.value);
-  } while (!current.done);
-  // let iterator = fn();
-
-  // iterator.next();
-};
-// const makeMeLookSync = fn => {
-//   let iterator = fn();
-//   let loop = result => {
-//     !result.done && result.value.then(res =>
-//       loop(iterator.next(res)));
-//   };
-
-//   loop(iterator.next());
-// };
-
-const fetchAsyncA = async url => 
+const fetchAsyncA = async url =>
   await (await fetch(url, {
     method: 'get',
     mode: 'cors',
@@ -31,21 +10,6 @@ const fetchAsyncA = async url =>
       'Content-Type': 'application/json',
     },
   })).json();
-
-const fetchStudentClassDescriptions = async url => {
-  const responseClassDescription = await fetch(url, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    },
-  });
-
-  const classDescrResp = await responseClassDescription.json();
-  return classDescrResp;
-};
 
 const wrap_async_actions = async () => {
   // fetchStudents
@@ -82,7 +46,7 @@ const wrap_async_actions = async () => {
   const classesResp = await classesResponse.json();
   const classes = classesResp._embedded.studentClasses;
   console.log('classes:', classes);
-  
+
   const registrationPromises = await students.map(async (student, indexS, students) => {
 
     const url2 = `${constants.searchRegistrationsByStudent}${student._links.self.href}`;
@@ -103,8 +67,8 @@ const wrap_async_actions = async () => {
     return studentInfo;
   }); // end of map students
 
-  let registrationResults = [];
-  for (let registration of registrationPromises) {
+  const registrationResults = [];
+  for (const registration of registrationPromises) {
     registrationResults.push(await registration);
   }
 
@@ -162,21 +126,16 @@ const wrap_async_actions = async () => {
         }); // end of third loop
         return Promise.all(thirdLoop);
       }
-      
     });
     return Promise.all(secondLoop);
   });
   return Promise.all(firstLoop);
 };
 
-
-
-
 export default async () => {
   console.log('hello from getdataregisters api function');
-  let res, ret;
   // const students = saved_student;
-  ret = await wrap_async_actions();
+  const ret = await wrap_async_actions();
   // try{
   //   ret = await wrap_async_actions();
 

@@ -1,3 +1,5 @@
+import * as constants from '../constants';
+
 export default registerId => {
   const x = document.getElementById('registers');
   const rowByClassId = x.querySelectorAll('tr')[registerId];
@@ -5,7 +7,7 @@ export default registerId => {
   const lname = rowByClassId.childNodes[3].innerHTML;
 
     // step 1 find student
-  const url = `${parent.BASE_URL}/api/students/search/findByFnameAndLname?fname=${fname}&lname=${lname}`;
+  const url = `${constants.searchStudentClassesByFnameAndLname}${fname}&lname=${lname}`;
   const requestFindStudent = new XMLHttpRequest();
   requestFindStudent.open('GET', url, true);  // `false` makes the request synchronous
   requestFindStudent.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -19,7 +21,7 @@ export default registerId => {
           // get studentLink
           const studentLink = res._links.self.href;
           // find registrations of studentLink
-          fetch(`${parent.BASE_URL}/api/registers/search/findByStudent?student=${studentLink}`,
+          fetch(`${constants.searchRegistrationsByStudent}${studentLink}`,
             {
               method: 'get',
               mode: 'cors',
@@ -36,7 +38,7 @@ export default registerId => {
                 // delete corresponding payment of register
                 // let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
                 // get payments
-                const url2 = `${parent.BASE_URL}/api/payeds/search/findByRegister?register=${registerLink}`;
+                const url2 = `${constants.searchPaymentByRegistration}${registerLink}`;
                 const request = new XMLHttpRequest();
                 request.open('GET', url2, true);  // `false` makes the request synchronous
                 request.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);

@@ -26,9 +26,21 @@ class Registers extends Component {
     this.props.deleteRegisters(rowKeys[0]);
   }
 
-  createInsertRegistersModal(onModalClose, onSave, columns, validateState, ignoreEditable) {
-    const createRegisters = this.props.createRegisters;
-    const attr = { onModalClose, onSave, columns, validateState, ignoreEditable, createRegisters };
+  createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const { createRegisters, initDataStudentClasses, initRegistrations} = this.props;
+
+    const availableClasses = preprocessStudentClasses(initDataStudentClasses);
+    const initRegistrations_ = preprocessRegistrations(initRegistrations);
+    const attr = {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      createRegisters,
+      availableClasses,
+      initRegistrations_,
+    };
     return (<InsertRegistersModal {... attr} />);
   }
 
@@ -83,7 +95,6 @@ class Registers extends Component {
           deleteRow
           insertRow
           selectRow={selectRowProp}
-          exportCSV
           search
           data={initRegistrations_}
           options={options}

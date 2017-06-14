@@ -28,7 +28,10 @@ class InsertRegistersModal extends Component {
       validateState,
       ignoreEditable,
       addStudent,
+      availableClasses,
+      initRegistrations_,
     } = this.props;
+
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
@@ -97,11 +100,11 @@ class InsertRegistersModal extends Component {
                     <label >Τάξη</label>
                     <select ref={field} className="form-control">
                       {
-                      // parent.studentClasses.map((el, i) => {
-                      //   if (el.description !== 'No subclass') {
-                      //     return <option key={i} value={el.description}>{el.description}</option>;
-                      //   }
-                      // })
+                      availableClasses.map((el, i) => {
+                        if (el.description !== 'No subclass') {
+                          return <option key={i} value={el}>{el}</option>;
+                        }
+                      })
                     }
                     </select>
                     { error }

@@ -27,12 +27,12 @@ export default row => {
         request2.onload = function () {
           if (request2.readyState === 4) {
             if (request2.status === 200) {
-                               // step 2 find student id to update
+              // step 2 find student id to update
               const resObj2 = JSON.parse(request2.responseText);
 
               const studentLink = resObj2._links.self.href; // has to be fixed for many
 
-                               // new registration call
+              // new registration call
 
               const date = new Date(row.dateOfRegistration.substr(0, 10));
 
