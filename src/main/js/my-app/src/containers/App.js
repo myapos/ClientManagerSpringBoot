@@ -13,6 +13,7 @@ class App extends Component {
     isLoading: PropTypes.bool,
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
   }
   constructor (props) {
     super(props);
@@ -24,15 +25,14 @@ class App extends Component {
   render () {
     // debugger;
     let hasData = false;
-    // Get the size of an object
-    if (this.props.initRegistrations[0].length > 0) {
-      hasData = Object.keys(this.props.initRegistrations).length > 0;
-    }
+    // Get the size of student --> array of obects. In initial state there is an empty object
+    hasData = this.props.initDataStudents.length > 0;
     return (
       <div>
         <Dashboard
           initRegistrations={this.props.initRegistrations}
-          initDataStudentClasses={this.props.initDataStudentClasses} />
+          initDataStudentClasses={this.props.initDataStudentClasses}
+          initDataStudents={this.props.initDataStudents} />
         {
           !hasData
           ? <div className="loader registers" />

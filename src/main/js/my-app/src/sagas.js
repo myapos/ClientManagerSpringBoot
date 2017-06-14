@@ -7,7 +7,7 @@ function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
   const initDataStudentClasses = yield call(api.getStudentClasses, state);
-  // const initDataStudents = yield call(api.getStudents, state);
+  const initDataStudents = yield call(api.getStudents, state);
   // const initDataPayeds = yield call(api.getPayeds, state);
   // const initRegistrations = yield call(api.getRegisters, state);
   const initRegistrations = yield call(api.getDataRegisters, state);
@@ -17,6 +17,7 @@ function* getDataFromServer () {
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
     initDataStudentClasses,
+    initDataStudents,
   });
   // yield put({
   //   type: actions.DATA_INITIALIZATION,

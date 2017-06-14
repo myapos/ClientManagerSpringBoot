@@ -4,12 +4,24 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/';
 
 class InsertRegistersModal extends Component {
-
+  static propTypes = {
+    isLoading: PropTypes.bool,
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    onModalClose: PropTypes.func,
+    onSave: PropTypes.func,
+    columns: PropTypes.array,
+    validateState: PropTypes.object,
+    ignoreEditable: PropTypes.bool,
+    addStudent: PropTypes.func,
+    availableClasses: PropTypes.array,
+    initRegistrations_: PropTypes.array,
+    createRegisters: PropTypes.func,
+  }
   handleSaveBtnClick () {
-
     const {
       columns,
-      onSave,
       createRegisters,
     } = this.props;
     const newRow = {};
@@ -26,18 +38,16 @@ class InsertRegistersModal extends Component {
       onSave,
       columns,
       validateState,
-      ignoreEditable,
-      addStudent,
       availableClasses,
       initRegistrations_,
+      initDataStudents,
     } = this.props;
-
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
         <div className="container-fluid">
           {
-            columns.map((column) => {
+            columns.map(column => {
               const {
                 field,
                 hiddenOnInsert,
@@ -58,7 +68,7 @@ class InsertRegistersModal extends Component {
                     <input
                       ref={field}
                       className="form-control"
-                      defaultValue={parent.registers.length + 1} />
+                      defaultValue={initRegistrations_.length + 1} />
                     { error }
                   </div>);
               } else if (field === 'fname') {
@@ -67,7 +77,7 @@ class InsertRegistersModal extends Component {
                     <label>Όνομα</label>
                     <select ref={field} className="form-control">
                       {
-                      //parent.students.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
+                      initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
                     }
                     </select>
                     { error }
@@ -78,7 +88,7 @@ class InsertRegistersModal extends Component {
                     <label >Επίθετο</label>
                     <select ref={field} className="form-control">
                       {
-                      //parent.students.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
+                      initDataStudents.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
                     }
                     </select>
                     { error }

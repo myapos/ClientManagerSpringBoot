@@ -7,6 +7,7 @@ import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';
+import StudentDataTable from './StudentDataTable';
 import SendEmailsManually from './SendEmailsManually';
 import Signature from './Signature';
 
@@ -38,6 +39,7 @@ class Dashboard extends Component {
   static propTypes = {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
   }
 
   constructor (props) {
@@ -60,7 +62,7 @@ class Dashboard extends Component {
     }
   }
   render () {
-    const { initRegistrations, initDataStudentClasses } = this.props;
+    const { initRegistrations, initDataStudentClasses, initDataStudents} = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -98,11 +100,11 @@ class Dashboard extends Component {
           id="tabs">
 
           <div id="tabLinks" style={styles.links}>
-{/*            <TabLink
+            <TabLink
               to="tab1"
               default={this.defaultTab('tab1')}
               style={styles.tabLink}>Διαχείριση Πελατών
-            </TabLink>*/}
+            </TabLink>
             <TabLink
               to="tab2"
               default={this.defaultTab('tab2')}
@@ -125,13 +127,19 @@ class Dashboard extends Component {
             </TabLink>*/}
           </div>
           <div id="tabContent" style={styles.content}>
-{/*            <TabContent for="tab1">
-              <div id="tab1"><GetAllStudents /></div>
-            </TabContent>*/}
+            <TabContent for="tab1">
+              <div id="tab1">
+                <StudentDataTable
+                  initDataStudents={initDataStudents} />
+              </div>
+            </TabContent>
             <TabContent for="tab2">
-              <div id="tab2"><Registers 
-                initRegistrations={initRegistrations}
-                initDataStudentClasses={this.props.initDataStudentClasses}  /></div>
+              <div id="tab2">
+                <Registers
+                  initRegistrations={initRegistrations}
+                  initDataStudentClasses={initDataStudentClasses}
+                  initDataStudents={initDataStudents} />
+              </div>
             </TabContent>
 {/*            <TabContent for="tab3">
               <div id="tab3"><PaymentRegisters /></div>

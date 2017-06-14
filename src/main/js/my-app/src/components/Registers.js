@@ -11,6 +11,7 @@ class Registers extends Component {
   static propTypes = {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
   }
@@ -27,10 +28,10 @@ class Registers extends Component {
   }
 
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
-    const { createRegisters, initDataStudentClasses, initRegistrations} = this.props;
-
+    const { createRegisters, initDataStudentClasses, initRegistrations, initDataStudents } = this.props;
     const availableClasses = preprocessStudentClasses(initDataStudentClasses);
     const initRegistrations_ = preprocessRegistrations(initRegistrations);
+
     const attr = {
       onModalClose,
       onSave,
@@ -40,6 +41,7 @@ class Registers extends Component {
       createRegisters,
       availableClasses,
       initRegistrations_,
+      initDataStudents,
     };
     return (<InsertRegistersModal {... attr} />);
   }

@@ -45,7 +45,6 @@ export default registerId => {
                 request.setRequestHeader('Content-type', 'application/json');
                 request.contentType = 'application/json';
                 request.registerLink = registerLink;
-                debugger;
                 request.onload = function () {
                   if (request.readyState === 4) {
                     if (request.status === 200) {
