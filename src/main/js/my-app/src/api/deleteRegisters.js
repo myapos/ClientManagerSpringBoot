@@ -45,52 +45,74 @@ export default registerId => {
                 request.setRequestHeader('Content-type', 'application/json');
                 request.contentType = 'application/json';
                 request.registerLink = registerLink;
+                debugger;
                 request.onload = function () {
                   if (request.readyState === 4) {
                     if (request.status === 200) {
                       const resObj = JSON.parse(request.responseText);
-                                // console.log("sync call 1:", resObj);
+                      // console.log("sync call 1:", resObj);
 
                       const paymentLinks = resObj._embedded.payeds; // has to be fixed for many????
-                                // delete all payments first
+                      // delete all payments first
                       let url3 = '';
                       let request2 = '';
-
-                      for (let ww = 0; ww < paymentLinks.length; ww++) {
-                        url3 = paymentLinks[ww]._links.payed.href;
-                        request2 = new XMLHttpRequest();
-                        request2.open('delete', url3, true);  // `false` makes the request synchronous
-                        request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-                        request2.setRequestHeader('Content-type', 'application/json');
-                        request2.contentType = 'application/json';
-                        request2.registerLink = this.registerLink;
-                        request2.onload = function () {
-                          if (request2.readyState === 4) {
-                            if (request2.status === 204) {
-                              console.log(`deleted payment:${paymentLinks[ww]}`);
-                                                    // delete registration after deleted payments
-
-                              const url4 = this.registerLink;
-                              const request3 = new XMLHttpRequest();
-                              request3.open('delete', url4, true);  // `false` makes the request synchronous
-                              request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-                              request3.setRequestHeader('Content-type', 'application/json');
-                              request3.contentType = 'application/json';
-                              request3.onload = function () {
-                                if (request3.readyState === 4) {
-                                  if (request3.status === 204) {
-                                    alert('Register is deleted succesfully');
-                                    // window.location.reload(true);
-                                  } else {
-                                    alert('Something bad happened.Please try again!');
+                      // no payments ???
+                      if (paymentLinks.length > 0) {
+                        for (let ww = 0; ww < paymentLinks.length; ww++) {
+                          url3 = paymentLinks[ww]._links.payed.href;
+                          request2 = new XMLHttpRequest();
+                          request2.open('delete', url3, true);  // `false` makes the request synchronous
+                          request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
+                          request2.setRequestHeader('Content-type', 'application/json');
+                          request2.contentType = 'application/json';
+                          request2.registerLink = this.registerLink;
+                          request2.onload = function () {
+                            if (request2.readyState === 4) {
+                              if (request2.status === 204) {
+                                console.log(`deleted payment:${paymentLinks[ww]}`);
+                                // delete registration after deleted payments
+                                const url4 = this.registerLink;
+                                const request3 = new XMLHttpRequest();
+                                request3.open('delete', url4, true);  // `false` makes the request synchronous
+                                request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
+                                request3.setRequestHeader('Content-type', 'application/json');
+                                request3.contentType = 'application/json';
+                                request3.onload = function () {
+                                  if (request3.readyState === 4) {
+                                    if (request3.status === 204) {
+                                      alert('Register is deleted succesfully');
+                                      // window.location.reload(true);
+                                    } else {
+                                      alert('Something bad happened.Please try again!');
+                                    }
                                   }
-                                }
-                              };
-                              request3.send(null);
+                                };
+                                request3.send(null);
+                              }
+                            }
+                          };
+                          request2.send(null);
+                        }
+                      } else {
+                        console.log('No payments are found!Deleting registration');
+                        debugger;
+                        const url4 = registerLink;
+                        const request3 = new XMLHttpRequest();
+                        request3.open('delete', url4, true);  // `false` makes the request synchronous
+                        request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
+                        request3.setRequestHeader('Content-type', 'application/json');
+                        request3.contentType = 'application/json';
+                        request3.onload = function () {
+                          if (request3.readyState === 4) {
+                            if (request3.status === 204) {
+                              alert('Register is deleted succesfully');
+                              // window.location.reload(true);
+                            } else {
+                              alert('Something bad happened.Please try again!');
                             }
                           }
                         };
-                        request2.send(null);
+                        request3.send(null);
                       }
                     }
                   }
