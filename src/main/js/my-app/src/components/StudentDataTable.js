@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
+import InsertStudentModal from './InsertStudentModal';
 import preprocessStudents from '../utils/preprocessStudents';
 import * as actions from '../actions/';
 
@@ -10,6 +11,7 @@ class StudentDataTable extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    addStudent: PropTypes.func,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
   }
@@ -20,8 +22,19 @@ class StudentDataTable extends Component {
       ...props,
     };
   }
-   render () {
+  createInsertStudentModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const { addStudent, initDataStudents } = this.props;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, addStudent, initDataStudents,
+    };
+    return (
+      <InsertStudentModal {... attr} />
+    );
+  }
+
+  render () {
     const { initDataStudents } = this.props;
+    // preprocess area
     const initDataStudents_ = preprocessStudents(initDataStudents);
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -34,7 +47,7 @@ class StudentDataTable extends Component {
 
     const options = {
       noDataText: 'There are no data',
-      insertModal: '', // this.createInsertStudentModal.bind(this),
+      insertModal: this.createInsertStudentModal.bind(this),
       afterInsertRow: '', // onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: '', // onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
@@ -68,13 +81,13 @@ class StudentDataTable extends Component {
           <TableHeaderColumn
             dataField="phone"
             dataSort={false}>
-                Mobile phone
+            Mobile phone
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfBirth"
             dataAlign="left"
             dataSort={false}>
-                Date Of Birth
+            Date Of Birth
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="email"

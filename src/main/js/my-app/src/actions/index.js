@@ -66,10 +66,11 @@ export function getAllStudents () {
     type: GET_ALL_STUDENTS,
   };
 }
-export function addStudent (row) {
+export function addStudent (row, initDataStudents) {
   return {
     type: ADD_STUDENT,
     row,
+    initDataStudents,
   };
 }
 export function deleteStudent (studentId) {

@@ -8,3 +8,5 @@ export const searchRegistrationsByStudentAndStudentClass = `${BASE_URL}/api/regi
 export const searchStudentClassesByDescription = `${BASE_URL}/api/studentClasses/search/findBydescription?description=`;
 export const searchStudentClassesByFnameAndLname = `${BASE_URL}/api/students/search/findByFnameAndLname?fname=`;
 export const searchPaymentByRegistration = `${BASE_URL}/api/payeds/search/findByRegister?register=`;
+export const searchByManager = `${BASE_URL}/api/managers/17`;
+

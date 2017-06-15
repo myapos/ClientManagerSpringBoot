@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import * as actions from '../actions/';
-import GetAllStudents from './GetAllStudents';
 import StudentClassDashboard from './StudentClassDashboard';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';

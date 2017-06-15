@@ -73,7 +73,7 @@ function* updateStudentClass () {
 function* saveNewStudent () {
 	// console.log('saveNewStudent');
   const state = yield select();
-  const saveNewStudentRes = yield call(api.saveNewStudent, state.row);
+  const saveNewStudentRes = yield call(api.saveNewStudent, state.row, state.initDataStudents);
 
   yield put({
     type: actions.SAGAS_SAVE_NEW_STUDENT,

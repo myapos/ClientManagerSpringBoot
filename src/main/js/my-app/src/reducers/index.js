@@ -59,6 +59,7 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         row,
+        initDataStudents,
       };
     case actions.DELETE_STUDENT:
       return {
@@ -90,7 +91,6 @@ const reducer = (state = {}, action) => {
         dataFetchedStudentClasses,
       };
     case actions.DATA_INITIALIZATION:
-    //debugger;
       return {
         ...state,
         initDataStudentClasses,
