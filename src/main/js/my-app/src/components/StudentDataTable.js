@@ -12,6 +12,8 @@ class StudentDataTable extends Component {
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
     addStudent: PropTypes.func,
+    deleteStudent: PropTypes.func,
+    updateStudent: PropTypes.func,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
   }
@@ -21,6 +23,24 @@ class StudentDataTable extends Component {
     this.state = {
       ...props,
     };
+  }
+
+  onAfterInsertRow (row) {
+    let newRowStr = '';
+    for (const prop in row) {
+      newRowStr += `${prop}: ${row[prop]} \n`;
+    }
+    alert(`The new row is:\n ${newRowStr}`);
+    this.props.addStudent(row);
+  }
+
+  onAfterDeleteRow (rowKeys) {
+    alert(`The rowkey you drop: ${rowKeys}`);
+    this.props.deleteStudent(rowKeys);
+  }
+  afterSaveStudentCell (row) {
+  // call action for update
+    this.props.updateStudent(row);
   }
   createInsertStudentModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { addStudent, initDataStudents } = this.props;
@@ -32,28 +52,6 @@ class StudentDataTable extends Component {
     );
   }
 
-  onAfterInsertRow (row) {
-    debugger;
-    let newRowStr = '';
-
-    for (const prop in row) {
-      newRowStr += `${prop}: ${row[prop]} \n`;
-    }
-
-    alert(`The new row is:\n ${newRowStr}`);
-    this.props.addStudent(row);
-  }
-
-  onAfterDeleteRow (rowKeys) {
-    debugger;
-    alert(`The rowkey you drop: ${rowKeys}`);
-    this.props.deleteStudent(rowKeys);
-  }
-  afterSaveStudentCell (row) {
-    debugger;
-  // call action for update
-    this.props.updateStudent(row);
-  }
   render () {
     const { initDataStudents } = this.props;
     // preprocess area

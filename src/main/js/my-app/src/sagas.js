@@ -8,24 +8,18 @@ function* getDataFromServer () {
   const state = yield select();
   const initDataStudentClasses = yield call(api.getStudentClasses, state);
   const initDataStudents = yield call(api.getStudents, state);
-  // const initDataPayeds = yield call(api.getPayeds, state);
+  const initPayments = yield call(api.getPayeds, state);
   // const initRegistrations = yield call(api.getRegisters, state);
   const initRegistrations = yield call(api.getDataRegisters, state);
   // const initRegistrations = yield call(api.getDataRegistersAsyncAwait, state);
-  console.log('initRegistrations:', initRegistrations);
+  console.log('initPayments:', initPayments);
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
     initDataStudentClasses,
     initDataStudents,
+    initPayments,
   });
-  // yield put({
-  //   type: actions.DATA_INITIALIZATION,
-  //   initDataStudentClasses,
-  //   initDataStudents,
-  //   initDataPayeds,
-  //   initDataRegisters,
-  // });
 }
 
 function* getStudentClasses () {

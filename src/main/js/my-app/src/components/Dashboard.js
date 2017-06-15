@@ -39,6 +39,7 @@ class Dashboard extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    initPayments: PropTypes.array,
   }
 
   constructor (props) {
@@ -61,7 +62,7 @@ class Dashboard extends Component {
     }
   }
   render () {
-    const { initRegistrations, initDataStudentClasses, initDataStudents} = this.props;
+    const { initRegistrations, initDataStudentClasses, initDataStudents, initPayments } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -109,12 +110,12 @@ class Dashboard extends Component {
               default={this.defaultTab('tab2')}
               style={styles.tabLink}>Διαχείριση Εγγραφών
             </TabLink>
-           {/* <TabLink
+            <TabLink
               to="tab3"
               default={this.defaultTab('tab3')}
               style={styles.tabLink}>Διαχείριση Πληρωμών
             </TabLink>
-            <TabLink
+           {/* <TabLink
               to="tab4"
               default={this.defaultTab('tab4')}
               style={styles.tabLink}>Διαχείριση Τμημάτων
@@ -140,10 +141,13 @@ class Dashboard extends Component {
                   initDataStudents={initDataStudents} />
               </div>
             </TabContent>
-{/*            <TabContent for="tab3">
-              <div id="tab3"><PaymentRegisters /></div>
+            <TabContent for="tab3">
+              <div id="tab3">
+                <PaymentRegisters
+                  initPayments={initPayments} />
+              </div>
             </TabContent>
-            <TabContent for="tab4">
+{/*              <TabContent for="tab4">
               <div id="tab4"><StudentClassDashboard /></div>
             </TabContent>
             <TabContent for="tab5">
