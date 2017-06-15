@@ -48,7 +48,6 @@ export default (row, students) => {
         },
       })
       .then(res => {
-        debugger;
         if (res.status === 201) {
           alert('New student saved succsesfully. Prepare for reloading');
           window.location.reload(true);

@@ -1,3 +1,4 @@
+import * as constants from '../constants';
 /* deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
 
 export default studentId => {
@@ -5,7 +6,7 @@ export default studentId => {
   const rowByClassId = x.querySelectorAll('tr')[studentId];
   const fname = rowByClassId.childNodes[2].innerHTML;
 
-  fetch(`${parent.BASE_URL}/api/students/search/findByFname`
+  fetch(`${constants.searchStudentFindByName}`
             + `?fname=${fname}`, {
               method: 'get',
               mode: 'cors',
@@ -23,7 +24,7 @@ export default studentId => {
             const id = ar[s - 1];
             // delete record student class with id
 
-            fetch(`${parent.BASE_URL}/api/students/${id}`, {
+            fetch(`${constants.studentsAPI}/${id}`, {
               method: 'delete',
               mode: 'cors',
               cache: 'default',

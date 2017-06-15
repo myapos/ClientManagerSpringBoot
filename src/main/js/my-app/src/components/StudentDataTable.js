@@ -32,6 +32,28 @@ class StudentDataTable extends Component {
     );
   }
 
+  onAfterInsertRow (row) {
+    debugger;
+    let newRowStr = '';
+
+    for (const prop in row) {
+      newRowStr += `${prop}: ${row[prop]} \n`;
+    }
+
+    alert(`The new row is:\n ${newRowStr}`);
+    this.props.addStudent(row);
+  }
+
+  onAfterDeleteRow (rowKeys) {
+    debugger;
+    alert(`The rowkey you drop: ${rowKeys}`);
+    this.props.deleteStudent(rowKeys);
+  }
+  afterSaveStudentCell (row) {
+    debugger;
+  // call action for update
+    this.props.updateStudent(row);
+  }
   render () {
     const { initDataStudents } = this.props;
     // preprocess area
@@ -42,14 +64,14 @@ class StudentDataTable extends Component {
     };
     const cellEditProp = {
       mode: 'click',
-      afterSaveCell: '', // this.afterSaveStudentCell.bind(this),
+      afterSaveCell: this.afterSaveStudentCell.bind(this),
     };
 
     const options = {
       noDataText: 'There are no data',
       insertModal: this.createInsertStudentModal.bind(this),
-      afterInsertRow: '', // onAfterInsertRow.bind(this),   // A hook for after insert rows
-      afterDeleteRow: '', // onAfterDeleteRow.bind(this),  // A hook for after droping rows.
+      afterInsertRow: this.onAfterInsertRow.bind(this),   // A hook for after insert rows
+      afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
     return (
       <div id="students">
