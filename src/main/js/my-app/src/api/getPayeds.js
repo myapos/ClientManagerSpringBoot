@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 
 export default () => {
-  //debugger;
+  // debugger;
   const getPayments = fetch(constants.paymentsAPI, {
     method: 'get',
     mode: 'cors',
@@ -12,11 +12,6 @@ export default () => {
     },
   })
 .then(res => res.json())
-.then(res => {
-  const payeds = res._embedded.payeds;
-  parent.payeds = payeds;
-  // hideloader('loader payments');
-  return payeds;
-});
+.then(res => res._embedded.payeds);
   return getPayments;
 };

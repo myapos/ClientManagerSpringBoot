@@ -1,7 +1,7 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-  const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initRegistrations,
+  const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations,
     dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text } = action;
@@ -95,7 +95,7 @@ const reducer = (state = {}, action) => {
         ...state,
         initDataStudentClasses,
         initDataStudents,
-        initDataPayeds,
+        initPayments,
         initRegistrations,
       };
     case actions.SAVE_NEW_CLASS:
