@@ -1,5 +1,6 @@
 export default registrations => {
   const sumAr = [];
+  let registrations_ = [];
   registrations.map(curAr => {
     // console.log('curAr:', curAr, 'l:', curAr.length);
     for (let i = 0; i < curAr.length; i++) {
@@ -13,7 +14,7 @@ export default registrations => {
     return 1;
   });
 
-  const registrations_ = sumAr.map((value, index) => {
+  registrations_ = sumAr.map((value, index) => {
     value[0].index = index + 1;
     return value[0];
   });

@@ -55,7 +55,7 @@ class StudentDataTable extends Component {
   render () {
     const { initDataStudents } = this.props;
     // preprocess area
-    const initDataStudents_ = preprocessStudents(initDataStudents);
+    // const initDataStudents_ = preprocessStudents(initDataStudents);
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
       mode: 'checkbox',
@@ -75,7 +75,7 @@ class StudentDataTable extends Component {
       <div id="students">
         <BootstrapTable
           cellEdit={cellEditProp}
-          data={initDataStudents_}
+          data={initDataStudents}
           hover
           insertRow
           selectRow={selectRowProp}

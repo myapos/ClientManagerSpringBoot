@@ -28,7 +28,7 @@ const wrap_async_actions = async () => {
   const studentsResp = await response.json();
   const students = studentsResp._embedded.students;
 
-  console.log('students:', students);
+  // console.log('students:', students);
 
   // fetchStudents
   let classesResponse = {};
@@ -45,7 +45,7 @@ const wrap_async_actions = async () => {
 
   const classesResp = await classesResponse.json();
   const classes = classesResp._embedded.studentClasses;
-  console.log('classes:', classes);
+  // console.log('classes:', classes);
 
   const registrationPromises = await students.map(async (student, indexS, students) => {
 
@@ -74,7 +74,7 @@ const wrap_async_actions = async () => {
 
   // console.log('registrationPromises:', registrationPromises);
   // console.log('students:', students);
-  console.log('registrationResults:', registrationResults);
+  // console.log('registrationResults:', registrationResults);
 
   // match students with registration results in order to compose final display results
   // criteria is registrationResults[i].studentLink === students[i]._links.student.href
@@ -107,7 +107,8 @@ const wrap_async_actions = async () => {
           const classDescrResp = await await fetchAsyncA(fetchStudentClassDescription);
           // await classDescrResp;
           // debugger;
-          console.log('classDescrResp:', classDescrResp);
+          // console.log('classDescrResp:', classDescrResp);
+          // console.log('student:', student);
           const tempData = {};
           tempData.fname = student.fname;
           tempData.lname = student.lname;
@@ -117,6 +118,8 @@ const wrap_async_actions = async () => {
           const formatedDate = dateOfRegistration.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
           tempData.dateOfRegistration = formatedDate;
           tempData.index = outputData.length + 1;
+          tempData.studentLinks = student._links;
+          tempData.studentClassLinks = classDescrResp._links;
           return tempData;
           // outputData.push(tempData);
           // console.log(classDescrResp.description);
@@ -147,6 +150,6 @@ export default async () => {
   // }
   // catch (rejectedValue) {
   //   console.log('rejectedValue:', rejectedValue);
-  //}
+  // }
   return ret;
 };

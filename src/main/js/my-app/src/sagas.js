@@ -2,16 +2,22 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import * as api from './api/index.js';
 import * as actions from './actions';
+// import preprocessRegistrations from './utils/preprocessRegistrations';
+import * as utils from './utils';
 
 function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
-  const initDataStudentClasses = yield call(api.getStudentClasses, state);
-  const initDataStudents = yield call(api.getStudents, state);
-  const initPayments = yield call(api.getPayeds, state);
-  // const initRegistrations = yield call(api.getRegisters, state);
-  const initRegistrations = yield call(api.getDataRegisters, state);
-  // const initRegistrations = yield call(api.getDataRegistersAsyncAwait, state);
+  const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
+  const initDataStudents_ = yield call(api.getStudents, state);
+  const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
+  const initRegistrations_ = yield call(api.getDataRegisters, state);
+
+  // preprocess area
+  const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
+  const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
+  const initDataStudents = utils.preprocessStudents(initDataStudents_);
+
   console.log('initPayments:', initPayments);
   yield put({
     type: actions.DATA_INITIALIZATION,

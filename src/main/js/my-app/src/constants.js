@@ -4,6 +4,7 @@ export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
 export const registersAPI = `${BASE_URL}/api/registers/`;
 export const paymentsAPI = `${BASE_URL}/api/payeds/`;
 export const searchStudentFindByName = `${BASE_URL}/api/students/search/findByFname`;
+export const searchStudentFindByFnameAndLname = `${BASE_URL}/api/students/search/findByFnameAndLname?fname=`;
 export const searchRegistrationsByStudent = `${BASE_URL}/api/registers/search/findByStudent?student=`;
 export const searchRegistrationsByStudentAndStudentClass = `${BASE_URL}/api/registers/search/findByStudent?student=`;
 export const searchStudentClassesByDescription = `${BASE_URL}/api/studentClasses/search/findBydescription?description=`;

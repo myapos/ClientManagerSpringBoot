@@ -1,23 +1,81 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import InsertPaymentRegistersModal from './InsertPaymentRegistersModal';
 import * as actions from '../actions/';
 
 class PaymentRegisters extends Component {
+  static propTypes = {
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initPayments: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    deleteRegisters: PropTypes.func,
+    createRegisters: PropTypes.func,
+    updatePaymentRegisters: PropTypes.func,
+  }
 
-render () {
-  const { initPayments } = this.props;
-  const paymentTypes = ['true', 'false'];
-      const options = {
+  createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+
+    const { updatePaymentRegisters } = this.props;
+
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, updatePaymentRegisters,
+    };
+    // debugger;
+    return (
+      <InsertPaymentRegistersModal {... attr} />
+    );
+  }
+  afterSavePaymentRegistersCell (row, cellName, cellValue) {
+  // do your stuff...
+    const x = document.getElementById('PaymentRegisters');
+    const y = x.getElementsByClassName('react-bs-container-body');
+    let updateMode = '';
+
+    let el;
+    let cellIndex;
+    if (y[0].querySelector('select') !== null) {
+      el = y[0].querySelector('select')[0];
+      cellIndex = el.parentElement.parentElement.cellIndex;
+    } else if (y[0].getElementsByClassName('form-control editor edit-text')[0] !== null) {
+      el = y[0].getElementsByClassName('form-control editor edit-text')[0];
+      cellIndex = el.parentElement.cellIndex;
+    } else if (y[0].getElementsByClassName('form-control editor edit-datetime')[0] !== null) {
+      el = y[0].getElementsByClassName('form-control editor edit-datetime')[0];
+      cellIndex = el.parentElement.cellIndex;
+    }
+  // console.log(el);
+
+    if (cellIndex === 4) {
+      updateMode = 'paymentUpdate';
+    } else if (cellIndex === 5) {
+      updateMode = 'paymentNotesUpdate';
+    } else if (cellIndex === 6) {
+      updateMode = 'classUpdate';
+    } else if (cellIndex === 7) {
+      updateMode = 'updateDateOfPayment';
+    }
+    const descBefore = el.getAttribute('value');
+    this.props.updatePaymentRegisters(row, updateMode);
+  }
+
+  onAfterDeleteRow (rowKeys) {
+    this.props.deletePaymentRegisters(rowKeys);
+  }
+
+  render () {
+    const { initPayments, initDataStudentClasses } = this.props; // debugger;
+    const paymentTypes = ['true', 'false'];
+    const options = {
       noDataText: 'There are no data',
-      insertModal: '', // this.createInsertPaymentRegistersModal.bind(this),
-      beforeInsertRow: '', // onBeforeInsertRow.bind(this),   // A hook for after insert rows
-      afterInsertRow: '', // onAfterInsertRow.bind(this),   // A hook for after insert rows
-      afterDeleteRow: '', // onAfterDeleteRow.bind(this),  // A hook for after droping rows.
+      insertModal: this.createInsertPaymentRegistersModal.bind(this),
+      afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
     const cellEditProp = {
       mode: 'click',
-      afterSaveCell: '', // this.afterSavePaymentRegistersCell.bind(this),
+      afterSaveCell: this.afterSavePaymentRegistersCell.bind(this),
     };
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -33,7 +91,6 @@ render () {
           deleteRow
           selectRow={selectRowProp}
           insertRow
-          exportCSV
           search
           options={options}
           tableHeaderClass="payments-registers-header-class"
@@ -66,7 +123,7 @@ render () {
           <TableHeaderColumn
             dataField="class"
             width="15%"
-            editable={false} >Class
+            editable={{ type: 'select', options: { values: initDataStudentClasses } }} >Class
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfPayment"

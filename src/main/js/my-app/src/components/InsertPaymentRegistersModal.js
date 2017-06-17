@@ -3,52 +3,55 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 
-class InsertRegistersModal extends Component {
+class InsertPaymentRegistersModal extends Component {
   static propTypes = {
     isLoading: PropTypes.bool,
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    initPayments: PropTypes.array,
     onModalClose: PropTypes.func,
     onSave: PropTypes.func,
     columns: PropTypes.array,
     validateState: PropTypes.object,
     ignoreEditable: PropTypes.bool,
-    addStudent: PropTypes.func,
     availableClasses: PropTypes.array,
     createRegisters: PropTypes.func,
+    updatePaymentRegisters: PropTypes.func,
   }
+
   handleSaveBtnClick () {
-    const {
-      columns,
-      createRegisters,
-    } = this.props;
+    const { columns, updatePaymentRegisters } = this.props;
     const newRow = {};
     columns.forEach(column => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    createRegisters(newRow);
-    // onSave(newRow);
+    updatePaymentRegisters(newRow, 'addPayment');
   }
+
   render () {
     const {
       onModalClose,
       onSave,
       columns,
       validateState,
-      initDataStudentClasses,
-      initRegistrations,
       initDataStudents,
+      initDataStudentClasses,
+      initPayments,
     } = this.props;
+
+    const paymentTypes = ['true', 'false'];
+
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
-        <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
+        <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη πληρωμής</h2>
         <div className="container-fluid">
           {
             columns.map(column => {
               const {
                 field,
+                name,
                 hiddenOnInsert,
               } = column;
 
@@ -57,76 +60,83 @@ class InsertRegistersModal extends Component {
                 // and not allow edit, for example ID field
                 return null;
               }
-              // console.log('log:', column);
               const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
-              // debugger;
-              if (field === 'index') {
-                return (
-                  <div className="form-group col-xs-6" key={field}>
-                    <label>ID</label>
-                    <input
-                      ref={field}
-                      className="form-control"
-                      defaultValue={initRegistrations.length + 1} />
-                    { error }
-                  </div>);
-              } else if (field === 'fname') {
+              if (field === 'fname') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label>Όνομα</label>
                     <select ref={field} className="form-control">
                       {
-                      initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
-                    }
+                        initDataStudents.map((el, j) => <option key={j} value={el.fname}>{el.fname}</option>)
+                      }
                     </select>
                     { error }
                   </div>);
               } else if (field === 'lname') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
-                    <label >Επίθετο</label>
+                    <label>Επίθετο</label>
                     <select ref={field} className="form-control">
                       {
-                      initDataStudents.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
-                    }
+                        initDataStudents.map((el, m) => <option key={m} value={el.lname}>{el.lname}</option>)
+                      }
                     </select>
                     { error }
                   </div>);
-              } else if (field === 'email') {
+              } else if (field === 'payment') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
-                    <label >Email</label>
+                    <label>Πληρωμή</label>
+                    <select ref={field} className="form-control">
+                      {
+                          paymentTypes.map((el, n) =>
+                            <option key={n} value={el}>{el}</option>)
+                       }
+                    </select>
+                    { error }
+                  </div>);
+              } else if (field === 'notes') {
+                return (
+                  <div className="form-group col-xs-6" key={field}>
+                    <label >Σημειώσεις</label>
                     <input
                       ref={field}
                       className="form-control"
-                      type="email"
+                      type="text"
                       defaultValue={''} />
                     { error }
                   </div>);
               } else if (field === 'class') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
-                    <label >Τάξη</label>
+                    <label>Τάξη</label>
                     <select ref={field} className="form-control">
                       {
-                      initDataStudentClasses.map((el, i) => {
-                        if (el.description !== 'No subclass') {
-                          return <option key={i} value={el}>{el}</option>;
-                        }
-                      })
-                    }
+                       initDataStudentClasses.map((el, f) =>
+                         <option key={f} value={el}>{el}</option>)
+                      }
                     </select>
                     { error }
                   </div>);
-              } else if (field === 'dateOfRegistration') {
+              } else if (field === 'dateOfPayment') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
-                    <label >Ημερομηνία εγγραφής</label>
+                    <label>Ημερομηνία πληρωμής</label>
                     <input
                       ref={field}
                       className="form-control"
                       type="date"
                       defaultValue={''} />
+                    { error }
+                  </div>);
+              } else {
+                return (
+                  <div className="form-group col-xs-6" key={field}>
+                    <label>{ name }</label>
+                    <input
+                      ref={field}
+                      className="form-control"
+                      defaultValue={initPayments.length + 1} />
                     { error }
                   </div>);
               }
@@ -137,17 +147,15 @@ class InsertRegistersModal extends Component {
           <button
             style={{ marginLeft: '30px' }}
             className="btn btn-danger"
-            onClick={onModalClose}>Έξοδος
-          </button>
+            onClick={onModalClose}>Έξοδος</button>
           <button
             style={{ marginLeft: '15px' }}
             className="btn btn-danger"
-            onClick={() => this.handleSaveBtnClick(columns, onSave)}>Αποθήκευση
-          </button>
+            onClick={() => this.handleSaveBtnClick(columns, onSave)}>Αποθήκευση</button>
         </div>
       </div>
     );
   }
 }
 
-export default connect(state => state, actions)(InsertRegistersModal);
+export default connect(state => state, actions)(InsertPaymentRegistersModal);

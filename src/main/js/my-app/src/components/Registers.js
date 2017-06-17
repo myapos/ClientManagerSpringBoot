@@ -30,7 +30,7 @@ class Registers extends Component {
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { createRegisters, initDataStudentClasses, initRegistrations, initDataStudents } = this.props;
     const availableClasses = preprocessStudentClasses(initDataStudentClasses);
-    const initRegistrations_ = preprocessRegistrations(initRegistrations);
+    //const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     const attr = {
       onModalClose,
@@ -40,7 +40,7 @@ class Registers extends Component {
       ignoreEditable,
       createRegisters,
       availableClasses,
-      initRegistrations_,
+      initRegistrations,
       initDataStudents,
     };
     return (<InsertRegistersModal {... attr} />);
@@ -69,7 +69,7 @@ class Registers extends Component {
     //   [initRegistrations_[j]] = initRegistrations__[j][0];
     // }
 
-    const initRegistrations_ = preprocessRegistrations(initRegistrations);
+    // const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -98,7 +98,7 @@ class Registers extends Component {
           insertRow
           selectRow={selectRowProp}
           search
-          data={initRegistrations_}
+          data={initRegistrations}
           options={options}
           tableHeaderClass="payments-registers-header-class"
           tableBodyClass="payments-registers-body-class">
