@@ -1,40 +1,33 @@
-export default row => {
-  const request1 = createCORSRequest1('post', `${parent.BASE_URL}/api/studentClasses`);
-  if (request1) {
-    request1.onload = function () {
-      if (request1.status === 201) {
-        alert('A new record has been created in database. Page is reloading');
-        window.location.reload(true);
-      }
-    };
+import * as constants from '../constants';
+import findLinkOfSubClass from '../utils/findLinkOfSubClass';
 
-    request1.open('post', `${parent.BASE_URL}/api/studentClasses`);
-    request1.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-    request1.setRequestHeader('Content-type', 'application/json');
-    request1.contentType = 'application/json';
+export default (row, studentClassesWithLinks) => {
+  // functionality --> Create new class
+  // step 1 find link of subclass given to modal window
+  // use studentClassesWithLinks for this to match description
+  const subClassLink = findLinkOfSubClass(row.subClass, studentClassesWithLinks);
+  // step 2 execute post request to studentclasses api
+  const bodyData = JSON.stringify({
+    'description': row.parentClass,
+    'studentClass': subClassLink,
+  });
 
-    /* this has to be fixed* sets subclass*/
-    // find subclass by row.subClassdescription
-    fetch(`${parent.BASE_URL}/api/studentClasses/search/findBydescription`
-            + `?description=${row.subClassDescription}`, {
-              method: 'get',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-        .then(res => res.json())
-        .then(res => {
-          const body = JSON.stringify({
-            'description': parent.rowDescription,
-            'studentClass': res._links.studentClass[0].href,
-          });
-          parent.request1.send(body);
-        });
-
-    parent.rowDescription = row.description;
-    parent.request1 = request1;
+  fetch(constants.studentClassesAPI, {
+    method: 'post',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+    body: bodyData,
+  })
+.then(res => {
+  if (res.status === 201) {
+    alert('New class saved succsesfully.Prepare for reloading');
+    window.location.reload(true);
+  } else {
+    alert('Something bad happened.Please check your input data.');
   }
+});
 };

@@ -103,6 +103,7 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         row,
+        studentClassesWithLinks,
       };
     case actions.DELETE_CLASS:
       return {

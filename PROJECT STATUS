@@ -91,3 +91,12 @@ communication logic
 θα εχω ολα τα api urls, πόρτες κτλ
 
 να έχω κωδικοποιήσω όλα τα credentials στον client και να τα αποκωδικοποιήσω στον server
+
+
+optimizations
+
+1. indexes stin basi dedomenwn
+
+2. more modularization in api functions
+
+3. encoding credentials

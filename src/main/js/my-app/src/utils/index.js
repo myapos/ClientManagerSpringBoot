@@ -4,6 +4,7 @@ import preprocessRegistrations from './preprocessRegistrations';
 import preprocessStudentClasses from './preprocessStudentClasses';
 import preprocessStudents from './preprocessStudents';
 import preprocessStudentClassesWithLinks from './preprocessStudentClassesWithLinks';
+import findLinkOfSubClass from './findLinkOfSubClass';
 
 export {
   extractId,
@@ -12,4 +13,5 @@ export {
   preprocessStudentClasses,
   preprocessStudents,
   preprocessStudentClassesWithLinks,
+  findLinkOfSubClass,
 };

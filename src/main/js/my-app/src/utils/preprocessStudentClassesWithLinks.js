@@ -26,10 +26,12 @@ export default async classes => {
     const t = await class_;
     const subClass = t.description;
     const parentClass = t.parentClass;
+    const _links = t._links;
     tempClass = {
       index,
       subClass,
       parentClass,
+      _links,
     };
     classesResults.push(tempClass);
     index++;

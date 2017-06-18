@@ -84,11 +84,7 @@ export default (updateMode, row) => {
                             }
                           }
                         };
-
                         request6.send(bodyData);
-
-
-
                       } else {
                         console.log('other cases....:');
                         // update only the selected payment

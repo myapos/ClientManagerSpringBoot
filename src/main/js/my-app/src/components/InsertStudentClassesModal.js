@@ -19,15 +19,13 @@ class InsertStudentClassesModal extends Component {
     createRegisters: PropTypes.func,
     updatePaymentRegisters: PropTypes.func,
   }
-  handleSaveBtnClick = () => {
-    const { columns } = this.props;
+  handleSaveBtnClick = (columns, saveNewClass, studentClassesWithLinks) => {
     const newRow = {};
     columns.forEach((column, i) => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    debugger;
-    saveNewClass(newRow);
+    saveNewClass(newRow, studentClassesWithLinks);
     // onSave(newRow);
   }
 
@@ -40,6 +38,7 @@ class InsertStudentClassesModal extends Component {
       initDataStudents,
       studentClassesWithLinks,
       initPayments,
+      saveNewClass
     } = this.props;
     console.log('studentClassesWithLinks:', studentClassesWithLinks);
     return (
@@ -107,7 +106,7 @@ class InsertStudentClassesModal extends Component {
           <button
             style={{ marginLeft: '15px' }}
             className="btn btn-danger"
-            onClick={() => this.handleSaveBtnClick(columns, onSave)}>Αποθήκευση
+            onClick={() => this.handleSaveBtnClick(columns, saveNewClass, studentClassesWithLinks)}>Αποθήκευση
           </button>
         </div>
       </div>
