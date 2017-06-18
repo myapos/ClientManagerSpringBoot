@@ -5,6 +5,7 @@ import preprocessStudentClasses from './preprocessStudentClasses';
 import preprocessStudents from './preprocessStudents';
 import preprocessStudentClassesWithLinks from './preprocessStudentClassesWithLinks';
 import findLinkOfSubClass from './findLinkOfSubClass';
+import prepareClassesForSendingEmails from './prepareClassesForSendingEmails';
 
 export {
   extractId,
@@ -14,4 +15,5 @@ export {
   preprocessStudents,
   preprocessStudentClassesWithLinks,
   findLinkOfSubClass,
+  prepareClassesForSendingEmails,
 };

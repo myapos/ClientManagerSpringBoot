@@ -15,6 +15,7 @@ class App extends Component {
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
     initPayments: PropTypes.array,
+    displayInitialMsg: PropTypes.bool,
   }
   constructor (props) {
     super(props);
@@ -34,7 +35,8 @@ class App extends Component {
           initRegistrations={this.props.initRegistrations}
           initDataStudentClasses={this.props.initDataStudentClasses}
           initDataStudents={this.props.initDataStudents}
-          initPayments={this.props.initPayments} />
+          initPayments={this.props.initPayments}
+          displayInitialMsg={this.props.displayInitialMsg} />
         {
           !hasData
           ? <div className="loader registers" />

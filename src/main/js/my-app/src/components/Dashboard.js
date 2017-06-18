@@ -42,6 +42,7 @@ class Dashboard extends Component {
     initPayments: PropTypes.array,
     changeSelectedTab: PropTypes.func,
     selectedTab: PropTypes.string,
+    displayInitialMsg: PropTypes.bool,
   }
 
   constructor (props) {
@@ -64,7 +65,7 @@ class Dashboard extends Component {
     }
   }
   render () {
-    const { initRegistrations, initDataStudentClasses, initDataStudents, initPayments } = this.props;
+    const { initRegistrations, initDataStudentClasses, initDataStudents, initPayments, displayInitialMsg } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -157,7 +158,8 @@ class Dashboard extends Component {
             </TabContent>
             <TabContent for="tab5">
               <div id="tab5">
-                <SendEmailsManually />
+                <SendEmailsManually
+                  displayInitialMsg={displayInitialMsg} />
               </div>
             </TabContent>
           </div>

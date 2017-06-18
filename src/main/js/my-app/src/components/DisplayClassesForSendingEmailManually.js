@@ -1,73 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as actions from '../actions/';
-
-let dataDisplayClassesForSendingEmailManually = [];
-
-function onAfterInsertRow (row) {
-  this.props.addPaymentRegisters(row);
-}
-
-// If you want to enable deleteRow, you must enable row selection also.
-const selectRowProp = {
-  mode: 'checkbox',
-};
+import * as constants from '../constants';
+import prepareClassesForSendingEmails from '../utils/prepareClassesForSendingEmails';
 
 class DisplayClassesForSendingEmailManually extends Component {
-
-  deleteme () {
-  // do your stuff
+  static propTypes = {
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    studentClassesWithLinks: PropTypes.array,
+    deleteRegisters: PropTypes.func,
+    createRegisters: PropTypes.func,
+    deleteClass: PropTypes.func,
+    saveNewClass: PropTypes.func,
+    updateClass: PropTypes.func,
+    text: PropTypes.string,
+    msgSubmitted: PropTypes.func,
+    changeText: PropTypes.func,
   }
 
   render () {
+    const { studentClassesWithLinks, initDataStudentClasses } = this.props;
+    const availableClasses = prepareClassesForSendingEmails(initDataStudentClasses);
+    const options = {
+      noDataText: 'There are no data',
+    };
+    const dummyClassesData = [{
+      index: 1,
+      description: 'Please select class',
+    }];
     const cellEditProp = {
       mode: 'click',
     };
-
-    const options = {
-      afterInsertRow: onAfterInsertRow.bind(this),   // A hook for after insert rows
-    };
-
-    const availableClasses = [];
-    for (let i = 0; i < this.props.saved_studentClasses.length; i++) {
-      availableClasses.push(this.props.saved_studentClasses[i].description);
-    }
-    // check if data has loaded
-    /* let dataDisplayClassesForSendingEmailManually;*/
-    if (availableClasses.length > 0) {
-      dataDisplayClassesForSendingEmailManually = [{
-        index: 1,
-        classes: availableClasses,
-        firstclass: availableClasses[0],
-      }];
-    } else {
-      dataDisplayClassesForSendingEmailManually = [{
-        index: 1,
-        classes: availableClasses,
-        firstclass: 'There are no classes saved yet!',
-      }];
-    }
-
     return (
       <div id="dataDisplayClassesForSendingEmailManually">
-        Please select class, write your message and press enter.
-        The message will be send only to those students that has registerd to classes and has payed
+        <div> {constants.txtMsg} </div>
         <BootstrapTable
+          data={dummyClassesData}
+          options={options}
           cellEdit={cellEditProp}
-          data={[]}
-          hover
-          selectRow={selectRowProp}
-          options={options}>
+          hover>
           <TableHeaderColumn
             dataField="index"
             editable={false}
-            isKey
-            dataSort>id
+            isKey>id
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField="firstclass"
-            editable={{ type: 'select', options: { values: availableClasses } }}>Select class
+            dataField="description"
+            columnClassName="availableClasses"
+            editable={{ type: 'select', options: { values: availableClasses } }} >Class
           </TableHeaderColumn>
         </BootstrapTable>
       </div>

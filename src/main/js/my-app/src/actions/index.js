@@ -58,6 +58,7 @@ export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 
 /* ACTIONS FOR TEXT HANDLING IN MESSAGE TEXTAREA*/
 export const CHANGE_TEXT = 'CHANGE_TEXT';
+export const DISPLAY_INITIAL_MSG = 'DISPLAY_INITIAL_MSG';
 
 export function getAllStudents () {
   // debugger;
@@ -234,3 +235,11 @@ export function changeText (text) {
     text,
   };
 }
+
+export function displayInitialMessage (displayInitialMsg) {
+  return {
+    type: DISPLAY_INITIAL_MSG,
+    displayInitialMsg,
+  };
+}
+

@@ -1,6 +1,6 @@
 export default async classes => {
   const classesPromises = await classes.map(async item => {
-    console.log('item:', item);
+    // console.log('item:', item);
     const url = item._links.studentClass[1].href;
 
     const response = await fetch(url, {
@@ -15,7 +15,7 @@ export default async classes => {
 
     const subClassInfo = await response.json();
     subClassInfo.parentClass = item.description;
-    console.log('subClassInfo:', subClassInfo);
+    // console.log('subClassInfo:', subClassInfo);
     return subClassInfo;
   });
 
@@ -36,7 +36,7 @@ export default async classes => {
     classesResults.push(tempClass);
     index++;
   }
-  console.log('classesResults:', classesResults);
+  // console.log('classesResults:', classesResults);
   // return classes;
   return classesResults;
 };

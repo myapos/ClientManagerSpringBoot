@@ -4,7 +4,7 @@ const reducer = (state = {}, action) => {
   const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
     dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
-    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text } = action;
+    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text, displayInitialMsg } = action;
 
   switch (type) {
     case actions.GET_ALL_STUDENTS:
@@ -180,6 +180,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         text,
+      };
+    case actions.DISPLAY_INITIAL_MSG:
+      return {
+        ...state,
+        displayInitialMsg,
       };
     default:
       return state;

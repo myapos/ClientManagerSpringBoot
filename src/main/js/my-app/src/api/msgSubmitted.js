@@ -1,11 +1,13 @@
+import send_email from './send_email';
+import * as constants from '../constants';
+
 export default (msg, selectedClass) => {
   // debugger;
   parent.msgSubmitted = msg;
   // steps
   // find students who have payed for the selected class
   // get selected classes from server
-  fetch(`${parent.BASE_URL}/api/studentClasses/search/findBydescription`
-            + `?description=${selectedClass}`, {
+  fetch(`${constants.searchClassesByDescription}${selectedClass}`, {
               method: 'get',
               mode: 'cors',
               cache: 'default',
@@ -16,10 +18,8 @@ export default (msg, selectedClass) => {
             })
         .then(res => res.json())
         .then(res => {
-          parent.classDescriptionForEmails = res.description;
           // get registrations by student class
-          fetch(`${parent.BASE_URL}/api/registers/search/findByStudentClass`
-            + `?studentClass=${res._links.self.href}`, {
+          fetch(`${constants.searchRegistrationsByStudentClass}${res._links.self.href}`, {
               method: 'get',
               mode: 'cors',
               cache: 'default',
@@ -37,8 +37,7 @@ export default (msg, selectedClass) => {
               const flagPaymentsExistAr = [];
               const checkNumOfRegisters = res2._embedded.registers.length;
               res2._embedded.registers.map((el, count) => {
-                const urlT = `${parent.BASE_URL}/api/payeds/search/findByRegister`
-                         + `?register=${el._links.self.href}`;
+                const urlT = `${constants.searchPaymentByRegistration}${el._links.self.href}`;
                 const requestT = new XMLHttpRequest();
                 requestT.open('GET', urlT, true);  // `false` makes the request synchronous
                 requestT.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);

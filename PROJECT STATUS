@@ -1,6 +1,8 @@
 https://pouchdb.com/2015/03/05/taming-the-async-beast-with-es7.html
 http://www.tivix.com/blog/making-promises-in-a-synchronous-manner/
 https://egghead.io/lessons/javascript-redux-supplying-the-initial-state
+https://stackoverflow.com/questions/34350988/react-passing-parameter-via-onclick-event-using-es6-syntax
+git config credential.helper store
 
 useful commands and urls
 
@@ -52,7 +54,7 @@ Display οκ, ΕΓΓΡΑΦΗ ok /ΑΝΑΝΕΩΣΗ /ΔΙΑΓΡΑΦΗ  ΧΡΗΣΤ�
 
 ΔΙΑΧΕΙΡΙΣΗ ΤΜΗΜΑΤΩΝ 
 
-ΕΓΓΡΑΦΗ ok /ΔΙΑΓΡΑΦΗ  ok ΑΝΑΝΕΩΣΗ ΧΡΗΣΤΗ ΣΕ ΤΜΗΜΑ
+ΕΓΓΡΑΦΗ ok /ΔΙΑΓΡΑΦΗ  ok ΑΝΑΝΕΩΣΗ ΧΡΗΣΤΗ ok ΣΕ ΤΜΗΜΑ
 
 ΕΠΙΚΟΙΝΩΝΙΑ ΤΜΗΜΑΤΩΝ ΜΕ EMAIL ΑΥΤΟΜΑΤΑ  /ΣΕ ΤΜΗΜΑ  LOCALLY
 
@@ -79,11 +81,11 @@ communication logic
 
 Αρχικά φτιάχνουμε τη διαδικασία για ενα tab και την επεκτείνουμε για τα υπολοιπα.
 
-Το πρωτο tab ειναι το registers.
-Δευτερο οι μαθητες
-τριτο πληρωμες
-τεταρτο τμηματα
-πεμπτο επικοινωνιες
+Το πρωτο tab ειναι το μαθητες.
+Δευτερο οι registrations
+Τριτο πληρωμες
+Τεταρτο τμηματα
+Πεμπτο επικοινωνιες
 
 
 Αρχειο constants
