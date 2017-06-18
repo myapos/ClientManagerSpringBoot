@@ -71,6 +71,7 @@ class StudentDataTable extends Component {
       afterInsertRow: this.onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
+
     return (
       <div id="students">
         <BootstrapTable

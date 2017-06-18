@@ -1,3 +1,4 @@
+import * as constants from '../constants';
 /* deletes selected class from table -- classId parameter is the id in front end table not in the database*/
 export default classId => {
   const x = document.getElementById('studentClasses');
@@ -7,8 +8,7 @@ export default classId => {
   if (description === 'No subclass') {
     alert('You can not delete this class. It is used for declaring classes with no subclasses. Please choose a different one.');
   } else {
-    fetch(`${parent.BASE_URL}/api/studentClasses/search/findBydescription`
-             + `?description=${description}`, {
+    fetch(`${constants.searchStudentClassesByDescription}${description}`, {
                method: 'get',
                mode: 'cors',
                cache: 'default',
@@ -26,7 +26,7 @@ export default classId => {
 
              // delete record student class with id
 
-           fetch(`${parent.BASE_URL}/api/studentClasses/${id}`, {
+           fetch(`${constants.studentClassesAPI}${id}`, {
              method: 'delete',
              mode: 'cors',
              cache: 'default',

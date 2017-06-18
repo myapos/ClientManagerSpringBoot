@@ -37,9 +37,9 @@ class StudentClasses extends Component {
   }
 
   createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
-    const saveNewClass = this.props.saveNewClass;
+    const { saveNewClass, initDataStudentClasses } = this.props;
     const attr = {
-      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass,
+      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass, initDataStudentClasses
     };
     return (
       <InsertStudentClassesModal {... attr} />

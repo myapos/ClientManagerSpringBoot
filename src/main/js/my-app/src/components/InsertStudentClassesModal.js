@@ -38,7 +38,8 @@ class InsertStudentClassesModal extends Component {
       initDataStudents,
       studentClassesWithLinks,
       initPayments,
-      saveNewClass
+      saveNewClass,
+      initDataStudentClasses,
     } = this.props;
     console.log('studentClassesWithLinks:', studentClassesWithLinks);
     return (
@@ -86,8 +87,8 @@ class InsertStudentClassesModal extends Component {
 
                     <select ref={field} className="form-control">
                       {
-                         studentClassesWithLinks.map((el, j) =>
-                           <option key={j} value={el.subClass}>{el.subClass}</option>
+                         initDataStudentClasses.map((el, j) =>
+                           <option key={j} value={el}>{el}</option>
                          )
                        }
                     </select>
