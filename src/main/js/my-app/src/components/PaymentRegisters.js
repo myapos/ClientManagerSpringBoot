@@ -14,6 +14,7 @@ class PaymentRegisters extends Component {
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
     updatePaymentRegisters: PropTypes.func,
+    deletePaymentRegisters: PropTypes.func,
   }
 
   createInsertPaymentRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {

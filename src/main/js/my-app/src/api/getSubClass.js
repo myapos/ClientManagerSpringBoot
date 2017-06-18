@@ -1,4 +1,5 @@
-export default (url, parentDesc) => {
+export default (url, parentClassDescription) => {
+
   const fetch1 = fetch(url, {
     method: 'get',
     mode: 'cors',
@@ -8,13 +9,13 @@ export default (url, parentDesc) => {
       'Content-Type': 'application/json',
     },
   })
-    .then(res => res.json())
-    .then(res => {
-      const classesPair = {};
+  .then(res => res.json())
+  .then(res => {
+    const classesPair = {};
 
-      classesPair[parentDesc] = res;
+    classesPair[parentClassDescription] = res;
 
-      return classesPair;
-    });
+    return classesPair;
+  });
   return fetch1;
 };

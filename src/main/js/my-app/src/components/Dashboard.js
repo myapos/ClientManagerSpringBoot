@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import * as actions from '../actions/';
-import StudentClassDashboard from './StudentClassDashboard';
+import StudentClasses from './StudentClasses';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';
 import StudentDataTable from './StudentDataTable';
@@ -40,6 +40,8 @@ class Dashboard extends Component {
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
     initPayments: PropTypes.array,
+    changeSelectedTab: PropTypes.func,
+    selectedTab: PropTypes.string,
   }
 
   constructor (props) {
@@ -85,10 +87,10 @@ class Dashboard extends Component {
 
     return (
       <div className="App" id="content">
-        <Signature />
         <h2>Καλωσήρθατε στην διαχείριση πελατών ClientManager</h2>
         <div className="labelContainer">
           <legend><span>Πίνακας Ελέγχου</span></legend>
+          <Signature />
         </div>
         <Tabs
           name="selectedTab"
@@ -115,7 +117,7 @@ class Dashboard extends Component {
               default={this.defaultTab('tab3')}
               style={styles.tabLink}>Διαχείριση Πληρωμών
             </TabLink>
-           {/* <TabLink
+            <TabLink
               to="tab4"
               default={this.defaultTab('tab4')}
               style={styles.tabLink}>Διαχείριση Τμημάτων
@@ -124,7 +126,7 @@ class Dashboard extends Component {
               to="tab5"
               default={this.defaultTab('tab5')}
               style={styles.tabLink}>Επικοινωνία Τμημάτων
-            </TabLink>*/}
+            </TabLink>
           </div>
           <div id="tabContent" style={styles.content}>
             <TabContent for="tab1">
@@ -147,15 +149,19 @@ class Dashboard extends Component {
                   initPayments={initPayments} />
               </div>
             </TabContent>
-{/*              <TabContent for="tab4">
-              <div id="tab4"><StudentClassDashboard /></div>
+            <TabContent for="tab4">
+              <div id="tab4">
+                <StudentClasses
+                  initDataStudentClasses={initDataStudentClasses} />
+              </div>
             </TabContent>
             <TabContent for="tab5">
-              <div id="tab5"><SendEmailsManually /></div>
-            </TabContent>*/}
+              <div id="tab5">
+                <SendEmailsManually />
+              </div>
+            </TabContent>
           </div>
         </Tabs>
-
       </div>
 
     );

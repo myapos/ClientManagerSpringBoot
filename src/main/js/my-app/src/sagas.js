@@ -17,14 +17,16 @@ function* getDataFromServer () {
   const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
   const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
   const initDataStudents = utils.preprocessStudents(initDataStudents_);
-
-  console.log('initPayments:', initPayments);
+  // debugger;
+  const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
+  // console.log('initPayments:', initPayments);
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
     initDataStudentClasses,
     initDataStudents,
     initPayments,
+    studentClassesWithLinks,
   });
 }
 
