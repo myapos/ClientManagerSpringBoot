@@ -85,9 +85,6 @@ class Registers extends Component {
       afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
     };
 
-    // preprocess area for availableClasses
-    const availableClasses = preprocessStudentClasses(initDataStudentClasses);
-
     return (
       <div id="registers">
         <BootstrapTable
@@ -121,7 +118,7 @@ class Registers extends Component {
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="class"
-            editable={{ type: 'select', options: { values: availableClasses } }} >Class
+            editable={{ type: 'select', options: { values: initDataStudentClasses } }} >Class
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfRegistration"

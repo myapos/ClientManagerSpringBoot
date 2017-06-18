@@ -32,6 +32,7 @@ class StudentClasses extends Component {
   }
 
   beforeSaveStudentClassCell (row, cellName, cellValue) {
+    debugger;
     // call action for update
     this.props.updateClass(row, cellValue);
   }
@@ -46,7 +47,7 @@ class StudentClasses extends Component {
     );
   }
   render () {
-    const { studentClassesWithLinks } = this.props;
+    const { studentClassesWithLinks, initDataStudentClasses } = this.props;
     const cellEditProp = {
       mode: 'click',
       beforeSaveCell: this.beforeSaveStudentClassCell.bind(this),
@@ -89,6 +90,7 @@ class StudentClasses extends Component {
             dataField="subClass"
             dataAlign="center"
             dataSort
+            editable={{ type: 'select', options: { values: initDataStudentClasses } }}
             pagination>Subclass
           </TableHeaderColumn>
         </BootstrapTable>
