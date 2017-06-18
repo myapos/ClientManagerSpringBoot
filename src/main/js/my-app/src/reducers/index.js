@@ -1,10 +1,10 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-  const { type, initDataStudentClasses, initDataStudents, initDataPayeds, initDataRegisters,
+  const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
     dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
-    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text } = action;
+    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text, displayInitialMsg } = action;
 
   switch (type) {
     case actions.GET_ALL_STUDENTS:
@@ -59,6 +59,7 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         row,
+        initDataStudents,
       };
     case actions.DELETE_STUDENT:
       return {
@@ -94,13 +95,15 @@ const reducer = (state = {}, action) => {
         ...state,
         initDataStudentClasses,
         initDataStudents,
-        initDataPayeds,
-        initDataRegisters,
+        initPayments,
+        initRegistrations,
+        studentClassesWithLinks,
       };
     case actions.SAVE_NEW_CLASS:
       return {
         ...state,
         row,
+        studentClassesWithLinks,
       };
     case actions.DELETE_CLASS:
       return {
@@ -177,6 +180,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         text,
+      };
+    case actions.DISPLAY_INITIAL_MSG:
+      return {
+        ...state,
+        displayInitialMsg,
       };
     default:
       return state;

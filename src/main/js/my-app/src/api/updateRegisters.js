@@ -1,9 +1,11 @@
+import * as constants from '../constants';
+
 export default row => {
     // create call -- we need student id, studentClass id, dateOfRegistration
 
     // find studentClass id
 
-  const url = `${parent.BASE_URL}/api/studentClasses/search/findBydescription?description=${row.class}`;
+  const url = `${constants.searchStudentClassesByDescription}${row.class}`;
   const request = new XMLHttpRequest();
   request.open('GET', url, true);  // `false` makes the request synchronous
   request.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -15,7 +17,7 @@ export default row => {
       if (request.status === 200) {
         const resObj = JSON.parse(request.responseText);
         const classLink = resObj._links.self.href; // has to be fixed for many????
-        const url2 = `${parent.BASE_URL}/api/students/search/findByFnameAndLname?fname=${this.row.fname}&lname=${this.row.lname}`;
+        const url2 = `${constants.searchStudentClassesByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
         const request2 = new XMLHttpRequest();
         request2.open('GET', url2, true);  // `false` makes the request synchronous
         request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -28,7 +30,7 @@ export default row => {
               const resObj2 = JSON.parse(request2.responseText);
               const studentLink = resObj2._links.self.href; // has to be fixed for many
               // new registration call
-              const url3 = `${parent.BASE_URL}/api/registers/search/findByStudent?student=${studentLink}`;
+              const url3 = `${constants.searchRegistrationsByStudent}${studentLink}`;
               const request3 = new XMLHttpRequest();
               request3.open('GET', url3, true);  // `false` makes the request synchronous
               request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -58,7 +60,7 @@ export default row => {
                         if (request4.status === 200) {
                           if (request4.status === 200) {
                             alert('Registration has been updated in database. Page is reloading');
-                            window.location.reload(true);
+                            // window.location.reload(true);
                           } else {
                             alert('Something bad has happened. Please try again');
                           }

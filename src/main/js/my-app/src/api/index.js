@@ -22,7 +22,7 @@ import msgSubmitted from './msgSubmitted';
 import msgSubmitted____ from './msgSubmitted____';
 import getSubClass from './getSubClass';
 import getDataRegisters from './getDataRegisters';
-import getDataPaymentsRegisters from './getDataPaymentsRegisters';
+import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
 
 export {
   getStudentClasses,
@@ -49,5 +49,5 @@ export {
   msgSubmitted____,
   getSubClass,
   getDataRegisters,
-  getDataPaymentsRegisters,
+  getDataPaymentsRegistrations,
 };

@@ -1,22 +1,20 @@
-import hideLoader from './hideLoader';
+import * as constants from '../constants';
 
 export default () => {
-  parent.loadedStudents = 0;
-  fetch(
-        `${parent.BASE_URL}/api/students`, {
+  const studentsData = fetch(
+        `${constants.studentsAPI}`, {
           method: 'get',
           mode: 'cors',
           cache: 'default',
           headers: {
             'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-            'Content-Type': 'application/json', // ,
+            'Content-Type': 'application/json',
           },
         })
     .then(res => res.json())
     .then(res => {
       const students = res._embedded.students;
-      parent.students = students;
-      hideLoader('loader students');
       return students;
     });
+  return studentsData;
 };

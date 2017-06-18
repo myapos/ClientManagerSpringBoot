@@ -1,6 +1,8 @@
+import * as constants from '../constants';
+
 export default (first, last, email, msg) => {
     // send email request to server side
-  fetch(`${parent.BASE_URL}/email?fname=${first}&lname=${last}&email=${email}&msg=${msg}&mode=selectedClasses`, {
+  fetch(`${constants.BASE_URL}/email?fname=${first}&lname=${last}&email=${email}&msg=${msg}&mode=selectedClasses`, {
     method: 'get',
     mode: 'cors',
     cache: 'default',

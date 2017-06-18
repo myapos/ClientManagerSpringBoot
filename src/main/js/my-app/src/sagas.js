@@ -2,21 +2,31 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import * as api from './api/index.js';
 import * as actions from './actions';
+// import preprocessRegistrations from './utils/preprocessRegistrations';
+import * as utils from './utils';
 
 function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
-  const initDataStudentClasses = yield call(api.getStudentClasses, state);
-  const initDataStudents = yield call(api.getStudents, state);
-  const initDataPayeds = yield call(api.getPayeds, state);
-  const initDataRegisters = yield call(api.getRegisters, state);
+  const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
+  const initDataStudents_ = yield call(api.getStudents, state);
+  const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
+  const initRegistrations_ = yield call(api.getDataRegisters, state);
 
+  // preprocess area
+  const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
+  const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
+  const initDataStudents = utils.preprocessStudents(initDataStudents_);
+  // debugger;
+  const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
+  // console.log('initPayments:', initPayments);
   yield put({
     type: actions.DATA_INITIALIZATION,
+    initRegistrations,
     initDataStudentClasses,
     initDataStudents,
-    initDataPayeds,
-    initDataRegisters,
+    initPayments,
+    studentClassesWithLinks,
   });
 }
 
@@ -33,7 +43,7 @@ function* getStudentClasses () {
 function* saveNewStudentClass () {
 	// console.log('saveNewStudentClass');
   const state = yield select();
-  const saveNewClass = yield call(api.saveNewClass, state.row);
+  const saveNewClass = yield call(api.saveNewClass, state.row, state.studentClassesWithLinks);
   yield put({
     type: actions.SAGAS_SAVE_NEW_CLASS,
     saveNewClass,
@@ -65,7 +75,7 @@ function* updateStudentClass () {
 function* saveNewStudent () {
 	// console.log('saveNewStudent');
   const state = yield select();
-  const saveNewStudentRes = yield call(api.saveNewStudent, state.row);
+  const saveNewStudentRes = yield call(api.saveNewStudent, state.row, state.initDataStudents);
 
   yield put({
     type: actions.SAGAS_SAVE_NEW_STUDENT,
@@ -181,7 +191,9 @@ function* getSubClass () {
 
 function* getDataRegisters () {
   const state = yield select();
-  const dataRegistersLoaded = yield call(api.getDataRegisters, state.saved_student);
+  const dataRegistersLoaded = yield call(api.getDataRegisters);
+
+  console.log('dataRegistersLoaded:', dataRegistersLoaded);
   yield put({
     type: actions.SAGAS_DATA_REGISTERS,
     dataRegistersLoaded,

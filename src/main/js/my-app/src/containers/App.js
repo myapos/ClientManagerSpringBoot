@@ -1,38 +1,48 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import Dashboard from '../components/Dashboard';
-import StudentClassDashboard from '../components/StudentClassDashboard';
-import Container from './Container';
-import NotFound from '../components/NotFound';
 import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../css/App.css';
 
-// fixes warning with change of routes in every render --> you cannot change router routes it will be ignored
-// https://github.com/reactjs/react-router-redux/issues/179
-const routes = (
-  <Route path="/" component={Container}>
-    <IndexRoute component={Dashboard} />
-    <Route path="/studentclassdashboard" component={StudentClassDashboard} />
-    <Route path="*" component={NotFound} />
-  </Route>
-);
-
 class App extends Component {
+  static propTypes = {
+    isLoading: PropTypes.bool,
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    initPayments: PropTypes.array,
+    displayInitialMsg: PropTypes.bool,
+  }
   constructor (props) {
     super(props);
     this.state = {
       ...props,
     };
   }
+
   render () {
+    // debugger;
+    let hasData = false;
+    // Get the size of student --> array of obects. In initial state there is an empty object
+    hasData = this.props.initDataStudents.length > 0;
     return (
-      <Router history={hashHistory}>
-        {routes}
-      </Router>
+      <div>
+        <Dashboard
+          initRegistrations={this.props.initRegistrations}
+          initDataStudentClasses={this.props.initDataStudentClasses}
+          initDataStudents={this.props.initDataStudents}
+          initPayments={this.props.initPayments}
+          displayInitialMsg={this.props.displayInitialMsg} />
+        {
+          !hasData
+          ? <div className="loader registers" />
+          : null
+        }
+      </div>
     );
   }
 }

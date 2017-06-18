@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import * as actions from '../actions/';
-import GetAllStudents from './GetAllStudents';
-import StudentClassDashboard from './StudentClassDashboard';
+import StudentClasses from './StudentClasses';
 import PaymentRegisters from './PaymentRegisters';
 import Registers from './Registers';
+import StudentDataTable from './StudentDataTable';
 import SendEmailsManually from './SendEmailsManually';
 import Signature from './Signature';
 
@@ -34,6 +35,22 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  static propTypes = {
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    initPayments: PropTypes.array,
+    changeSelectedTab: PropTypes.func,
+    selectedTab: PropTypes.string,
+    displayInitialMsg: PropTypes.bool,
+  }
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      ...props,
+    };
+  }
 
   defaultTab (tab) {
     // get last active tab from local storage
@@ -48,6 +65,7 @@ class Dashboard extends Component {
     }
   }
   render () {
+    const { initRegistrations, initDataStudentClasses, initDataStudents, initPayments, displayInitialMsg } = this.props;
     window.onbeforeunload = () => {
       const el = document.getElementById('tabLinks');
       const nodeList = el.childNodes;
@@ -70,10 +88,10 @@ class Dashboard extends Component {
 
     return (
       <div className="App" id="content">
-        <Signature />
         <h2>Καλωσήρθατε στην διαχείριση πελατών ClientManager</h2>
         <div className="labelContainer">
           <legend><span>Πίνακας Ελέγχου</span></legend>
+          <Signature />
         </div>
         <Tabs
           name="selectedTab"
@@ -113,23 +131,39 @@ class Dashboard extends Component {
           </div>
           <div id="tabContent" style={styles.content}>
             <TabContent for="tab1">
-              <div id="tab1"><GetAllStudents /></div>
+              <div id="tab1">
+                <StudentDataTable
+                  initDataStudents={initDataStudents} />
+              </div>
             </TabContent>
             <TabContent for="tab2">
-              <div id="tab2"><Registers /></div>
+              <div id="tab2">
+                <Registers
+                  initRegistrations={initRegistrations}
+                  initDataStudentClasses={initDataStudentClasses}
+                  initDataStudents={initDataStudents} />
+              </div>
             </TabContent>
             <TabContent for="tab3">
-              <div id="tab3"><PaymentRegisters /></div>
+              <div id="tab3">
+                <PaymentRegisters
+                  initPayments={initPayments} />
+              </div>
             </TabContent>
             <TabContent for="tab4">
-              <div id="tab4"><StudentClassDashboard /></div>
+              <div id="tab4">
+                <StudentClasses
+                  initDataStudentClasses={initDataStudentClasses} />
+              </div>
             </TabContent>
             <TabContent for="tab5">
-              <div id="tab5"><SendEmailsManually /></div>
+              <div id="tab5">
+                <SendEmailsManually
+                  displayInitialMsg={displayInitialMsg} />
+              </div>
             </TabContent>
           </div>
         </Tabs>
-
       </div>
 
     );

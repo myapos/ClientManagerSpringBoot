@@ -1,10 +1,10 @@
-export default row => {
-    // check email type
-  const str = row.email;
-  const n = str.includes('@');
+import * as constants from '../constants';
+
+export default (row, students) => {
   let exist = false;
-    // check if student exist already in database due to fname, lname, mobile
-  const students = parent.students;
+
+  // check if student exist already in database due to fname, lname, mobile
+  //const students = parent.students;
   students.push(row);
   exist = students.map((obj, key) => {
     const rowtoCheck = students[students.length - 1];
@@ -23,7 +23,8 @@ export default row => {
     return total || num;
   });
   if (!existV) {
-    if (n) {
+    // check email type
+    if (row.email.indexOf('@') > 0) {
       const date = new Date(row.dateOfBirth);
 
       const bodyData = JSON.stringify({
@@ -33,10 +34,10 @@ export default row => {
         'dateOfBirth': date,
         'facebook': row.facebook,
         'phone': row.phone,
-        'manager': `${parent.BASE_URL}/api/managers/17`,
+        'manager': constants.searchByManager,
       });
 
-      fetch(`${parent.BASE_URL}/api/students`, {
+      fetch(constants.studentsAPI, {
         method: 'post',
         mode: 'cors',
         cache: 'default',
@@ -46,14 +47,14 @@ export default row => {
           'Content-Type': 'application/json',
         },
       })
-                .then(res => {
-                  if (res.status === 201) {
-                    alert('New student saved succsesfully. Prepare for reloading');
-                    window.location.reload(true);
-                  } else {
-                    alert('something bad happened.Please check your input data.');
-                  }
-                });
+      .then(res => {
+        if (res.status === 201) {
+          alert('New student saved succsesfully. Prepare for reloading');
+          window.location.reload(true);
+        } else {
+          alert('something bad happened.Please check your input data.');
+        }
+      });
     } else {
       alert('Please check email input and try again. It has to be of email type. Example test@test.com');
     }

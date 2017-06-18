@@ -58,6 +58,7 @@ export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 
 /* ACTIONS FOR TEXT HANDLING IN MESSAGE TEXTAREA*/
 export const CHANGE_TEXT = 'CHANGE_TEXT';
+export const DISPLAY_INITIAL_MSG = 'DISPLAY_INITIAL_MSG';
 
 export function getAllStudents () {
   // debugger;
@@ -66,10 +67,11 @@ export function getAllStudents () {
     type: GET_ALL_STUDENTS,
   };
 }
-export function addStudent (row) {
+export function addStudent (row, initDataStudents) {
   return {
     type: ADD_STUDENT,
     row,
+    initDataStudents,
   };
 }
 export function deleteStudent (studentId) {
@@ -99,10 +101,11 @@ export function studentClassDashboard () {
     type: STUDENT_CLASS_DASHBOARD,
   };
 }
-export function saveNewClass (row) {
+export function saveNewClass (row, studentClassesWithLinks) {
   return {
     type: SAVE_NEW_CLASS,
     row,
+    studentClassesWithLinks,
   };
 }
 export function deleteClass (classId) {
@@ -232,3 +235,11 @@ export function changeText (text) {
     text,
   };
 }
+
+export function displayInitialMessage (displayInitialMsg) {
+  return {
+    type: DISPLAY_INITIAL_MSG,
+    displayInitialMsg,
+  };
+}
+

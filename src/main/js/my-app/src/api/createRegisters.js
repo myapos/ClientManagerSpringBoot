@@ -1,9 +1,9 @@
+import * as constants from '../constants';
+
 export default row => {
-    // create call -- we need student id, studentClass id, dateOfRegistration
-
-    // find studentClass id
-
-  const url = `${parent.BASE_URL}/api/studentClasses/search/findBydescription?description=${row.class}`;
+  // create call -- we need student id, studentClass id, dateOfRegistration
+  // find studentClass id
+  const url = `${constants.searchStudentClassesByDescription}${row.class}`;
   const request = new XMLHttpRequest();
   request.open('GET', url, true);  // `false` makes the request synchronous
   request.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -17,7 +17,7 @@ export default row => {
 
         const classLink = resObj._links.self.href; // has to be fixed for many
 
-        const url2 = `${parent.BASE_URL}/api/students/search/findByFnameAndLname?fname=${this.row.fname}&lname=${this.row.lname}`;
+        const url2 = `${constants.searchStudentClassesByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
         const request2 = new XMLHttpRequest();
         request2.open('GET', url2, true);  // `false` makes the request synchronous
         request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -27,12 +27,12 @@ export default row => {
         request2.onload = function () {
           if (request2.readyState === 4) {
             if (request2.status === 200) {
-                               // step 2 find student id to update
+              // step 2 find student id to update
               const resObj2 = JSON.parse(request2.responseText);
 
               const studentLink = resObj2._links.self.href; // has to be fixed for many
 
-                               // new registration call
+              // new registration call
 
               const date = new Date(row.dateOfRegistration.substr(0, 10));
 
@@ -42,7 +42,7 @@ export default row => {
                 'student': studentLink,
               });
 
-              const url3 = `${parent.BASE_URL}/api/registers/`;
+              const url3 = `${constants.registersAPI}`;
               const request3 = new XMLHttpRequest();
               request3.open('POST', url3, true);  // `false` makes the request synchronous
               request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
