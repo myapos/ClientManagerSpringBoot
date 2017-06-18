@@ -1,6 +1,5 @@
 export default async classes => {
   const classesPromises = await classes.map(async item => {
-
     console.log('item:', item);
     const url = item._links.studentClass[1].href;
 

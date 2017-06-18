@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
-import preprocessRegistrations from '../utils/preprocessRegistrations';
 import preprocessStudentClasses from '../utils/preprocessStudentClasses';
 import InsertRegistersModal from './InsertRegistersModal';
 import * as actions from '../actions/';
@@ -30,7 +29,7 @@ class Registers extends Component {
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { createRegisters, initDataStudentClasses, initRegistrations, initDataStudents } = this.props;
     const availableClasses = preprocessStudentClasses(initDataStudentClasses);
-    //const initRegistrations_ = preprocessRegistrations(initRegistrations);
+    // const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     const attr = {
       onModalClose,

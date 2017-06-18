@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InsertStudentClassesModal from './InsertStudentClassesModal';
+import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import InsertStudentClassesModal from './InsertStudentClassesModal';
 import * as actions from '../actions/';
 
 class StudentClasses extends Component {
-
-  beforeSaveStudentClassCell (row, cellName, cellValue) {
-    // call action for update
-    this.props.updateClass(row, cellValue);
-  }
-
-  createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
-    const saveNewClass = this.props.saveNewClass;
-    const attr = {
-      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass,
-    };
-    return (
-      <InsertStudentClassesModal {... attr} />
-    );
+  static propTypes = {
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    studentClassesWithLinks: PropTypes.array,
+    deleteRegisters: PropTypes.func,
+    createRegisters: PropTypes.func,
+    deleteClass: PropTypes.func,
+    saveNewClass: PropTypes.func,
+    updateClass: PropTypes.func,
   }
 
   onAfterDeleteRow (rowKeys) {
@@ -34,6 +31,20 @@ class StudentClasses extends Component {
     alert(`The new row is:\n ${row.description} ${row.subClassDescription}`);
   }
 
+  beforeSaveStudentClassCell (row, cellName, cellValue) {
+    // call action for update
+    this.props.updateClass(row, cellValue);
+  }
+
+  createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
+    const saveNewClass = this.props.saveNewClass;
+    const attr = {
+      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass,
+    };
+    return (
+      <InsertStudentClassesModal {... attr} />
+    );
+  }
   render () {
     const { studentClassesWithLinks } = this.props;
     const cellEditProp = {

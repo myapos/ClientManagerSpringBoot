@@ -3,15 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
 
-class InsertStudentClassesModal extends React.Component {
-
+class InsertStudentClassesModal extends Component {
+  static propTypes = {
+    isLoading: PropTypes.bool,
+    initRegistrations: PropTypes.array,
+    initDataStudentClasses: PropTypes.array,
+    initDataStudents: PropTypes.array,
+    initPayments: PropTypes.array,
+    onModalClose: PropTypes.func,
+    onSave: PropTypes.func,
+    columns: PropTypes.array,
+    validateState: PropTypes.object,
+    ignoreEditable: PropTypes.bool,
+    availableClasses: PropTypes.array,
+    createRegisters: PropTypes.func,
+    updatePaymentRegisters: PropTypes.func,
+  }
   handleSaveBtnClick = () => {
-    const { columns, onSave, saveNewClass } = this.props;
+    const { columns } = this.props;
     const newRow = {};
     columns.forEach((column, i) => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
+    debugger;
     saveNewClass(newRow);
     // onSave(newRow);
   }
@@ -22,9 +37,11 @@ class InsertStudentClassesModal extends React.Component {
       onSave,
       columns,
       validateState,
-      ignoreEditable,
-      addStudent,
+      initDataStudents,
+      studentClassesWithLinks,
+      initPayments,
     } = this.props;
+    console.log('studentClassesWithLinks:', studentClassesWithLinks);
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη Τάξης</h2>
@@ -50,10 +67,10 @@ class InsertStudentClassesModal extends React.Component {
                     <input
                       ref={field}
                       className="form-control"
-                      defaultValue={parent.studentClasses.length + 1} />
+                      defaultValue={studentClassesWithLinks.length + 1} />
                     { error }
                   </div>);
-              } else if (field === 'description') {
+              } else if (field === 'parentClass') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label>Τάξη</label>
@@ -63,16 +80,15 @@ class InsertStudentClassesModal extends React.Component {
                       defaultValue={''} />
                     { error }
                   </div>);
-              } else if (field === 'subClassDescription') {
+              } else if (field === 'subClass') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label>Υποτμήμα</label>
 
                     <select ref={field} className="form-control">
-                      <option value="No subclass">No subclass</option>
                       {
-                         parent.studentClasses.map((el, j) =>
-                           <option key={j} value={el.description}>{el.description}</option>
+                         studentClassesWithLinks.map((el, j) =>
+                           <option key={j} value={el.subClass}>{el.subClass}</option>
                          )
                        }
                     </select>
