@@ -60,6 +60,9 @@ export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const DISPLAY_INITIAL_MSG = 'DISPLAY_INITIAL_MSG';
 
+/* TIME ELAPSED */
+export const TIME_ELAPSED = 'TIME_ELAPSED';
+
 export function getAllStudents () {
   // debugger;
   parent.loadedStudentData = 0;
@@ -243,3 +246,9 @@ export function displayInitialMessage (displayInitialMsg) {
   };
 }
 
+export function timeElapsed (seconds) {
+  return {
+    type: TIME_ELAPSED,
+    seconds,
+  };
+}

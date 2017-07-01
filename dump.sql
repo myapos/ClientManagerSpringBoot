@@ -9,286 +9,82 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+SET search_path = "Users", pg_catalog;
+
 --
--- Name: clientmanagerspringboot; Type: SCHEMA; Schema: -; Owner: myapos
+-- Data for Name: test; Type: TABLE DATA; Schema: Users; Owner: myapos
 --
 
-CREATE SCHEMA clientmanagerspringboot;
+COPY test (id, data) FROM stdin;
+2	test keimeno deuteris grammis
+1	Τί είναι το Lorem Ipsum;\nΤο Lorem Ipsum είναι απλά ένα κείμενο χωρίς νόημα για τους επαγγελματίες της τυπογραφίας και στοιχειοθεσίας. Το Lorem Ipsum είναι το επαγγελματικό πρότυπο όσον αφορά το κείμενο χωρίς νόημα, από τον 15ο αιώνα, όταν ένας ανώνυμος τυπογράφος πήρε ένα δοκίμιο και ανακάτεψε τις λέξεις για να δημιουργήσει ένα δείγμα βιβλίου. Όχι μόνο επιβίωσε πέντε αιώνες, αλλά κυριάρχησε στην ηλεκτρονική στοιχειοθεσία, παραμένοντας με κάθε τρόπο αναλλοίωτο. Έγινε δημοφιλές τη δεκαετία του '60 με την έκδοση των δειγμάτων της Letraset όπου περιελάμβαναν αποσπάσματα του Lorem Ipsum, και πιο πρόσφατα με το λογισμικό ηλεκτρονικής σελιδοποίησης όπως το Aldus PageMaker που περιείχαν εκδοχές του Lorem Ipsum.\n\nΑπό που προέρχεται;\n\nΑντίθετα με αυτό που θεωρεί η πλειοψηφία, το Lorem Ipsum δεν είναι απλά ένα τυχαίο κείμενο. Οι ρίζες του βρίσκονται σε ένα κείμενο Λατινικής λογοτεχνίας του 45 π.Χ., φτάνοντας την ηλικία του πάνω από 2000 έτη. Ο Richard McClintock, καθηγητής Λατινικών στο κολλέγιο Hampden-Dydney στην Βιρτζίνια, αναζήτησε μία από τις πιο σπάνιες Λατινικές λέξεις, την consectetur, από ένα απόσπασμα του Lorem Ipsum, και ανάμεσα σε όλα τα έργα της κλασσικής λογοτεχνίας, ανακάλυψε την αναμφισβήτητη πηγή του. To Lorem Ipsum προέρχεται από τις ενότητες 1.10.32 και 1.10.33 του "de Finibus Bonorum et Malorum" (Τα άκρα του καλού και του κακού) από τον Cicero (Σισερό), γραμμένο το 45 π.Χ. Αυτό το βιβλίο είναι μία διατριβή στην θεωρία της Ηθικής, πολύ δημοφιλής κατά την αναγέννηση. Η πρώτη γραμμή του Lorem Ipsum, "Lorem ipsum dolor sit amet...", προέρχεται από μία γραμμή στην ενότητα 1.10.32.\n\nΤο καθιερωμένο κομμάτι του Lorem Ipsum που χρησιμοποιείται από τον 15ο αιώνα αναπαράγεται παρακάτω για αυτούς που ενδιαφέρονται. Οι ενότητες 1.10.32 και 1.10.33 από το "de Finibus Bonorum et Malorum" από τον Σισερό επίσης αναπαράγονται στην ακριβή αυθεντική τους μορφή, συνοδευόμενες από Αγγλικές εκδοχές από την μετάφραση του 1914 από τον H. Rackham.
+16	σαδασδασδασ
+\.
 
 
-ALTER SCHEMA clientmanagerspringboot OWNER TO myapos;
+--
+-- Name: test_ID_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('"test_ID_seq"', 17, true);
+
+
+--
+-- Name: test_data_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('test_data_seq', 1, false);
+
+
+--
+-- Name: user_role_ID_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('"user_role_ID_seq"', 1, false);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: Users; Owner: myapos
+--
+
+COPY users (username, password, enabled) FROM stdin;
+myrosuser	myrosuser	t
+myrosadmin	myrosadmin	t
+\.
+
+
+--
+-- Data for Name: user_roles; Type: TABLE DATA; Schema: Users; Owner: myapos
+--
+
+COPY user_roles (user_role_id, username, role) FROM stdin;
+1	myrosadmin	ROLE_ADMIN
+2	myrosuser	ROLE_USER
+\.
+
+
+--
+-- Name: user_roles_role_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('user_roles_role_seq', 1, false);
+
+
+--
+-- Name: user_roles_user_role_id_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('user_roles_user_role_id_seq', 2, true);
+
+
+--
+-- Name: user_roles_username_seq; Type: SEQUENCE SET; Schema: Users; Owner: myapos
+--
+
+SELECT pg_catalog.setval('user_roles_username_seq', 1, false);
+
 
 SET search_path = clientmanagerspringboot, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- Name: databasechangelog; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE databasechangelog (
-    id character varying(255) NOT NULL,
-    author character varying(255) NOT NULL,
-    filename character varying(255) NOT NULL,
-    dateexecuted timestamp without time zone NOT NULL,
-    orderexecuted integer NOT NULL,
-    exectype character varying(10) NOT NULL,
-    md5sum character varying(35),
-    description character varying(255),
-    comments character varying(255),
-    tag character varying(255),
-    liquibase character varying(20),
-    contexts character varying(255),
-    labels character varying(255),
-    deployment_id character varying(10)
-);
-
-
-ALTER TABLE clientmanagerspringboot.databasechangelog OWNER TO myapos;
-
---
--- Name: databasechangeloglock; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE databasechangeloglock (
-    id integer NOT NULL,
-    locked boolean NOT NULL,
-    lockgranted timestamp without time zone,
-    lockedby character varying(255)
-);
-
-
-ALTER TABLE clientmanagerspringboot.databasechangeloglock OWNER TO myapos;
-
---
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE hibernate_sequence
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.hibernate_sequence OWNER TO myapos;
-
---
--- Name: manager; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE manager (
-    id bigint NOT NULL,
-    name text NOT NULL,
-    password text NOT NULL,
-    roles bytea
-);
-
-
-ALTER TABLE clientmanagerspringboot.manager OWNER TO myapos;
-
---
--- Name: manager_id_seq; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE manager_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.manager_id_seq OWNER TO myapos;
-
---
--- Name: manager_id_seq; Type: SEQUENCE OWNED BY; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER SEQUENCE manager_id_seq OWNED BY manager.id;
-
-
---
--- Name: payed; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE payed (
-    id bigint NOT NULL,
-    payment boolean NOT NULL,
-    date_of_payment timestamp without time zone NOT NULL,
-    notes text,
-    register_id bigint NOT NULL
-);
-
-
-ALTER TABLE clientmanagerspringboot.payed OWNER TO myapos;
-
---
--- Name: payed_id_seq; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE payed_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.payed_id_seq OWNER TO myapos;
-
---
--- Name: payed_id_seq; Type: SEQUENCE OWNED BY; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER SEQUENCE payed_id_seq OWNED BY payed.id;
-
-
---
--- Name: register; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE register (
-    id bigint NOT NULL,
-    date_of_registration timestamp without time zone NOT NULL,
-    student_id bigint NOT NULL,
-    student_class_id bigint NOT NULL
-);
-
-
-ALTER TABLE clientmanagerspringboot.register OWNER TO myapos;
-
---
--- Name: register_id_seq; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE register_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.register_id_seq OWNER TO myapos;
-
---
--- Name: register_id_seq; Type: SEQUENCE OWNED BY; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER SEQUENCE register_id_seq OWNED BY register.id;
-
-
---
--- Name: student; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE student (
-    id bigint NOT NULL,
-    fname text NOT NULL,
-    lname text NOT NULL,
-    date_of_birth timestamp without time zone NOT NULL,
-    email text,
-    phone text,
-    facebook text,
-    manager_id bigint NOT NULL
-);
-
-
-ALTER TABLE clientmanagerspringboot.student OWNER TO myapos;
-
---
--- Name: student_class; Type: TABLE; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-CREATE TABLE student_class (
-    id bigint NOT NULL,
-    description text NOT NULL,
-    student_class_id bigint NOT NULL
-);
-
-
-ALTER TABLE clientmanagerspringboot.student_class OWNER TO myapos;
-
---
--- Name: student_class_id_seq; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE student_class_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.student_class_id_seq OWNER TO myapos;
-
---
--- Name: student_class_id_seq; Type: SEQUENCE OWNED BY; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER SEQUENCE student_class_id_seq OWNED BY student_class.id;
-
-
---
--- Name: student_id_seq; Type: SEQUENCE; Schema: clientmanagerspringboot; Owner: myapos
---
-
-CREATE SEQUENCE student_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE clientmanagerspringboot.student_id_seq OWNER TO myapos;
-
---
--- Name: student_id_seq; Type: SEQUENCE OWNED BY; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER SEQUENCE student_id_seq OWNED BY student.id;
-
-
---
--- Name: id; Type: DEFAULT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY manager ALTER COLUMN id SET DEFAULT nextval('manager_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY payed ALTER COLUMN id SET DEFAULT nextval('payed_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY register ALTER COLUMN id SET DEFAULT nextval('register_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY student ALTER COLUMN id SET DEFAULT nextval('student_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY student_class ALTER COLUMN id SET DEFAULT nextval('student_class_id_seq'::regclass);
-
 
 --
 -- Data for Name: databasechangelog; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
@@ -317,7 +113,7 @@ COPY databasechangeloglock (id, locked, lockgranted, lockedby) FROM stdin;
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 155, true);
+SELECT pg_catalog.setval('hibernate_sequence', 218, true);
 
 
 --
@@ -338,15 +134,54 @@ SELECT pg_catalog.setval('manager_id_seq', 1, false);
 
 
 --
+-- Data for Name: student; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
+--
+
+COPY student (id, fname, lname, date_of_birth, email, phone, facebook, manager_id) FROM stdin;
+136	myaposgmail	test	2018-01-19 00:00:00	myapos123@gmail.com	6979791029	fffffff	17
+200	ΔΕΥΤΕΡΟΣ	ΧΡΗΣΤΗΣ	2017-06-05 00:00:00	myapos@yahoo.com	6979791029	-	17
+166	φφ	σδφσφ	2010-04-07 00:00:00	ddd@dd.gr	6979791029	ddd@dd.gr	17
+1	myros3	m3123	2018-01-10 00:00:00	myapos@gmail.com	6979791029	myapos3@facebook.com	17
+18	myros1	myroslname	2013-04-02 00:00:00	myapos@yahoo.com	6979791029	https://www.facebook.com/myapos	\N
+139	another test123	another test	2017-02-12 00:00:00	m@m.gr	6900000019	m@m.gr	\N
+169	test	test	2017-04-08 03:00:00	tes@tes.gr	6900000000	tes@tes.gr	\N
+177	testttt	testttt	2017-04-13 03:00:00	myapos@yahoo.com	6900000000	myapos@yahoo.com	\N
+151	another123456	test	2017-02-15 00:00:00	myapos@yahoo.com	6900000003	fff@facebook.com	17
+194	ΕΝΑΣ	ΧΡΗΣΤΗΣ	2017-06-05 03:00:00	myapos@yahoo.com	6900000000	-	17
+\.
+
+
+--
+-- Data for Name: student_class; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
+--
+
+COPY student_class (id, description, student_class_id) FROM stdin;
+4	No subclass	4
+215	womens corner	1
+117	kvmg	4
+1	kettlebels	4
+\.
+
+
+--
+-- Data for Name: register; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
+--
+
+COPY register (id, date_of_registration, student_id, student_class_id) FROM stdin;
+141	2001-01-01 00:00:00	18	1
+206	2017-06-14 03:00:00	200	1
+147	2001-06-10 03:00:00	136	1
+207	2017-06-14 03:00:00	194	117
+195	2000-12-31 02:00:00	194	117
+\.
+
+
+--
 -- Data for Name: payed; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
 --
 
 COPY payed (id, payment, date_of_payment, notes, register_id) FROM stdin;
-17	t	2001-01-01 00:00:00	payed test 123	141
-150	f	2001-01-01 00:00:00	payed 123ghjfjghj	147
-155	t	2001-02-01 00:00:00	No payment yet hghg	154
-153	t	2001-01-01 00:00:00	payed 111	152
-19	t	2001-01-01 00:00:00	payed y	148
+205	t	2001-06-07 00:00:00	aaaa123	195
 \.
 
 
@@ -358,19 +193,6 @@ SELECT pg_catalog.setval('payed_id_seq', 19, true);
 
 
 --
--- Data for Name: register; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
---
-
-COPY register (id, date_of_registration, student_id, student_class_id) FROM stdin;
-147	2017-01-01 02:00:00	136	1
-148	2001-01-01 00:00:00	1	117
-141	2001-01-01 00:00:00	18	117
-152	2001-01-01 00:00:00	151	117
-154	2017-01-01 02:00:00	139	1
-\.
-
-
---
 -- Name: register_id_seq; Type: SEQUENCE SET; Schema: clientmanagerspringboot; Owner: myapos
 --
 
@@ -378,34 +200,10 @@ SELECT pg_catalog.setval('register_id_seq', 4, true);
 
 
 --
--- Data for Name: student; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
---
-
-COPY student (id, fname, lname, date_of_birth, email, phone, facebook, manager_id) FROM stdin;
-18	myros	myroslname	2013-04-02 11:35:42	myapos@yahoo.com	6979791029	https://www.facebook.com/myapos	17
-139	another test	another test	2017-02-10 02:00:00	m@m.gr	6900000012	m@m.gr	17
-144	tttt	tttt	2017-02-09 02:00:00	t@t.gr	6900000001	t@t.gr	17
-136	myaposgmail	test	2017-01-19 00:00:00	myapos@gmail.com	6979791029	ff	17
-1	myros3	m3123	1982-01-10 00:00:00	myapos@gmail.com	6979791029	myapos3@facebook.com	17
-151	another 	test	2017-02-15 02:00:00	myapos@yahoo.com	6900000002	fff@facebook.com	17
-\.
-
-
---
--- Data for Name: student_class; Type: TABLE DATA; Schema: clientmanagerspringboot; Owner: myapos
---
-
-COPY student_class (id, description, student_class_id) FROM stdin;
-117	kvmg	117
-1	kettlebelasd	117
-\.
-
-
---
 -- Name: student_class_id_seq; Type: SEQUENCE SET; Schema: clientmanagerspringboot; Owner: myapos
 --
 
-SELECT pg_catalog.setval('student_class_id_seq', 2, true);
+SELECT pg_catalog.setval('student_class_id_seq', 4, true);
 
 
 --
@@ -415,92 +213,107 @@ SELECT pg_catalog.setval('student_class_id_seq', 2, true);
 SELECT pg_catalog.setval('student_id_seq', 3, true);
 
 
---
--- Name: pk_databasechangeloglock; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-ALTER TABLE ONLY databasechangeloglock
-    ADD CONSTRAINT pk_databasechangeloglock PRIMARY KEY (id);
-
+SET search_path = public, pg_catalog;
 
 --
--- Name: pk_manager; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
+-- Data for Name: databasechangelog; Type: TABLE DATA; Schema: public; Owner: myapos
 --
 
-ALTER TABLE ONLY manager
-    ADD CONSTRAINT pk_manager PRIMARY KEY (id);
+COPY databasechangelog (id, author, filename, dateexecuted, orderexecuted, exectype, md5sum, description, comments, tag, liquibase, contexts, labels, deployment_id) FROM stdin;
+1	myapos	../database_liqui.json	2016-12-30 10:56:04.191599	1	EXECUTED	\N	createTable tableName=classes		\N	3.5.3	\N	\N	3088164049
+1	myapos	../database_liqui_2.json	2016-12-30 11:11:49.995605	2	EXECUTED	\N	createTable tableName=students		\N	3.5.3	\N	\N	3089109909
+\.
 
 
 --
--- Name: pk_payed; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
+-- Data for Name: databasechangeloglock; Type: TABLE DATA; Schema: public; Owner: myapos
 --
 
-ALTER TABLE ONLY payed
-    ADD CONSTRAINT pk_payed PRIMARY KEY (id);
-
-
---
--- Name: pk_register; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-ALTER TABLE ONLY register
-    ADD CONSTRAINT pk_register PRIMARY KEY (id);
+COPY databasechangeloglock (id, locked, lockgranted, lockedby) FROM stdin;
+1	f	\N	\N
+\.
 
 
 --
--- Name: pk_student; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
+-- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: myapos
 --
 
-ALTER TABLE ONLY student
-    ADD CONSTRAINT pk_student PRIMARY KEY (id);
-
-
---
--- Name: pk_student_class; Type: CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos; Tablespace: 
---
-
-ALTER TABLE ONLY student_class
-    ADD CONSTRAINT pk_student_class PRIMARY KEY (id);
+COPY employee (id, description, first_name, last_name, version, manager_id) FROM stdin;
+3	ring bearer	Frodo	Baggins	0	1
+4	burglar	Bilbo	Baggins	0	1
+5	wizard	Gandalf	the Grey	0	1
+6	gardener	Samwise	Gamgee	0	2
+7	pony rider	Merry	Brandybuck	0	2
+8	pipe smoker	Peregrin	Took	0	2
+\.
 
 
 --
--- Name: fk_classes; Type: FK CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: myapos
 --
 
-ALTER TABLE ONLY register
-    ADD CONSTRAINT fk_classes FOREIGN KEY (student_class_id) REFERENCES student_class(id);
-
-
---
--- Name: fk_manager; Type: FK CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos
---
-
-ALTER TABLE ONLY student
-    ADD CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES manager(id);
+SELECT pg_catalog.setval('hibernate_sequence', 1, false);
 
 
 --
--- Name: fk_register; Type: FK CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos
+-- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: myapos
 --
 
-ALTER TABLE ONLY payed
-    ADD CONSTRAINT fk_register FOREIGN KEY (register_id) REFERENCES register(id);
+COPY student (id, email, facebook, fname, lname, phone) FROM stdin;
+\.
+
+
+SET search_path = test, pg_catalog;
+
+--
+-- Data for Name: manager; Type: TABLE DATA; Schema: test; Owner: myapos
+--
+
+COPY manager (id, name, password, roles) FROM stdin;
+\.
 
 
 --
--- Name: fk_students; Type: FK CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos
+-- Data for Name: employee; Type: TABLE DATA; Schema: test; Owner: myapos
 --
 
-ALTER TABLE ONLY register
-    ADD CONSTRAINT fk_students FOREIGN KEY (student_id) REFERENCES student(id);
+COPY employee (id, description, first_name, last_name, version, manager_id) FROM stdin;
+\.
 
 
 --
--- Name: fk_subclass; Type: FK CONSTRAINT; Schema: clientmanagerspringboot; Owner: myapos
+-- Data for Name: student; Type: TABLE DATA; Schema: test; Owner: myapos
 --
 
-ALTER TABLE ONLY student_class
-    ADD CONSTRAINT fk_subclass FOREIGN KEY (student_class_id) REFERENCES student_class(id);
+COPY student (id, fname, lname, email, phone, facebook) FROM stdin;
+1	weqwe	dwqd	dwq	dwd	dwq
+2	fdsfd	fdsf	fdsfd	ffff	fff
+3	ttt	tt	gg	ff	sdf
+\.
+
+
+--
+-- Name: students_id_seq; Type: SEQUENCE SET; Schema: test; Owner: myapos
+--
+
+SELECT pg_catalog.setval('students_id_seq', 3, true);
+
+
+SET search_path = test2, pg_catalog;
+
+--
+-- Data for Name: manager; Type: TABLE DATA; Schema: test2; Owner: myapos
+--
+
+COPY manager (id, name, password, roles) FROM stdin;
+\.
+
+
+--
+-- Name: manager_id_seq; Type: SEQUENCE SET; Schema: test2; Owner: myapos
+--
+
+SELECT pg_catalog.setval('manager_id_seq', 1, false);
 
 
 --

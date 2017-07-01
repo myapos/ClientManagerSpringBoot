@@ -16,21 +16,41 @@ class App extends Component {
     initDataStudents: PropTypes.array,
     initPayments: PropTypes.array,
     displayInitialMsg: PropTypes.bool,
+    seconds: PropTypes.number,
+    timeElapsed: PropTypes.func,
   }
   constructor (props) {
     super(props);
     this.state = {
-      ...props,
+      // ...props,
+      timer: null,
+      counter: 0,
     };
   }
-
+  componentDidMount () {
+      let timer = setInterval(this.tick.bind(this), 1000);
+      this.setState({timer});
+    }
+  componentWillUnmount () {
+      this.clearInterval(this.state.timer);
+    }
+  tick () {
+    //debugger;
+      this.setState({
+        counter: this.state.counter + 1,
+      });
+    }
   render () {
     // debugger;
     let hasData = false;
     // Get the size of student --> array of obects. In initial state there is an empty object
     hasData = this.props.initDataStudents.length > 0;
+    const { seconds } = this.props;
+    // debugger;
     return (
-      <div>
+      <div>Loading{this.state.counter}
+      {
+        /*
         <Dashboard
           initRegistrations={this.props.initRegistrations}
           initDataStudentClasses={this.props.initDataStudentClasses}
@@ -41,7 +61,8 @@ class App extends Component {
           !hasData
           ? <div className="loader registers" />
           : null
-        }
+        }*/
+      }
       </div>
     );
   }
