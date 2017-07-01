@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/';
 import * as constants from '../constants';
 import Dashboard from '../components/Dashboard';
+import Spinner from '../components/Spinner';
 import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '../../../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -52,20 +53,21 @@ class App extends Component {
       // hide loader if maximum time passed
       this.props.timeElapsed(true);
       console.log('Maximum time passed. Hiding loader.');
+      alert('Maximum time passed. There are no data in data base!');
       clearInterval(timer);
     }
   }
 
   render () {
     let hasData = false;
-    const { seconds, timer, timePassed } = this.props;
+    const { seconds, timePassed } = this.props;
     // Get the size of student --> array of obects. In initial state there is an empty object
     hasData = this.props.initDataStudents.length > 0;
     return (
       <div>Time elapsed {seconds} (secs)
         {
           (!hasData && !timePassed)
-          ? <div className="loader registers" />
+          ? <Spinner />
           : <Dashboard
             initRegistrations={this.props.initRegistrations}
             initDataStudentClasses={this.props.initDataStudentClasses}

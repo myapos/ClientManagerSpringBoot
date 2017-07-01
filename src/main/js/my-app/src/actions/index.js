@@ -201,7 +201,6 @@ export function msgSubmitted (msg, selectedClass) {
 }
 
 export function loadingHandling (loadingHandlingCommplete) {
-  // debugger;
   return {
     type: LOADING_HANDLING,
     loadingHandlingCommplete,
@@ -209,7 +208,6 @@ export function loadingHandling (loadingHandlingCommplete) {
 }
 
 export function getSubClass (url, parentDesc, obj) {
-  // debugger;
   return {
     type: GET_SUBCLASS,
     url,
@@ -227,7 +225,6 @@ export function dataRegisters (saved_student) {
 }
 
 export function dataPaymentsRegisters (saved_student) {
-  // debugger;
   return {
     type: DATA_PAYMENTS_REGISTERS,
     saved_student,

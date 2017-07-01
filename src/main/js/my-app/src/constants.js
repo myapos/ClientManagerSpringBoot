@@ -16,5 +16,5 @@ export const searchByManager = `${BASE_URL}/api/managers/17`;
 export const txtMsg = `
 Please select class, write your message and press enter. The message will be send only to \n those students that has registered to classes and has payed.`;
 export const giveMessage = 'Press a key to delete this message and give yours';
-export const maximumTimeToWaitForData = 3;
+export const maximumTimeToWaitForData = 5;
 
