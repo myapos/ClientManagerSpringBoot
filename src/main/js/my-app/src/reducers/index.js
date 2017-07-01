@@ -5,7 +5,7 @@ const reducer = (state = {}, action) => {
     dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
-    text, displayInitialMsg } = action;
+    text, displayInitialMsg, timer, timePassed } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -188,12 +188,21 @@ const reducer = (state = {}, action) => {
         ...state,
         displayInitialMsg,
       };
-    case actions.TIME_ELAPSED:
-      debugger;
+    case actions.COUNTING_TIME:
       seconds = seconds + 1;
       return {
         ...state,
         seconds,
+      };
+    case actions.TIME_ELAPSED:
+      return {
+        ...state,
+        timePassed,
+      };
+    case actions.SET_TIMER:
+      return {
+        ...state,
+        timer,
       };
     default:
       return state;

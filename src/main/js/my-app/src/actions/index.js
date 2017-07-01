@@ -60,8 +60,10 @@ export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const DISPLAY_INITIAL_MSG = 'DISPLAY_INITIAL_MSG';
 
-/* TIME ELAPSED */
+/* TIME FUNCTIONS */
 export const TIME_ELAPSED = 'TIME_ELAPSED';
+export const COUNTING_TIME = 'COUNTING_TIME';
+export const SET_TIMER = 'SET_TIMER';
 
 export function getAllStudents () {
   // debugger;
@@ -246,9 +248,24 @@ export function displayInitialMessage (displayInitialMsg) {
   };
 }
 
-export function timeElapsed (seconds) {
+export function countingTime (seconds) {
   return {
-    type: TIME_ELAPSED,
+    type: COUNTING_TIME,
     seconds,
   };
 }
+
+export function timeElapsed (timePassed) {
+  return {
+    type: TIME_ELAPSED,
+    timePassed,
+  };
+}
+
+export function setTimer (timer) {
+  return {
+    type: SET_TIMER,
+    timer,
+  };
+}
+

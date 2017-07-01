@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions/';
+import * as constants from '../constants';
 import Dashboard from '../components/Dashboard';
 import '../../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
@@ -18,51 +19,60 @@ class App extends Component {
     displayInitialMsg: PropTypes.bool,
     seconds: PropTypes.number,
     timeElapsed: PropTypes.func,
+    countingTime: PropTypes.func,
+    setTimer: PropTypes.func,
+    timePassed: PropTypes.bool,
+    timer: PropTypes.number,
   }
   constructor (props) {
     super(props);
     this.state = {
-      // ...props,
-      timer: null,
-      counter: 0,
+      ...props,
     };
   }
+  componentWillMount () {
+  }
   componentDidMount () {
-      let timer = setInterval(this.tick.bind(this), 1000);
-      this.setState({timer});
-    }
+    const timer = setInterval(this.tick.bind(this), 1000);
+    this.props.setTimer(timer);
+    // this.setState({timer});
+  }
   componentWillUnmount () {
-      this.clearInterval(this.state.timer);
-    }
+    this.clearInterval(this.props.timer);
+  }
   tick () {
-    //debugger;
-      this.setState({
-        counter: this.state.counter + 1,
-      });
-    }
-  render () {
-    // debugger;
     let hasData = false;
+    const { seconds, timer } = this.props;
+    this.props.countingTime(seconds);
+    console.log('seconds:', seconds, ' passed');
     // Get the size of student --> array of obects. In initial state there is an empty object
     hasData = this.props.initDataStudents.length > 0;
-    const { seconds } = this.props;
-    // debugger;
+
+    if (!hasData && seconds === constants.maximumTimeToWaitForData) {
+      // hide loader if maximum time passed
+      this.props.timeElapsed(true);
+      console.log('Maximum time passed. Hiding loader.');
+      clearInterval(timer);
+    }
+  }
+
+  render () {
+    let hasData = false;
+    const { seconds, timer, timePassed } = this.props;
+    // Get the size of student --> array of obects. In initial state there is an empty object
+    hasData = this.props.initDataStudents.length > 0;
     return (
-      <div>Loading{this.state.counter}
-      {
-        /*
-        <Dashboard
-          initRegistrations={this.props.initRegistrations}
-          initDataStudentClasses={this.props.initDataStudentClasses}
-          initDataStudents={this.props.initDataStudents}
-          initPayments={this.props.initPayments}
-          displayInitialMsg={this.props.displayInitialMsg} />
+      <div>Time elapsed {seconds} (secs)
         {
-          !hasData
+          (!hasData && !timePassed)
           ? <div className="loader registers" />
-          : null
-        }*/
-      }
+          : <Dashboard
+            initRegistrations={this.props.initRegistrations}
+            initDataStudentClasses={this.props.initDataStudentClasses}
+            initDataStudents={this.props.initDataStudents}
+            initPayments={this.props.initPayments}
+            displayInitialMsg={this.props.displayInitialMsg} />
+        }
       </div>
     );
   }
