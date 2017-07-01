@@ -4,7 +4,9 @@ const reducer = (state = {}, action) => {
   const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
     dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
-    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded, text, displayInitialMsg } = action;
+    url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
+    text, displayInitialMsg, timer, timePassed } = action;
+  let { seconds } = action;
 
   switch (type) {
     case actions.GET_ALL_STUDENTS:
@@ -185,6 +187,22 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         displayInitialMsg,
+      };
+    case actions.COUNTING_TIME:
+      seconds = seconds + 1;
+      return {
+        ...state,
+        seconds,
+      };
+    case actions.TIME_ELAPSED:
+      return {
+        ...state,
+        timePassed,
+      };
+    case actions.SET_TIMER:
+      return {
+        ...state,
+        timer,
       };
     default:
       return state;

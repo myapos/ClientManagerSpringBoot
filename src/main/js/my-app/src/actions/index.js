@@ -60,6 +60,11 @@ export const SAGAS_DATA_PAYMENTS_REGISTERS = 'SAGAS_DATA_PAYMENTS_REGISTERS';
 export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const DISPLAY_INITIAL_MSG = 'DISPLAY_INITIAL_MSG';
 
+/* TIME FUNCTIONS */
+export const TIME_ELAPSED = 'TIME_ELAPSED';
+export const COUNTING_TIME = 'COUNTING_TIME';
+export const SET_TIMER = 'SET_TIMER';
+
 export function getAllStudents () {
   // debugger;
   parent.loadedStudentData = 0;
@@ -196,7 +201,6 @@ export function msgSubmitted (msg, selectedClass) {
 }
 
 export function loadingHandling (loadingHandlingCommplete) {
-  // debugger;
   return {
     type: LOADING_HANDLING,
     loadingHandlingCommplete,
@@ -204,7 +208,6 @@ export function loadingHandling (loadingHandlingCommplete) {
 }
 
 export function getSubClass (url, parentDesc, obj) {
-  // debugger;
   return {
     type: GET_SUBCLASS,
     url,
@@ -222,7 +225,6 @@ export function dataRegisters (saved_student) {
 }
 
 export function dataPaymentsRegisters (saved_student) {
-  // debugger;
   return {
     type: DATA_PAYMENTS_REGISTERS,
     saved_student,
@@ -240,6 +242,27 @@ export function displayInitialMessage (displayInitialMsg) {
   return {
     type: DISPLAY_INITIAL_MSG,
     displayInitialMsg,
+  };
+}
+
+export function countingTime (seconds) {
+  return {
+    type: COUNTING_TIME,
+    seconds,
+  };
+}
+
+export function timeElapsed (timePassed) {
+  return {
+    type: TIME_ELAPSED,
+    timePassed,
+  };
+}
+
+export function setTimer (timer) {
+  return {
+    type: SET_TIMER,
+    timer,
   };
 }
 

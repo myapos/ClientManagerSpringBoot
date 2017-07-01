@@ -18,6 +18,8 @@ const init = () => {
     initDataStudents: [],
     initPayments: [],
     displayInitialMsg: true,
+    seconds: 0,
+    timer: null,
   };
 
   ReactDOM.render(<Provider
