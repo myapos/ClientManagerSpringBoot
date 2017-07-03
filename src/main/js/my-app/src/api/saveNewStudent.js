@@ -49,8 +49,8 @@ export default (row, students) => {
       })
       .then(res => {
         if (res.status === 201) {
-          alert('New student saved succsesfully. Prepare for reloading');
-          window.location.reload(true);
+          alert('New student saved succsesfully. Press exit');
+          // window.location.reload(true);
         } else {
           alert('something bad happened.Please check your input data.');
         }
