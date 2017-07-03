@@ -36,7 +36,10 @@ class StudentDataTable extends Component {
 
   onAfterDeleteRow (rowKeys) {
     alert(`The rowkey you drop: ${rowKeys}`);
-    this.props.deleteStudent(rowKeys);
+    //  delete multiple rows
+    rowKeys.map(key => {
+      this.props.deleteStudent(key);
+    });
   }
   afterSaveStudentCell (row) {
   // call action for update

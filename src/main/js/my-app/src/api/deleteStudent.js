@@ -5,9 +5,9 @@ export default studentId => {
   const x = document.getElementById('students');
   const rowByClassId = x.querySelectorAll('tr')[studentId];
   const fname = rowByClassId.childNodes[2].innerHTML;
+  const lname = rowByClassId.childNodes[3].innerHTML;
 
-  fetch(`${constants.searchStudentFindByName}`
-            + `?fname=${fname}`, {
+  fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
               method: 'get',
               mode: 'cors',
               cache: 'default',
@@ -35,8 +35,8 @@ export default studentId => {
             })
             .then(res2 => {
               if (res2.status === 204) {
-                alert('Student is deleted succesfully.Prepare to reload');
-                window.location.reload(true);
+                alert('Student is deleted succesfully.');
+                // window.location.reload(true);
               } else if (res2.status === 500) {
                 alert('Something bad happened.Are there two users with the same name?');
               } else {
