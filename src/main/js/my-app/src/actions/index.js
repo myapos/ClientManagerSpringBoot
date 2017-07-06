@@ -85,10 +85,12 @@ export function deleteStudent (studentId) {
     studentId,
   };
 }
-export function updateStudent (rowUpdate) {
+export function updateStudent (rowUpdate, cellName, cellValue) {
   return {
     type: UPDATE_STUDENT,
     rowUpdate,
+    cellName,
+    cellValue,
   };
 }
 export function importStudents () {

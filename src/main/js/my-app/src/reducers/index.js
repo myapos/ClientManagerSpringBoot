@@ -2,7 +2,7 @@ import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
   const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
-    dataFetchedStudentClasses, row, classId, rowUpdate, desc, descBefore, selectedTab, namespace,
+    dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, descBefore, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
     text, displayInitialMsg, timer, timePassed } = action;
@@ -72,6 +72,8 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         rowUpdate,
+        cellName,
+        cellValue,
       };
     case actions.IMPORT_STUDENTS:
       return {

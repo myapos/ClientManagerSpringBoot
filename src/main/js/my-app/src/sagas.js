@@ -97,7 +97,7 @@ function* deleteStudent () {
 function* updateStudent () {
 	// console.log('updateStudent');
   const state = yield select();
-  const row = yield call(api.updateStudent, state.rowUpdate);
+  const row = yield call(api.updateStudent, state.rowUpdate, state.cellName, state.cellValue);
 
   yield put({
     type: actions.SAGAS_UPDATE_STUDENT,
