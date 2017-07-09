@@ -15,10 +15,12 @@ function* getDataFromServer () {
 
   // preprocess area
   const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
-  const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_);
+  const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_, 'description');
   const initDataStudents = yield utils.preprocessStudents(initDataStudents_);
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
   const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
+  const processedStudentClasses = yield utils.preprocessStudentClasses(filteredStudentClassesWithLinks, 'parentClass');
+  debugger;
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
@@ -27,6 +29,7 @@ function* getDataFromServer () {
     initPayments,
     studentClassesWithLinks,
     filteredStudentClassesWithLinks,
+    processedStudentClasses,
   });
 }
 

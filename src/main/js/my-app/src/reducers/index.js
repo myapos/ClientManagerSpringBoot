@@ -5,7 +5,7 @@ const reducer = (state = {}, action) => {
     filteredStudentClassesWithLinks, dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
-    text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses } = action;
+    text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -103,6 +103,7 @@ const reducer = (state = {}, action) => {
         initRegistrations,
         studentClassesWithLinks,
         filteredStudentClassesWithLinks,
+        processedStudentClasses,
       };
     case actions.SAVE_NEW_CLASS:
       return {

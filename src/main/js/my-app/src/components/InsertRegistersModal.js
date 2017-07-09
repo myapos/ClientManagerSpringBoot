@@ -9,6 +9,7 @@ class InsertRegistersModal extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    filteredStudentClassesWithLinks: PropTypes.array,
     onModalClose: PropTypes.func,
     onSave: PropTypes.func,
     columns: PropTypes.array,
@@ -40,7 +41,9 @@ class InsertRegistersModal extends Component {
       initDataStudentClasses,
       initRegistrations,
       initDataStudents,
+      processedStudentClasses,
     } = this.props;
+    //debugger;
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
@@ -109,7 +112,7 @@ class InsertRegistersModal extends Component {
                     <label >Τάξη</label>
                     <select ref={field} className="form-control">
                       {
-                      initDataStudentClasses.map((el, i) => {
+                      processedStudentClasses.map((el, i) => {
                         if (el.description !== 'No subclass') {
                           return <option key={i} value={el}>{el}</option>;
                         }
