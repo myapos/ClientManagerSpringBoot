@@ -21,6 +21,9 @@ export const DELETE_CLASS = 'DELETE_CLASS';
 export const SAGAS_DELETE_CLASS = 'SAGAS_DELETE_CLASS';
 export const UPDATE_CLASS = 'UPDATE_CLASS';
 export const SAGAS_UPDATE_CLASS = 'SAGAS_UPDATE_CLASS';
+export const NON_TERMINAL_CLASSES = 'NON_TERMINAL_CLASSES';
+export const FILTER_NON_TERMINAL_CLASSES = 'FILTER_NON_TERMINAL_CLASSES';
+export const SAGAS_NON_TERMINAL_CLASSES = 'SAGAS_NON_TERMINAL_CLASSES';
 
 /* ACTIONS FOR PAYMENTS_REGISTERS*/
 export const PAYMENTS_REGISTERS = 'PAYMENTS_REGISTERS';
@@ -268,3 +271,16 @@ export function setTimer (timer) {
   };
 }
 
+export function nonTerminalClasses (setNonTerminalClasses) {
+  return {
+    type: NON_TERMINAL_CLASSES,
+    setNonTerminalClasses,
+  };
+}
+
+export function filterNonTerminalClasses (filteredClasses) {
+  return {
+    type: FILTER_NON_TERMINAL_CLASSES,
+    filteredClasses,
+  };
+}

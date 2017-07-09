@@ -28,7 +28,6 @@ export default id => {
     .then(res => {
       // console.log('res:', res);
       const studentId = extractId (res._links.student.href);
-      debugger;
       // step 2 find register by student id
       fetch(`${constants.searchRegistrationsByStudent}${res._links.student.href}`,
         {
@@ -46,7 +45,6 @@ export default id => {
           console.log('res2:', res2);
           const registerLink = res2._embedded.registers[0]._links.self.href;
           console.log('registerLink:', registerLink);
-          debugger;
           fetch(`${constants.searchPaymentByRegistration}${registerLink}`, {
             method: 'get',
             mode: 'cors',

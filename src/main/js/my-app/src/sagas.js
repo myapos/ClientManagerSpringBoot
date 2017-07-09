@@ -14,11 +14,12 @@ function* getDataFromServer () {
   const initRegistrations_ = yield call(api.getDataRegisters, state);
 
   // preprocess area
-  const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
-  const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
-  const initDataStudents = utils.preprocessStudents(initDataStudents_);
+  const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
+  const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_);
+  const initDataStudents = yield utils.preprocessStudents(initDataStudents_);
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
   // console.log('initPayments:', initPayments);
+  const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
@@ -26,6 +27,7 @@ function* getDataFromServer () {
     initDataStudents,
     initPayments,
     studentClassesWithLinks,
+    filteredStudentClassesWithLinks,
   });
 }
 
@@ -210,6 +212,17 @@ function* getDataPaymentsRegisters () {
   });
 }
 
+/*function* filterNonTerminalClasses () {
+  // console.log('msgSubmitted');
+  const state = yield select();
+  const filteredClasses = yield call(api.filterNonTerminalClasses, state.filteredClasses);
+  debugger;
+  yield put({
+    type: actions.SAGAS_NON_TERMINAL_CLASSES,
+    filteredClasses,
+  });
+}
+*/
 function* rootSaga () {
   yield getDataFromServer();
   yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
@@ -229,6 +242,7 @@ function* rootSaga () {
   yield takeEvery(actions.GET_SUBCLASS, getSubClass);
   yield takeEvery(actions.DATA_REGISTERS, getDataRegisters);
   yield takeEvery(actions.DATA_PAYMENTS_REGISTERS, getDataPaymentsRegisters);
+  //yield takeEvery(actions.FILTER_NON_TERMINAL_CLASSES, filterNonTerminalClasses);
 }
 
 export default rootSaga;

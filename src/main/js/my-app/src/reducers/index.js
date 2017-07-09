@@ -2,10 +2,10 @@ import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
   const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
-    dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, descBefore, selectedTab, namespace,
+    filteredStudentClassesWithLinks, dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
-    text, displayInitialMsg, timer, timePassed } = action;
+    text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -102,6 +102,7 @@ const reducer = (state = {}, action) => {
         initPayments,
         initRegistrations,
         studentClassesWithLinks,
+        filteredStudentClassesWithLinks,
       };
     case actions.SAVE_NEW_CLASS:
       return {
@@ -206,6 +207,16 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         timer,
+      };
+    case actions.NON_TERMINAL_CLASSES:
+      return {
+        ...state,
+        setNonTerminalClasses,
+      };
+    case actions.FILTER_NON_TERMINAL_CLASSES:
+      return {
+        ...state,
+        filteredClasses,
       };
     default:
       return state;
