@@ -23,6 +23,7 @@ import msgSubmitted____ from './msgSubmitted____';
 import getSubClass from './getSubClass';
 import getDataRegisters from './getDataRegisters';
 import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
+import filterNonTerminalClasses from './filterNonTerminalClasses';
 
 export {
   getStudentClasses,
@@ -50,4 +51,5 @@ export {
   getSubClass,
   getDataRegisters,
   getDataPaymentsRegistrations,
+  filterNonTerminalClasses,
 };

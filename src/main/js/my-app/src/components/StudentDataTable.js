@@ -41,10 +41,17 @@ class StudentDataTable extends Component {
       this.props.deleteStudent(key);
     });
   }
-  afterSaveStudentCell (row) {
-  // call action for update
-    this.props.updateStudent(row);
+  afterSaveStudentCell (row, cellName, cellValue) {
+    // call action for update
+    // debugger;
+    this.props.updateStudent(row, cellName, cellValue);
   }
+
+  beforeSaveStudentCell (row, cellName, cellValue) {
+    // call action for update
+    this.props.updateStudent(row, cellName, cellValue);
+  }
+
   createInsertStudentModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { addStudent, initDataStudents } = this.props;
     const attr = {
@@ -65,7 +72,8 @@ class StudentDataTable extends Component {
     };
     const cellEditProp = {
       mode: 'click',
-      afterSaveCell: this.afterSaveStudentCell.bind(this),
+      // afterSaveCell: this.afterSaveStudentCell.bind(this),
+      beforeSaveCell: this.beforeSaveStudentCell.bind(this),
     };
 
     const options = {

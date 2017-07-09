@@ -4,7 +4,6 @@ export default classId => {
   const x = document.getElementById('studentClasses');
   const rowByClassId = x.querySelectorAll('tr')[classId];
   const description = rowByClassId.childNodes[2].innerHTML;
-
   if (description === 'No subclass') {
     alert('You can not delete this class. It is used for declaring classes with no subclasses. Please choose a different one.');
   } else {

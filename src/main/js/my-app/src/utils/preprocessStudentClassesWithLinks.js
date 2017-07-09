@@ -15,6 +15,8 @@ export default async classes => {
 
     const subClassInfo = await response.json();
     subClassInfo.parentClass = item.description;
+    subClassInfo._links = item._links;
+    // debugger;
     // console.log('subClassInfo:', subClassInfo);
     return subClassInfo;
   });
@@ -27,6 +29,7 @@ export default async classes => {
     const subClass = t.description;
     const parentClass = t.parentClass;
     const _links = t._links;
+    // debugger;
     tempClass = {
       index,
       subClass,
@@ -38,5 +41,6 @@ export default async classes => {
   }
   // console.log('classesResults:', classesResults);
   // return classes;
+  // debugger;
   return classesResults;
 };

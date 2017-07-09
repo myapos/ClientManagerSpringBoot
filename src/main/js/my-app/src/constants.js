@@ -18,3 +18,12 @@ Please select class, write your message and press enter. The message will be sen
 export const giveMessage = 'Press a key to delete this message and give yours';
 export const maximumTimeToWaitForData = 5;
 
+export const templateStudentBody = {
+  fname: {},
+  lname: {},
+  phone: {},
+  date: {},
+  email: {},
+  facebook: {},
+  manager : {},
+};

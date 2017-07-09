@@ -8,44 +8,44 @@ export default studentId => {
   const lname = rowByClassId.childNodes[3].innerHTML;
 
   fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
-              method: 'get',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-        .then(res => res.json())
-        .then(res1 => {
-          try {
-            const ar = res1._links.self.href.split('/');
-            const s = ar.length;
-            const id = ar[s - 1];
-            // delete record student class with id
+    method: 'get',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(res1 => {
+    try {
+      const ar = res1._links.self.href.split('/');
+      const s = ar.length;
+      const id = ar[s - 1];
+      // delete record student class with id
 
-            fetch(`${constants.studentsAPI}/${id}`, {
-              method: 'delete',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-            .then(res2 => {
-              if (res2.status === 204) {
-                alert('Student is deleted succesfully.');
-                // window.location.reload(true);
-              } else if (res2.status === 500) {
-                alert('Something bad happened.Are there two users with the same name?');
-              } else {
-                alert('Something bad happened. Please try again');
-              }
-            });
-          } catch (e) {
-            alert(`Something bad happened. Error: ${e.message}. Please try again`);
-            window.location.reload(true);
-          }
-        });
+      fetch(`${constants.studentsAPI}/${id}`, {
+        method: 'delete',
+        mode: 'cors',
+        cache: 'default',
+        headers: {
+          'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res2 => {
+        if (res2.status === 204) {
+          alert('Student is deleted succesfully.');
+          // window.location.reload(true);
+        } else if (res2.status === 500) {
+          alert('Something bad happened.Are there two users with the same name?');
+        } else {
+          alert('Something bad happened. Please try again');
+        }
+      });
+    } catch (e) {
+      alert(`Something bad happened. Error: ${e.message}. Please try again`);
+      window.location.reload(true);
+    }
+  });
 };

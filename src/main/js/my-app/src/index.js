@@ -20,6 +20,8 @@ const init = () => {
     displayInitialMsg: true,
     seconds: 0,
     timer: null,
+    setNonTerminalClasses: false,
+    filteredStudentClassesWithLinks: [[]],
   };
 
   ReactDOM.render(<Provider

@@ -14,12 +14,11 @@ function* getDataFromServer () {
   const initRegistrations_ = yield call(api.getDataRegisters, state);
 
   // preprocess area
-  const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
-  const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
-  const initDataStudents = utils.preprocessStudents(initDataStudents_);
-  // debugger;
+  const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
+  const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_);
+  const initDataStudents = yield utils.preprocessStudents(initDataStudents_);
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
-  // console.log('initPayments:', initPayments);
+  const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
@@ -27,11 +26,11 @@ function* getDataFromServer () {
     initDataStudents,
     initPayments,
     studentClassesWithLinks,
+    filteredStudentClassesWithLinks,
   });
 }
 
 function* getStudentClasses () {
-	// console.log('getStudentClasses');
   const state = yield select();
   const dataFetchedStudentClasses = yield call(api.getStudentClasses, state);
   yield put({
@@ -41,7 +40,6 @@ function* getStudentClasses () {
 }
 
 function* saveNewStudentClass () {
-	// console.log('saveNewStudentClass');
   const state = yield select();
   const saveNewClass = yield call(api.saveNewClass, state.row, state.studentClassesWithLinks);
   yield put({
@@ -51,7 +49,6 @@ function* saveNewStudentClass () {
 }
 
 function* deleteStudentClass () {
-	// console.log('deleteStudentClass');
   const state = yield select();
   const deleteStudentClassRes = yield call(api.deleteStudentClass, state.classId);
 
@@ -62,9 +59,13 @@ function* deleteStudentClass () {
 }
 
 function* updateStudentClass () {
-	// console.log('updateStudentClass');
   const state = yield select();
-  const desc = yield call(api.updateStudentClass, state.desc, state.rowUpdate);
+  const desc = yield call(
+    api.updateStudentClass,
+    state.desc,
+    state.rowUpdate,
+    state.studentClassesWithLinks,
+    state.updateMode);
 
   yield put({
     type: actions.SAGAS_UPDATE_CLASS,
@@ -73,7 +74,6 @@ function* updateStudentClass () {
 }
 
 function* saveNewStudent () {
-	// console.log('saveNewStudent');
   const state = yield select();
   const saveNewStudentRes = yield call(api.saveNewStudent, state.row, state.initDataStudents);
 
@@ -84,7 +84,6 @@ function* saveNewStudent () {
 }
 
 function* deleteStudent () {
-	// console.log('deleteStudent');
   const state = yield select();
   const studentId = yield call(api.deleteStudent, state.studentId);
 
@@ -95,9 +94,8 @@ function* deleteStudent () {
 }
 
 function* updateStudent () {
-	// console.log('updateStudent');
   const state = yield select();
-  const row = yield call(api.updateStudent, state.rowUpdate);
+  const row = yield call(api.updateStudent, state.rowUpdate, state.cellName, state.cellValue);
 
   yield put({
     type: actions.SAGAS_UPDATE_STUDENT,
@@ -106,7 +104,6 @@ function* updateStudent () {
 }
 
 function* addPaymentRegisters () {
-	// console.log('addPaymentRegisters');
   const state = yield select();
   const row = yield call(api.addPaymentRegisters, state.row);
 
@@ -117,7 +114,6 @@ function* addPaymentRegisters () {
 }
 
 function* updatePaymentRegisters () {
-	// console.log('updatePaymentRegisters');
   const state = yield select();
   const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode, state.rowUpdate);
   yield put({
@@ -127,7 +123,6 @@ function* updatePaymentRegisters () {
 }
 
 function* deletePaymentRegisters () {
-	// console.log('deletePaymentRegisters');
   const state = yield select();
   const row = yield call(api.deletePaymentRegisters, state.rowUpdate, state.paymentId);
   yield put({
@@ -137,7 +132,6 @@ function* deletePaymentRegisters () {
 }
 
 function* createRegisters () {
-	// console.log('createRegisters');
   const state = yield select();
   const row = yield call(api.createRegisters, state.rowUpdate);
   yield put({
@@ -147,7 +141,6 @@ function* createRegisters () {
 }
 
 function* updateRegisters () {
-	// console.log('updateRegisters');
   const state = yield select();
   const row = yield call(api.updateRegisters, state.rowUpdate);
 
@@ -158,7 +151,6 @@ function* updateRegisters () {
 }
 
 function* deleteRegisters () {
-	// console.log('deleteRegister');
   const state = yield select();
   const registerId = yield call(api.deleteRegisters, state.registerId);
 
@@ -169,7 +161,6 @@ function* deleteRegisters () {
 }
 
 function* msgSubmitted () {
-	// console.log('msgSubmitted');
   const state = yield select();
   const msg = yield call(api.msgSubmitted, state.msg, state.selectedClass);
 
@@ -180,7 +171,6 @@ function* msgSubmitted () {
 }
 
 function* getSubClass () {
-  // console.log('msgSubmitted');
   const state = yield select();
   const classesPair = yield call(api.getSubClass, state.url, state.parentDesc, state.obj);
   yield put({
@@ -201,10 +191,8 @@ function* getDataRegisters () {
 }
 
 function* getDataPaymentsRegisters () {
-  // console.log('msgSubmitted');
   const state = yield select();
   const dataPaymentsRegistersLoaded = yield call(api.getDataPaymentsRegisters, state.saved_student);
-  // console.log("SAGAS_DATA_REGISTERS",dataRegisters);
   yield put({
     type: actions.SAGAS_DATA_PAYMENTS_REGISTERS,
     dataPaymentsRegistersLoaded,
