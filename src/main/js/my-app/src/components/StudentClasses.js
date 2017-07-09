@@ -21,7 +21,10 @@ class StudentClasses extends Component {
   onAfterDeleteRow (rowKeys) {
     alert(`The rowkey you drop: ${rowKeys}`);
     // console.log("delete data from database",this.props);
-    this.props.deleteClass(rowKeys);
+    debugger;
+    rowKeys.map(key => {
+      this.props.deleteClass(key);
+    });
   }
 
   onAfterInsertRow (row) {

@@ -62,7 +62,7 @@ FOREIGN KEY (student_class_id) REFERENCES student_class(id) ON UPDATE CASCADE ON
 Διαχείριση Εγγραφών
 
 1. Εγγραφή - δημιουργία οκ
-2. Ανανέωση na aneksartitopoiithei to subclass sto update
+2. Ανανέωση ok
 3. Διαγραφή ok
 4. Πολλαπλή διαγραφη
 
