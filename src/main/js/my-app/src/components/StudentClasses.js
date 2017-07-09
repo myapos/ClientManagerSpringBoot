@@ -32,9 +32,18 @@ class StudentClasses extends Component {
   }
 
   beforeSaveStudentClassCell (row, cellName, cellValue) {
-    debugger;
-    // call action for update
-    this.props.updateClass(row, cellValue);
+    const { studentClassesWithLinks } = this.props;
+    const mode = {
+      'parentClass': 'parentClass',
+      'subClass': 'subClass',
+    };
+
+    if (cellName === 'parentClass') {
+      // call action for update
+      this.props.updateClass(row, cellValue, studentClassesWithLinks, mode.parentClass);
+    } else if (cellName === 'subClass') {
+      this.props.updateClass(row, cellValue, studentClassesWithLinks, mode.subClass);
+    }
   }
 
   createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {

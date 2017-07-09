@@ -5,7 +5,9 @@ export default (row, studentClassesWithLinks) => {
   // functionality --> Create new class
   // step 1 find link of subclass given to modal window
   // use studentClassesWithLinks for this to match description
+  debugger;
   const subClassLink = findLinkOfSubClass(row.subClass, studentClassesWithLinks);
+  debugger;
   // step 2 execute post request to studentclasses api
   const bodyData = JSON.stringify({
     'description': row.parentClass,

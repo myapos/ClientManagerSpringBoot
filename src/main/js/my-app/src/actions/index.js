@@ -66,7 +66,6 @@ export const COUNTING_TIME = 'COUNTING_TIME';
 export const SET_TIMER = 'SET_TIMER';
 
 export function getAllStudents () {
-  // debugger;
   parent.loadedStudentData = 0;
   return {
     type: GET_ALL_STUDENTS,
@@ -121,12 +120,13 @@ export function deleteClass (classId) {
     classId,
   };
 }
-export function updateClass (rowUpdate, desc, descBefore) {
+export function updateClass (rowUpdate, desc, studentClassesWithLinks, updateMode) {
   return {
     type: UPDATE_CLASS,
     rowUpdate,
     desc,
-    descBefore,
+    studentClassesWithLinks,
+    updateMode,
   };
 }
 

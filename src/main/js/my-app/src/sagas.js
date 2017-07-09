@@ -17,7 +17,6 @@ function* getDataFromServer () {
   const initRegistrations = utils.preprocessRegistrations(initRegistrations_);
   const initDataStudentClasses = utils.preprocessStudentClasses(initDataStudentClasses_);
   const initDataStudents = utils.preprocessStudents(initDataStudents_);
-  // debugger;
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
   // console.log('initPayments:', initPayments);
   yield put({
@@ -64,7 +63,7 @@ function* deleteStudentClass () {
 function* updateStudentClass () {
 	// console.log('updateStudentClass');
   const state = yield select();
-  const desc = yield call(api.updateStudentClass, state.desc, state.rowUpdate);
+  const desc = yield call(api.updateStudentClass, state.desc, state.rowUpdate, state.studentClassesWithLinks, state.updateMode);
 
   yield put({
     type: actions.SAGAS_UPDATE_CLASS,

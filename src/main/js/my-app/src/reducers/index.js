@@ -119,7 +119,8 @@ const reducer = (state = {}, action) => {
         ...state,
         rowUpdate,
         desc,
-        descBefore,
+        studentClassesWithLinks,
+        updateMode,
       };
     case actions.CHANGE_SELECTED_TAB:
       return {
