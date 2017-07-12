@@ -101,7 +101,7 @@ FOREIGN KEY (student_class_id) REFERENCES student_class(id) ON UPDATE CASCADE ON
 
 ΙΔΕΕΣ ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ
 
-1. Να γίνεται αντιστοίχιση επωνύμου και email με όνομα στις εγγραφές
+1. Να γίνεται αντιστοίχιση επωνύμου και email με όνομα στις εγγραφές ok https://codepen.io/myapos/pen/gRZxjR?editors=0010
 2. Διόρθωση οταν δεν έχει δεδομένα οκ
 3. Πολλαπλή διαγραφή ok
 4. Αφαίρεση το prepare to reload και το reload από παντού in progress
