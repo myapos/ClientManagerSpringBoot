@@ -109,19 +109,19 @@ class Dashboard extends Component {
               style={styles.tabLink}>Διαχείριση Πελατών
             </TabLink>
             <TabLink
-              to="tab2"
+              to="tab4"
               default={this.defaultTab('tab2')}
+              style={styles.tabLink}>Διαχείριση Τμημάτων
+            </TabLink>
+            <TabLink
+              to="tab2"
+              default={this.defaultTab('tab3')}
               style={styles.tabLink}>Διαχείριση Εγγραφών
             </TabLink>
             <TabLink
               to="tab3"
-              default={this.defaultTab('tab3')}
-              style={styles.tabLink}>Διαχείριση Πληρωμών
-            </TabLink>
-            <TabLink
-              to="tab4"
               default={this.defaultTab('tab4')}
-              style={styles.tabLink}>Διαχείριση Τμημάτων
+              style={styles.tabLink}>Διαχείριση Πληρωμών
             </TabLink>
             <TabLink
               to="tab5"
@@ -139,9 +139,7 @@ class Dashboard extends Component {
             <TabContent for="tab2">
               <div id="tab2">
                 <Registers
-                  initRegistrations={initRegistrations}
-                  initDataStudentClasses={initDataStudentClasses}
-                  initDataStudents={initDataStudents} />
+                  initDataStudentClasses={initDataStudentClasses} />
               </div>
             </TabContent>
             <TabContent for="tab3">
@@ -153,7 +151,9 @@ class Dashboard extends Component {
             <TabContent for="tab4">
               <div id="tab4">
                 <StudentClasses
-                  initDataStudentClasses={initDataStudentClasses} />
+                  initRegistrations={initRegistrations}
+                  initDataStudentClasses={initDataStudentClasses}
+                  initDataStudents={initDataStudents} />
               </div>
             </TabContent>
             <TabContent for="tab5">

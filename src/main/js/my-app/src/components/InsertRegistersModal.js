@@ -9,6 +9,7 @@ class InsertRegistersModal extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    filteredStudentClassesWithLinks: PropTypes.array,
     onModalClose: PropTypes.func,
     onSave: PropTypes.func,
     columns: PropTypes.array,
@@ -17,6 +18,7 @@ class InsertRegistersModal extends Component {
     addStudent: PropTypes.func,
     availableClasses: PropTypes.array,
     createRegisters: PropTypes.func,
+    lname: PropTypes.string,
   }
   handleSaveBtnClick () {
     const {
@@ -31,6 +33,29 @@ class InsertRegistersModal extends Component {
     createRegisters(newRow);
     // onSave(newRow);
   }
+  handleChange (e) {
+    // https://facebook.github.io/react/docs/forms.html
+    console.log('changed value ', e.target.value);
+    // get surnames according to selection using selected value
+    // pass it to the state
+    // create action, reducer ok
+    this.props.matchNames(e.target.value);
+    // set selected value to read from the state
+    // it will be rerendered
+    // e.preventDefault();
+    // debugger;
+  }
+  handleChange2 (e) {
+    // https://facebook.github.io/react/docs/forms.html
+    console.log('changed value from handleChange2 ', e.target.value);
+    // get surnames according to selection using selected value
+    // pass it to the state
+    // create action, reducer ok
+    // this.props.matchNames('test match names');
+    // set selected value to read from the state
+    // it will be rerendered
+    // e.preventDefault();
+  }
   render () {
     const {
       onModalClose,
@@ -40,7 +65,11 @@ class InsertRegistersModal extends Component {
       initDataStudentClasses,
       initRegistrations,
       initDataStudents,
+      processedStudentClasses,
+      fname,
+      email,
     } = this.props;
+    // debugger;
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
@@ -59,7 +88,6 @@ class InsertRegistersModal extends Component {
               }
               // console.log('log:', column);
               const error = validateState[field] ? (<span className="help-block bg-danger">{ validateState[field] }</span>) : null;
-              // debugger;
               if (field === 'index') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
@@ -71,24 +99,34 @@ class InsertRegistersModal extends Component {
                     { error }
                   </div>);
               } else if (field === 'fname') {
+                // debugger;
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label>Όνομα</label>
-                    <select ref={field} className="form-control">
+                    <select
+                      ref={field}
+                      className="form-control"
+                      onChange={this.handleChange.bind(this)}
+                      value={fname}>
                       {
-                      initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
-                    }
+                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
+                      }
                     </select>
                     { error }
                   </div>);
               } else if (field === 'lname') {
+                // debugger;
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label >Επίθετο</label>
-                    <select ref={field} className="form-control">
+                    <select
+                      ref={field}
+                      className="form-control"
+                      onChange={this.handleChange.bind(this)}
+                      value={fname}>
                       {
-                      initDataStudents.map((el, i) => <option key={i} value={el.lname}>{el.lname}</option>)
-                    }
+                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.lname}</option>)
+                      }
                     </select>
                     { error }
                   </div>);
@@ -96,11 +134,20 @@ class InsertRegistersModal extends Component {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label >Email</label>
-                    <input
+                    <select
+                      ref={field}
+                      className="form-control"
+                      onChange={this.handleChange.bind(this)}
+                      value={fname}>
+                      {
+                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.email}</option>)
+                      }
+                    </select>
+                    {/*<input
                       ref={field}
                       className="form-control"
                       type="email"
-                      defaultValue={''} />
+                      defaultValue={''} />*/}
                     { error }
                   </div>);
               } else if (field === 'class') {
@@ -109,7 +156,7 @@ class InsertRegistersModal extends Component {
                     <label >Τάξη</label>
                     <select ref={field} className="form-control">
                       {
-                      initDataStudentClasses.map((el, i) => {
+                      processedStudentClasses.map((el, i) => {
                         if (el.description !== 'No subclass') {
                           return <option key={i} value={el}>{el}</option>;
                         }
