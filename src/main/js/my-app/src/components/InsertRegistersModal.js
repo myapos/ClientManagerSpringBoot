@@ -18,7 +18,9 @@ class InsertRegistersModal extends Component {
     addStudent: PropTypes.func,
     availableClasses: PropTypes.array,
     createRegisters: PropTypes.func,
-    lname: PropTypes.string,
+    fname: PropTypes.string,
+    email: PropTypes.string,
+    matchNames: PropTypes.func,
   }
   handleSaveBtnClick () {
     const {
