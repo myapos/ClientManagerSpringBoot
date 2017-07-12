@@ -20,7 +20,6 @@ function* getDataFromServer () {
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
   const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
   const processedStudentClasses = yield utils.preprocessStudentClasses(filteredStudentClassesWithLinks, 'parentClass');
-  debugger;
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,

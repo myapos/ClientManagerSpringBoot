@@ -6,6 +6,7 @@ http://localhost/phppgadmin/
 http://localhost:3000/#/
 http://localhost:8181/#/
 https://gist.github.com/mikaelbr/9900818
+https://facebook.github.io/react/docs/forms.html
 
 bugs to solve:
 
@@ -100,11 +101,11 @@ FOREIGN KEY (student_class_id) REFERENCES student_class(id) ON UPDATE CASCADE ON
 
 ΙΔΕΕΣ ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ
 
-1. Να γίνεται αντιστοίχιση επωνύμου με όνομα στις εγγραφές
+1. Να γίνεται αντιστοίχιση επωνύμου και email με όνομα στις εγγραφές
 2. Διόρθωση οταν δεν έχει δεδομένα οκ
 3. Πολλαπλή διαγραφή ok
-4. Αφαίρεση το prepare to reload και το reload από παντού
-5. Να βάλω ενα κουμπι στα τμηματα που θα κανει display none σε ολα τα μη τερματικα τμήματα
+4. Αφαίρεση το prepare to reload και το reload από παντού in progress
+5. Να βάλω ενα κουμπι στα τμηματα που θα κανει display none σε ολα τα μη τερματικα τμήματα ok
 
 
 setup database

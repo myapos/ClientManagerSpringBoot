@@ -5,7 +5,8 @@ const reducer = (state = {}, action) => {
     filteredStudentClassesWithLinks, dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, selectedTab, namespace,
     studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
-    text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses } = action;
+    text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses,
+    fname, email } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -218,6 +219,12 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         filteredClasses,
+      };
+    case actions.MATCH_NAMES:
+      return {
+        ...state,
+        fname,
+        email,
       };
     default:
       return state;

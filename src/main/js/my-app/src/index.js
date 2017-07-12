@@ -22,6 +22,7 @@ const init = () => {
     timer: null,
     setNonTerminalClasses: false,
     filteredStudentClassesWithLinks: [[]],
+    lname: '',
   };
 
   ReactDOM.render(<Provider

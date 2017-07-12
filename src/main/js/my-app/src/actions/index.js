@@ -68,6 +68,9 @@ export const TIME_ELAPSED = 'TIME_ELAPSED';
 export const COUNTING_TIME = 'COUNTING_TIME';
 export const SET_TIMER = 'SET_TIMER';
 
+/* MATCH FIRST NAME WITH LNAME*/
+export const MATCH_NAMES = 'MATCH_NAMES';
+
 export function getAllStudents () {
   parent.loadedStudentData = 0;
   return {
@@ -138,11 +141,11 @@ export function changeSelectedTab (selectedTab, tabNamespace) {
   if (selectedTab === 'tab1') {
     act = 'GET_ALL_STUDENTS';
   } else if (selectedTab === 'tab2') {
-    act = 'PAYMENTS_REGISTERS';
+    act = 'STUDENT_CLASS_DASHBOARD';
   } else if (selectedTab === 'tab3') {
     act = 'REGISTERS';
   } else if (selectedTab === 'tab4') {
-    act = 'STUDENT_CLASS_DASHBOARD';
+    act = 'PAYMENTS_REGISTERS';
   } else if (selectedTab === 'tab5') {
     act = 'SEND_EMAILS_MANUALLY';
   }
@@ -282,5 +285,13 @@ export function filterNonTerminalClasses (filteredClasses) {
   return {
     type: FILTER_NON_TERMINAL_CLASSES,
     filteredClasses,
+  };
+}
+
+export function matchNames (fname, email){
+  return {
+    type: MATCH_NAMES,
+    fname,
+    email,
   };
 }
