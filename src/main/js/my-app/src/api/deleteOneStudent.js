@@ -6,8 +6,10 @@ export default studentId => {
   const rowByClassId = x.querySelectorAll('tr')[studentId];
   const fname = rowByClassId.childNodes[2].innerHTML;
   const lname = rowByClassId.childNodes[3].innerHTML;
-
-  fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
+  // debugger;
+  // return ({ foo: 'bar' });
+  const deletedPromise = fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
+  // return fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
     method: 'get',
     mode: 'cors',
     cache: 'default',
@@ -24,7 +26,7 @@ export default studentId => {
       const id = ar[s - 1];
       // delete record student class with id
 
-      fetch(`${constants.studentsAPI}/${id}`, {
+      return fetch(`${constants.studentsAPI}/${id}`, {
         method: 'delete',
         mode: 'cors',
         cache: 'default',
@@ -35,17 +37,23 @@ export default studentId => {
       })
       .then(res2 => {
         if (res2.status === 204) {
-          alert('Student is deleted succesfully.');
+          // alert('Student is deleted succesfully.');
           // window.location.reload(true);
         } else if (res2.status === 500) {
-          alert('Something bad happened.Are there two users with the same name?');
+          alert('Something bad happened. Are there two users with the same name?');
         } else {
           alert('Something bad happened. Please try again');
         }
+        return ({
+          status: res2.status,
+          studentId,
+        });
       });
     } catch (e) {
       alert(`Something bad happened. Error: ${e.message}. Please try again`);
-      window.location.reload(true);
+      // window.location.reload(true);
     }
   });
+
+  return deletedPromise;
 };

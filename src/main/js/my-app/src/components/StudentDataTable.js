@@ -12,7 +12,7 @@ class StudentDataTable extends Component {
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
     addStudent: PropTypes.func,
-    deleteStudent: PropTypes.func,
+    deleteStudents: PropTypes.func,
     updateStudent: PropTypes.func,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
@@ -37,13 +37,18 @@ class StudentDataTable extends Component {
   onAfterDeleteRow (rowKeys) {
     alert(`The rowkey you drop: ${rowKeys}`);
     //  delete multiple rows
-    rowKeys.map(key => {
-      this.props.deleteStudent(key);
-    });
+    this.props.deleteStudents(rowKeys);
+    // const returned = rowKeys.map(key => this.props.deleteStudent(key));
+    // const { deletedStatus, studentDeletedId } = this.props;
+    // const { success } = this.props;
+    // debugger;
+    // console.log('success:', success);
+    // if (success) {
+    //   this.props.getAllStudents();
+    // }
   }
   afterSaveStudentCell (row, cellName, cellValue) {
     // call action for update
-    // debugger;
     this.props.updateStudent(row, cellName, cellValue);
   }
 
@@ -54,8 +59,15 @@ class StudentDataTable extends Component {
 
   createInsertStudentModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { addStudent, initDataStudents } = this.props;
-    const attr = {
-      onModalClose, onSave, columns, validateState, ignoreEditable, addStudent, initDataStudents,
+    const attr
+    = {
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      addStudent,
+      initDataStudents,
     };
     return (
       <InsertStudentModal {... attr} />
@@ -64,6 +76,9 @@ class StudentDataTable extends Component {
 
   render () {
     const { initDataStudents } = this.props;
+    // debugger;
+    // console.log('success:', success);
+
     // preprocess area
     // const initDataStudents_ = preprocessStudents(initDataStudents);
     // If you want to enable deleteRow, you must enable row selection also.

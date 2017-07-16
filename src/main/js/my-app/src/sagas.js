@@ -77,7 +77,7 @@ function* updateStudentClass () {
 
 function* saveNewStudent () {
   const state = yield select();
-  const saveNewStudentRes = yield call(api.saveNewStudent, state.row, state.initDataStudents);
+  const saveNewStudentRes = yield call(api.saveNewStudent, state.row, state.initDataStudents, state.onModalClose);
 
   yield put({
     type: actions.SAGAS_SAVE_NEW_STUDENT,
@@ -85,14 +85,15 @@ function* saveNewStudent () {
   });
 }
 
-function* deleteStudent () {
+function* deleteStudents () {
   const state = yield select();
-  const studentId = yield call(api.deleteStudent, state.studentId);
 
+  const { success } = yield call(api.deleteStudents, state.students);
   yield put({
-    type: actions.SAGAS_DELETE_STUDENT,
-    studentId,
+    type: actions.SAGAS_DELETE_STUDENTS,
+    success,
   });
+  yield getDataFromServer();
 }
 
 function* updateStudent () {
@@ -208,7 +209,7 @@ function* rootSaga () {
   yield takeEvery(actions.DELETE_CLASS, deleteStudentClass);
   yield takeEvery(actions.UPDATE_CLASS, updateStudentClass);
   yield takeEvery(actions.ADD_STUDENT, saveNewStudent);
-  yield takeEvery(actions.DELETE_STUDENT, deleteStudent);
+  yield takeEvery(actions.DELETE_STUDENTS, deleteStudents);
   yield takeEvery(actions.UPDATE_STUDENT, updateStudent);
   yield takeEvery(actions.CREATE_PAYMENTS_REGISTERS, addPaymentRegisters);
   yield takeEvery(actions.UPDATE_PAYMENTS_REGISTERS, updatePaymentRegisters);

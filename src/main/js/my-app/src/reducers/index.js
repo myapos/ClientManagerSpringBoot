@@ -3,15 +3,15 @@ import * as actions from '../actions/';
 const reducer = (state = {}, action) => {
   const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
     filteredStudentClassesWithLinks, dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, selectedTab, namespace,
-    studentId, paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
+    paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
     text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses,
-    fname, email } = action;
+    fname, email, onModalClose, students, success } = action;
   let { seconds } = action;
 
   switch (type) {
     case actions.GET_ALL_STUDENTS:
-      parent.loadedStudentData = 0;
+
       return {
         ...state,
         all: state.saved_student,
@@ -63,11 +63,12 @@ const reducer = (state = {}, action) => {
         ...state,
         row,
         initDataStudents,
+        onModalClose,
       };
-    case actions.DELETE_STUDENT:
+    case actions.DELETE_STUDENTS:
       return {
         ...state,
-        studentId,
+        students,
       };
     case actions.UPDATE_STUDENT:
       return {
@@ -225,6 +226,11 @@ const reducer = (state = {}, action) => {
         ...state,
         fname,
         email,
+      };
+    case actions.SAGAS_DELETE_STUDENTS:
+      return {
+        ...state,
+        success,
       };
     default:
       return state;

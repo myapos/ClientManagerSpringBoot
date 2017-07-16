@@ -20,13 +20,13 @@ class InsertStudentModal extends Component {
     createRegisters: PropTypes.func,
   }
   handleSaveBtnClick = () => {
-    const { columns, addStudent, initDataStudents } = this.props;
+    const { columns, addStudent, initDataStudents, onModalClose } = this.props;
     const newRow = {};
     columns.forEach((column, i) => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
     // You should call onSave function and give the new row
-    addStudent(newRow, initDataStudents);
+    addStudent(newRow, initDataStudents, onModalClose);
     // onSave(newRow);
   }
 
