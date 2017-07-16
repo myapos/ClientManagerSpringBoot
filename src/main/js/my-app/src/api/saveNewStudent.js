@@ -1,10 +1,10 @@
 import * as constants from '../constants';
 
-export default (row, students) => {
+export default (row, students, onModalClose) => {
   let exist = false;
 
   // check if student exist already in database due to fname, lname, mobile
-  //const students = parent.students;
+  // const students = parent.students;
   students.push(row);
   exist = students.map((obj, key) => {
     const rowtoCheck = students[students.length - 1];
@@ -50,6 +50,7 @@ export default (row, students) => {
       .then(res => {
         if (res.status === 201) {
           alert('New student saved succsesfully. Press exit');
+          onModalClose();
           // window.location.reload(true);
         } else {
           alert('something bad happened.Please check your input data.');

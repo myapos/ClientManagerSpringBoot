@@ -94,7 +94,7 @@ export default registerId => {
                         }
                       } else {
                         console.log('No payments are found!Deleting registration');
-                        debugger;
+                        // debugger;
                         const url4 = registerLink;
                         const request3 = new XMLHttpRequest();
                         request3.open('delete', url4, true);  // `false` makes the request synchronous

@@ -135,7 +135,7 @@ export default (updateMode, row) => {
                               } else {
                                 for (let s = 0; s < resObj3._embedded.payeds.length; s++) { // for 2
                                   const payment = resObj3._embedded.payeds[s]._links.payed.href; // has to be fixed for many
-                                  debugger;
+                                  // debugger;
                                   // step 3.2 update payments
                                   const date = new Date(row.dateOfPayment.substr(0, 10));
 

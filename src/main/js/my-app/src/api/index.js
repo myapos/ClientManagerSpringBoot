@@ -8,7 +8,8 @@ import saveNewClass from './saveNewClass';
 import deleteStudentClass from './deleteStudentClass';
 import updateStudentClass from './updateStudentClass';
 import saveNewStudent from './saveNewStudent';
-import deleteStudent from './deleteStudent';
+import deleteStudents from './deleteStudents';
+import deleteOneStudent from './deleteOneStudent';
 import updateStudent from './updateStudent';
 import addPaymentRegisters from './addPaymentRegisters';
 import updatePaymentRegisters from './updatePaymentRegisters';
@@ -36,7 +37,8 @@ export {
   deleteStudentClass,
   updateStudentClass,
   saveNewStudent,
-  deleteStudent,
+  deleteStudents,
+  deleteOneStudent,
   updateStudent,
   addPaymentRegisters,
   updatePaymentRegisters,

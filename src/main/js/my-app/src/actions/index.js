@@ -5,8 +5,8 @@ export const DATA_INITIALIZATION = 'DATA_INITIALIZATION';
 export const GET_ALL_STUDENTS = 'GET_ALL_STUDENTS';
 export const ADD_STUDENT = 'ADD_STUDENT';
 export const SAGAS_SAVE_NEW_STUDENT = 'SAGAS_SAVE_NEW_STUDENT';
-export const DELETE_STUDENT = 'DELETE_STUDENT';
-export const SAGAS_DELETE_STUDENT = 'SAGAS_DELETE_STUDENT';
+export const DELETE_STUDENTS = 'DELETE_STUDENTS';
+export const SAGAS_DELETE_STUDENTS = 'SAGAS_DELETE_STUDENTS';
 export const UPDATE_STUDENT = 'UPDATE_STUDENT';
 export const SAGAS_UPDATE_STUDENT = 'SAGAS_UPDATE_STUDENT';
 export const IMPORT_STUDENTS = 'IMPORT_STUDENTS';
@@ -72,22 +72,22 @@ export const SET_TIMER = 'SET_TIMER';
 export const MATCH_NAMES = 'MATCH_NAMES';
 
 export function getAllStudents () {
-  parent.loadedStudentData = 0;
   return {
     type: GET_ALL_STUDENTS,
   };
 }
-export function addStudent (row, initDataStudents) {
+export function addStudent (row, initDataStudents, onModalClose) {
   return {
     type: ADD_STUDENT,
     row,
     initDataStudents,
+    onModalClose,
   };
 }
-export function deleteStudent (studentId) {
+export function deleteStudents (students) {
   return {
-    type: DELETE_STUDENT,
-    studentId,
+    type: DELETE_STUDENTS,
+    students,
   };
 }
 export function updateStudent (rowUpdate, cellName, cellValue) {
@@ -293,5 +293,11 @@ export function matchNames (fname, email){
     type: MATCH_NAMES,
     fname,
     email,
+  };
+}
+export function sagasDeleteStudents (success){
+  return {
+    type: SAGAS_DELETE_STUDENTS,
+    success,
   };
 }
