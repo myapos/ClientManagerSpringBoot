@@ -29,7 +29,14 @@ class InsertRegistersModal extends Component {
     } = this.props;
     const newRow = {};
     columns.forEach(column => {
-      newRow[column.field] = this.refs[column.field].value;
+      // debugger;
+      const item = this.refs[column.field];
+      if (item.className.match(/selectInput/)) {
+        // debugger;
+        newRow[column.field] = item.options[item.selectedIndex].text; //this.refs[column.field].value;
+      } else {
+        newRow[column.field] = item.value;
+      }
     }, this);
     // You should call onSave function and give the new row
     createRegisters(newRow);
@@ -107,7 +114,7 @@ class InsertRegistersModal extends Component {
                     <label>Όνομα</label>
                     <select
                       ref={field}
-                      className="form-control"
+                      className="form-control selectInput"
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
@@ -123,7 +130,7 @@ class InsertRegistersModal extends Component {
                     <label >Επίθετο</label>
                     <select
                       ref={field}
-                      className="form-control"
+                      className="form-control selectInput"
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
@@ -138,7 +145,7 @@ class InsertRegistersModal extends Component {
                     <label >Email</label>
                     <select
                       ref={field}
-                      className="form-control"
+                      className="form-control selectInput"
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
@@ -156,7 +163,7 @@ class InsertRegistersModal extends Component {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label >Τάξη</label>
-                    <select ref={field} className="form-control">
+                    <select ref={field} className="form-control selectInput">
                       {
                       processedStudentClasses.map((el, i) => {
                         if (el.description !== 'No subclass') {

@@ -11,7 +11,7 @@ export const searchRegistrationsByStudent = `${BASE_URL}/api/registers/search/fi
 export const searchRegistrationsByStudentAndStudentClass = `${BASE_URL}/api/registers/search/findByStudent?student=`;
 export const searchRegistrationsByStudentClass = `${BASE_URL}/api/registers/search/findByStudentClass?studentClass=`;
 export const searchStudentClassesByDescription = `${BASE_URL}/api/studentClasses/search/findBydescription?description=`;
-export const searchStudentClassesByFnameAndLname = `${BASE_URL}/api/students/search/findByFnameAndLname?fname=`;
+export const searchStudentClassesByFnameAndLname = `${BASE_URL}/api/studentClasses/search/findByFnameAndLname?fname=`;
 export const searchByManager = `${BASE_URL}/api/managers/17`;
 export const txtMsg = `
 Please select class, write your message and press enter. The message will be send only to \n those students that has registered to classes and has payed.`;

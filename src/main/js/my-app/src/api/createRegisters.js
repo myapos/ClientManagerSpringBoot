@@ -17,7 +17,7 @@ export default row => {
 
         const classLink = resObj._links.self.href; // has to be fixed for many
 
-        const url2 = `${constants.searchStudentClassesByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
+        const url2 = `${constants.searchStudentFindByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
         const request2 = new XMLHttpRequest();
         request2.open('GET', url2, true);  // `false` makes the request synchronous
         request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
