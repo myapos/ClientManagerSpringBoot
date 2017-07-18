@@ -12,7 +12,6 @@ function* getDataFromServer () {
   const initDataStudents_ = yield call(api.getStudents, state);
   const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
   const initRegistrations_ = yield call(api.getDataRegisters, state);
-
   // preprocess area
   const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
   const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_, 'description');

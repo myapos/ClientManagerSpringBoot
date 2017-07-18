@@ -14,9 +14,17 @@ export default registrations => {
     return 1;
   });
 
-  registrations_ = sumAr.map((value, index) => {
-    value[0].index = index + 1;
-    return value[0];
+  // debugger;
+  const reg_ = [];
+  sumAr.forEach((item, index) => {
+    console.log('item:', item);
+    item.map(i => {
+      reg_.push(i);
+      return i;
+    });
+  // debugger;
+
+  console.log('log:', reg_);
   });
-  return registrations_;
+  return reg_;
 };
