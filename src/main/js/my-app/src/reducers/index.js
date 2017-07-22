@@ -140,6 +140,7 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         rowUpdate,
+        onModalClose,
       };
     case actions.DELETE_REGISTERS:
       return {

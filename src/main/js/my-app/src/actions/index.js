@@ -171,10 +171,11 @@ export function updatePaymentRegisters (rowUpdate, updateMode) {
   };
 }
 
-export function createRegisters (rowUpdate) {
+export function createRegisters (rowUpdate, onModalClose) {
   return {
     type: CREATE_REGISTERS,
     rowUpdate,
+    onModalClose,
   };
 }
 

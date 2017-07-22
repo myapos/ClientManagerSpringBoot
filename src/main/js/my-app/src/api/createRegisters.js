@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 
-export default row => {
+export default (row, onModalClose) => {
   // create call -- we need student id, studentClass id, dateOfRegistration
   // find studentClass id
   const url = `${constants.searchStudentClassesByDescription}${row.class}`;
@@ -52,7 +52,8 @@ export default row => {
               request3.onload = function () {
                 if (request3.readyState === 4) {
                   if (request3.status === 201) {
-                    alert('Registration has been created in database. Page is reloading');
+                    alert('Registration has been created in database.');
+                    onModalClose();
                     // window.location.reload(true);
                   } else {
                     alert('Something bad has happened. Please try again');

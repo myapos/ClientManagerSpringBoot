@@ -92,6 +92,8 @@ function* deleteStudents () {
     type: actions.SAGAS_DELETE_STUDENTS,
     success,
   });
+
+  /* get data again */
   yield getDataFromServer();
 }
 
@@ -135,11 +137,13 @@ function* deletePaymentRegisters () {
 
 function* createRegisters () {
   const state = yield select();
-  const row = yield call(api.createRegisters, state.rowUpdate);
+  const row = yield call(api.createRegisters, state.rowUpdate, state.onModalClose);
   yield put({
     type: actions.SAGAS_CREATE_REGISTERS,
     row,
   });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* updateRegisters () {
@@ -160,6 +164,8 @@ function* deleteRegisters () {
     type: actions.SAGAS_DELETE_REGISTERS,
     registerId,
   });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* msgSubmitted () {
