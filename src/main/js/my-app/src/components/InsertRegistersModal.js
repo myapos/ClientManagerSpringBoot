@@ -26,6 +26,7 @@ class InsertRegistersModal extends Component {
     const {
       columns,
       createRegisters,
+      onModalClose,
     } = this.props;
     const newRow = {};
     columns.forEach(column => {
@@ -33,13 +34,13 @@ class InsertRegistersModal extends Component {
       const item = this.refs[column.field];
       if (item.className.match(/selectInput/)) {
         // debugger;
-        newRow[column.field] = item.options[item.selectedIndex].text; //this.refs[column.field].value;
+        newRow[column.field] = item.options[item.selectedIndex].text; // this.refs[column.field].value;
       } else {
         newRow[column.field] = item.value;
       }
     }, this);
     // You should call onSave function and give the new row
-    createRegisters(newRow);
+    createRegisters(newRow, onModalClose);
     // onSave(newRow);
   }
   handleChange (e) {
