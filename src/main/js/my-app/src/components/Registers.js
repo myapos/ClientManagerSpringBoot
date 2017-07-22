@@ -23,7 +23,8 @@ class Registers extends Component {
   }
 
   onAfterDeleteRow (rowKeys) {
-    this.props.deleteRegisters(rowKeys[0]);
+    alert(`The rowkey you drop: ${rowKeys}`);
+    this.props.deleteRegisters(rowKeys);
   }
 
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {

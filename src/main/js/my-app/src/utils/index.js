@@ -8,6 +8,8 @@ import findLinkOfSubClass from './findLinkOfSubClass';
 import prepareClassesForSendingEmails from './prepareClassesForSendingEmails';
 import filterStudentClassesWithLinks from './filterStudentClassesWithLinks';
 import waitFor from './waitFor';
+import isJsonString from './isJsonString';
+import ftch from './ftch';
 
 export {
   extractId,
@@ -20,4 +22,6 @@ export {
   prepareClassesForSendingEmails,
   filterStudentClassesWithLinks,
   waitFor,
+  isJsonString,
+  ftch,
 };

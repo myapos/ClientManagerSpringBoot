@@ -1,5 +1,3 @@
-import * as constants from '../constants';
-// import { deleteOneStudent } from './deleteOneStudent';
 import * as api from './index.js';
 /* deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
 

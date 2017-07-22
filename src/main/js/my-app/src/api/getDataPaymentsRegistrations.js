@@ -1,5 +1,6 @@
-//import hideLoader from './hideLoader';
+// import hideLoader from './hideLoader';
 import * as constants from '../constants';
+import * as utils from '../utils';
 
 export default saved_student => {
   let fetch1;
@@ -18,13 +19,12 @@ export default saved_student => {
     })
     .then(res1 => res1.json())
     .then(res1 => {
-      parent.isloading = 0;
-
+      // parent.isloading = 0;
+      // debugger;
       const registrations = res1;
 
       if (registrations._embedded.registers.length > 0) {
         // get payments of those students . if there aren't any then you can set them
-            // debugger;
         for (let jw = 0; jw < registrations._embedded.registers.length; jw++) {
           const url2 = `${constants.searchPaymentByRegistration}${registrations._embedded.registers[jw]._links.self.href}`;
           fetch(url2, {
@@ -44,8 +44,9 @@ export default saved_student => {
                 tempData.fname = student.fname;
                 tempData.lname = student.lname;
                 tempData.email = student.email;
-
-                if (typeof payments._embedded.payeds !== 'undefined') {
+ 
+                // if (typeof payments._embedded.payeds !== 'undefined') {
+                if (typeof payments._embedded.payeds.length > 0) {
                     // get classes of registered students
                   const url3 = registrations._embedded.registers[jw]._links.studentClass.href;
                   fetch(url3, {
@@ -57,7 +58,10 @@ export default saved_student => {
                       'Content-Type': 'application/json',
                     },
                   })
-                    .then(res3 => res3.json())
+                    .then(res3 => {
+                      console.log('is Json:', utils.isJsonString(res3));
+                      return res3.json();
+                    })
                     .then(res3 => {
                       const studentClasses = res3;// JSON.parse(request3.responseText);
                       const tempData_ = {};
@@ -88,22 +92,32 @@ export default saved_student => {
                       'Content-Type': 'application/json',
                     },
                   })
-                    .then(res4 => res4.json())
                     .then(res4 => {
-                      const studentClasses = res4;
-                      const tempData__ = {};
-                      tempData__.fname = student.fname;
-                      tempData__.lname = student.lname;
-                      tempData__.email = student.email;
-                      tempData__.class = studentClasses.description;
-                      tempData__.payment = false;
-                      tempData__.notes = 'No payment yet';
-                      const dateOfPayment = new Date('Sun Feb 01 1970 00:00:00 GMT+0200 (EET)'); // for none payments
-                      const formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
-                      tempData__.dateOfPayment = formatedDate;
-                      tempData__.index = dataPaymentRegisters.length + 1;
-                      dataPaymentRegisters.push(tempData__);
-                      return dataPaymentRegisters;
+
+                      if (res4.status === 200){
+                        return res4.json();
+                      }
+                      else {
+                        return ({ 'not_found': true});
+                      }
+                    })
+                    .then(res4 => {
+                      if (!res4.not_found) {
+                        const studentClasses = res4;
+                        const tempData__ = {};
+                        tempData__.fname = student.fname;
+                        tempData__.lname = student.lname;
+                        tempData__.email = student.email;
+                        tempData__.class = studentClasses.description;
+                        tempData__.payment = false;
+                        tempData__.notes = 'No payment yet';
+                        const dateOfPayment = new Date('Sun Feb 01 1970 00:00:00 GMT+0200 (EET)'); // for none payments
+                        const formatedDate = dateOfPayment.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g)[0];
+                        tempData__.dateOfPayment = formatedDate;
+                        tempData__.index = dataPaymentRegisters.length + 1;
+                        dataPaymentRegisters.push(tempData__);
+                        return dataPaymentRegisters;
+                      }
                     });
                 }
               });

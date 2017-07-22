@@ -14,9 +14,9 @@ import updateStudent from './updateStudent';
 import addPaymentRegisters from './addPaymentRegisters';
 import updatePaymentRegisters from './updatePaymentRegisters';
 import deletePaymentRegisters from './deletePaymentRegisters';
+import deleteRegistersOneStudent from './deleteRegistersOneStudent';
 import createRegisters from './createRegisters';
 import updateRegisters from './updateRegisters';
-import deleteRegisters__ from './deleteRegisters__';
 import deleteRegisters from './deleteRegisters';
 import send_email from './send_email';
 import msgSubmitted from './msgSubmitted';
@@ -43,9 +43,9 @@ export {
   addPaymentRegisters,
   updatePaymentRegisters,
   deletePaymentRegisters,
+  deleteRegistersOneStudent,
   createRegisters,
   updateRegisters,
-  deleteRegisters__,
   deleteRegisters,
   send_email,
   msgSubmitted,

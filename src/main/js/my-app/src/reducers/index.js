@@ -6,7 +6,7 @@ const reducer = (state = {}, action) => {
     paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
     text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses,
-    fname, email, onModalClose, students, success } = action;
+    fname, email, onModalClose, students, success, registers } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -142,10 +142,15 @@ const reducer = (state = {}, action) => {
         rowUpdate,
         onModalClose,
       };
+    // case actions.DELETE_REGISTERS:
+    //   return {
+    //     ...state,
+    //     registerId,
+    //   };
     case actions.DELETE_REGISTERS:
       return {
         ...state,
-        registerId,
+        registers,
       };
     case actions.LOADING_HANDLING:
       return {
