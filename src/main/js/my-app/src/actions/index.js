@@ -194,10 +194,16 @@ export function deletePaymentRegisters (rowUpdate, paymentId) {
   };
 }
 
-export function deleteRegisters (registerId) {
+// export function deleteRegisters (registerId) {
+//   return {
+//     type: DELETE_REGISTERS,
+//     registerId,
+//   };
+// }
+export function deleteRegisters (registers) {
   return {
     type: DELETE_REGISTERS,
-    registerId,
+    registers,
   };
 }
 
