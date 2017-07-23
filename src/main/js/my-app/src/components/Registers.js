@@ -49,9 +49,8 @@ class Registers extends Component {
   afterSaveRegistersCell (row) {
 
     // update
-    debugger;
     this.props.updateRegisters(row);
-    //this.props.createRegisters(row);
+    // this.props.createRegisters(row);
   }
 
   render () {
