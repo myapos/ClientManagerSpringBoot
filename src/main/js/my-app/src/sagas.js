@@ -142,7 +142,7 @@ function* createRegisters () {
     type: actions.SAGAS_CREATE_REGISTERS,
     row,
   });
-  // debugger;
+
   /* get data again */
   yield getDataFromServer();
 }
@@ -159,15 +159,13 @@ function* updateRegisters () {
 
 function* deleteRegisters () {
   const state = yield select();
-  yield call(api.deleteRegisters, state.registers);
-  debugger;
-  // const { success } = yield call(api.deleteRegisters, state.registers);
-  // yield put({
-  //   type: actions.SAGAS_DELETE_REGISTERS,
-  //   success,
-  // });
-  // /* get data again */
-  // yield getDataFromServer();
+  const { success } = yield call(api.deleteRegisters, state.registers);
+  yield put({
+    type: actions.SAGAS_DELETE_REGISTERS,
+    success,
+  });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 // function* deleteRegisters () {

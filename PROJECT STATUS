@@ -74,14 +74,6 @@ FOREIGN KEY (student_class_id) REFERENCES student_class(id) ON UPDATE CASCADE ON
 
 Διαχείριση Εγγραφών
 
-1. Εγγραφή - δημιουργία δεν δουλευει για την εγγραφη του ιδιου μαθητη σε πολλα τμηματα. den douleuei swsta to preprocessRegistrations ok. ftiaxtike
-  na ftiaksw an proiparxei na min to ksanaftiaxnei
-  na ftiaksw to index sti nea eggrafi na auksanei
-2. Ανανέωση 
-  na balw na emfanizontai mono ta termatika tmimata stin lista
-  imerominies
-3. Διαγραφή ok
-
 steps for registration delete
 
 1 // step 1 find student
@@ -89,13 +81,20 @@ steps for registration delete
 3 // delete corresponding payment of register
   // let register = resObj2._embedded.registers[x]._links.self.href; //has to be fixed for many
   // get payments
-4 // delete all payments first
+4 // delete all payments first auto na to ftiaksw otan dw kai ta payments
 5 // delete registration after deleted payments
 
-4. Πολλαπλή διαγραφη  ??? 
-5. Εγγραφή/Διαγραφή σε πολλά τμήματα ???? 
-6. Να βάλω να κλείνει το modal μετα την επιτυχη αποθήκευση όπως και στους students ok
-7. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
+
+1. Εγγραφή - δημιουργία δεν δουλευει για την εγγραφη του ιδιου μαθητη σε πολλα τμηματα. den douleuei swsta to preprocessRegistrations ok. ftiaxtike
+  na ftiaksw an proiparxei na min to ksanaftiaxnei
+  na ftiaksw to index sti nea eggrafi na auksanei
+2. Ανανέωση 
+  na balw na emfanizontai mono ta termatika tmimata stin lista
+  imerominies
+3. Διαγραφή ok
+4. Πολλαπλή διαγραφη  ok
+5. Να βάλω να κλείνει το modal μετα την επιτυχη αποθήκευση όπως και στους students ok
+6. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
 
 -------------------------------------------------------------------
 
