@@ -13,6 +13,7 @@ class Registers extends Component {
     initDataStudents: PropTypes.array,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
+    filteredStudentClassesWithLinks: PropTypes.array,
   }
 
   constructor (props) {
@@ -30,7 +31,6 @@ class Registers extends Component {
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { createRegisters, initDataStudentClasses, initRegistrations, initDataStudents } = this.props;
     const availableClasses = utils.preprocessStudentClasses(initDataStudentClasses);
-    // const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     const attr = {
       onModalClose,
@@ -49,7 +49,9 @@ class Registers extends Component {
   afterSaveRegistersCell (row) {
 
     // update
-    this.props.createRegisters(row);
+    debugger;
+    this.props.updateRegisters(row);
+    //this.props.createRegisters(row);
   }
 
   render () {

@@ -27,6 +27,7 @@ export default (row, onModalClose) => {
         request2.onload = function () {
           if (request2.readyState === 4) {
             if (request2.status === 200) {
+              debugger;
               // step 2 find student id to update
               const resObj2 = JSON.parse(request2.responseText);
 

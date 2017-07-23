@@ -4,8 +4,8 @@ export default row => {
     // create call -- we need student id, studentClass id, dateOfRegistration
 
     // find studentClass id
-
-  const url = `${constants.searchStudentClassesByDescription}${row.class}`;
+    debugger;
+  const url = encodeURI(`${constants.searchStudentClassesByDescription}${row.class}`);
   const request = new XMLHttpRequest();
   request.open('GET', url, true);  // `false` makes the request synchronous
   request.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
@@ -17,7 +17,7 @@ export default row => {
       if (request.status === 200) {
         const resObj = JSON.parse(request.responseText);
         const classLink = resObj._links.self.href; // has to be fixed for many????
-        const url2 = `${constants.searchStudentClassesByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
+        const url2 = `${constants.searchStudentFindByFnameAndLname}${this.row.fname}&lname=${this.row.lname}`;
         const request2 = new XMLHttpRequest();
         request2.open('GET', url2, true);  // `false` makes the request synchronous
         request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
