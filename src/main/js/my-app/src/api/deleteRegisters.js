@@ -4,7 +4,6 @@ import * as api from './index.js';
 export default async keys => {
 
   const deletedPromises = keys.map(key => api.deleteRegistersOneStudent(key));
-  debugger;
   const all = Promise.all(deletedPromises).then(values => {
     console.log(values);
     const failedToDelete = values.find(item => item.status !== 204);

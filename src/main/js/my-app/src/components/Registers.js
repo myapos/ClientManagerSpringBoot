@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
-import preprocessStudentClasses from '../utils/preprocessStudentClasses';
 import InsertRegistersModal from './InsertRegistersModal';
 import * as actions from '../actions/';
+import * as utils from '../utils';
 
 class Registers extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class Registers extends Component {
 
   createInsertRegistersModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { createRegisters, initDataStudentClasses, initRegistrations, initDataStudents } = this.props;
-    const availableClasses = preprocessStudentClasses(initDataStudentClasses);
+    const availableClasses = utils.preprocessStudentClasses(initDataStudentClasses);
     // const initRegistrations_ = preprocessRegistrations(initRegistrations);
 
     const attr = {
@@ -53,24 +53,8 @@ class Registers extends Component {
   }
 
   render () {
-    const { initRegistrations, initDataStudentClasses } = this.props;
-    // alternative implementation with es6 functions
-    // let initRegistrations__ = [];
-    // for (let i = 0; i < initRegistrations.length; i++) {
-    //   initRegistrations__.push(initRegistrations[i].filter(item_ => {
-    //     return ((typeof item_ !== 'undefined') && item_.length > 0) ;
-    //   }));
-    // }
-    // initRegistrations__ = initRegistrations__.filter(item => {
-    //   return item.length > 0;
-    // });
-
-    // const initRegistrations_ = [];
-    // for (let j = 0; j < initRegistrations__.length; j++) {
-    //   [initRegistrations_[j]] = initRegistrations__[j][0];
-    // }
-
-    // const initRegistrations_ = preprocessRegistrations(initRegistrations);
+    const { initRegistrations, filteredStudentClassesWithLinks } = this.props;
+    const terminalClasses = utils.processFilteredStudentClassesWithLinks(filteredStudentClassesWithLinks);
 
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -120,7 +104,7 @@ class Registers extends Component {
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="class"
-            editable={{ type: 'select', options: { values: initDataStudentClasses } }} >Class
+            editable={{ type: 'select', options: { values: terminalClasses } }} >Class
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfRegistration"

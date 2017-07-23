@@ -10,6 +10,8 @@ import filterStudentClassesWithLinks from './filterStudentClassesWithLinks';
 import waitFor from './waitFor';
 import isJsonString from './isJsonString';
 import ftch from './ftch';
+import ftchDelete from './ftchDelete';
+import processFilteredStudentClassesWithLinks from './processFilteredStudentClassesWithLinks';
 
 export {
   extractId,
@@ -24,4 +26,6 @@ export {
   waitFor,
   isJsonString,
   ftch,
+  ftchDelete,
+  processFilteredStudentClassesWithLinks,
 };
