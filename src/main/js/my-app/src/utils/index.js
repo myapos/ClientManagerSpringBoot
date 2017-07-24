@@ -11,6 +11,7 @@ import waitFor from './waitFor';
 import isJsonString from './isJsonString';
 import ftch from './ftch';
 import ftchDelete from './ftchDelete';
+import ftchUpdate from './ftchUpdate';
 import processFilteredStudentClassesWithLinks from './processFilteredStudentClassesWithLinks';
 
 export {
@@ -27,5 +28,6 @@ export {
   isJsonString,
   ftch,
   ftchDelete,
+  ftchUpdate,
   processFilteredStudentClassesWithLinks,
 };
