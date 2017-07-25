@@ -86,8 +86,11 @@ steps for registration delete
 
 
 1. Εγγραφή - δημιουργία δεν δουλευει για την εγγραφη του ιδιου μαθητη σε πολλα τμηματα. den douleuei swsta to preprocessRegistrations ok. ftiaxtike
-  na ftiaksw an proiparxei na min to ksanaftiaxnei
-  na ftiaksw to index sti nea eggrafi na auksanei
+  na ftiaksw an proiparxei na min to ksanaftiaxnei ?????? auta menoun. egine ligi douleia.
+  den girnaei swsto apotelesma otan iparxei idi registration k dimiourgw neo gia ton idio ma8iti
+  alla se diaforetiki taksi. mporw na to tsekarw kai apo client kai apo server. na dw arxika apo server 
+  kai an den bgei to kanw apo client
+  na ftiaksw to index sti nea eggrafi na auksanei ??????
 2. Ανανέωση ok
   na balw na emfanizontai mono ta termatika tmimata stin lista
   imerominies
@@ -95,6 +98,7 @@ steps for registration delete
 4. Πολλαπλή διαγραφη  ok
 5. Να βάλω να κλείνει το modal μετα την επιτυχη αποθήκευση όπως και στους students ok
 6. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
+7. na ftiaksw to minima la8ous otan den exeis balei imerominia
 
 -------------------------------------------------------------------
 
@@ -124,11 +128,10 @@ steps for registration delete
 5. Να βάλω ενα κουμπι στα τμηματα που θα κανει display none σε ολα τα μη τερματικα τμήματα ok
 6. Στην επιτυχής αποθήκευση να γίνεται έξοδος από το modal ok
 7. Για να πετυχω να γινεται ενημερωση του χρηστη στην πολλαπλη διαγραφή θα κρατήσω το state
-της διαγραφής κάθε εγγραφής χωριστά και θα τα επιστρεψω στο onAfterDeleteRow. Στη συνέχεια ελέγχω τις καταστασεις όλων των διαγραφών αν ειναι επιτυχεις ολες οι διαγραφές τότε θα εμφανίσω μήνυμα στον χρήστη
+της διαγραφής κάθε εγγραφής χωριστά και θα τα επιστρεψω στο onAfterDeleteRow. Στη συνέχεια ελέγχω τις καταστασεις όλων των διαγραφών αν ειναι επιτυχεις ολες οι διαγραφές τότε θα εμφανίσω μήνυμα στον χρήστη ok
+8. na psaksw pws mporei na ginei pio grigoro
 
 setup database
 
 1. στα τμηματα πρέπει να προυπάρχει ενα τμημα ως καταληκτικο με ονομα "No subclass " το οποίο αναφέρεται στο εαυτό του
 2. 
-
-15 eisai to tairi mou

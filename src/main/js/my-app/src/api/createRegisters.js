@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 
 export default (row, onModalClose) => {
   // create call -- we need student id, studentClass id, dateOfRegistration
@@ -24,7 +25,8 @@ export default (row, onModalClose) => {
         request2.setRequestHeader('Content-type', 'application/json');
         request2.contentType = 'application/json';
         request2.row = this.row;
-        request2.onload = function () {
+        request2.classLink = classLink;
+        request2.onload = async () => {
           if (request2.readyState === 4) {
             if (request2.status === 200) {
               // step 2 find student id to update
@@ -41,26 +43,35 @@ export default (row, onModalClose) => {
                 'dateOfRegistration': date,
                 'student': studentLink,
               });
-
-              const url3 = `${constants.registersAPI}`;
-              const request3 = new XMLHttpRequest();
-              request3.open('POST', url3, true);  // `false` makes the request synchronous
-              request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-              request3.setRequestHeader('Content-type', 'application/json');
-              request3.contentType = 'application/json';
-              request3.row = this.row;
-              request3.onload = function () {
-                if (request3.readyState === 4) {
-                  if (request3.status === 201) {
-                    alert('Registration has been created in database.');
-                    onModalClose();
-                    // window.location.reload(true);
-                  } else {
-                    alert('Something bad has happened. Please try again');
+              debugger;
+              // before post check if registration already exists
+              const exists = await utils.checkIfRegistrationExists(studentLink, classLink);
+              debugger;
+              if (!exists) {
+                const url3 = `${constants.registersAPI}`;
+                const request3 = new XMLHttpRequest();
+                request3.open('POST', url3, true);  // `false` makes the request synchronous
+                request3.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
+                request3.setRequestHeader('Content-type', 'application/json');
+                request3.contentType = 'application/json';
+                request3.row = this.row;
+                request3.onload = function () {
+                  if (request3.readyState === 4) {
+                    if (request3.status === 201) {
+                      alert('Registration has been created in database.');
+                      onModalClose();
+                      // window.location.reload(true);
+                    } else {
+                      alert('Something bad has happened. Please try again');
+                    }
                   }
-                }
-              };
-              request3.send(bodyData);
+                };
+                request3.send(bodyData);
+              } else {
+                alert('Registration already exists for this class');
+                onModalClose();
+              }
+
             }
           }
         };
