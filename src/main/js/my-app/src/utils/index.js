@@ -13,6 +13,7 @@ import ftch from './ftch';
 import ftchDelete from './ftchDelete';
 import ftchUpdate from './ftchUpdate';
 import processFilteredStudentClassesWithLinks from './processFilteredStudentClassesWithLinks';
+import checkIfRegistrationExists from './checkIfRegistrationExists';
 
 export {
   extractId,
@@ -30,4 +31,5 @@ export {
   ftchDelete,
   ftchUpdate,
   processFilteredStudentClassesWithLinks,
+  checkIfRegistrationExists,
 };
