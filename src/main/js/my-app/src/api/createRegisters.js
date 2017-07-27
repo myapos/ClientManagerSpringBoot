@@ -43,10 +43,8 @@ export default (row, onModalClose) => {
                 'dateOfRegistration': date,
                 'student': studentLink,
               });
-              debugger;
               // before post check if registration already exists
               const exists = await utils.checkIfRegistrationExists(studentLink, classLink);
-              debugger;
               if (!exists) {
                 const url3 = `${constants.registersAPI}`;
                 const request3 = new XMLHttpRequest();

@@ -2,9 +2,9 @@ import * as api from './index.js';
 /* deletes selected student from table -- studentId parameter is the id in front end table not in the database*/
 
 export default async keys => {
-
+  debugger;
   const deletedPromises = keys.map(key => api.deleteRegistersOneStudent(key));
-  const all = Promise.all(deletedPromises).then(values => {
+  const all = Promise.all(deletedPromises).then(values => {debugger;
     console.log(values);
     const failedToDelete = values.find(item => item.status !== 204);
 

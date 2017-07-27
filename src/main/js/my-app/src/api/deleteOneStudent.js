@@ -6,7 +6,7 @@ export default studentId => {
   const rowByClassId = x.querySelectorAll('tr')[studentId];
   const fname = rowByClassId.childNodes[2].innerHTML;
   const lname = rowByClassId.childNodes[3].innerHTML;
-  // debugger;
+  debugger;
   // return ({ foo: 'bar' });
   const deletedPromise = fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
   // return fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
@@ -19,13 +19,13 @@ export default studentId => {
     },
   })
   .then(res => res.json())
-  .then(res1 => {
+  .then(res1 => { debugger;
     try {
       const ar = res1._links.self.href.split('/');
       const s = ar.length;
       const id = ar[s - 1];
       // delete record student class with id
-
+      debugger;
       return fetch(`${constants.studentsAPI}/${id}`, {
         method: 'delete',
         mode: 'cors',

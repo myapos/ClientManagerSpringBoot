@@ -35,7 +35,7 @@ public interface RegisterRepository extends PagingAndSortingRepository<Register,
 
 	List<Register> findByStudentClass(@Param("studentClass") StudentClass studentClass);
 
-	Register findByStudentAndStudentClass(@Param("student") Student student,@Param("studentClass") StudentClass studentClass);
+	List <Register> findByStudentAndStudentClass(@Param("student") Student student, @Param("studentClass") StudentClass studentClass);
 	//Student findByFnameAndLname(@Param("fname") String fname,@Param("lname") String lname);
 
 }
