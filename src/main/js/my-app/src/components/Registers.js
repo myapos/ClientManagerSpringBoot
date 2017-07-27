@@ -56,7 +56,6 @@ class Registers extends Component {
   render () {
     const { initRegistrations, filteredStudentClassesWithLinks } = this.props;
     const terminalClasses = utils.processFilteredStudentClassesWithLinks(filteredStudentClassesWithLinks);
-
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
       mode: 'checkbox',

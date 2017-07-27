@@ -55,17 +55,6 @@ class InsertRegistersModal extends Component {
     // e.preventDefault();
     // debugger;
   }
-  handleChange2 (e) {
-    // https://facebook.github.io/react/docs/forms.html
-    console.log('changed value from handleChange2 ', e.target.value);
-    // get surnames according to selection using selected value
-    // pass it to the state
-    // create action, reducer ok
-    // this.props.matchNames('test match names');
-    // set selected value to read from the state
-    // it will be rerendered
-    // e.preventDefault();
-  }
   render () {
     const {
       onModalClose,
