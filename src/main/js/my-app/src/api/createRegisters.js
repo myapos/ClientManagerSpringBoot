@@ -43,9 +43,11 @@ export default (row, onModalClose) => {
                 'dateOfRegistration': date,
                 'student': studentLink,
               });
+              // check if date is invalid
+              const invalidDate = (date.toDateString() === 'Invalid Date');
               // before post check if registration already exists
               const exists = await utils.checkIfRegistrationExists(studentLink, classLink);
-              if (!exists) {
+              if (!exists && !invalidDate) {
                 const url3 = `${constants.registersAPI}`;
                 const request3 = new XMLHttpRequest();
                 request3.open('POST', url3, true);  // `false` makes the request synchronous
@@ -65,11 +67,13 @@ export default (row, onModalClose) => {
                   }
                 };
                 request3.send(bodyData);
-              } else {
+              } else if (exists) {
                 alert('Registration already exists for this class');
                 onModalClose();
+              } else if (invalidDate) {
+                alert('Provided invalid date');
+                onModalClose();
               }
-
             }
           }
         };

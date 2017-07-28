@@ -91,16 +91,16 @@ steps for registration delete
   alla se diaforetiki taksi. mporw na to tsekarw kai apo client kai apo server. na dw arxika apo server kai an den bgei to kanw apo client. ok ftiaxtike
   -- na ftiaksw to index sti nea eggrafi na auksanei swsta ?????? οκ
   -- στο delete  να φτιαξω οταν επιλεγω δυο μαθητες να σβηνεται μονο η εγγραφη που αντιστοιχει 
-    στην επιλεχθεισα κ οχι ολες οι εγγραφες του μαθητη
+    στην επιλεχθεισα κ οχι ολες οι εγγραφες του μαθητη ok
   -- μετα τη διαγραφη ενος μαθητη να γινεται reindex στον πινακα οκ
 2. Ανανέωση ok
   na balw na emfanizontai mono ta termatika tmimata stin lista
-  imerominies
+  imerominies ok
 3. Διαγραφή ok
 4. Πολλαπλή διαγραφη  ok
 5. Να βάλω να κλείνει το modal μετα την επιτυχη αποθήκευση όπως και στους students ok
 6. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
-7. na ftiaksw to minima la8ous otan den exeis balei imerominia
+7. na ftiaksw to minima la8ous otan den exeis balei imerominia ok
 
 -------------------------------------------------------------------
 
