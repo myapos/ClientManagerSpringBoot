@@ -162,6 +162,7 @@ class InsertPaymentRegistersModal extends React.Component {
 class PaymentRegisters extends Component {
 
   componentWillMount () {
+    debugger;
     const students = this.props.saved_student;
     this.props.dataPaymentsRegisters(students);
   }

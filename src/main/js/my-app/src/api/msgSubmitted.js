@@ -7,7 +7,7 @@ export default (msg, selectedClass) => {
   // steps
   // find students who have payed for the selected class
   // get selected classes from server
-  fetch(`${constants.searchClassesByDescription}${selectedClass}`, {
+  fetch(`${constants.searchRegistrationsByStudentClass}${selectedClass}`, {
               method: 'get',
               mode: 'cors',
               cache: 'default',

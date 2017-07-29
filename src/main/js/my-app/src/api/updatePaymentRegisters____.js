@@ -1,7 +1,6 @@
 import * as constants from '../constants';
 
 export default (updateMode, row) => {
-  debugger;
   if (updateMode === 'paymentUpdate' || updateMode === 'paymentNotesUpdate'
         || updateMode === 'updateDateOfPayment' || updateMode === 'addPayment' || updateMode === 'classUpdate') {
     // step 1 find student by student fname and lname
@@ -125,9 +124,8 @@ export default (updateMode, row) => {
                                 request5.onload = function () {
                                   if (request5.readyState === 4) {
                                     if (request5.status === 201) {
-                                      debugger;
-                                      // alert('Payment has been updated in database. Page is reloading');
-                                      // window.location.reload(true);
+                                      alert('Payment has been updated in database. Page is reloading');
+                                      window.location.reload(true);
                                     } else {
                                       alert('Something bad has happened. Please try again');
                                     }
@@ -158,9 +156,8 @@ export default (updateMode, row) => {
                                     if (request4.readyState === 4) {
                                       if (request4.status === 200) {
                                         if (s === resObj3._embedded.payeds.length - 1) {
-                                          debugger;
-                                          // alert('Payment has been updated in database. Page is reloading');
-                                          // window.location.reload(true);
+                                          alert('Payment has been updated in database. Page is reloading');
+                                          window.location.reload(true);
                                         } else {
                                           alert('Something bad has happened. Please try again');
                                         }
