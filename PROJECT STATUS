@@ -102,14 +102,43 @@ steps for registration delete
 6. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
 7. na ftiaksw to minima la8ous otan den exeis balei imerominia ok
 
+
 -------------------------------------------------------------------
 
 Διαχείριση Πληρωμών
 
-1. Εγγραφή - δημιουργία
-2. Ανανέωση
-3. Διαγραφή
+1. Display - με τη δημιουργια της εγγραφής εμφανίζεται και η αντίστοιχη καταγραφή στον πίνακα 
+   πληρωμών 
+   δεν βγαζει σωστα τις πληρωμες true & false
+2. Ανανέωση ???? να το βαλω να παιρνει τα νεα data μετά την ανανεωση
+3. Διαγραφή ???
 4. Πολλαπλή διαγραφη ??? --> να βρω τροπο να εμφανιζω μηνυμα μονο οταν εχουν διαγραφει ολα τα τμηματα που έχουν επιλεγεί ok
+5. Να βάλω να εμφανίζονται τα τερματικα τμήματα στο select list ????
+6. error handling
+
+
+steps get data payments registration
+
+1. get students
+2. // get payments of those students . if there aren't any then you can set them
+3. // get classes of registered students
+4. process data and display data
+
+
+update payments registration
+
+depending on updateMode
+1. // step 1 find student by student fname and lname 
+2. // step 2 find student class by description row.class "http://localhost:8181/api/studentClasses/search/findBydescription{?description}",
+3. // step 2.1 find register by student class
+4. // update registration  with new selected class
+5. // update registration for student
+6. // update only the selected payment
+  // step 3 update payments
+  // step 3.1 find payment id to update
+7. 
+8. 
+
 
 -------------------------------------------------------------------
 
@@ -131,9 +160,12 @@ steps for registration delete
 6. Στην επιτυχής αποθήκευση να γίνεται έξοδος από το modal ok
 7. Για να πετυχω να γινεται ενημερωση του χρηστη στην πολλαπλη διαγραφή θα κρατήσω το state
 της διαγραφής κάθε εγγραφής χωριστά και θα τα επιστρεψω στο onAfterDeleteRow. Στη συνέχεια ελέγχω τις καταστασεις όλων των διαγραφών αν ειναι επιτυχεις ολες οι διαγραφές τότε θα εμφανίσω μήνυμα στον χρήστη ok
-8. na psaksw pws mporei na ginei pio grigoro
+8. na psaksw pws mporei na ginei pio grigoro --> na metaferw functionality sto server gia na aplopoii8ei
+   i diadikasia kai na ginei kai pio grigoro
+9. Να βάλω το pagination απο spring boot  και σε react bootstrap table
+10. Να βελτιωσω τον κωδικα οπου εχει fetch με τις νεες συναρτησεις, async await για να γινει πιο συντηρισιμο 
+11. να βελτιωσω τα ftch utils ενοποίηση σε ενα 
 
 setup database
 
 1. στα τμηματα πρέπει να προυπάρχει ενα τμημα ως καταληκτικο με ονομα "No subclass " το οποίο αναφέρεται στο εαυτό του
-2. 

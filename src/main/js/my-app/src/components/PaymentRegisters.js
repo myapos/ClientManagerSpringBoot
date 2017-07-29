@@ -67,7 +67,8 @@ class PaymentRegisters extends Component {
   }
 
   render () {
-    const { initPayments, initDataStudentClasses } = this.props; // debugger;
+    const { initPayments, initDataStudentClasses } = this.props;
+    // debugger;
     const paymentTypes = ['true', 'false'];
     const options = {
       noDataText: 'There are no data',
