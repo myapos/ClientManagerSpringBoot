@@ -119,11 +119,13 @@ function* addPaymentRegisters () {
 
 function* updatePaymentRegisters () {
   const state = yield select();
-  const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode, state.rowUpdate);
+  const rowUpdate = yield call(api.updatePaymentRegisters, state.updateMode, state.rowUpdate, state.cellValue);
   yield put({
     type: actions.SAGAS_UPDATE_PAYMENTS_REGISTERS,
     rowUpdate,
   });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* deletePaymentRegisters () {

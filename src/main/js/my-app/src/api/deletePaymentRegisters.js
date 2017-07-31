@@ -1,4 +1,4 @@
-import * as constants from '../constants'
+import * as constants from '../constants';
 import extractId from '../utils/extractId';
 
 export default id => {
