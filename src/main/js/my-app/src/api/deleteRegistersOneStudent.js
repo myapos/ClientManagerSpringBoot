@@ -21,8 +21,7 @@ export default async registerId => {
   const studentClassResp = await utils.ftch(studentClassUrl, 'get', 'cors');
   await studentClassResp;
 
-  const { _links: {self: { href: studentClassLink } } } = studentClassResp;
-
+  const { _links: { self: { href: studentClassLink } } } = studentClassResp;
 
   const registrationsOfStudentLinkUrl = `${constants.searchRegistrationsByStudentAndStudentClass}${studentLink}&studentClass=${studentClassLink}`;
   const registrationsResp = await utils.ftch(registrationsOfStudentLinkUrl, 'get', 'cors');
@@ -35,8 +34,6 @@ export default async registerId => {
   const deletedStatus = registers.map(async reg => {
     console.log('reg:', reg);
     const { _links: { self: { href } } } = reg;
-    // get payments
-    const getPaymentUrl = `${constants.searchPaymentByRegistration}${href}`;
 
     // delete registration after deleted payments
     const deletedRegistrationLink = await utils.ftchDelete(href, 'delete', 'cors');

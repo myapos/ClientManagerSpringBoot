@@ -17,7 +17,7 @@ export default async (updateMode, row, cellValue) => {
     const urlStudentClass = `${constants.searchStudentClassesByDescription}${classToBeUpdated}`;
     const studentClassFound = await utils.ftch(urlStudentClass, 'get', 'cors');
     await studentClassFound;
-    const { _links: { self: { href: studentClassLinkfound } } } = studentClassFound;
+    let { _links: { self: { href: studentClassLinkfound } } } = studentClassFound;
     // find register by student class
     const urlRegister = `${constants.searchRegistrationsByStudentAndStudentClass}${studentLink}&studentClass=${studentClassLinkfound}`;
 
@@ -25,11 +25,14 @@ export default async (updateMode, row, cellValue) => {
     await registerFound;
     const { _embedded: { registers } } = registerFound; // registers is array
 
-    // find new classLink value to be updated according to new cellValue
-    const newUrlStudentClass = `${constants.searchStudentClassesByDescription}${cellValue}`;
-    const newStudentClassFound = await utils.ftch(newUrlStudentClass, 'get', 'cors');
-    await newStudentClassFound;
-    const { _links: { self: { href: newStudentClassLinkfound } } } = newStudentClassFound;
+    if (updateMode === 'classUpdate') {
+      // find new classLink value to be updated according to new cellValue
+      const newUrlStudentClass = `${constants.searchStudentClassesByDescription}${cellValue}`;
+      const newStudentClassFound = await utils.ftch(newUrlStudentClass, 'get', 'cors');
+      await newStudentClassFound;
+      const { _links: { self: { href: newStudentClassLinkfound } } } = newStudentClassFound;
+      studentClassLinkfound = newStudentClassLinkfound;
+    }
 
     registers.map(async reg => {
       // update registration for student
@@ -42,7 +45,7 @@ export default async (updateMode, row, cellValue) => {
         const date = new Date(reg.dateOfRegistration.substr(0, 10));
 
         const bodyData = JSON.stringify({
-          'studentClass': newStudentClassLinkfound,
+          'studentClass': studentClassLinkfound,
           'dateOfRegistration': date,
           'student': studentLink,
         });
