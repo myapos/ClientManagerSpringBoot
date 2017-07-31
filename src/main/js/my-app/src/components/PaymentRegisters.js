@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InsertPaymentRegistersModal from './InsertPaymentRegistersModal';
 import * as actions from '../actions/';
+import * as utils from '../utils';
 
 class PaymentRegisters extends Component {
   static propTypes = {
@@ -29,7 +30,7 @@ class PaymentRegisters extends Component {
       <InsertPaymentRegistersModal {... attr} />
     );
   }
-  afterSavePaymentRegistersCell (row, cellName, cellValue) {
+  beforeSavePaymentRegistersCell (row, cellName, cellValue) {
   // do your stuff...
     const x = document.getElementById('PaymentRegisters');
     const y = x.getElementsByClassName('react-bs-container-body');
@@ -37,17 +38,17 @@ class PaymentRegisters extends Component {
 
     let el;
     let cellIndex;
-    if (y[0].querySelector('select') !== null) {
+    if (y[0].querySelector('select')) {
       el = y[0].querySelector('select')[0];
       cellIndex = el.parentElement.parentElement.cellIndex;
-    } else if (y[0].getElementsByClassName('form-control editor edit-text')[0] !== null) {
+    } else if (y[0].getElementsByClassName('form-control editor edit-text')[0]) {
       el = y[0].getElementsByClassName('form-control editor edit-text')[0];
       cellIndex = el.parentElement.cellIndex;
-    } else if (y[0].getElementsByClassName('form-control editor edit-datetime')[0] !== null) {
+    } else if (y[0].getElementsByClassName('form-control editor edit-datetime')[0]) {
       el = y[0].getElementsByClassName('form-control editor edit-datetime')[0];
       cellIndex = el.parentElement.cellIndex;
     }
-  // console.log(el);
+    console.log('cellIndex', cellIndex);
 
     if (cellIndex === 4) {
       updateMode = 'paymentUpdate';
@@ -58,8 +59,8 @@ class PaymentRegisters extends Component {
     } else if (cellIndex === 7) {
       updateMode = 'updateDateOfPayment';
     }
-    const descBefore = el.getAttribute('value');
-    this.props.updatePaymentRegisters(row, updateMode);
+
+    this.props.updatePaymentRegisters(row, updateMode, cellValue);
   }
 
   onAfterDeleteRow (rowKeys) {
@@ -67,8 +68,9 @@ class PaymentRegisters extends Component {
   }
 
   render () {
-    const { initPayments, initDataStudentClasses } = this.props;
-    // debugger;
+    const { initPayments, filteredStudentClassesWithLinks } = this.props;
+    const terminalClasses = utils.processFilteredStudentClassesWithLinks(filteredStudentClassesWithLinks);
+    
     const paymentTypes = ['true', 'false'];
     const options = {
       noDataText: 'There are no data',
@@ -77,7 +79,8 @@ class PaymentRegisters extends Component {
     };
     const cellEditProp = {
       mode: 'click',
-      afterSaveCell: this.afterSavePaymentRegistersCell.bind(this),
+      //afterSaveCell: this.afterSavePaymentRegistersCell.bind(this),
+      beforeSaveCell: this.beforeSavePaymentRegistersCell.bind(this),
     };
     // If you want to enable deleteRow, you must enable row selection also.
     const selectRowProp = {
@@ -125,7 +128,7 @@ class PaymentRegisters extends Component {
           <TableHeaderColumn
             dataField="class"
             width="15%"
-            editable={{ type: 'select', options: { values: initDataStudentClasses } }} >Class
+            editable={{ type: 'select', options: { values: terminalClasses } }} >Class
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfPayment"

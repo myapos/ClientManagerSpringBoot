@@ -51,6 +51,7 @@ const reducer = (state = {}, action) => {
         ...state,
         rowUpdate,
         updateMode,
+        cellValue,
       };
     case actions.DELETE_PAYMENTS_REGISTERS:
       return {

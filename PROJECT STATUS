@@ -101,20 +101,20 @@ steps for registration delete
 5. Να βάλω να κλείνει το modal μετα την επιτυχη αποθήκευση όπως και στους students ok
 6. Να παρω εκ νεου τις εγγραφες με action μετά την επιτυχη αποθηκευσης ok
 7. na ftiaksw to minima la8ous otan den exeis balei imerominia ok
-
+8. na balw minima la8ous otan exei sfalma sti diagrafi. prwta prepei na diagrafontai oi plirwmes
 
 -------------------------------------------------------------------
 
 Διαχείριση Πληρωμών
 
 1. Display - με τη δημιουργια της εγγραφής εμφανίζεται και η αντίστοιχη καταγραφή στον πίνακα 
-   πληρωμών 
-   δεν βγαζει σωστα τις πληρωμες true & false
+   πληρωμών ok
+   δεν βγαζει σωστα τις πληρωμες true & false ok
 2. Ανανέωση ???? να το βαλω να παιρνει τα νεα data μετά την ανανεωση
 3. Διαγραφή ???
 4. Πολλαπλή διαγραφη ??? --> να βρω τροπο να εμφανιζω μηνυμα μονο οταν εχουν διαγραφει ολα τα τμηματα που έχουν επιλεγεί ok
-5. Να βάλω να εμφανίζονται τα τερματικα τμήματα στο select list ????
-6. error handling
+5. Να βάλω να εμφανίζονται τα τερματικα τμήματα στο select list ???? ok
+6. error handling   ?????? 
 
 
 steps get data payments registration

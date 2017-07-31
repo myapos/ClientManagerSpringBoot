@@ -9,7 +9,6 @@ export default async saved_student => {
 
   // 1. for each student get registrations
   await students.map(async st => {
-    console.log('st:', st);
 
     const { _links: { self: { href: selfSt } } } = st;
 
@@ -34,7 +33,6 @@ export default async saved_student => {
       const studentClass = await utils.ftch(studentClassLink, 'get', 'cors');
       await studentClass;
       if (payeds.length) {
-        console.log('there are payments');
         payeds.map(p => {
           const tempData_ = {};
           tempData_.fname = st.fname;

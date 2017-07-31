@@ -163,11 +163,12 @@ export function addPaymentRegisters (row) {
   };
 }
 
-export function updatePaymentRegisters (rowUpdate, updateMode) {
+export function updatePaymentRegisters (rowUpdate, updateMode, cellValue) {
   return {
     type: UPDATE_PAYMENTS_REGISTERS,
     rowUpdate,
     updateMode,
+    cellValue,
   };
 }
 
