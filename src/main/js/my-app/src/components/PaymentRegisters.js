@@ -63,14 +63,13 @@ class PaymentRegisters extends Component {
     this.props.updatePaymentRegisters(row, updateMode, cellValue);
   }
 
-  onAfterDeleteRow (rowKeys) {
-    this.props.deletePaymentRegisters(rowKeys);
+  onAfterDeleteRow (keys) {
+    this.props.deletePaymentRegisters(keys);
   }
 
   render () {
     const { initPayments, filteredStudentClassesWithLinks } = this.props;
-    const terminalClasses = utils.processFilteredStudentClassesWithLinks(filteredStudentClassesWithLinks);
-    
+    const terminalClasses = utils.processFilteredStudentClassesWithLinks(filteredStudentClassesWithLinks); 
     const paymentTypes = ['true', 'false'];
     const options = {
       noDataText: 'There are no data',
@@ -79,7 +78,7 @@ class PaymentRegisters extends Component {
     };
     const cellEditProp = {
       mode: 'click',
-      //afterSaveCell: this.afterSavePaymentRegistersCell.bind(this),
+      // afterSaveCell: this.afterSavePaymentRegistersCell.bind(this),
       beforeSaveCell: this.beforeSavePaymentRegistersCell.bind(this),
     };
     // If you want to enable deleteRow, you must enable row selection also.
@@ -95,7 +94,6 @@ class PaymentRegisters extends Component {
           hover
           deleteRow
           selectRow={selectRowProp}
-          insertRow
           search
           options={options}
           tableHeaderClass="payments-registers-header-class"

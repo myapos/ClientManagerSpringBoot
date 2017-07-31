@@ -25,6 +25,7 @@ import getSubClass from './getSubClass';
 import getDataRegisters from './getDataRegisters';
 import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
 import filterNonTerminalClasses from './filterNonTerminalClasses';
+import deletePaymentRegistersOne from './deletePaymentRegistersOne';
 
 export {
   getStudentClasses,
@@ -54,4 +55,5 @@ export {
   getDataRegisters,
   getDataPaymentsRegistrations,
   filterNonTerminalClasses,
+  deletePaymentRegistersOne,
 };
