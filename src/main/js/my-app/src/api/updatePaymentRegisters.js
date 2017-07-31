@@ -32,7 +32,6 @@ export default async (updateMode, row, cellValue) => {
     const { _links: { self: { href: newStudentClassLinkfound } } } = newStudentClassFound;
 
     registers.map(async reg => {
-
       // update registration for student
 
       const { _links: { self: { href: registrationLink } } } = reg;
@@ -49,15 +48,13 @@ export default async (updateMode, row, cellValue) => {
         });
 
         // update corresponding registration
-        
-      const updateRegistration = await utils.ftchUpdate(registrationLink, 'PATCH', 'cors', bodyData);
-      await updateRegistration;
-      if (updateRegistration.status === 200) {
-        alert('Registration is updated succesfully');
-      } else {
-        alert('Something bad happened');
-      }
-
+        const updateRegistration = await utils.ftchUpdate(registrationLink, 'PATCH', 'cors', bodyData);
+        await updateRegistration;
+        if (updateRegistration.status === 200) {
+          alert('Registration is updated succesfully');
+        } else {
+          alert('Something bad happened');
+        }
       } else {
         console.log('other cases....:');
         // update only the selected payment
@@ -90,7 +87,7 @@ export default async (updateMode, row, cellValue) => {
         } else {
           console.log('There are payments. preparing to update', payeds);
           payeds.map(async payment => {
-            const { _links: { payed : { href: paymentLink } } } = payment;
+            const { _links: { payed: { href: paymentLink } } } = payment;
 
             const updatePayment = await utils.ftchUpdate(paymentLink, 'PATCH', 'cors', bodyData);
             await updatePayment;
