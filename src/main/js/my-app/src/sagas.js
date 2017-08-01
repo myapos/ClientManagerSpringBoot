@@ -135,6 +135,8 @@ function* deletePaymentRegisters () {
     type: actions.SAGAS_DELETE_PAYMENTS_REGISTERS,
     row,
   });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* createRegisters () {

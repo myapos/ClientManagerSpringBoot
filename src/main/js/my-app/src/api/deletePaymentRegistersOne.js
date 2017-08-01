@@ -1,7 +1,8 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 import extractId from '../utils/extractId';
 
-export default id => {
+export default async id => {
   const x = document.getElementById('PaymentRegisters');
   const rowByClassId = x.querySelectorAll('tr')[id];
   const fname = rowByClassId.childNodes[2].innerHTML;
@@ -10,77 +11,56 @@ export default id => {
   const subClassDescription = rowByClassId.childNodes[6].innerHTML;
   parent.paymentDate = rowByClassId.childNodes[7].innerHTML;
 
-  // steps for deletion
-  // i need registration id
-  // delete payment only if there is one payment.
-  if (notes !== 'No payment yet') {
-    // step 1 find student by name and last name
-    fetch(`${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`, {
-      method: 'get',
-      mode: 'cors',
-      cache: 'default',
-      headers: {
-        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(res => res.json())
-    .then(res => {
-      // console.log('res:', res);
-      const studentId = extractId (res._links.student.href);
-      // step 2 find register by student id
-      fetch(`${constants.searchRegistrationsByStudent}${res._links.student.href}`,
-        {
-          method: 'get',
-          mode: 'cors',
-          cache: 'default',
-          headers: {
-            'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(res2 => res2.json())
-        .then(res2 => {
-          // step3 find payment by register id
-          console.log('res2:', res2);
-          const registerLink = res2._embedded.registers[0]._links.self.href;
-          console.log('registerLink:', registerLink);
-          fetch(`${constants.searchPaymentByRegistration}${registerLink}`, {
-            method: 'get',
-            mode: 'cors',
-            cache: 'default',
-            headers: {
-              'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-              'Content-Type': 'application/json',
-            },
-          })
-          .then(res3 => res3.json())
-          .then(res3 => {
-            console.log('res3:', res3);
-            if (res3._embedded.payeds.length > 0) {
-              // what happens if there are many payments????
-              const paymentUrl = res3._embedded.payeds[0]._links.self.href;
-              // step4 delete payment
-              fetch(paymentUrl, {
-                method: 'delete',
-                mode: 'cors',
-                cache: 'default',
-                headers: {
-                  'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                  'Content-Type': 'application/json',
-                },
-              })
-              .then(res4 => {
-                if (res4.status === 204) {
-                  alert('deleted payment succesfully. Page is reloading');
-                  window.location.reload(true);
-                } else {
-                  alert('Something bad happened');
-                }
-              });
-            } // end of if
-          });
-        });
+  // Steps for deletion --> I need registration id to delete payment
+  // only if there is one payment.
+  // 1.  in order to do that fetch payments first
+
+  // const paymentsFound = await utils.ftch(constants.paymentsAPI, 'get', 'cors');
+  // await paymentsFound;
+  // 2.  find students by name and last name
+  const urlSearchStudents = `${constants.searchStudentFindByFnameAndLname}${fname}&lname=${lname}`;
+  const studentFound = await utils.ftch(urlSearchStudents, 'get', 'cors');
+  await studentFound;
+  const { _links: { self: { href: studentLink } } } = studentFound;
+  // debugger;
+  // 3.  find registrations by studentLink
+  const urlSearchRegistrations = `${constants.searchRegistrationsByStudent}${studentLink}`;
+  const registrationFound = await utils.ftch(urlSearchRegistrations, 'get', 'cors');
+  await registrationFound;
+  // debugger;
+
+  const { _embedded: { registers: registrations } } = registrationFound;
+
+  const r = await registrations.map(async reg => {
+    console.log('reg:', reg);
+    // 4.  for each registration find payment by registrationLink ????
+    const { _links: { self: { href: registrationLink } } } = reg;
+    const urlSearchPayments = `${constants.searchPaymentByRegistration}${registrationLink}`;
+    const paymentFound = await utils.ftch(urlSearchPayments, 'get', 'cors');
+    await paymentFound;
+    const { _embedded: { payeds: payments } } = paymentFound;
+    const p = await payments.map(async paym => {
+      const { _links: { self: { href: paymentLink } } } = paym;
+      // 5.  delete payment
+      const deletedPaymentLink = await utils.ftchDelete(paymentLink, 'delete', 'cors');
+      await deletedPaymentLink;
+      console.log('deletedPaymentLink:', deletedPaymentLink);
+      return deletedPaymentLink.status;
     });
-  }
+
+    const deletedStatuses = await Promise.all(p).then(values => {
+      const [val] = values;
+      return val;
+    });
+    return deletedStatuses;
+  });
+
+  const statuses = await Promise.all(r).then(values => {
+    const [val] = values;
+    return val;
+  });
+
+  return ({
+    status: statuses,
+  });
 };
