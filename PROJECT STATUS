@@ -112,7 +112,7 @@ steps for registration delete
    δεν βγαζει σωστα τις πληρωμες true & false ok
 2. Ανανέωση ok
 3. Διαγραφή ok --> να τη βελτιωσω με async await
-4. Πολλαπλή διαγραφη ??? --> να βρω τροπο να εμφανιζω μηνυμα μονο οταν εχουν διαγραφει ολα τα τμηματα που έχουν επιλεγεί ok
+4. Πολλαπλή διαγραφη ok --> να βρω τροπο να εμφανιζω μηνυμα μονο οταν εχουν διαγραφει ολα τα τμηματα που έχουν επιλεγεί ok
 5. Να βάλω να εμφανίζονται τα τερματικα τμήματα στο select list ok
 6. error  handling   ?????? 
 7. αφαιρεσα την προσθηκη γραμμης γιατι αυτες προστιθενται με τη δημιουργια εγγραφής αυτόματα οκ
@@ -137,9 +137,6 @@ depending on updateMode
 6. // update only the selected payment
   // step 3 update payments
   // step 3.1 find payment id to update
-7. 
-8. 
-
 
 -------------------------------------------------------------------
 
@@ -149,7 +146,37 @@ depending on updateMode
 2. Αυτόματη αποστολή
 
 -------------------------------------------------------------------
+ΕΡΓΑΣΙΕΣ ΣΥΝΤΗΡΗΣΗΣ
+---------async await - utils fetches μένουν------------------------
 
+createRegisters
+deleteOneStudent
+deleteStudentClass
+getDataRegisters
+getPayeds
+getRegisters
+getStudentClasses
+getStudents
+getSubClass
+msgSubmitted
+saveNewClass
+saveNewStudent
+send_email
+updateStudent
+updateStudentClass
+
+------------καθαρισμός κώδικα--------------
+
+addPaymentRegisters
+createCORSRequest1
+deletePaymentRegistersOne__
+deleteRegistersOneStudent____
+deleteRegisters____OLD
+filterNonTerminalClasses
+getDataPaymentsRegistrations_____
+msgSubmitted____
+updatePaymentRegisters____
+updateRegisters___
 
 ΙΔΕΕΣ ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ
 
@@ -166,7 +193,11 @@ depending on updateMode
 9. Να βάλω το pagination απο spring boot  και σε react bootstrap table
 10. Να βελτιωσω τον κωδικα οπου εχει fetch με τις νεες συναρτησεις, async await για να γινει πιο συντηρισιμο 
 11. να βελτιωσω τα ftch utils ενοποίηση σε ενα 
+12. Να βάλω async await παντου και την χρήση των utils functions
+13. καθαρισμος κώδικα
 
 setup database
 
 1. στα τμηματα πρέπει να προυπάρχει ενα τμημα ως καταληκτικο με ονομα "No subclass " το οποίο αναφέρεται στο εαυτό του
+
+
