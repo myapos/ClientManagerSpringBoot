@@ -42,6 +42,7 @@ class SendEmailsManually extends Component {
   handleSubmit (text) {
 
     console.log('Sending message:', text);
+
     // get selected class
     const selClass = document.getElementById('dataDisplayClassesForSendingEmailManually');
     const tableSelected = selClass.getElementsByClassName('react-bs-container-body');
@@ -62,7 +63,7 @@ class SendEmailsManually extends Component {
           studentClassesWithLinks={studentClassesWithLinks} />
         </div>
         <div className="form-group">
-          <label htmlFor="comment">Message:</label>
+          <label htmlFor="comment">Μύνημα:</label>
           <textarea
             onChange={this.handleChange.bind(this)}
             className="form-control"

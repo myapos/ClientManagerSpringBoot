@@ -1,6 +1,6 @@
 /* wrapper function for fetching from database */
 
-export default (url, method_, mode_) => fetch(url,
+export default (url, method_, mode_, json = true) => fetch(url,
   {
     method: method_,
     mode: mode_,
@@ -10,5 +10,9 @@ export default (url, method_, mode_) => fetch(url,
       'Content-Type': 'application/json',
     },
   }).then(res => {
-    return res.json();
+    if (json) {
+      return res.json();
+    } else {
+      return res;
+    }
   });
