@@ -1,94 +1,43 @@
 import send_email from './send_email';
 import * as constants from '../constants';
+import * as utils from '../utils';
 
-export default (msg, selectedClass) => {
-  // debugger;
-  parent.msgSubmitted = msg;
+export default async (msg, selectedClass) => {
   // steps
-  // find students who have payed for the selected class
-  // get selected classes from server
-  fetch(`${constants.searchRegistrationsByStudentClass}${selectedClass}`, {
-              method: 'get',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-        .then(res => res.json())
-        .then(res => {
-          // get registrations by student class
-          fetch(`${constants.searchRegistrationsByStudentClass}${res._links.self.href}`, {
-              method: 'get',
-              mode: 'cors',
-              cache: 'default',
-              headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-                'Content-Type': 'application/json',
-              },
-            })
-            .then(res2 => res2.json())
-            .then(res2 => {
-             // for all registrations get students who have payed for them and send emails
-             // so in this step get payments by registrations
-             // first search to set a flag if payments exist. This is useful in order to display messages to the user
-              parent.flagPaymentsExist = 0;
-              const flagPaymentsExistAr = [];
-              const checkNumOfRegisters = res2._embedded.registers.length;
-              res2._embedded.registers.map((el, count) => {
-                const urlT = `${constants.searchPaymentByRegistration}${el._links.self.href}`;
-                const requestT = new XMLHttpRequest();
-                requestT.open('GET', urlT, true);  // `false` makes the request synchronous
-                requestT.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-                requestT.setRequestHeader('Content-type', 'application/json');
-                requestT.contentType = 'application/json';
-                requestT.count = count;
-                requestT.onload = function () {
-                  if (requestT.readyState === 4) {
-                    if (requestT.status === 200) {
-                      const resObjT = JSON.parse(requestT.responseText);
-                      if (resObjT._embedded.payeds.length > 0) {
-                        flagPaymentsExistAr.push(1);
-                        resObjT._embedded.payeds.map(p => {
-                          const url2 = el._links.student.href;
-                          const request2 = new XMLHttpRequest();
-                          request2.open('GET', url2, true);  // `false` makes the request synchronous
-                          request2.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
-                          request2.setRequestHeader('Content-type', 'application/json');
-                          request2.contentType = 'application/json';
-                          request2.onload = function () {
-                            if (request2.readyState === 4) {
-                              if (request2.status === 200) {
-                                const student = JSON.parse(request2.responseText);
-                                // send emails if payment is true
-                                if (p.payment) {
-                                  // send email to student
-                                  send_email(student.fname, student.lname, student.email, parent.msgSubmitted);
-                                }
-                              } else {
-                                alert('Something bad happened');
-                              }
-                            }
-                          };
-                          request2.send(null);
-                        });
-                      } else {
-                        flagPaymentsExistAr.push(0);
-                      }
-                     // ean teleiwsan ta requests kai to a8roisma olwn twn el tou flagPaymentsExistAr einai 0
-                     // tote den iparxoun plirwmes
-                      const sum = flagPaymentsExistAr.reduce((total, el2) => total + el2);
-                      if (!sum && (this.count + 1) === checkNumOfRegisters) {
-                        alert('No student have payed yet for the selected class');
-                      } else if ((this.count + 1) === checkNumOfRegisters) {
-                        alert('All emails where send succesfully');
-                      }
-                    }
-                  }
-                };
-                requestT.send(null);
-              });
-            });
-        });
+  // find students who have payed for the selected class ????
+  const urlStudentClass = `${constants.searchStudentClassesByDescription}${selectedClass}`;
+  const studentClassFound = await utils.ftch(urlStudentClass, 'get', 'cors');
+  await studentClassFound;
+  // get selected class from server
+  const { _links: { self: { href: studentClassLink } } } = studentClassFound;
+
+  // get registrations by student class
+  const urlRegistrations = `${constants.searchRegistrationsByStudentClass}${studentClassLink}`;
+  const registrationFound = await utils.ftch(urlRegistrations, 'get', 'cors');
+  await registrationFound;
+  const { _embedded: { registers: registration } } = registrationFound; // registration is array
+
+  registration.map(async reg => {
+    console.log('reg:', reg);
+    // for all registrations get students who have payed for them and send emails
+    const { _links: { self: { href: registrationLink } } } = reg;
+
+    const { _links: { student: { href: studentLink } } } = reg;
+    // get student
+    const student = await utils.ftch(studentLink, 'get', 'cors');
+    await student;
+
+    const urlPayment = `${constants.searchPaymentByRegistration}${registrationLink}`;
+    const paymentFound = await utils.ftch(urlPayment, 'get', 'cors');
+    await paymentFound;
+    const { _embedded: { payeds: payment } } = paymentFound; // registration is array
+    payment.map(paym => {
+      if (paym.payment) {
+        // send email to student
+        send_email(student.fname, student.lname, student.email, msg);
+      } else {
+        alert('Something bad happened');
+      }
+    });
+  });
 };

@@ -1,21 +1,19 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 
-export default (first, last, email, msg) => {
-    // send email request to server side
-  fetch(`${constants.BASE_URL}/email?fname=${first}&lname=${last}&email=${email}&msg=${msg}&mode=selectedClasses`, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(res => {
-      if (res.status === 200) {
-        console.log('Emails where send succesfully');
-      } else {
-        alert('Something bad happened');
-      }
-    });
+export default async (first, last, email, msg) => {
+  // send email request to server side
+
+  const urlSendEmail = `${constants.BASE_URL}/email?fname=${first}&lname=${last}&email=${email}&msg=${msg}&mode=selectedClasses`;
+
+  const sendEmailDone = await utils.ftch(urlSendEmail, 'get', 'cors', false);
+
+  await sendEmailDone;
+
+  console.log('sendEmailDone.status:', sendEmailDone.status);
+  if (sendEmailDone.status === 200) {
+    console.log('Email where send succesfully');
+  } else {
+    alert('Something bad happened');
+  }
 };// end of send_email

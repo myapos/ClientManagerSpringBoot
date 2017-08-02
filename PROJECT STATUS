@@ -1,4 +1,5 @@
 useful commands and urls
+./mvnw spring-boot:run
 
 running database locally in url
 
@@ -11,7 +12,15 @@ https://redux-saga.js.org/docs/advanced/ComposingSagas.html
 
 bugs to solve:
 
-ΝΑ ΑΛΛΑΞΩ ΤΟ WORKFLOW ΣΥΜΦΩΝΑ ΜΕ ΤΑ ΒΗΜΑΤΑ 1,2,3
+ΝΑ ΑΛΛΑΞΩ ΤΟ WORKFLOW ΣΥΜΦΩΝΑ ΜΕ ΤΑ ΒΗΜΑΤΑ 1,2,3 ok
+
+gia na to anebasw stin digital ocean
+
+1. trexw ./runthis.sh dld --> yarn build kai ./mvnw spring-boot:run
+2. to anebazw sto github
+3. mpainw me ssh stin digital ocean
+4. kanw pull
+5. frontizw na kanw edit tis ip tis basis ktl
 
 improvements 
 
@@ -142,8 +151,9 @@ depending on updateMode
 
 Επικοινωνία Τμημάτων
 
-1. Με επιλογή του τμήματος
+1. Με επιλογή του τμήματος ok
 2. Αυτόματη αποστολή
+3. τερματικα τμηματα μονο ok
 
 -------------------------------------------------------------------
 ΕΡΓΑΣΙΕΣ ΣΥΝΤΗΡΗΣΗΣ
@@ -195,6 +205,10 @@ updateRegisters___
 11. να βελτιωσω τα ftch utils ενοποίηση σε ενα 
 12. Να βάλω async await παντου και την χρήση των utils functions
 13. καθαρισμος κώδικα
+14. πολυγλωσσικότητα?
+14. jest? 
+15. να το ανεβασω digital ocean
+16. Σελιδοποίηση
 
 setup database
 

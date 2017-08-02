@@ -83,12 +83,11 @@ export default (msg, selectedClass) => {
 
                       if (request2.status === 200) {
                         const student = JSON.parse(request2.responseText);
-
-                                    // send emails if payment is true
-                                    // debugger;
+                      // send emails if payment is true
+                      // debugger;
                         console.log('log:', p);
                         if (p.payment) {
-                                        // send email to student
+                          // send email to student
                           send_email(student.fname, student.lname, student.email, parent.msgSubmitted);
                         }
                       } else {
