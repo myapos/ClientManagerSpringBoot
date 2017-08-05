@@ -34,14 +34,14 @@ Useful tools: Liquibase, phppgadmin, sagas, react-bootstrap-table
 
 Useful commands - commands -links
 ================
-##### http://localhost/phppgadmin/
-##### http://46.101.124.67/phppgadmin/
-##### http://clientmanager.oncrete.gr
-##### http:kofinas.oncrete.gr
-##### http://localhost:3000/#/
-##### http://localhost:8181/#/
-##### maven compile war:war        create war
-##### maven package                create jar
-##### ./mvnw spring-boot:run
-##### ./mvnw clean package
-##### supervisorctl restart
+
+* http://localhost/phppgadmin/
+* http://clientmanager.oncrete.gr
+* http://localhost:3000/#/
+* http://localhost:8181/#/
+* `maven compile war:war`        create war
+* `maven package`                create jar
+* `./mvnw spring-boot:run` in pom.xml give war or jar option in package attribute according to desired
+* `./mvnw clean package`
+* `supervisorctl restart`
+
