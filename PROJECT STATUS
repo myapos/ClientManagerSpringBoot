@@ -1,26 +1,35 @@
 useful commands and urls
-./mvnw spring-boot:run
 
 running database locally in url
 
 http://localhost/phppgadmin/
+http://46.101.124.67/phppgadmin/
 http://localhost:3000/#/
 http://localhost:8181/#/
 https://gist.github.com/mikaelbr/9900818
 https://facebook.github.io/react/docs/forms.html
 https://redux-saga.js.org/docs/advanced/ComposingSagas.html
 
+
+maven compile war:war        create war
+maven package                create jar
+
+
+prwta sto home meta sto var
+
+scp ClientManager-0.0.1.war myapos@kofinas.oncrete.gr:/home/myapos/
+
+restart apache
+
+https://www.cyberciti.biz/faq/star-stop-restart-apache2-webserver/
+
+sudo /etc/init.d/apache2 restart
+
+
+sto opt mesa exei to clientmanager project to jar????
 bugs to solve:
 
-ΝΑ ΑΛΛΑΞΩ ΤΟ WORKFLOW ΣΥΜΦΩΝΑ ΜΕ ΤΑ ΒΗΜΑΤΑ 1,2,3 ok
-
-gia na to anebasw stin digital ocean
-
-1. trexw ./runthis.sh dld --> yarn build kai ./mvnw spring-boot:run
-2. to anebazw sto github
-3. mpainw me ssh stin digital ocean
-4. kanw pull
-5. frontizw na kanw edit tis ip tis basis ktl
+ΝΑ ΑΛΛΑΞΩ ΤΟ WORKFLOW ΣΥΜΦΩΝΑ ΜΕ ΤΑ ΒΗΜΑΤΑ 1,2,3
 
 improvements 
 
@@ -151,9 +160,8 @@ depending on updateMode
 
 Επικοινωνία Τμημάτων
 
-1. Με επιλογή του τμήματος ok
-2. Αυτόματη αποστολή
-3. τερματικα τμηματα μονο ok
+1. Με επιλογή του τμήματος
+2. Αυτόματη αποστολή ενεργοποιηση
 
 -------------------------------------------------------------------
 ΕΡΓΑΣΙΕΣ ΣΥΝΤΗΡΗΣΗΣ
@@ -171,7 +179,7 @@ getSubClass
 msgSubmitted
 saveNewClass
 saveNewStudent
-send_email
+send_email ok
 updateStudent
 updateStudentClass
 
@@ -205,13 +213,14 @@ updateRegisters___
 11. να βελτιωσω τα ftch utils ενοποίηση σε ενα 
 12. Να βάλω async await παντου και την χρήση των utils functions
 13. καθαρισμος κώδικα
-14. πολυγλωσσικότητα?
-14. jest? 
-15. να το ανεβασω digital ocean
-16. Σελιδοποίηση
 
 setup database
 
 1. στα τμηματα πρέπει να προυπάρχει ενα τμημα ως καταληκτικο με ονομα "No subclass " το οποίο αναφέρεται στο εαυτό του
 
 
+/var/lib/tomcat7/webapps
+
+/opt/clientmanager
+
+ebgala to jetty apo to pom.xml
