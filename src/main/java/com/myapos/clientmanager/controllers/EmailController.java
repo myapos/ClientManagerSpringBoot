@@ -42,12 +42,16 @@ public class EmailController {
 	private NotificationService notificationService;
 	
 	@RequestMapping(value = "/email",
-		params = { "fname", "lname","email","msg", "mode" },
-		method = RequestMethod.GET)
-    @ResponseBody
+	params = { "fname", "lname","email","msg", "mode" },
+	method = RequestMethod.GET)
+
+  @ResponseBody
 	public String signupSuccess(
-		 @RequestParam String fname,  @RequestParam String lname, 
-		 @RequestParam String email, @RequestParam String msg, @RequestParam String mode){
+		 @RequestParam String fname,
+		 @RequestParam String lname, 
+		 @RequestParam String email,
+		 @RequestParam String msg,
+		 @RequestParam String mode){
 				
 		// send a notification
 		try {
@@ -55,11 +59,9 @@ public class EmailController {
 		}catch( Exception e ){
 			// catch error
 			logger.info("Error Sending Email: " + e.getMessage());
-		}
-		
+		}		
 		return "Thank you for registering with us.";
-	}
-	
+	}	
 }
 // end::code[]
 

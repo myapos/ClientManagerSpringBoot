@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.myapos.clientmanager.model.*;
 
-
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -54,31 +53,31 @@ public class NotificationService {
 	public void sendNotification(String fname, String lname, String email, String msg, String mode) throws MailException, InterruptedException {
 		
 		System.out.println("Sleeping now...");
-        Thread.sleep(10000);
+    Thread.sleep(10000);
 		
-        System.out.println("Sending email...");
+    System.out.println("Sending email...");
         
-        SimpleMailMessage mail = new SimpleMailMessage();
-        if( mode.equals("selectedClasses")){
+    SimpleMailMessage mail = new SimpleMailMessage();
+
+    if(mode.equals("selectedClasses")){
 			String text = "You are receiving this because you are a member of Ferrum Gym.";
 			mail.setTo(email);
-			mail.setFrom("ferrumgym@gmail.com");
+			mail.setFrom("myclientmanage@gmail.com");
 			mail.setSubject("Notification");
 			mail.setText(text + msg);
 			javaMailSender.send(mail);
 			System.out.println("Email Sent!");
-		}
-		else {
+		} else {
+			System.out.println("sending automated email!!!!!!!!!!!!!!!!!!!!!!!!");
 			//String text = "You are receiving this because you are a member of Ferrum Gym.";
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 			Date date = new Date();
 			mail.setTo(email);
-			mail.setFrom("ferrumgym@gmail.com");
+			mail.setFrom("myclientmanage@gmail.com");
 			mail.setSubject("Check your registration fee. Reporting at " + dateFormat.format(date));
 			mail.setText(msg);
 			javaMailSender.send(mail);
 			System.out.println("Email Sent!");
-
 		}
 	}
 	
