@@ -32,7 +32,7 @@ Database: PostgreSQL
 
 Useful tools: Liquibase, phppgadmin, sagas, react-bootstrap-table
 
-Useful commands - commands -links
+Useful commands -links
 ================
 
 * http://localhost/phppgadmin/
