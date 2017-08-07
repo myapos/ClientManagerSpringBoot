@@ -71,6 +71,10 @@ export const SET_TIMER = 'SET_TIMER';
 /* MATCH FIRST NAME WITH LNAME*/
 export const MATCH_NAMES = 'MATCH_NAMES';
 
+/* PAGINATION */
+export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
+export const SAGAS_GET_ACTIVE_PAGE_DATA = 'SAGAS_GET_ACTIVE_PAGE_DATA';
+
 export function getAllStudents () {
   return {
     type: GET_ALL_STUDENTS,
@@ -307,5 +311,12 @@ export function sagasDeleteStudents (success){
   return {
     type: SAGAS_DELETE_STUDENTS,
     success,
+  };
+}
+
+export function setActivePage (activePage) {
+  return {
+    type: SET_ACTIVE_PAGE,
+    activePage,
   };
 }

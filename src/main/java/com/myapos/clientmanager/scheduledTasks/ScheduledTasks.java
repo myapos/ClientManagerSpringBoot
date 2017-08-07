@@ -44,8 +44,8 @@ public class ScheduledTasks {
 		this.managers = managerRepository;
 		this.payeds = payedRepository;
 	}
-	/* Set time schedule in msecs*/
-  @Scheduled(fixedRate = 5000)
+	/* Set time schedule in 24 hs= 86400000 msecs*/
+  @Scheduled(fixedRate = 86400000)
   public void reportCurrentTime() {
     log.info("The time is now {}", dateFormat.format(new Date()));
 

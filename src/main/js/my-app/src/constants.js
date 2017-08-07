@@ -1,5 +1,7 @@
 export const BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
-export const studentsAPI = `${BASE_URL}/api/students`;
+export const sizeOfPage = 7;
+// export const studentsAPI = `${BASE_URL}/api/students?page=${numOfPage}&size=${sizeOfPage}`;
+export const studentsAPI = `${BASE_URL}/api/students?size=${sizeOfPage}`;
 export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
 export const registersAPI = `${BASE_URL}/api/registers/`;
 export const paymentsAPI = `${BASE_URL}/api/payeds/`;
@@ -26,3 +28,4 @@ export const templateStudentBody = {
   facebook: {},
   manager : {},
 };
+

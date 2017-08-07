@@ -1,4 +1,11 @@
-export default students => {
+export default students_ => {
+  let students;
+  if (!Array.isArray(students_)) {
+    students = students_.students;
+  } else {
+    students = students_;
+  }
+
   students.map((obj, index) => {
     const date = new Date(obj.dateOfBirth);
     const formatedDate = date.toString().match(/... ... [0-9][0-9] [0-9][0-9][0-9][0-9](?!([0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT[+]0300 \(EEST\)))/g);

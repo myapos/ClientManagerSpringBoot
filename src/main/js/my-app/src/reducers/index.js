@@ -6,7 +6,7 @@ const reducer = (state = {}, action) => {
     paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
     text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses,
-    fname, email, onModalClose, students, success, registers } = action;
+    fname, email, onModalClose, students, success, registers, activePage, page, activePageDataStudents } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -98,6 +98,7 @@ const reducer = (state = {}, action) => {
         dataFetchedStudentClasses,
       };
     case actions.DATA_INITIALIZATION:
+      // debugger;
       return {
         ...state,
         initDataStudentClasses,
@@ -107,6 +108,12 @@ const reducer = (state = {}, action) => {
         studentClassesWithLinks,
         filteredStudentClassesWithLinks,
         processedStudentClasses,
+        page,
+      };
+    case actions.SAGAS_GET_ACTIVE_PAGE_DATA:
+      return {
+        ...state,
+        initDataStudents: activePageDataStudents,
       };
     case actions.SAVE_NEW_CLASS:
       return {
@@ -238,6 +245,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         success,
+      };
+    case actions.SET_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage,
       };
     default:
       return state;
