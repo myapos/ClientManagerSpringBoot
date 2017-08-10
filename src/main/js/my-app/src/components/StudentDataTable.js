@@ -11,11 +11,13 @@ class StudentDataTable extends Component {
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
     initDataStudents: PropTypes.array,
+    initDataAllStudents: PropTypes.array,
     addStudent: PropTypes.func,
     deleteStudents: PropTypes.func,
     updateStudent: PropTypes.func,
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
+    searchingStatus: PropTypes.bool,
   }
 
   constructor (props) {
@@ -74,13 +76,17 @@ class StudentDataTable extends Component {
     );
   }
   afterSearch = (searchText, result) => {
-    //...
-    debugger;
+    //debugger;
     console.log('after search');
+    if (searchText === '' || searchText === null) {
+      this.props.searching(false);
+    } else {
+      this.props.searching(true);
+    }
   }
   render () {
-    const { initDataStudents } = this.props;
-    // debugger;
+    const { initDataStudents, searchingStatus, initDataAllStudents } = this.props;
+
     // console.log('success:', success);
 
     // preprocess area
@@ -107,7 +113,7 @@ class StudentDataTable extends Component {
       <div id="students">
         <BootstrapTable
           cellEdit={cellEditProp}
-          data={initDataStudents}
+          data={searchingStatus ? initDataAllStudents : initDataStudents}
           hover
           insertRow
           selectRow={selectRowProp}

@@ -4,14 +4,16 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './containers/App';
 import './index.css';
+import * as utils from './utils';
 
-const init = () => {
+const init = async () => {
   const placeholder = document.getElementById('react');
 
   const initialState = {
     initRegistrations: [[]],
     initDataStudentClasses: [[]],
     initDataStudents: [],
+    // initDataAllStudents_: [],
     initPayments: [],
     displayInitialMsg: true,
     seconds: 0,

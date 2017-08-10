@@ -1,12 +1,13 @@
 import * as actions from '../actions/';
 
 const reducer = (state = {}, action) => {
-  const { type, initDataStudentClasses, initDataStudents, initPayments, initRegistrations, studentClassesWithLinks,
+  const { type, initDataStudentClasses, initDataStudents, initDataAllStudents, initPayments, initRegistrations, studentClassesWithLinks,
     filteredStudentClassesWithLinks, dataFetchedStudentClasses, row, classId, rowUpdate, cellName, cellValue, desc, selectedTab, namespace,
     paymentId, updateMode, registerId, msg, selectedClass, loadingHandlingCommplete,
     url, parentDesc, obj, classesPair, saved_student, dataRegistersLoaded, dataPaymentsRegistersLoaded,
     text, displayInitialMsg, timer, timePassed, setNonTerminalClasses, filteredClasses, processedStudentClasses,
-    fname, email, onModalClose, students, success, registers, activePage, page, activePageDataStudents } = action;
+    fname, email, onModalClose, students, success, registers, activePage, page, activePageDataStudents,
+    searchingStatus } = action;
   let { seconds } = action;
 
   switch (type) {
@@ -109,6 +110,7 @@ const reducer = (state = {}, action) => {
         filteredStudentClassesWithLinks,
         processedStudentClasses,
         page,
+        initDataAllStudents,
       };
     case actions.SAGAS_GET_ACTIVE_PAGE_DATA:
       return {
@@ -250,6 +252,11 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         activePage,
+      };
+    case actions.SEARCHING:
+      return {
+        ...state,
+        searchingStatus,
       };
     default:
       return state;
