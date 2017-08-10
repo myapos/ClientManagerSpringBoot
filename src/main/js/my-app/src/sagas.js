@@ -9,8 +9,11 @@ function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
   const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
-  const initDataStudents_ = yield call(api.getStudents, state);
+  const initDataStudents_ = yield call(api.getStudents, 'pagination');
   const { page } = initDataStudents_;
+  const initDataAllStudents_ = yield call(api.getStudents, 'all');
+  const { pageAll } = initDataAllStudents_;
+  const initDataAllStudents = yield utils.preprocessStudents(initDataAllStudents_);
   const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
   const initRegistrations_ = yield call(api.getDataRegisters, state);
 
@@ -32,6 +35,7 @@ function* getDataFromServer () {
     filteredStudentClassesWithLinks,
     processedStudentClasses,
     page,
+    initDataAllStudents,
   });
 }
 

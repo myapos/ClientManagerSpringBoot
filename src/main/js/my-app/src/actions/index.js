@@ -75,6 +75,9 @@ export const MATCH_NAMES = 'MATCH_NAMES';
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 export const SAGAS_GET_ACTIVE_PAGE_DATA = 'SAGAS_GET_ACTIVE_PAGE_DATA';
 
+/* SEARCHING */
+export const SEARCHING = 'SEARCHING';
+
 export function getAllStudents () {
   return {
     type: GET_ALL_STUDENTS,
@@ -318,5 +321,12 @@ export function setActivePage (activePage) {
   return {
     type: SET_ACTIVE_PAGE,
     activePage,
+  };
+}
+
+export function searching (searchingStatus) {
+  return {
+    type: SEARCHING,
+    searchingStatus,
   };
 }
