@@ -22,6 +22,7 @@ const init = async () => {
     filteredStudentClassesWithLinks: [[]],
     lname: '',
     activePage: 0,
+    searchingStatus: false,
   };
 
   ReactDOM.render(<Provider

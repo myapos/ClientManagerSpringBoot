@@ -18,6 +18,7 @@ class StudentDataTable extends Component {
     deleteRegisters: PropTypes.func,
     createRegisters: PropTypes.func,
     searchingStatus: PropTypes.bool,
+    searching: PropTypes.func,
   }
 
   constructor (props) {
@@ -75,10 +76,10 @@ class StudentDataTable extends Component {
       <InsertStudentModal {... attr} />
     );
   }
-  afterSearch = (searchText, result) => {
-    //debugger;
+  afterSearch(searchText, result){
+
     console.log('after search');
-    if (searchText === '' || searchText === null) {
+    if (searchText === null || searchText === '') {
       this.props.searching(false);
     } else {
       this.props.searching(true);
