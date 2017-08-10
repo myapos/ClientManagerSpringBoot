@@ -10,8 +10,10 @@ function* getDataFromServer () {
   const state = yield select();
   const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
   const initDataStudents_ = yield call(api.getStudents, state);
+  const { page } = initDataStudents_;
   const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
   const initRegistrations_ = yield call(api.getDataRegisters, state);
+
   // preprocess area
   const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
   const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_, 'description');
@@ -19,6 +21,7 @@ function* getDataFromServer () {
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
   const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
   const processedStudentClasses = yield utils.preprocessStudentClasses(filteredStudentClassesWithLinks, 'parentClass');
+
   yield put({
     type: actions.DATA_INITIALIZATION,
     initRegistrations,
@@ -28,6 +31,7 @@ function* getDataFromServer () {
     studentClassesWithLinks,
     filteredStudentClassesWithLinks,
     processedStudentClasses,
+    page,
   });
 }
 
@@ -223,6 +227,17 @@ function* getDataPaymentsRegisters () {
   });
 }
 
+function* getActivePageData () {
+  const state = yield select();
+  const { page, activePage } = state;
+  const { students: activePageDataStudents_ } = yield call(api.getActivePageData, page, activePage);
+  const activePageDataStudents = yield utils.preprocessStudents(activePageDataStudents_);
+  yield put({
+    type: actions.SAGAS_GET_ACTIVE_PAGE_DATA,
+    activePageDataStudents,
+  });
+}
+
 function* rootSaga () {
   yield getDataFromServer();
   yield takeEvery(actions.STUDENT_CLASS_DASHBOARD, getStudentClasses);
@@ -242,6 +257,7 @@ function* rootSaga () {
   yield takeEvery(actions.GET_SUBCLASS, getSubClass);
   yield takeEvery(actions.DATA_REGISTERS, getDataRegisters);
   yield takeEvery(actions.DATA_PAYMENTS_REGISTERS, getDataPaymentsRegisters);
+  yield takeEvery(actions.SET_ACTIVE_PAGE, getActivePageData);
 }
 
 export default rootSaga;

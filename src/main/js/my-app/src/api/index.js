@@ -26,6 +26,7 @@ import getDataRegisters from './getDataRegisters';
 import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
 import filterNonTerminalClasses from './filterNonTerminalClasses';
 import deletePaymentRegistersOne from './deletePaymentRegistersOne';
+import getActivePageData from './getActivePageData';
 
 export {
   getStudentClasses,
@@ -56,4 +57,5 @@ export {
   getDataPaymentsRegistrations,
   filterNonTerminalClasses,
   deletePaymentRegistersOne,
+  getActivePageData,
 };

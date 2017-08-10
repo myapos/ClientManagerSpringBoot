@@ -13,8 +13,11 @@ export default () => {
         })
     .then(res => res.json())
     .then(res => {
-      const students = res._embedded.students;
-      return students;
+      const { page, _embedded : { students } } = res;
+      return ({
+        students,
+        page,
+      });
     });
   return studentsData;
 };

@@ -4,9 +4,8 @@ import * as utils from '../utils';
 
 export default async saved_student => {
   const dataPaymentRegisters = [];
-  const students = saved_student;
+  const students = saved_student.students;
   // steps get data payments registration
-
   // 1. for each student get registrations
   await students.map(async st => {
 

@@ -1,5 +1,7 @@
 export const BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
-export const studentsAPI = `${BASE_URL}/api/students`;
+export const sizeOfPage = 10;
+// export const studentsAPI = `${BASE_URL}/api/students?page=${numOfPage}&size=${sizeOfPage}`;
+export const studentsAPI = `${BASE_URL}/api/students?size=${sizeOfPage}`;
 export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
 export const registersAPI = `${BASE_URL}/api/registers/`;
 export const paymentsAPI = `${BASE_URL}/api/payeds/`;
@@ -15,7 +17,7 @@ export const searchByManager = `${BASE_URL}/api/managers/17`;
 export const txtMsg = `
 Please select class, write your message and press enter. The message will be send only to \n those students that has registered to classes and has payed.`;
 export const giveMessage = 'Press a key to delete this message and give yours';
-export const maximumTimeToWaitForData = 10;
+export const maximumTimeToWaitForData = 60;
 
 export const templateStudentBody = {
   fname: {},
@@ -26,3 +28,4 @@ export const templateStudentBody = {
   facebook: {},
   manager : {},
 };
+

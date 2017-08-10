@@ -9,6 +9,7 @@ import Registers from './Registers';
 import StudentDataTable from './StudentDataTable';
 import SendEmailsManually from './SendEmailsManually';
 import Signature from './Signature';
+import PaginationLinks from './PaginationLinks';
 
 const styles = {
   tabs: {
@@ -91,7 +92,6 @@ class Dashboard extends Component {
         <h2>Καλωσήρθατε στην διαχείριση πελατών ClientManager</h2>
         <div className="labelContainer">
           <legend><span>Πίνακας Ελέγχου</span></legend>
-          <Signature />
         </div>
         <Tabs
           name="selectedTab"
@@ -164,6 +164,10 @@ class Dashboard extends Component {
             </TabContent>
           </div>
         </Tabs>
+        <div className="flex-wrap-container">
+          <Signature />
+          <PaginationLinks />
+        </div>
       </div>
 
     );

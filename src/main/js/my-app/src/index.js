@@ -4,12 +4,8 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './containers/App';
 import './index.css';
-import * as constants from './constants';
-import * as api from './sagas.js';
 
 const init = () => {
-  console.log('constants:', constants);
-  console.log('sagas:', api);
   const placeholder = document.getElementById('react');
 
   const initialState = {
@@ -23,6 +19,7 @@ const init = () => {
     setNonTerminalClasses: false,
     filteredStudentClassesWithLinks: [[]],
     lname: '',
+    activePage: 0,
   };
 
   ReactDOM.render(<Provider

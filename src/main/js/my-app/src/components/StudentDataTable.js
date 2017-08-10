@@ -95,7 +95,7 @@ class StudentDataTable extends Component {
       noDataText: 'There are no data',
       insertModal: this.createInsertStudentModal.bind(this),
       afterInsertRow: this.onAfterInsertRow.bind(this),   // A hook for after insert rows
-      afterDeleteRow: this.onAfterDeleteRow.bind(this),  // A hook for after droping rows.
+      afterDeleteRow: this.onAfterDeleteRow.bind(this),   // A hook for after droping rows.
     };
 
     return (
@@ -113,26 +113,33 @@ class StudentDataTable extends Component {
             dataField="index"
             isKey
             dataSort
-            editable={false} >id
+            editable={false}
+            width="55px"
+            dataAlign="center"
+            columnClassName="idStudent">id
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="fname"
-            dataAlign="center"
+            width="10%"
+            dataAlign="left"
             dataSort
             pagination>Name
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="lname"
+            width="10%"
             dataSort>Last Name
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="phone"
+            width="10%"
             dataSort={false}>
             Mobile phone
           </TableHeaderColumn>
           <TableHeaderColumn
             dataField="dateOfBirth"
             dataAlign="left"
+            width="10%"
             dataSort={false}>
             Date Of Birth
           </TableHeaderColumn>
