@@ -73,7 +73,11 @@ class StudentDataTable extends Component {
       <InsertStudentModal {... attr} />
     );
   }
-
+  afterSearch = (searchText, result) => {
+    //...
+    debugger;
+    console.log('after search');
+  }
   render () {
     const { initDataStudents } = this.props;
     // debugger;
@@ -96,6 +100,7 @@ class StudentDataTable extends Component {
       insertModal: this.createInsertStudentModal.bind(this),
       afterInsertRow: this.onAfterInsertRow.bind(this),   // A hook for after insert rows
       afterDeleteRow: this.onAfterDeleteRow.bind(this),   // A hook for after droping rows.
+      afterSearch: this.afterSearch.bind(this),
     };
 
     return (
