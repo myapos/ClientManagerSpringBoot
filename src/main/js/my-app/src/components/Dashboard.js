@@ -164,8 +164,10 @@ class Dashboard extends Component {
             </TabContent>
           </div>
         </Tabs>
-        <Signature />
-        <PaginationLinks />
+        <div className="flex-wrap-container">
+          <Signature />
+          <PaginationLinks />
+        </div>
       </div>
 
     );

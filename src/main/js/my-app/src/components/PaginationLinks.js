@@ -8,23 +8,25 @@ class PaginationLinks extends Component {
   static propTypes = {
     setActivePage: PropTypes.func,
     activePage: PropTypes.number,
+    page: PropTypes.object,
   }
 
   handlePageChange (pageNumber) {
     console.log(`active page is ${pageNumber}`);
     /* set active page */
-    this.props.setActivePage(pageNumber - 1);
+    this.props.setActivePage(pageNumber);
   }
 
   render () {
     const { activePage, page } = this.props;
+
     return (
       <div className="paginationLinks">
         <Pagination
           activePage={activePage}
           itemsCountPerPage={page.size}
           totalItemsCount={page.totalElements}
-          pageRangeDisplayed={3}
+          pageRangeDisplayed={4}
           onChange={::this.handlePageChange} />
       </div>);
   }

@@ -62,7 +62,7 @@ export default class Page extends Component {
 
     return (
       <li className={css} onClick={::this.handleClick}>
-        <a className={linkCss} href="http://localhost:8181">
+        <a className={linkCss}>
           { pageText }
         </a>
       </li>
