@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InsertStudentClassesModal from './InsertStudentClassesModal';
 import * as actions from '../actions/';
+import PaginationLinks from './PaginationLinks';
+import Signature from './Signature';
 
 class StudentClasses extends Component {
   static propTypes = {
@@ -125,66 +127,75 @@ class StudentClasses extends Component {
     return (
       <div id="studentClasses" >
         { setNonTerminalClasses
-          ? <BootstrapTable
-            data={studentClassesWithLinks}
-            cellEdit={cellEditProp}
-            selectRow={selectRowProp}
-            hover
-            insertRow
-            deleteRow
-            options={options}
-            trClassName={this.trClassFormat}>
-            <TableHeaderColumn
-              dataField="index"
-              isKey
-              dataSort
-              editable={false} >id
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField="parentClass"
-              dataAlign="center"
-              dataSort
-              pagination>Description
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField="subClass"
-              dataAlign="center"
-              dataSort
-              editable={{ type: 'select', options: { values: initDataStudentClasses } }}
-              pagination>Subclass
-            </TableHeaderColumn>
-          </BootstrapTable>
-          : <BootstrapTable
-            data={filteredStudentClassesWithLinks}
-            cellEdit={cellEditProp}
-            selectRow={selectRowProp}
-            hover
-            insertRow
-            deleteRow
-            options={options}
-            trClassName={this.trClassFormat}>
-            <TableHeaderColumn
-              dataField="index"
-              isKey
-              dataSort
-              editable={false} >id
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField="parentClass"
-              dataAlign="center"
-              dataSort
-              pagination>Description
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              dataField="subClass"
-              dataAlign="center"
-              dataSort
-              editable={{ type: 'select', options: { values: initDataStudentClasses } }}
-              pagination>Subclass
-            </TableHeaderColumn>
-          </BootstrapTable>
+          ? <div>
+            <BootstrapTable
+              data={studentClassesWithLinks}
+              cellEdit={cellEditProp}
+              selectRow={selectRowProp}
+              hover
+              insertRow
+              deleteRow
+              options={options}
+              trClassName={this.trClassFormat}>
+              <TableHeaderColumn
+                dataField="index"
+                isKey
+                dataSort
+                editable={false} >id
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                dataField="parentClass"
+                dataAlign="center"
+                dataSort
+                pagination>Description
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                dataField="subClass"
+                dataAlign="center"
+                dataSort
+                editable={{ type: 'select', options: { values: initDataStudentClasses } }}
+                pagination>Subclass
+              </TableHeaderColumn>
+            </BootstrapTable>
+            <div className="flex-wrap-container">
+              <Signature />
+            </div>
+          </div>
+          : <div>
+            <BootstrapTable
+              data={filteredStudentClassesWithLinks}
+              cellEdit={cellEditProp}
+              selectRow={selectRowProp}
+              hover
+              insertRow
+              deleteRow
+              options={options}
+              trClassName={this.trClassFormat}>
+              <TableHeaderColumn
+                dataField="index"
+                isKey
+                dataSort
+                editable={false} >id
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                dataField="parentClass"
+                dataAlign="center"
+                dataSort
+                pagination>Description
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                dataField="subClass"
+                dataAlign="center"
+                dataSort
+                editable={{ type: 'select', options: { values: initDataStudentClasses } }}
+                pagination>Subclass
+              </TableHeaderColumn>
+            </BootstrapTable>
+            <div className="flex-wrap-container">
+              <Signature />
+            </div>
+          </div>
         }
-
       </div>);
   }
 }

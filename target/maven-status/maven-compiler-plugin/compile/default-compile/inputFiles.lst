@@ -3,6 +3,7 @@
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/scheduledTasks/ScheduledTasks.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/Register.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/StudentClass.java
+/home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/DataRegisters.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/RegisterRepository.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/SpringDataJpaUserDetailsService.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/ReactAndSpringDataRestApplication.java
@@ -13,6 +14,7 @@
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/StudentRepository.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/Student.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/WebMvcConfiguration.java
+/home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/controllers/getDataRegistersController.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/StudentClassRepository.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/WebSocketConfiguration.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/PayedRepository.java
@@ -20,6 +22,7 @@
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/controllers/NotificationService.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/CorsFilter.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/ManagerRepository.java
+/home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/StudentClassForDataRegisters.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/controllers/PayedController.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/SpringDataRestEventHandler.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/Manager.java

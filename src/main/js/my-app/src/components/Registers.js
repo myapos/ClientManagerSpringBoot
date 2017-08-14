@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import InsertRegistersModal from './InsertRegistersModal';
 import * as actions from '../actions/';
 import * as utils from '../utils';
+import Signature from './Signature';
 
 class Registers extends Component {
   static propTypes = {
@@ -113,6 +114,9 @@ class Registers extends Component {
             editable={{ type: 'datetime' }}> Date Of Registration
           </TableHeaderColumn>
         </BootstrapTable>
+        <div className="flex-wrap-container">
+          <Signature />
+        </div>
       </div>
     );
   }

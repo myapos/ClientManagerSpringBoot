@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InsertPaymentRegistersModal from './InsertPaymentRegistersModal';
+import Signature from './Signature';
 import * as actions from '../actions/';
 import * as utils from '../utils';
 
@@ -137,6 +138,9 @@ class PaymentRegisters extends Component {
           Date Of Payment
         </TableHeaderColumn>
         </BootstrapTable>
+        <div className="flex-wrap-container">
+          <Signature />
+        </div>
       </div>
     );
   }

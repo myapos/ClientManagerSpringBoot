@@ -38,6 +38,7 @@ const DisplayClassesForSendingEmailManually = ({ filteredStudentClassesWithLinks
           editable={{ type: 'select', options: { values: terminalClasses } }} >Class
         </TableHeaderColumn>
       </BootstrapTable>
+
     </div>
   );
 };
@@ -57,5 +58,4 @@ DisplayClassesForSendingEmailManually.propTypes = {
   changeText: PropTypes.func,
   filteredStudentClassesWithLinks: PropTypes.array,
 };
-
 export default connect(state => state, actions)(DisplayClassesForSendingEmailManually);

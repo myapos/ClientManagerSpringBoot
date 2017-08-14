@@ -6,6 +6,7 @@ export const sizeOfAllStudents = 100000; // set this to a big number
 export const studentsOfAllAPI = `${BASE_URL}/api/students?size=${sizeOfAllStudents}`;
 export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
 export const registersAPI = `${BASE_URL}/api/registers/`;
+export const getDataRegistersAPI = `${BASE_URL}/getDataRegisters/`;
 export const paymentsAPI = `${BASE_URL}/api/payeds/`;
 export const searchPaymentByRegistration = `${BASE_URL}/api/payeds/search/findByRegister?register=`;
 export const searchStudentFindByName = `${BASE_URL}/api/students/search/findByFname`;
@@ -16,6 +17,7 @@ export const searchRegistrationsByStudentClass = `${BASE_URL}/api/registers/sear
 export const searchStudentClassesByDescription = `${BASE_URL}/api/studentClasses/search/findBydescription?description=`;
 export const searchStudentClassesByFnameAndLname = `${BASE_URL}/api/studentClasses/search/findByFnameAndLname?fname=`;
 export const searchByManager = `${BASE_URL}/api/managers/17`;
+export const urlSendEmail = `${BASE_URL}/email`;
 export const txtMsg = `
 Please select class, write your message and press enter. The message will be send only to \n those students that has registered to classes and has payed.`;
 export const giveMessage = 'Press a key to delete this message and give yours';

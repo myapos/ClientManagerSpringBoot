@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Myron Apostolakis
  */
-// tag::code[]
 @Data
 @Entity
 public class StudentClass {
@@ -45,4 +44,3 @@ public class StudentClass {
 		this.studentClass = studentClass;
 	}
 }
-// end::code[]

@@ -69,8 +69,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		if( greg == null){
 
-			greg = this.managers.save(new Manager("greg", "turnquist",
-								"ROLE_MANAGER"));
+			greg = this.managers.save(new Manager("greg", "turnquist","ROLE_MANAGER"));
 		}
 
 		if( myapos == null){
@@ -89,8 +88,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("myapos", "doesn't matter",
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
-
-		
+	
 		//if no student data exist in the database then add some
 
 		Iterable<Student> allStudents = this.students.findAll();
@@ -115,10 +113,7 @@ public class DatabaseLoader implements CommandLineRunner {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-
-
 		}
-
 
 		Student res = this.students.findByFname("myros2");
 		System.out.println("searched:"+res);
@@ -128,15 +123,11 @@ public class DatabaseLoader implements CommandLineRunner {
 			//this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
 		//}
 
-
 		// for(Student stud : this.students.findAll()){
 		// 	System.out.println("allStudents:"+stud.toString());
 		// }
 		// this.students.save(new Student("myros","myroslname","myapos@yahoo.com","6979791029","https://www.facebook.com/myapos", myapos));
 		// this.students.save(new Student("myros2","myroslname2","myapos2@yahoo.com","6979791029","https://www.facebook.com/myapos2", myapos));
-
-
-
 		//SecurityContextHolder.clearContext();
 	}
 
@@ -146,11 +137,10 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		for(Student s : students){
 		    //Do whatever you want
-		    System.out.println("metraw");
+		    //System.out.println("metraw");
 		    size++;
 		}
 		return size;
 
 	}
 }
-// end::code[]

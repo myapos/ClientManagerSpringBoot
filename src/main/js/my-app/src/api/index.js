@@ -20,9 +20,9 @@ import updateRegisters from './updateRegisters';
 import deleteRegisters from './deleteRegisters';
 import send_email from './send_email';
 import msgSubmitted from './msgSubmitted';
-import msgSubmitted____ from './msgSubmitted____';
 import getSubClass from './getSubClass';
 import getDataRegisters from './getDataRegisters';
+import getDataRegistersBottleneck from './getDataRegistersBottleneck';
 import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
 import filterNonTerminalClasses from './filterNonTerminalClasses';
 import deletePaymentRegistersOne from './deletePaymentRegistersOne';
@@ -51,9 +51,9 @@ export {
   deleteRegisters,
   send_email,
   msgSubmitted,
-  msgSubmitted____,
   getSubClass,
   getDataRegisters,
+  getDataRegistersBottleneck,
   getDataPaymentsRegistrations,
   filterNonTerminalClasses,
   deletePaymentRegistersOne,

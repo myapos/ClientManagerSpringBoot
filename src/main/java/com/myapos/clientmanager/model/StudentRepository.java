@@ -42,4 +42,3 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, L
 
 	Student findByFnameAndLname(@Param("fname") String fname,@Param("lname") String lname);
 }
-// end::code[]

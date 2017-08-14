@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/';
 import DisplayClassesForSendingEmailManually from './DisplayClassesForSendingEmailManually';
+import Signature from './Signature';
 import * as constants from '../constants';
 
 class SendEmailsManually extends Component {
@@ -82,6 +83,9 @@ class SendEmailsManually extends Component {
           onClick={() => this.setText('')}
           className="btn btn-default">Καθαρισμός
         </button>
+        <div className="flex-wrap-container">
+          <Signature />
+        </div>
       </div>);
   }
 }

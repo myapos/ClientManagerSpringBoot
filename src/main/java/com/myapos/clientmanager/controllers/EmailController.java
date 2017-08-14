@@ -60,7 +60,7 @@ public class EmailController {
 			// catch error
 			logger.info("Error Sending Email: " + e.getMessage());
 		}		
-		return "Thank you for registering with us.";
+		return "email controller done";
 	}	
 }
 // end::code[]

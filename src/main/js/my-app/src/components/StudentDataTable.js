@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import InsertStudentModal from './InsertStudentModal';
-import preprocessStudents from '../utils/preprocessStudents';
+import PaginationLinks from './PaginationLinks';
+import Signature from './Signature';
 import * as actions from '../actions/';
 
 class StudentDataTable extends Component {
@@ -164,6 +165,10 @@ class StudentDataTable extends Component {
             dataSort={false}>Facebook
           </TableHeaderColumn>
         </BootstrapTable>
+        <div className="flex-wrap-container">
+          <Signature />
+          <PaginationLinks />
+        </div>
       </div>);
   }
 }
