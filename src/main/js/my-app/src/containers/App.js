@@ -55,7 +55,7 @@ class App extends Component {
       console.log('Maximum time passed. Hiding loader.');
       alert('Maximum time passed. There are no data in data base!');
       clearInterval(timer);
-    } else if( hasData) {
+    } else if (hasData) {
       console.log('Found data. Clearing interval:');
       clearInterval(timer);
 
