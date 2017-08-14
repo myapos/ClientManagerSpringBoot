@@ -9,12 +9,17 @@ function* getDataFromServer () {
   console.log('getDataFromServer');
   const state = yield select();
   const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
+
   const initDataStudents_ = yield call(api.getStudents, 'pagination');
+  // debugger;
+
   const { page } = initDataStudents_;
   const initDataAllStudents_ = yield call(api.getStudents, 'all');
-  const { pageAll } = initDataAllStudents_;
+  // debugger;
   const initDataAllStudents = yield utils.preprocessStudents(initDataAllStudents_);
+
   const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
+
   const initRegistrations_ = yield call(api.getDataRegisters, state);
 
   // preprocess area
@@ -27,15 +32,15 @@ function* getDataFromServer () {
 
   yield put({
     type: actions.DATA_INITIALIZATION,
+    initDataStudents,
+    initDataAllStudents,
     initRegistrations,
     initDataStudentClasses,
-    initDataStudents,
-    initPayments,
     studentClassesWithLinks,
     filteredStudentClassesWithLinks,
     processedStudentClasses,
+    initPayments,
     page,
-    initDataAllStudents,
   });
 }
 
