@@ -24,15 +24,15 @@ import java.util.*;
 public class DataRegisters {
 
 	private final Iterable<Student> allStudents;
-	private final Iterable<Register> allRegistrations;
+	private final ArrayList<RegisterForDataRegisters> listOfRegistrations;
 	private final ArrayList<StudentClassForDataRegisters> listOfStudentClasses;
 
 	//private final Iterable<StudentClass> allClasses;
  //, Iterable<StudentClass> studentClasses
 	public DataRegisters(Iterable<Student> allStudents,
-	 Iterable<Register> allRegistrations, ArrayList<StudentClassForDataRegisters> listOfStudentClasses) {
+	 ArrayList<RegisterForDataRegisters> listOfRegistrations, ArrayList<StudentClassForDataRegisters> listOfStudentClasses) {
 	   this.allStudents = allStudents;
-	   this.allRegistrations = allRegistrations;
+	   this.listOfRegistrations = listOfRegistrations;
 	   this.listOfStudentClasses = listOfStudentClasses;
 	   //this.allClasses = studentClasses;
 	}
@@ -41,8 +41,8 @@ public class DataRegisters {
 	  return allStudents;
 	}
 
-	public Iterable<Register> getAllRegistrations() {
-	  return allRegistrations;
+	public ArrayList<RegisterForDataRegisters>  getListOfRegistrations() {
+	  return listOfRegistrations;
 	}
 	public ArrayList<StudentClassForDataRegisters> getlistOfStudentClasses() {
 	  return listOfStudentClasses;

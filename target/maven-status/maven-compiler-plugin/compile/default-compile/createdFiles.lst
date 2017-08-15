@@ -19,6 +19,7 @@ com/myapos/clientmanager/model/Student.class
 com/myapos/clientmanager/model/StudentRepository.class
 com/myapos/clientmanager/WebMvcConfiguration.class
 com/myapos/clientmanager/controllers/StudentClassController.class
+com/myapos/clientmanager/model/RegisterForDataRegisters.class
 com/myapos/clientmanager/model/RegisterRepository.class
 com/myapos/clientmanager/SpringDataJpaUserDetailsService.class
 com/myapos/clientmanager/controllers/getDataRegistersController.class

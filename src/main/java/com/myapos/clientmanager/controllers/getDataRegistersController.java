@@ -67,15 +67,31 @@ public class getDataRegistersController {
     return size;
 
   }
-  int sizeOfRegister(Iterable<Register> registers) {
 
+   ArrayList<RegisterForDataRegisters> sizeOfRegister(Iterable<Register> registers) {
      int size = 0;
 
+     ArrayList<RegisterForDataRegisters> listOfRegisters = new ArrayList<RegisterForDataRegisters>();
+
      for(Register r : registers){
-         //Do whatever you want
-         size++;
+       //Do whatever you want
+       size++;
+      RegisterForDataRegisters register = 
+        new RegisterForDataRegisters(
+          r.getDateOfRegistration(), 
+          r.getStudent().getFname(), 
+          r.getStudent().getLname(), 
+          r.getStudentClass().getDescription()
+          );
+        
+        listOfRegisters.add(register);
+         
+         System.out.println("id: "+ r.getId() + " registration date: "+r.getDateOfRegistration()
+          + " class description:" + r.getStudentClass().getDescription()
+          + " student: " + r.getStudent().getFname() );
+
      }
-     return size;
+     return listOfRegisters;
 
   }
   ArrayList<StudentClassForDataRegisters> sizeOfClasses(Iterable<StudentClass> studentClasses) {
@@ -86,7 +102,8 @@ public class getDataRegistersController {
       = new ArrayList<StudentClassForDataRegisters>();
      //StudentClassForDataRegisters
      for(StudentClass s : studentClasses){
-      StudentClassForDataRegisters studentClassForDataRegisters = new StudentClassForDataRegisters(s.getDescription());
+      StudentClassForDataRegisters studentClassForDataRegisters = 
+        new StudentClassForDataRegisters(s.getDescription());
       listOfStudentClasses.add(studentClassForDataRegisters);
        System.out.println("id: "+ s.getId() + " description: "+s.getDescription()
         +" get parent class:" + s.getStudentClass().getDescription());
@@ -108,9 +125,9 @@ public class getDataRegistersController {
 
     System.out.println("brika olous tous ma8ites:"+numOfStudents);
 
-    int numOfRegistrations = sizeOfRegister(allRegistrations);
+    ArrayList<RegisterForDataRegisters> listOfRegistrations = sizeOfRegister(allRegistrations);
 
-    System.out.println("brika oles tis eggrafes:"+numOfRegistrations);
+    //System.out.println("brika oles tis eggrafes:"+numOfRegistrations);
 
     /*int numOfClasses = sizeOfClasses(allClasses);
 
@@ -118,7 +135,7 @@ public class getDataRegistersController {
 
     ArrayList<StudentClassForDataRegisters> listOfClasses = sizeOfClasses(allClasses);
 
-    return new DataRegisters(allStudents, allRegistrations, listOfClasses);
+    return new DataRegisters(allStudents, listOfRegistrations, listOfClasses);
   }
 
 }
