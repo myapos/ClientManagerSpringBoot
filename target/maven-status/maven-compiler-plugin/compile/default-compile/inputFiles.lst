@@ -10,6 +10,7 @@
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/DatabaseLoader.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/controllers/EmailController.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/EventHandler.java
+/home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/RegisterForDataRegisters.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/controllers/StudentClassController.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/StudentRepository.java
 /home/myros/Desktop/ClientManagerSpringBoot/src/main/java/com/myapos/clientmanager/model/Student.java

@@ -68,7 +68,7 @@ class InsertRegistersModal extends Component {
       fname,
       email,
     } = this.props;
-    // debugger;
+    //debugger;
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
@@ -149,13 +149,14 @@ class InsertRegistersModal extends Component {
                       defaultValue={''} />*/}
                     { error }
                   </div>);
-              } else if (field === 'class') {
+              } else if (field === 'classDescription') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label >Τάξη</label>
                     <select ref={field} className="form-control selectInput">
                       {
                       processedStudentClasses.map((el, i) => {
+                        // debugger;
                         if (el.description !== 'No subclass') {
                           return <option key={i} value={el}>{el}</option>;
                         }

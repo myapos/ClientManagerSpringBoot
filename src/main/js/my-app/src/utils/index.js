@@ -1,6 +1,7 @@
 import extractId from './extractId';
 import preprocessPaymentRegistrations from './preprocessPaymentRegistrations';
 import preprocessRegistrations from './preprocessRegistrations';
+import preprocessRegistrations___ from './preprocessRegistrations___';
 import preprocessStudentClasses from './preprocessStudentClasses';
 import preprocessStudents from './preprocessStudents';
 import preprocessStudentClassesWithLinks from './preprocessStudentClassesWithLinks';
@@ -19,6 +20,7 @@ export {
   extractId,
   preprocessPaymentRegistrations,
   preprocessRegistrations,
+  preprocessRegistrations___,
   preprocessStudentClasses,
   preprocessStudents,
   preprocessStudentClassesWithLinks,

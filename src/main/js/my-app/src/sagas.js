@@ -23,10 +23,12 @@ function* getDataFromServer () {
   // change me to get new functionality from server
 
   const newinitRegistrations_ = yield call(api.getDataRegisters, state);
-  // const initRegistrations_ = yield call(api.getDataRegistersBottleneck, state);
-  debugger;
+  const initRegistrations_________ = yield call(api.getDataRegistersBottleneck, state);
+
   // preprocess area
-  const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
+  // const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
+  const { listOfRegistrations: initRegistrations__ } = newinitRegistrations_;
+  const initRegistrations = yield utils.preprocessRegistrations(initRegistrations__);
   const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_, 'description');
   const initDataStudents = yield utils.preprocessStudents(initDataStudents_);
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);

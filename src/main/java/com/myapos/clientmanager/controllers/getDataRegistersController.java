@@ -69,18 +69,22 @@ public class getDataRegistersController {
   }
 
    ArrayList<RegisterForDataRegisters> sizeOfRegister(Iterable<Register> registers) {
-     int size = 0;
+     int count = 0;
 
      ArrayList<RegisterForDataRegisters> listOfRegisters = new ArrayList<RegisterForDataRegisters>();
 
      for(Register r : registers){
-       //Do whatever you want
-       size++;
+      //Do whatever you want
+      count++;
       RegisterForDataRegisters register = 
         new RegisterForDataRegisters(
+          count,
           r.getDateOfRegistration(), 
           r.getStudent().getFname(), 
           r.getStudent().getLname(), 
+          r.getStudent().getEmail(),
+          r.getStudent().getPhone(),
+          r.getStudent().getFacebook(),
           r.getStudentClass().getDescription()
           );
         

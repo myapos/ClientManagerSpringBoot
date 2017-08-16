@@ -4,7 +4,7 @@ import * as utils from '../utils';
 export default (row, onModalClose) => {
   // create call -- we need student id, studentClass id, dateOfRegistration
   // find studentClass id
-  const url = `${constants.searchStudentClassesByDescription}${row.class}`;
+  const url = `${constants.searchStudentClassesByDescription}${row.classDescription}`;
   const request = new XMLHttpRequest();
   request.open('GET', url, true);  // `false` makes the request synchronous
   request.setRequestHeader('Authorization', `Basic ${btoa('myapos:Apostolakis1981')}`);
