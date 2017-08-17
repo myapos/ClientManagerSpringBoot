@@ -3,7 +3,6 @@ import hideLoader from './hideLoader';
 import getStudents from './getStudents';
 import getRegisters from './getRegisters';
 import getPayeds from './getPayeds';
-import createCORSRequest1 from './createCORSRequest1';
 import saveNewClass from './saveNewClass';
 import deleteStudentClass from './deleteStudentClass';
 import updateStudentClass from './updateStudentClass';
@@ -21,7 +20,7 @@ import deleteRegisters from './deleteRegisters';
 import send_email from './send_email';
 import msgSubmitted from './msgSubmitted';
 import getSubClass from './getSubClass';
-import getDataRegisters from './getDataRegisters';
+import getData from './getData';
 import getDataRegistersBottleneck from './getDataRegistersBottleneck';
 import getDataPaymentsRegistrations from './getDataPaymentsRegistrations';
 import filterNonTerminalClasses from './filterNonTerminalClasses';
@@ -34,7 +33,6 @@ export {
   getStudents,
   getRegisters,
   getPayeds,
-  createCORSRequest1,
   saveNewClass,
   deleteStudentClass,
   updateStudentClass,
@@ -52,7 +50,7 @@ export {
   send_email,
   msgSubmitted,
   getSubClass,
-  getDataRegisters,
+  getData,
   getDataRegistersBottleneck,
   getDataPaymentsRegistrations,
   filterNonTerminalClasses,

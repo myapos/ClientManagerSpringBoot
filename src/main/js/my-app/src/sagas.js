@@ -6,31 +6,41 @@ import * as actions from './actions';
 import * as utils from './utils';
 
 function* getDataFromServer () {
+
   console.log('getDataFromServer');
+
   const state = yield select();
+
   const initDataStudentClasses_ = yield call(api.getStudentClasses, state);
 
   const initDataStudents_ = yield call(api.getStudents, 'pagination');
 
   const { page } = initDataStudents_;
 
-  const initDataAllStudents_ = yield call(api.getStudents, 'all');
-
-  const initDataAllStudents = yield utils.preprocessStudents(initDataAllStudents_);
-
-  const initPayments = yield call(api.getDataPaymentsRegistrations, initDataStudents_);
-
   // change me to get new functionality from server
 
-  const newinitRegistrations_ = yield call(api.getDataRegisters, state);
-  // const initRegistrations_ = yield call(api.getDataRegistersBottleneck, state);
-  debugger;
+  const data = yield call(api.getData, state);
+
   // preprocess area
-  const initRegistrations = yield utils.preprocessRegistrations(initRegistrations_);
+
+  const {
+    listOfRegistrations: initRegistrations__,
+    listOfPayments: initPayments__,
+    listOfStudents: initDataAllStudents,
+  } = data;
+
+  const initRegistrations = yield utils.preprocessDate(initRegistrations__, 'dateOfRegistration');
+
+  const initPayments = yield utils.preprocessDate(initPayments__, 'dateOfPayment');
+
   const initDataStudentClasses = yield utils.preprocessStudentClasses(initDataStudentClasses_, 'description');
+
   const initDataStudents = yield utils.preprocessStudents(initDataStudents_);
+
   const studentClassesWithLinks = yield utils.preprocessStudentClassesWithLinks(initDataStudentClasses_);
+
   const filteredStudentClassesWithLinks = yield utils.filterStudentClassesWithLinks(studentClassesWithLinks);
+
   const processedStudentClasses = yield utils.preprocessStudentClasses(filteredStudentClassesWithLinks, 'parentClass');
 
   yield put({
@@ -63,6 +73,9 @@ function* saveNewStudentClass () {
     type: actions.SAGAS_SAVE_NEW_CLASS,
     saveNewClass,
   });
+
+   /* get data again */
+  yield getDataFromServer();
 }
 
 function* deleteStudentClass () {
@@ -73,6 +86,9 @@ function* deleteStudentClass () {
     type: actions.SAGAS_DELETE_CLASS,
     deleteStudentClassRes,
   });
+
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* updateStudentClass () {
@@ -88,6 +104,8 @@ function* updateStudentClass () {
     type: actions.SAGAS_UPDATE_CLASS,
     desc,
   });
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* saveNewStudent () {
@@ -121,6 +139,9 @@ function* updateStudent () {
     type: actions.SAGAS_UPDATE_STUDENT,
     row,
   });
+
+  /* get data again */
+  yield getDataFromServer();
 }
 
 function* addPaymentRegisters () {
@@ -175,6 +196,9 @@ function* updateRegisters () {
     type: actions.SAGAS_UPDATE_REGISTERS,
     row,
   });
+
+   /* get data again */
+  yield getDataFromServer();
 }
 
 function* deleteRegisters () {
@@ -187,18 +211,6 @@ function* deleteRegisters () {
   /* get data again */
   yield getDataFromServer();
 }
-
-// function* deleteRegisters () {
-//   const state = yield select();
-//   const registerId = yield call(api.deleteRegisters, state.registerId);
-
-//   yield put({
-//     type: actions.SAGAS_DELETE_REGISTERS,
-//     registerId,
-//   });
-//   /* get data again */
-//   yield getDataFromServer();
-// }
 
 function* msgSubmitted () {
   const state = yield select();

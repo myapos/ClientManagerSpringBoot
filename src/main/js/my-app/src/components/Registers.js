@@ -104,7 +104,7 @@ class Registers extends Component {
             editable={false} >E-mail
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField="class"
+            dataField="classDescription"
             editable={{ type: 'select', options: { values: terminalClasses } }} >Class
           </TableHeaderColumn>
           <TableHeaderColumn

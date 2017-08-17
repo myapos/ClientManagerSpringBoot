@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Myron Apostolakis
  */
-// tag::code[]
+
 @Data
 @Entity
 public class Student {
@@ -40,19 +40,14 @@ public class Student {
 	private String phone;
 	private String facebook;
 	private Date dateOfBirth;
-	//private String description;
-
-	//private @Version @JsonIgnore Long version;
-
 	private @ManyToOne Manager manager;
 
 	private Student() {}
-
+	
 	public Student(String fname, String lname, String email,  
 					String phone,  String facebook, Date dateOfBirth,Manager manager) {
 		this.fname = fname;
 		this.lname = lname;
-		//this.description = description;
 		this.email = email;
 		this.phone = phone;
 		this.facebook = facebook;
@@ -60,4 +55,3 @@ public class Student {
 		this.manager = manager;
 	}
 }
-// end::code[]

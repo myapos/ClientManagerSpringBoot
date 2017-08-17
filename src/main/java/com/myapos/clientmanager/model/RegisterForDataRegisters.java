@@ -36,17 +36,36 @@ import java.util.*;
 
 public class RegisterForDataRegisters {
 
-	//private @Id @GeneratedValue Long id;
+	private int index;
 	private Date dateOfRegistration;
 	private String fname;
 	private String lname;
+	private String email;
+	private String phone;
+	private String facebook;
 	private String classDescription;
 
-	public RegisterForDataRegisters(Date dateOfRegistration, String fname, String lname, String classDescription) {
+	public RegisterForDataRegisters(
+		int index,
+		Date dateOfRegistration, 
+		String fname, 
+		String lname,
+		String email,
+		String phone,
+		String facebook, 
+		String classDescription) {
+		this.index = index;
 		this.dateOfRegistration = dateOfRegistration;
 		this.fname = fname;
 		this.lname = lname;
+		this.email = email;
+		this.phone = phone;
+		this.facebook = facebook;
 		this.classDescription = classDescription;
+	}
+
+	public int getIndex() {
+	  return index;
 	}
 
 	public Date getDateOfRegistration() {
@@ -61,8 +80,20 @@ public class RegisterForDataRegisters {
 	  return lname;
 	}
 
-	public String getclassDescription() {
+	public String getEmail() {
+	  return email;
+	}
+
+	public String getPhone() {
+	  return phone;
+	}
+
+	public String getFacebook() {
+	  return facebook;
+	}
+
+	public String getClassDescription() {
 	  return classDescription;
 	}
+
 }
-// end::code[]

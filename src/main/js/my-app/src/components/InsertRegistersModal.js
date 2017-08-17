@@ -8,7 +8,7 @@ class InsertRegistersModal extends Component {
     isLoading: PropTypes.bool,
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
-    initDataStudents: PropTypes.array,
+    initDataAllStudents: PropTypes.array,
     filteredStudentClassesWithLinks: PropTypes.array,
     onModalClose: PropTypes.func,
     onSave: PropTypes.func,
@@ -63,12 +63,12 @@ class InsertRegistersModal extends Component {
       validateState,
       initDataStudentClasses,
       initRegistrations,
-      initDataStudents,
+      initDataAllStudents,
       processedStudentClasses,
       fname,
       email,
     } = this.props;
-    // debugger;
+    //debugger;
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
         <h2 style={{ color: '#fff', marginLeft: '10px' }}>Προσθήκη εγγραφής</h2>
@@ -108,7 +108,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
                       }
                     </select>
                     { error }
@@ -124,7 +124,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.lname}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.lname}</option>)
                       }
                     </select>
                     { error }
@@ -139,7 +139,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.email}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.email}</option>)
                       }
                     </select>
                     {/*<input
@@ -149,13 +149,14 @@ class InsertRegistersModal extends Component {
                       defaultValue={''} />*/}
                     { error }
                   </div>);
-              } else if (field === 'class') {
+              } else if (field === 'classDescription') {
                 return (
                   <div className="form-group col-xs-6" key={field}>
                     <label >Τάξη</label>
                     <select ref={field} className="form-control selectInput">
                       {
                       processedStudentClasses.map((el, i) => {
+                        // debugger;
                         if (el.description !== 'No subclass') {
                           return <option key={i} value={el}>{el}</option>;
                         }
