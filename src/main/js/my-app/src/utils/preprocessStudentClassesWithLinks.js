@@ -1,5 +1,7 @@
 export default async classes => {
-  const classesPromises = await classes.map(async item => {
+
+  const { _embedded: { studentClasses } } = classes;
+  const classesPromises = await studentClasses.map(async item => {
     // console.log('item:', item);
     const url = item._links.studentClass[1].href;
 
@@ -16,7 +18,7 @@ export default async classes => {
     const subClassInfo = await response.json();
     subClassInfo.parentClass = item.description;
     subClassInfo._links = item._links;
-    // debugger;
+
     // console.log('subClassInfo:', subClassInfo);
     return subClassInfo;
   });
@@ -24,7 +26,9 @@ export default async classes => {
   const classesResults = [];
   let index = 1;
   let tempClass = {};
+
   for (const class_ of classesPromises) {
+
     const t = await class_;
     const subClass = t.description;
     const parentClass = t.parentClass;
@@ -39,8 +43,8 @@ export default async classes => {
     classesResults.push(tempClass);
     index++;
   }
-  // console.log('classesResults:', classesResults);
+  console.log('classesResults:', classesResults);
   // return classes;
-  // debugger;
+
   return classesResults;
 };

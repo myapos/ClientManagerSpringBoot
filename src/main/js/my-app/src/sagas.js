@@ -2,11 +2,9 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import * as api from './api/index.js';
 import * as actions from './actions';
-// import preprocessRegistrations from './utils/preprocessRegistrations';
 import * as utils from './utils';
 
 function* getDataFromServer () {
-
   console.log('getDataFromServer');
 
   const state = yield select();
@@ -68,7 +66,7 @@ function* getStudentClasses () {
 
 function* saveNewStudentClass () {
   const state = yield select();
-  const saveNewClass = yield call(api.saveNewClass, state.row, state.studentClassesWithLinks);
+  const saveNewClass = yield call(api.saveNewClass, state.row, state.studentClassesWithLinks, state.onModalClose);
   yield put({
     type: actions.SAGAS_SAVE_NEW_CLASS,
     saveNewClass,
@@ -178,7 +176,7 @@ function* deletePaymentRegisters () {
 
 function* createRegisters () {
   const state = yield select();
-  const row = yield call(api.createRegisters, state.rowUpdate, state.onModalClose);
+  const row = yield call(api.saveNewRegisters, state.rowUpdate, state.onModalClose);
   yield put({
     type: actions.SAGAS_CREATE_REGISTERS,
     row,
@@ -225,6 +223,7 @@ function* msgSubmitted () {
 function* getSubClass () {
   const state = yield select();
   const classesPair = yield call(api.getSubClass, state.url, state.parentDesc, state.obj);
+  debugger;
   yield put({
     type: actions.SAGAS_GET_SUBCLASS,
     classesPair,

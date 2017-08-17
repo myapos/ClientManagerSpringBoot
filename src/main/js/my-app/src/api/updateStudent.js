@@ -1,6 +1,7 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 
-export default (rowUpdate, cellName, cellValue)=> {
+export default async (rowUpdate, cellName, cellValue)=> {
   // fetch call for update
   // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
   // let bodyData = {};
@@ -14,37 +15,15 @@ export default (rowUpdate, cellName, cellValue)=> {
     bodyData.dateOfBirth = date;
     bodyData = JSON.stringify(bodyData);
     // find student by fname and lname and then perform update
-    fetch(`${constants.searchStudentFindByFnameAndLname}${rowUpdate.fname}&lname=${rowUpdate.lname}`, {
-      method: 'get',
-      mode: 'cors',
-      cache: 'default',
-      headers: {
-        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(res => res.json())
-    .then(res => {
-      console.log('res:', res);
-      fetch(res._links.self.href, {
-        method: 'PATCH',
-        mode: 'cors',
-        cache: 'default',
-        body: bodyData,
-        headers: {
-          'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-          'Content-Type': 'application/json',
-        },
-      })
-    .then(res1 => {
-      if (res1.status === 200) {
-        alert('Student is updated succsesfully.');
-        // window.location.reload(true);
-      }
-    });
-    });
+    const url = `${constants.searchStudentFindByFnameAndLname}${rowUpdate.fname}&lname=${rowUpdate.lname}`;
+    const studentFound = await utils.ftch(url, 'get', 'cors');
+    await studentFound;
+    const updateStudent = await utils.ftchUpdate(studentFound._links.self.href, 'PATCH', 'cors', bodyData);
+    await updateStudent;
+    if (updateStudent.status === 200) {
+      alert('Student is updated succsesfully.');
+    }
   } else {
     alert('Please check email input and try again. It has to be of email type. Example test@test.com');
-    // window.location.reload(true);
   }
 };

@@ -1,6 +1,7 @@
 // export const studentsAPI = `${BASE_URL}/api/students?page=${numOfPage}&size=${sizeOfPage}`;
 export const BASE_URL = document.location.origin.match(/3000/) ? 'http://localhost:8181' : document.location.origin;
 export const sizeOfPage = 10; // used for pagination results
+export const studentsAPIID = `${BASE_URL}/api/students`;
 export const studentsAPI = `${BASE_URL}/api/students?size=${sizeOfPage}`;
 export const sizeOfAllStudents = 100000; // set this to a big number
 export const studentsOfAllAPI = `${BASE_URL}/api/students?size=${sizeOfAllStudents}`;
