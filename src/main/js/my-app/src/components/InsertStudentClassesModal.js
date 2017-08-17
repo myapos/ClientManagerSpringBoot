@@ -19,14 +19,15 @@ class InsertStudentClassesModal extends Component {
     createRegisters: PropTypes.func,
     updatePaymentRegisters: PropTypes.func,
   }
-  handleSaveBtnClick = (columns, saveNewClass, studentClassesWithLinks) => {
+  handleSaveBtnClick = (columns, saveNewClass, studentClassesWithLinks, onModalClose) => {
+    debugger;
     const newRow = {};
     columns.forEach((column, i) => {
       newRow[column.field] = this.refs[column.field].value;
     }, this);
+    debugger;
     // You should call onSave function and give the new row
-    saveNewClass(newRow, studentClassesWithLinks);
-    // onSave(newRow);
+    saveNewClass(newRow, studentClassesWithLinks, onModalClose);
   }
 
   render () {
@@ -41,6 +42,7 @@ class InsertStudentClassesModal extends Component {
       saveNewClass,
       initDataStudentClasses,
     } = this.props;
+
     console.log('studentClassesWithLinks:', studentClassesWithLinks);
     return (
       <div style={{ backgroundColor: '#4c2727' }} className="modal-content">
@@ -107,7 +109,7 @@ class InsertStudentClassesModal extends Component {
           <button
             style={{ marginLeft: '15px' }}
             className="btn btn-danger"
-            onClick={() => this.handleSaveBtnClick(columns, saveNewClass, studentClassesWithLinks)}>Αποθήκευση
+            onClick={() => this.handleSaveBtnClick(columns, saveNewClass, studentClassesWithLinks, onModalClose)}>Αποθήκευση
           </button>
         </div>
       </div>

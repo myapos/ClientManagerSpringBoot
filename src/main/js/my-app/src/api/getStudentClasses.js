@@ -1,20 +1,8 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 
-export default () => {
-  const studentClasses = fetch(
-        constants.studentClassesAPI, {
-          method: 'get',
-          mode: 'cors',
-          cache: 'default',
-          headers: {
-            'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-            'Content-Type': 'application/json',
-          },
-        })
-    .then(res => res.json())
-    .then(res => {
-      const classes = res._embedded.studentClasses;
-      return classes;
-    });
+export default async () => {
+  const studentClasses = await utils.ftch(constants.studentClassesAPI, 'get', 'cors');
+  await studentClasses;
   return studentClasses;
 };

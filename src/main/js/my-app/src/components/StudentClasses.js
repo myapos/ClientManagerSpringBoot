@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InsertStudentClassesModal from './InsertStudentClassesModal';
 import * as actions from '../actions/';
-import PaginationLinks from './PaginationLinks';
 import Signature from './Signature';
 
 class StudentClasses extends Component {
@@ -57,7 +56,13 @@ class StudentClasses extends Component {
   createInsertStudentClassesModal (onModalClose, onSave, columns, validateState, ignoreEditable) {
     const { saveNewClass, initDataStudentClasses } = this.props;
     const attr = {
-      onModalClose, onSave, columns, validateState, ignoreEditable, saveNewClass, initDataStudentClasses,
+      onModalClose,
+      onSave,
+      columns,
+      validateState,
+      ignoreEditable,
+      saveNewClass,
+      initDataStudentClasses,
     };
     return (
       <InsertStudentClassesModal {... attr} />
@@ -83,7 +88,7 @@ class StudentClasses extends Component {
   }
 
   createCustomShowSelectButton = (onClick, showSelected) => {
-     const { setNonTerminalClasses } = this.props;
+    const { setNonTerminalClasses } = this.props;
     return (
       <button
         className="btn btn-success"
@@ -123,7 +128,6 @@ class StudentClasses extends Component {
       onClick: true,
       className: 'test',
     };
-
     return (
       <div id="studentClasses" >
         { setNonTerminalClasses

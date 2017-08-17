@@ -1,7 +1,9 @@
 export default students_ => {
+
   let students;
   if (!Array.isArray(students_)) {
-    students = students_.students;
+    // students = students_.students;
+    students = students_._embedded.students;
   } else {
     students = students_;
   }

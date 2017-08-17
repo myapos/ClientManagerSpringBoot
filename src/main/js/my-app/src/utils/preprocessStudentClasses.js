@@ -1,6 +1,8 @@
 export default (classes, property) => {
+  let studentClasses = classes;
+  if (property === 'description') {
+    studentClasses = classes._embedded.studentClasses;
+  }
   const values = item => item[property];
-  // debugger;
-  // return classes.map(item => {item.property), property };
-  return classes.map(item => values(item));
+  return studentClasses.map(item => values(item));
 };

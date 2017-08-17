@@ -122,6 +122,7 @@ const reducer = (state = {}, action) => {
         ...state,
         row,
         studentClassesWithLinks,
+        onModalClose,
       };
     case actions.DELETE_CLASS:
       return {

@@ -120,11 +120,12 @@ export function studentClassDashboard () {
     type: STUDENT_CLASS_DASHBOARD,
   };
 }
-export function saveNewClass (row, studentClassesWithLinks) {
+export function saveNewClass (row, studentClassesWithLinks, onModalClose) {
   return {
     type: SAVE_NEW_CLASS,
     row,
     studentClassesWithLinks,
+    onModalClose,
   };
 }
 export function deleteClass (classId) {

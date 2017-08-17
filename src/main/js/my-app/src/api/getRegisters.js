@@ -1,19 +1,8 @@
 import * as constants from '../constants';
+import * as utils from '../utils';
 
-export default () => {
-  const registersData = fetch(constants.registersAPI, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    } })
-    .then(res => res.json())
-    .then(res => {
-      const registers = res._embedded.registers;
-      parent.registers = registers;
-      return registers;
-    });
+export default async () => {
+  const registersData = await utils.ftch(constants.registersAPI, 'get', 'cors');
+  await registersData;
   return registersData;
 };

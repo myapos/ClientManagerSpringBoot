@@ -1,21 +1,9 @@
-export default (url, parentClassDescription) => {
+import * as utils from '../utils';
 
-  const fetch1 = fetch(url, {
-    method: 'get',
-    mode: 'cors',
-    cache: 'default',
-    headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-  .then(res => res.json())
-  .then(res => {
-    const classesPair = {};
-
-    classesPair[parentClassDescription] = res;
-
-    return classesPair;
-  });
-  return fetch1;
+export default async (url, parentClassDescription) => {
+  const fetch1 = await utils.ftch(url, 'get', 'cors');
+  await fetch1;
+  const classesPair = {};
+  classesPair[parentClassDescription] = fetch1;
+  return classesPair;
 };
