@@ -8,7 +8,7 @@ class InsertRegistersModal extends Component {
     isLoading: PropTypes.bool,
     initRegistrations: PropTypes.array,
     initDataStudentClasses: PropTypes.array,
-    initDataStudents: PropTypes.array,
+    initDataAllStudents: PropTypes.array,
     filteredStudentClassesWithLinks: PropTypes.array,
     onModalClose: PropTypes.func,
     onSave: PropTypes.func,
@@ -63,7 +63,7 @@ class InsertRegistersModal extends Component {
       validateState,
       initDataStudentClasses,
       initRegistrations,
-      initDataStudents,
+      initDataAllStudents,
       processedStudentClasses,
       fname,
       email,
@@ -108,7 +108,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.fname}</option>)
                       }
                     </select>
                     { error }
@@ -124,7 +124,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.lname}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.lname}</option>)
                       }
                     </select>
                     { error }
@@ -139,7 +139,7 @@ class InsertRegistersModal extends Component {
                       onChange={this.handleChange.bind(this)}
                       value={fname}>
                       {
-                        initDataStudents.map((el, i) => <option key={i} value={el.fname}>{el.email}</option>)
+                        initDataAllStudents.map((el, i) => <option key={i} value={el.fname}>{el.email}</option>)
                       }
                     </select>
                     {/*<input

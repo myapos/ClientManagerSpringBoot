@@ -2,11 +2,12 @@ import * as constants from '../constants';
 import * as utils from '../utils';
 
 export default async (updateMode, row, cellValue) => {
+
   if (updateMode === 'paymentUpdate' || updateMode === 'paymentNotesUpdate'
         || updateMode === 'updateDateOfPayment' || updateMode === 'addPayment' || updateMode === 'classUpdate') {
     // step 1 find student by student fname and lname
     const url = `${constants.searchStudentFindByFnameAndLname}${row.fname}&lname=${row.lname}`;
-    const classToBeUpdated = row.class; // save class to be updated from row
+    const classToBeUpdated = row.classDescription; // save class to be updated from row
 
     console.log('cellValue:', cellValue);
     const student = await utils.ftch(url, 'get', 'cors');

@@ -6,7 +6,7 @@ export const sizeOfAllStudents = 100000; // set this to a big number
 export const studentsOfAllAPI = `${BASE_URL}/api/students?size=${sizeOfAllStudents}`;
 export const studentClassesAPI = `${BASE_URL}/api/studentClasses/`;
 export const registersAPI = `${BASE_URL}/api/registers/`;
-export const getDataRegistersAPI = `${BASE_URL}/getDataRegisters/`;
+export const getData = `${BASE_URL}/getData/`;
 export const paymentsAPI = `${BASE_URL}/api/payeds/`;
 export const searchPaymentByRegistration = `${BASE_URL}/api/payeds/search/findByRegister?register=`;
 export const searchStudentFindByName = `${BASE_URL}/api/students/search/findByFname`;

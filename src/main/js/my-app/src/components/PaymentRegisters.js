@@ -125,7 +125,7 @@ class PaymentRegisters extends Component {
             dataField="notes" >Notes
           </TableHeaderColumn>
           <TableHeaderColumn
-            dataField="class"
+            dataField="classDescription"
             width="15%"
             editable={{ type: 'select', options: { values: terminalClasses } }} >Class
           </TableHeaderColumn>

@@ -5,11 +5,8 @@ export default async keys => {
 
   const deletedPaymentPromises = keys.map(key => api.deletePaymentRegistersOne(key));
   const all = Promise.all(deletedPaymentPromises).then(values => {
-    debugger;
     console.log(values);
-
     const failedToDelete = values.find(item => item.status !== 204);
-
     if (!failedToDelete) {
       alert('All items were deleted succesfully');
       // update status in order to redraw table

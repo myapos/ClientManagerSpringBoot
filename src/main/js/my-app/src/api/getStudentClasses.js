@@ -13,7 +13,6 @@ export default () => {
         })
     .then(res => res.json())
     .then(res => {
-
       const classes = res._embedded.studentClasses;
       return classes;
     });

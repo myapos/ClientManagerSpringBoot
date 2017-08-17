@@ -1,6 +1,6 @@
 import extractId from './extractId';
 import preprocessPaymentRegistrations from './preprocessPaymentRegistrations';
-import preprocessRegistrations from './preprocessRegistrations';
+import preprocessDate from './preprocessDate';
 import preprocessRegistrations___ from './preprocessRegistrations___';
 import preprocessStudentClasses from './preprocessStudentClasses';
 import preprocessStudents from './preprocessStudents';
@@ -19,7 +19,7 @@ import checkIfRegistrationExists from './checkIfRegistrationExists';
 export {
   extractId,
   preprocessPaymentRegistrations,
-  preprocessRegistrations,
+  preprocessDate,
   preprocessRegistrations___,
   preprocessStudentClasses,
   preprocessStudents,

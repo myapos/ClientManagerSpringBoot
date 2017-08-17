@@ -1,9 +1,9 @@
 import * as constants from '../constants';
 
 export default (rowUpdate, cellName, cellValue)=> {
-    // fetch call for update
-    // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
-  //let bodyData = {};
+  // fetch call for update
+  // curl -v -u myapos:Apostolakis1981 -X PATCH -H "Content-Type:application/json" -d '{ "description": "TEST_UPDATE", "studentClass":"http://localhost:8181/api/studentClasses/74" }' http://localhost:8181/api/students/74
+  // let bodyData = {};
 
   const str = rowUpdate.email;
   if (str.indexOf('@') > 0) {

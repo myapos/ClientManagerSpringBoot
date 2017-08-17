@@ -35,8 +35,8 @@ export default (newdesc, rowUpdate, studentClassesWithLinks, mode) => {
     })
     .then(res => {
       if (res.status === 200) {
-        alert('Class is updated succsesfully. Prepare for reloading');
-        window.location.reload(true);
+        alert('Class is updated succsesfully.');
+        // window.location.reload(true);
       }
     });
   }
