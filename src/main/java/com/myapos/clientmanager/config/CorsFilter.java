@@ -1,4 +1,4 @@
-package com.myapos.clientmanager;
+package com.myapos.clientmanager.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.boot.SpringApplication;

@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.myapos.clientmanager.model;
+package com.myapos.clientmanager.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import com.myapos.clientmanager.model.*;
 
 /**
  * @author Myron Apostolakis

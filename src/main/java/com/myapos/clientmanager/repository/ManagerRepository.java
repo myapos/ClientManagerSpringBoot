@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.myapos.clientmanager.model;
+package com.myapos.clientmanager.repository;
 
 import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-import java.util.*;
+import com.myapos.clientmanager.model.*;
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
 //@RepositoryRestResource(exported = false)
-public interface PayedRepository extends PagingAndSortingRepository<Payed, Long> {
+public interface ManagerRepository extends PagingAndSortingRepository<Manager, Long> {
 
-	Payed save(Payed payed);
+	Manager save(Manager manager);
 
-	Payed findById(@Param("id")Long id);
-
-	List<Payed> findByRegister(@Param("register") Register register);
-
-	List<Payed> findByRegisterId(@Param("id") Long id);
+	Manager findByName(String name);
 
 }
 // end::code[]
