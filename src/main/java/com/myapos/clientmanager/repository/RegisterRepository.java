@@ -13,21 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.myapos.clientmanager.model;
+package com.myapos.clientmanager.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import java.util.*;
+import com.myapos.clientmanager.model.*;
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
 //@RepositoryRestResource(exported = false)
-public interface StudentClassRepository extends PagingAndSortingRepository<StudentClass, Long> {
+public interface RegisterRepository extends PagingAndSortingRepository<Register, Long> {
 
-	StudentClass save(StudentClass studentClass);
+	Register save(Register register);
 
-	StudentClass findBydescription(@Param("description") String description);
+	Register findBydateOfRegistration(@Param("dateOfRegistration") Date dateOfRegistration);
+
+	List<Register> findByStudent(@Param("student") Student student);
+
+	List<Register> findByStudentClass(@Param("studentClass") StudentClass studentClass);
+
+	List <Register> findByStudentAndStudentClass(@Param("student") Student student, @Param("studentClass") StudentClass studentClass);
+	//Student findByFnameAndLname(@Param("fname") String fname,@Param("lname") String lname);
 
 }
 // end::code[]

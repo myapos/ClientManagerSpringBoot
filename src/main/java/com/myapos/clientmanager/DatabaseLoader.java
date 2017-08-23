@@ -23,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.*;
 import java.text.*;
+import com.myapos.clientmanager.repository.*;
 import com.myapos.clientmanager.model.*;
 /**
  * @author Myron Apostolakis

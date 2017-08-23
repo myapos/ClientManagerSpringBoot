@@ -21,6 +21,7 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import com.myapos.clientmanager.model.*;
+import com.myapos.clientmanager.repository.*;
 /**
  * @author Myron Apostolakis
  */

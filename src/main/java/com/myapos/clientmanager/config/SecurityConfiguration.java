@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.myapos.clientmanager;
+package com.myapos.clientmanager.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -29,6 +29,7 @@ import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import com.myapos.clientmanager.service.SpringDataJpaUserDetailsService;
 import com.myapos.clientmanager.model.*;
 /**
  * @author Myron Apostolakis
@@ -43,37 +44,37 @@ import com.myapos.clientmanager.model.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private SpringDataJpaUserDetailsService userDetailsService;
+  @Autowired
+  private SpringDataJpaUserDetailsService userDetailsService;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-			.userDetailsService(this.userDetailsService)
-				.passwordEncoder(Manager.PASSWORD_ENCODER);
-	}
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+      .userDetailsService(this.userDetailsService)
+        .passwordEncoder(Manager.PASSWORD_ENCODER);
+  }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-			http
-			.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
-			.authorizeRequests()
-			.antMatchers("/static/**","/static/css/**","/static/media/**").permitAll()
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
-			.loginPage("/login")
-			.failureUrl("/login?error")
-			.permitAll()
-			.and()
-			.logout()
-			.permitAll()
-			.and()
-			.httpBasic()
-			.and()
-			.csrf().disable();
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+      http
+      .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
+      .authorizeRequests()
+      .antMatchers("/static/**","/static/css/**","/static/media/**").permitAll()
+      .anyRequest().authenticated()
+      .and()
+      .formLogin()
+      .loginPage("/login")
+      .failureUrl("/login?error")
+      .permitAll()
+      .and()
+      .logout()
+      .permitAll()
+      .and()
+      .httpBasic()
+      .and()
+      .csrf().disable();
 
-	}
+  }
 
 }
 // end::code[]
