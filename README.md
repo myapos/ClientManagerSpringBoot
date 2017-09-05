@@ -45,6 +45,6 @@ Useful commands -links
 * `./mvnw clean package`
 * `supervisorctl restart`
 
-<a href="http://browserstack.com">
+<a href="http://browserstack.com" target="_blank>
    <img src="./Logo-01.svg" width="100" height="20">
 </a>
