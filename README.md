@@ -45,4 +45,4 @@ Useful commands -links
 * `./mvnw clean package`
 * `supervisorctl restart`
 
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=<badge_key>)](https://www.browserstack.com/automate/public-build/<badge_key>)
+<img src="./Logo-01.svg" width="100" height="20">
