@@ -23,18 +23,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.myapos.clientmanager.repository.*;
 
-
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Myron Apostolakis
  */
 // tag::code[]
-@Controller
+@RestController
+@EnableAutoConfiguration
+@RequestMapping(value = "/")
 public class StudentController {
 
 	@Autowired
 	StudentRepository studentRepository;
 
-	@RequestMapping(value = "/")
+	//@RequestMapping("/test")
+	String hello() {
+	    return "hello world 2";
+	}
 	public String index() {
 		return "index";
 	}

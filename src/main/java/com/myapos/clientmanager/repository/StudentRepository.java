@@ -24,7 +24,7 @@ import com.myapos.clientmanager.model.*;
  * @author Myron Apostolakis
  */
 // tag::code[]
-@PreAuthorize("hasRole('ROLE_MANAGER')")
+//// @PreAuthorize("hasRole('ROLE_MANAGER')")
 public interface StudentRepository extends PagingAndSortingRepository<Student, Long> {
 
 	@Override
