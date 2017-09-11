@@ -1,9 +1,12 @@
 package com.myapos.clientmanager;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.core.Ordered;
 import com.myapos.clientmanager.model.*;
+
+
  @Configuration
  @EnableWebMvc
  @ComponentScan("com.myapos.clientmanager")
@@ -28,8 +31,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	  registry.addResourceHandler("/js/**")
 	    .addResourceLocations("/static/js/");
 	}
-
-
 
 }
 

@@ -10,35 +10,38 @@
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/my.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/ie10-viewport-bug-workaround.css}"/>
 <script>
+function myF2(){
+  var data = new FormData();
+  data.append('username', document.getElementById('inputEmail').value);
+  data.append('password', document.getElementById('inputPassword').value);
+
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+      debugger;
+      console.log(this.responseText);
+      document.write(this.responseText);
+      // window.location.href = 'http://'+location.host+'/success';
+      debugger;
+      // window.location.assign(this.responseText);
+    }
+  });
+
+  xhr.open("GET", "http://localhost:8181/success");
+  //get token from local storage
+  var token = localStorage.getItem('jwt-token');
+  console.log('got token from localstorage:', token);
+  debugger;
+  xhr.setRequestHeader("authorization", token);
+  xhr.setRequestHeader("cache-control", "no-cache");
+  xhr.setRequestHeader("postman-token", "d11201f7-a37d-8b06-22da-1f611e1795f4");
+
+  xhr.send(data);
+}
+
 function myFunction() {
-  // <![CDATA[
-  // debugger;
-  // var bodyData = JSON.stringify({
-  //   'username': document.getElementById('inputEmail').value,
-  //   'password': document.getElementById('inputPassword').value,
-  // });
-
-  // var xhr = new XMLHttpRequest();
-  // var url_ = 'http://'+location.host+'/login';
-  // xhr.open('POST', url_, true);
-
-  // //Send the proper header information along with the request xsrf-token
-  // xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  // xhr.setRequestHeader('Access-Control-Allow-Headers', 'authorization, content-type, xsrf-token, X-Requested-With, X-HTTP-Method-Override');
-  // xhr.addEventListener('load', function() {
-  //   var responseObject = JSON.parse(this.response);
-  //   console.log(responseObject);
-  //   if (responseObject.token) {
-  //     console.log('received token:', responseObject.token);
-  //     // tokenElement.innerHTML = responseObject.token;
-  //   } else {
-  //     console.log('No token received');
-  //     // tokenElement.innerHTML = "No token received";
-  //   }
-  // });
-
-  // console.log('going to send', bodyData);
-
   // xhr.send(bodyData);
   
   var data = new FormData();
@@ -52,11 +55,19 @@ function myFunction() {
     if (this.readyState === 4) {
       debugger;
       console.log(this.responseText);
-      console.log('Got token:', this.getResponseHeader('Authorization'));
-      console.log('Preparing to save in local storage and redirect to index.html');
+      var token = this.getResponseHeader('Authorization');
+      console.log('Got token:', token);
+      console.log('Preparing to save in local storage and redirect to success.html');
       localStorage.setItem('jwt-token', this.getResponseHeader('Authorization'));
       // redirect
-      // window.location.href = 'http://'+location.host+'/api';
+      if (token) {
+        // window.location.href = 'http://'+location.host+'/success';
+        myF2();
+      } else {
+        alert('Please give right credentials');
+      }
+      // window.location.assign('http://'+location.host+'/success.html');
+
     }
   });
 
@@ -65,13 +76,12 @@ function myFunction() {
   xhr.setRequestHeader('postman-token', '11d70bf5-c26e-2aff-479e-a789d6a0f70d');
 
   xhr.send(data);
-  // ]]>
 }
 </script>
 </head>
 <body>
    <div class="container">
-        <div class="form-signin" name="form" th:action="@{/login}" action="/login" method="POST">
+        <div class="form-signin" name="form">
           <h3 class="form-signin-heading">Please sign in</h3>
           <label for="inputEmail" class="sr-only">Email address</label>
           <input name="username" type="text" id="inputEmail" class="form-control" placeholder="Email address">
@@ -79,7 +89,7 @@ function myFunction() {
           <label for="inputPassword" class="sr-only">Password</label>
           <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"></input>
           <div class="signInButton">
-            <button class="btn btn-default" onclick="myFunction()" >Sign in</button>
+            <button class="btn btn-default" type="submit" onclick="myFunction()"  >Sign in</button>
           </div>
         </div>
       </div> <!-- /container -->
