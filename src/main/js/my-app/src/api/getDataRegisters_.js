@@ -10,7 +10,7 @@ export default saved_student => {
       mode: 'cors',
       cache: 'default',
       headers: {
-        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+        'Authorization': localStorage.getItem('jwt-token'), 
         'Content-Type': 'application/json',
       },
     })
@@ -26,7 +26,7 @@ export default saved_student => {
               mode: 'cors',
               cache: 'default',
               headers: {
-                'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+                'Authorization': localStorage.getItem('jwt-token'), 
                 'Content-Type': 'application/json',
               },
             })
@@ -45,7 +45,7 @@ export default saved_student => {
                       mode: 'cors',
                       cache: 'default',
                       headers: {
-                        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+                        'Authorization': localStorage.getItem('jwt-token'), 
                         'Content-Type': 'application/json',
                       },
                     })
