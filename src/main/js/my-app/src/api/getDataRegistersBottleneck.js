@@ -6,7 +6,7 @@ const fetchAsyncA = async url =>
     mode: 'cors',
     cache: 'default',
     headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Authorization': localStorage.getItem('jwt-token'), 
       'Content-Type': 'application/json',
     },
   })).json();
@@ -20,7 +20,7 @@ const wrap_async_actions = async () => {
     mode: 'cors',
     cache: 'default',
     headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Authorization': localStorage.getItem('jwt-token'), 
       'Content-Type': 'application/json',
     },
   });
@@ -38,7 +38,7 @@ const wrap_async_actions = async () => {
     mode: 'cors',
     cache: 'default',
     headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Authorization': localStorage.getItem('jwt-token'), 
       'Content-Type': 'application/json',
     },
   });
@@ -56,7 +56,7 @@ const wrap_async_actions = async () => {
       mode: 'cors',
       cache: 'default',
       headers: {
-        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+        'Authorization': localStorage.getItem('jwt-token'), 
         'Content-Type': 'application/json',
       },
     });

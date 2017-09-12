@@ -7,7 +7,7 @@ export default (page, activePage) => {
       mode: 'cors',
       cache: 'default',
       headers: {
-        'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+        'Authorization': localStorage.getItem('jwt-token'), 
         'Content-Type': 'application/json',
       },
     })

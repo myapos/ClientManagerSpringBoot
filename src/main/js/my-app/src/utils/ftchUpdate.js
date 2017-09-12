@@ -7,7 +7,7 @@ export default (url, method_, mode_, body_) => fetch(url,
     mode: mode_,
     cache: 'default',
     headers: {
-      'Authorization': `Basic ${btoa('myapos:Apostolakis1981')}`,
+      'Authorization': localStorage.getItem('jwt-token'), 
       'Content-Type': 'application/json',
     },
   });

@@ -20,20 +20,30 @@ function myF2(){
 
   xhr.addEventListener("readystatechange", function () {
     if (this.readyState === 4) {
-      debugger;
-      console.log(this.responseText);
-      document.write(this.responseText);
+      // debugger;
+      // console.log(this.responseText);
+      // document.body.innerHTML = this.responseText;
+
+      document.write(this.response);
+      document.title = 'User logged in';
+      window.history.pushState(
+        {
+          'html': this.response,
+          'pageTitle': 'User logged in',
+        }, '', this.responseURL
+        );
+
       // window.location.href = 'http://'+location.host+'/success';
-      debugger;
+      // debugger;
       // window.location.assign(this.responseText);
     }
   });
 
   xhr.open("GET", "http://localhost:8181/success");
-  //get token from local storage
+  // get token from local storage
   var token = localStorage.getItem('jwt-token');
   console.log('got token from localstorage:', token);
-  debugger;
+  // debugger;
   xhr.setRequestHeader("authorization", token);
   xhr.setRequestHeader("cache-control", "no-cache");
   xhr.setRequestHeader("postman-token", "d11201f7-a37d-8b06-22da-1f611e1795f4");
@@ -53,8 +63,7 @@ function myFunction() {
 
   xhr.addEventListener('readystatechange', function () {
     if (this.readyState === 4) {
-      debugger;
-      console.log(this.responseText);
+      // console.log(this.responseText);
       var token = this.getResponseHeader('Authorization');
       console.log('Got token:', token);
       console.log('Preparing to save in local storage and redirect to success.html');
@@ -67,7 +76,6 @@ function myFunction() {
         alert('Please give right credentials');
       }
       // window.location.assign('http://'+location.host+'/success.html');
-
     }
   });
 
