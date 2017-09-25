@@ -10,50 +10,52 @@
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/my.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/ie10-viewport-bug-workaround.css}"/>
 <script>
-function myF2(){
-  var data = new FormData();
-  data.append('username', document.getElementById('inputEmail').value);
-  data.append('password', document.getElementById('inputPassword').value);
+// function myF2(){
+//   var data = new FormData();
+//   data.append('username', document.getElementById('inputEmail').value);
+//   data.append('password', document.getElementById('inputPassword').value);
 
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
+//   var xhr = new XMLHttpRequest();
+//   xhr.withCredentials = true;
 
-  xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-      // debugger;
-      // console.log(this.responseText);
-      // document.body.innerHTML = this.responseText;
+//   xhr.addEventListener("readystatechange", function () {
+//     if (this.readyState === 4) {
+//       // debugger;
+//       // console.log(this.responseText);
+//       // document.body.innerHTML = this.responseText;
 
-      document.write(this.response);
-      document.title = 'User logged in';
-      window.history.pushState(
-        {
-          'html': this.response,
-          'pageTitle': 'User logged in',
-        }, '', this.responseURL
-        );
+//   //     document.write(this.response);
+//   //     document.title = 'User logged in';
+//   //     window.history.pushState(
+//   //       {
+//   //         'html': this.response,
+//   //         'pageTitle': 'User logged in',
+//   //       }, '', this.responseURL
+//   //       );
 
-      // window.location.href = 'http://'+location.host+'/success';
-      // debugger;
-      // window.location.assign(this.responseText);
-    }
-  });
+//   //     // window.location.href = 'http://'+location.host+'/success';
+//   //     // debugger;
+//   //     // window.location.assign(this.responseText);
+//   //   }
+//   });
 
-  xhr.open("GET", "http://localhost:8181/success");
-  // get token from local storage
-  var token = localStorage.getItem('jwt-token');
-  console.log('got token from localstorage:', token);
-  // debugger;
-  xhr.setRequestHeader("authorization", token);
-  xhr.setRequestHeader("cache-control", "no-cache");
-  xhr.setRequestHeader("postman-token", "d11201f7-a37d-8b06-22da-1f611e1795f4");
+//   // xhr.open("GET", "http://localhost:8181/success");
+//   // // get token from local storage
+//   // var token = localStorage.getItem('jwt-token');
+//   // console.log('got token from localstorage:', token);
+//   // // debugger;
+//   // xhr.setRequestHeader("authorization", token);
+//   // xhr.setRequestHeader("cache-control", "no-cache");
+//   // xhr.setRequestHeader("postman-token", "d11201f7-a37d-8b06-22da-1f611e1795f4");
 
-  xhr.send(data);
-}
+//   // xhr.send(data);
+// }
+
+// }
 
 function myFunction() {
+  // debugger;
   // xhr.send(bodyData);
-  
   var data = new FormData();
   data.append('username', document.getElementById('inputEmail').value);
   data.append('password', document.getElementById('inputPassword').value);
@@ -62,6 +64,7 @@ function myFunction() {
   xhr.withCredentials = true;
 
   xhr.addEventListener('readystatechange', function () {
+
     if (this.readyState === 4) {
       // console.log(this.responseText);
       var token = this.getResponseHeader('Authorization');
@@ -70,8 +73,8 @@ function myFunction() {
       localStorage.setItem('jwt-token', this.getResponseHeader('Authorization'));
       // redirect
       if (token) {
-        // window.location.href = 'http://'+location.host+'/success';
-        myF2();
+        //window.location.href = 'http://'+location.host+'/success';
+        //myF2();
       } else {
         alert('Please give right credentials');
       }
@@ -79,7 +82,7 @@ function myFunction() {
     }
   });
 
-  xhr.open('POST', 'http://'+location.host+'/login');
+  xhr.open('POST', 'http://' + location.host + '/login');
   xhr.setRequestHeader('cache-control', 'no-cache');
   xhr.setRequestHeader('postman-token', '11d70bf5-c26e-2aff-479e-a789d6a0f70d');
 
@@ -89,7 +92,7 @@ function myFunction() {
 </head>
 <body>
    <div class="container">
-        <div class="form-signin" name="form">
+        <form class="form-signin" name="form" th:action="@{/login}" action="/login" method="POST">
           <h3 class="form-signin-heading">Please sign in</h3>
           <label for="inputEmail" class="sr-only">Email address</label>
           <input name="username" type="text" id="inputEmail" class="form-control" placeholder="Email address">
@@ -97,10 +100,10 @@ function myFunction() {
           <label for="inputPassword" class="sr-only">Password</label>
           <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"></input>
           <div class="signInButton">
-            <button class="btn btn-default" type="submit" onclick="myFunction()"  >Sign in</button>
+            <button class="btn btn-default" type="submit" onclick="myFunction()">Sign in</button>
           </div>
-        </div>
-      </div> <!-- /container -->
+        </form>
+      </div> <!-- /container --> <!--  onclick="myFunction()"   -->
     <!-- <input name="username" type="text" id="inputEmail" class="form-control" placeholder="Email address"></input>
     <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"></input>
     <button onclick="myFunction()">Click me</button>

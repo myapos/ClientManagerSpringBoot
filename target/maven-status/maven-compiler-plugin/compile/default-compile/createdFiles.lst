@@ -18,6 +18,7 @@ com/myapos/clientmanager/ReactAndSpringDataRestApplication.class
 com/myapos/clientmanager/security/JWTAuthenticationFilter.class
 com/myapos/clientmanager/model/StudentForData.class
 com/myapos/clientmanager/controllers/StudentController.class
+com/myapos/clientmanager/controllers/LoginPageController.class
 com/myapos/clientmanager/model/Payed.class
 com/myapos/clientmanager/EventHandler.class
 com/myapos/clientmanager/model/StudentClass.class
@@ -31,5 +32,6 @@ com/myapos/clientmanager/security/TokenAuthenticationService.class
 com/myapos/clientmanager/repository/ManagerRepository.class
 com/myapos/clientmanager/security/AccountCredentials.class
 com/myapos/clientmanager/model/StudentClassForDataRegisters.class
+com/myapos/clientmanager/controllers/LoginController.class
 com/myapos/clientmanager/model/Manager.class
 com/myapos/clientmanager/controllers/PayedController.class

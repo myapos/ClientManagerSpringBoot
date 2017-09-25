@@ -39,6 +39,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import com.myapos.clientmanager.security.*;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.http.HttpMethod;
+
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+ 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 /**
  * @author Myron Apostolakis
  */
@@ -72,7 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      .authorizeRequests()
          .antMatchers(HttpMethod.POST, "/login").permitAll()
          .antMatchers("/static/**","/static/css/**","/static/media/**").permitAll()
-         .antMatchers(HttpMethod.GET, "/success").authenticated()
+         // .antMatchers(HttpMethod.GET, "/success").authenticated()
          // .antMatchers("/api/authenticate").permitAll()
          // .antMatchers("/api/user").permitAll()
          // .antMatchers("/").permitAll()
@@ -81,11 +93,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      .and()
          .formLogin()
          .loginPage("/loginPage")
+        //  .successHandler(new AuthenticationSuccessHandler() {
+        //     @Override
+        //     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+        //             Authentication authentication) throws IOException, ServletException {
+        //         response.sendRedirect("/success");
+        //     }
+        // })
          .defaultSuccessUrl("/success")
          //.loginProcessingUrl("/loginPage")
          .failureUrl("/loginPage?error")
          .permitAll()
-         // .successHandler(ajaxAuthenticationSuccessHandler)
          // .failureHandler(ajaxAuthenticationFailureHandler)
          // .usernameParameter("username")
          // .passwordParameter("password")
