@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.core.Ordered;
 import com.myapos.clientmanager.model.*;
 
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
  @Configuration
  @EnableWebMvc
@@ -15,9 +16,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/loginPage").setViewName("loginPage");
-        registry.addViewController("/success").setViewName("success");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        //registry.addViewController("/loginPage").setViewName("loginPage");
+        registry.addViewController("/login").setViewName("success");
+        //registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
     @Override
@@ -31,6 +32,20 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	  registry.addResourceHandler("/js/**")
 	    .addResourceLocations("/static/js/");
 	}
+
+  @Bean
+     public InternalResourceViewResolver getViewResolver() {
+         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+         resolver.setPrefix("/WEB-INF/");
+         resolver.setSuffix(".html");
+         return resolver;
+     }
+
+     @Override
+     public void configureDefaultServletHandling(
+             DefaultServletHandlerConfigurer configurer) {
+         configurer.enable();
+     }    
 
 }
 
