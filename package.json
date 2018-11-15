@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "babel-preset-stage-0": "^6.24.1",
-    "bootstrap": "^3.3.7",
+    "bootstrap": ">=4.1.2",
     "eslint-config-phaistos-networks": "^1.7.9",
     "imports-loader": "^0.7.1",
     "jquery": "^3.1.1",
